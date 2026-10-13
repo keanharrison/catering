@@ -42,8 +42,8 @@ Key rules:
 - **One data source.** No view or the chatbot defines its own mock data. Customer review, staff record, calendar preview and kitchen sheet all render from the same order object.
 - **Engine is pure and UI-free.** It takes data in and returns results with the reason for each, so every recommendation can show its explanation and be tested.
 - **Status transitions are enforced in one place.** The store rejects invalid moves, so an exception cannot reach Confirmed without review and a revised proposal cannot be accepted without customer approval (PRD section 7).
-- **Assumptions are visible.** Any value from an illustrative record renders with an assumption label; the chatbot appends it to answers that use such data.
-- **Simulation is labeled.** Calendar and kitchen outputs carry a visible "Preview" tag.
+- **Assumptions are disclosed on interaction.** No persistent "prototype" wording on screen. Any value from an illustrative record opens an assumption note when clicked (or via an info affordance); the chatbot adds the note to answers that use such data.
+- **Simulation is disclosed on interaction and in the demo script.** Calendar and kitchen outputs open a note saying they are simulated; the presenter also says so on the call.
 
 ## Chatbot behavior
 
@@ -56,11 +56,11 @@ Key rules:
 
 - Deploy the built static bundle; share the URL on the call or screen-share locally as fallback.
 - Demo controls: scenario loader (routine, difficult), role switcher (customer, staff), and reset. A built production bundle should be tested before every call.
-- Keep the URL unlisted, add a visible "Prototype, illustrative data" banner, and add no analytics or third-party scripts.
+- Keep the URL unlisted (noindex) and add no analytics or third-party scripts. There is no on-screen prototype banner; disclosure happens through click-through notes and the demo script.
 
 ## Risks
 
-- Illustrative data looks authoritative. Mitigation: assumption labels on every value.
+- Illustrative data looks authoritative. Mitigation: an assumption note behind every unverified value, and the demo script.
 - Chatbot answers a question wrongly. Mitigation: fixed intents, handoff on unknown, tests for each intent.
 - State lost mid-demo. Mitigation: persisted store and a one-click reset to a known state.
 

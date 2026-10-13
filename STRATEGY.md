@@ -37,7 +37,7 @@ These are hypotheses. None are validated.
 
 1. The vision is clear: a viewer sees customer guidance followed by a staff handoff and understands the before and after.
 2. Sober approves the direction and can react to concrete screens.
-3. The prototype is credible and visibly labeled as assumption-based, so Sober feels free to say what is wrong.
+3. The prototype looks real, and every unverified value discloses its assumption on click, so Sober can see what is assumed and say what is wrong.
 4. The restaurant-specific feel (Caribbean menu, catering vocabulary) is present rather than a generic dashboard.
 
 ## Roadmap

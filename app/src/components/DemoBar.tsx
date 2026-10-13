@@ -9,15 +9,12 @@ const roles = [
   { to: routes.staff, label: 'Staff' },
 ]
 
-// Sits above every view: role switch, scenario loader, reset, prototype banner.
+// Sits above every view: role switch, scenario loader, reset.
 export function DemoBar() {
   const { scenario, setScenario, reset } = useDemoControls()
   return (
     <div className="border-b border-line bg-ivory-deep">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-2">
-        <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">
-          Prototype &middot; illustrative data
-        </p>
         <div className="ml-auto flex flex-wrap items-center gap-3">
           <div role="group" aria-label="View as" className="flex border border-line bg-panel">
             {roles.map((role) => (
