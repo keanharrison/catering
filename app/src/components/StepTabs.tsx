@@ -38,7 +38,7 @@ export function StepTabs({ items, activeId, onChange, variant = 'row', label }: 
           >
             {active && <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-accent" />}
             {isRow ? (
-              <span className="font-mono text-xs uppercase tracking-wide">{item.label}</span>
+              <span className="font-mono text-xs uppercase tracking-eyebrow">{item.label}</span>
             ) : (
               <span className="flex gap-4">
                 <span aria-hidden className="mt-2 size-2 shrink-0 bg-accent" />

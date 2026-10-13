@@ -99,6 +99,8 @@ Deliverable: a capability comparison with evidence, Sober's current workflow map
 
 ## 8 Design direction
 
+Values below were measured from Fin's public landing page where they are facts (colors, radius, letter-spacing). Fin's fonts, code, images, logo and copy are not reused.
+
 **Source of truth for UI and frontend:** `fin_marketing_reference_report.md` and the six Fin screenshots in `images/` (`fin_ref_1`-`fin_ref_6`). Any UI or frontend question is answered there first. The references inform visual patterns only; Fin's logo, copy, photography, and exact values are not reused. The PRD journey and scope take precedence over product content in the references. Where the report's palette and layout proposals (teal/mango palette, staff-dashboard-first home screen, operations metrics) differ from this section, this section wins, because those proposals are not Fin-based or conflict with scope.
 
 **Structure stays PRD-first.** The customer guided flow comes first, followed by the staff workspace and the operational handoff. No marketing landing page or staff-dashboard-first home screen is in scope.
@@ -117,16 +119,16 @@ Deliverable: a capability comparison with evidence, Sober's current workflow map
 - Fin's logo, copy, photography, and brand marks.
 - Operations analytics, such as on-time delivery, margin, staffing coverage, and driver routing. These are out of scope (section 5).
 
-**Approximate original tokens (illustrative until Pearl Island's approved brand assets are provided):**
+**Tokens (illustrative until Pearl Island's approved brand assets are provided):**
 
 | Token | Direction |
 | --- | --- |
-| Surface | Warm ivory, about `#F8F5EE`; white for panels |
-| Text | Charcoal, about `#1C1C1A`; muted gray for secondary copy |
-| Border | Light warm gray hairline, about `#DDD8CC` |
-| Accent | Warm orange, about `#E4572E`, as the single accent: bullets, active-tab progress bar, chart and bar fills, eyebrow squares |
+| Surface | Off-white `#FAF9F6`; cream `#F4F3EC` for deep panels; white for panels |
+| Text | Near-black `#111111`; muted gray `#626260` for secondary copy |
+| Border | Light gray hairline `#DDDDD8` |
+| Accent | Orange `#FF5600`, as the single accent: bullets, active-tab progress bar, chart and bar fills, eyebrow squares |
 | Status | Muted green for confirmed, amber for needs review, red for blocked; used only inside product UI pills |
-| Radius | 4-8px |
+| Radius | 4px buttons; 2-6px panels |
 | Spacing | Generous section rhythm; centered max-width content with wide gutters |
 | Type | Open-licensed substitutes: grotesque sans headings, serif body, mono uppercase labels |
 | Details | Corner registration squares on sections and panels, dotted fills, light technical borders, product UI as the visual hero |

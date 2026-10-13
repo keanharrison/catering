@@ -8,7 +8,7 @@ type EyebrowProps = {
 // Small uppercase mono label; optional orange square marker.
 export function Eyebrow({ children, marker = false }: EyebrowProps) {
   return (
-    <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wide">
+    <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-eyebrow">
       {marker && <span aria-hidden className="size-2 bg-accent" />}
       {children}
     </p>

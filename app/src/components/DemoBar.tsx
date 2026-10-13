@@ -15,7 +15,7 @@ export function DemoBar() {
   return (
     <div className="border-b border-line bg-ivory-deep">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-2">
-        <p className="font-mono text-[11px] uppercase tracking-wide text-muted">
+        <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">
           Prototype &middot; illustrative data
         </p>
         <div className="ml-auto flex flex-wrap items-center gap-3">
@@ -26,7 +26,7 @@ export function DemoBar() {
                 to={role.to}
                 className={({ isActive }) =>
                   cx(
-                    'px-3 py-1 font-mono text-[11px] uppercase tracking-wide',
+                    'px-3 py-1 font-mono text-[11px] uppercase tracking-eyebrow',
                     isActive ? 'bg-charcoal text-white' : 'text-charcoal hover:bg-ivory-deep',
                   )
                 }
@@ -35,7 +35,7 @@ export function DemoBar() {
               </NavLink>
             ))}
           </div>
-          <label className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wide">
+          <label className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-eyebrow">
             Scenario
             <select
               value={scenario}
