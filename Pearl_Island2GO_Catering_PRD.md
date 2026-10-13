@@ -49,6 +49,7 @@ Proposed status sequence: Draft → Submitted → Needs review when applicable �
 | --- | --- |
 | Customer intake | Event details, required-field validation, progress indicator, editable answers |
 | Recommendation builder | A small approved or explicitly illustrative menu; rule-based quantities; explanations; responsive totals |
+| Rule-based chatbot | Answers a fixed set of customer questions (menu, portions, quantities, lead time, fit for the event) from the same labeled rule data as the recommendation builder; suggested-question chips; helps with the order workflow; any question it cannot answer routes to staff review instead of guessing; no allergy or nutrition claims; labeled as a scripted prototype, not a live AI model |
 | Customer review | Clear estimate, selections, event details, notes, and submission status |
 | Staff workspace | Focused request queue, request detail, escalation reason, editable proposal, explicit approval actions |
 | Operational handoff | Consistent order summary, calendar event preview, and kitchen preparation view |
@@ -56,7 +57,7 @@ Proposed status sequence: Draft → Submitted → Needs review when applicable �
 
 **Two complete scenarios:** a routine event moves through guidance and acceptance; an unusual request is held for Sober, revised, approved by the customer, and then accepted. Exception triggers are illustrative until Sober defines them.
 
-**Design requirements:** polished Pearl Island presentation using approved assets, mobile-friendly customer flow, readable staff views, clear next actions, and keyboard-accessible forms. Start with a guided form and editable proposal; a chatbot is optional and requires evidence that it improves the journey.
+**Design requirements:** polished Pearl Island presentation using approved assets, mobile-friendly customer flow, readable staff views, clear next actions, and keyboard-accessible forms. Start with a guided form and editable proposal, with a rule-based chatbot alongside it (see the chatbot row in section 4). The chatbot is a v1 feature.
 
 **Simulation boundary:** recommendations can run locally from a fixed rule set. Calendar and kitchen outputs are working previews, with no live calendar writes, payments, emails, or production orders. Clearly communicate simulated integrations during the demo. Do not show invented time savings or business metrics.
 
@@ -68,10 +69,12 @@ Proposed status sequence: Draft → Submitted → Needs review when applicable �
 - Autonomous decisions about allergies, special accommodations, discounts, or fulfillment feasibility.
 - Training a model on historical orders or learning automatically from corrections. The demo can show a correction without claiming learning.
 - Company Brain, financial analytics, marketing automation, and a general restaurant dashboard.
+- A live or probabilistic AI model. The end state is an AI that works with customers on their orders (see `STRATEGY.md`), but the prototype chatbot is rule-based.
+- Multi-restaurant support. The menu and rules should be replaceable data so other restaurants are possible later, but only Pearl Island is built now.
 
 ## 6 Spoonfed research before finalizing features
 
-Research has not yet been performed. Use official product documentation and demonstrations for capabilities, and Sober's account walkthrough for his actual experience.
+Public-source research is summarized in `pearl_island_research_gate.md` and has not been independently verified. Sober's account walkthrough has not happened and is still needed for his actual experience. Use official product documentation and demonstrations for capabilities.
 
 | Research area | Questions to resolve |
 | --- | --- |
@@ -94,6 +97,44 @@ Deliverable: a capability comparison with evidence, Sober's current workflow map
 - Sober can identify recommendations he would change and explain the missing rule or context. His feedback informs the next version.
 - The presentation clearly distinguishes demonstrated behavior from future integrations. Actual time savings require later measurement.
 
+## 8 Design direction
+
+**Source of truth for UI and frontend:** `fin_marketing_reference_report.md` and the six Fin screenshots in `images/` (`fin_ref_1`-`fin_ref_6`). Any UI or frontend question is answered there first. The references inform visual patterns only; Fin's logo, copy, photography, and exact values are not reused. The PRD journey and scope take precedence over product content in the references. Where the report's palette and layout proposals (teal/mango palette, staff-dashboard-first home screen, operations metrics) differ from this section, this section wins, because those proposals are not Fin-based or conflict with scope.
+
+**Structure stays PRD-first.** The customer guided flow comes first, followed by the staff workspace and the operational handoff. No marketing landing page or staff-dashboard-first home screen is in scope.
+
+**Borrow (patterns, re-implemented originally):**
+- Warm off-white surfaces, near-black text, hairline borders, full-width bands, and low-radius panels.
+- Three type voices: large tight sans headings, serif body copy, and small uppercase monospace labels.
+- Product-style panels with status pills, a compact stat line, and a clear primary/secondary action row. Use them for the staff exception review card.
+- A tab or step list with an active-progress bar. Use it for the intake progress and the status sequence.
+- Large-number summary cards for the customer estimate.
+- A connected-systems visual for the handoff preview, labeled as simulated.
+- Dotted-fill bars only for serving or quantity breakdowns.
+
+**Skip:**
+- Logo bands, testimonials, performance or benchmark charts, ROI claims, and pricing-model copy. These would be invented proof, which this PRD rules out.
+- Fin's logo, copy, photography, and brand marks.
+- Operations analytics, such as on-time delivery, margin, staffing coverage, and driver routing. These are out of scope (section 5).
+
+**Approximate original tokens (illustrative until Pearl Island's approved brand assets are provided):**
+
+| Token | Direction |
+| --- | --- |
+| Surface | Warm ivory, about `#F8F5EE`; white for panels |
+| Text | Charcoal, about `#1C1C1A`; muted gray for secondary copy |
+| Border | Light warm gray hairline, about `#DDD8CC` |
+| Accent | Warm orange, about `#E4572E`, as the single accent: bullets, active-tab progress bar, chart and bar fills, eyebrow squares |
+| Status | Muted green for confirmed, amber for needs review, red for blocked; used only inside product UI pills |
+| Radius | 4-8px |
+| Spacing | Generous section rhythm; centered max-width content with wide gutters |
+| Type | Open-licensed substitutes: grotesque sans headings, serif body, mono uppercase labels |
+| Details | Corner registration squares on sections and panels, dotted fills, light technical borders, product UI as the visual hero |
+
+Replace the accent and type tokens with Pearl Island's approved brand assets when available. Customer-flow views must stay mobile-friendly and meet the accessibility requirements in section 4.
+
 ## Scope decision before coding
 
-Proposed build boundary: one customer journey, one focused staff workspace, two scenarios, and simulated operational handoff. Before coding, agree on this scope and whether the first prototype may use illustrative menu rules while Spoonfed research and Sober's follow-up remain pending. No application coding is authorized by this PRD.
+Build boundary: one customer journey, one focused staff workspace, two scenarios, and simulated operational handoff (order summary, calendar preview, kitchen prep view).
+
+**Decision (October 13, 2026):** Build an assumption-based prototype before the Sober call. Illustrative menu, pricing, and rule data is allowed if clearly labeled as an assumption in the UI. The purpose is to give Sober something concrete to correct. Coding is authorized for this prototype only. Replacement scope, real rules, and production behavior remain pending Sober's input. See `pearl_island_research_gate.md` for assumptions, questions, and the call agenda.

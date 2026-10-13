@@ -6,7 +6,7 @@ Source of truth: `Pearl_Island2GO_Catering_PRD.md`. If this plan and the PRD dis
 
 Strategy -> PRD -> Research gate -> Scope sign-off -> Wireframes -> Technical design -> Implementation -> Testing -> Demo polish
 
-**No application coding is authorized until scope is agreed (Module 0).** Scope remains proposed until then.
+**Decision (October 13, 2026): build an assumption-based prototype first.** Coding is authorized for the prototype only, with illustrative data clearly labeled. The Sober call validates or corrects it. See `pearl_island_research_gate.md`. UI and frontend questions are answered by `fin_marketing_reference_report.md` (see PRD section 8).
 
 ## Guardrails
 
@@ -23,7 +23,7 @@ Terminology and ownership are pending Sober's input. Whether routine requests ca
 
 ## 0. Research Gate And Scope Sign-Off
 
-Resolve what the PRD marks as unknown before features are finalized.
+Scope is signed off for the assumption-based prototype (see decision above). The items below are now validated on the Sober call rather than before building.
 
 Core work:
 
@@ -93,7 +93,7 @@ Definition of Done:
 Core work:
 
 - Guided form: event details, required-field validation, progress indicator, editable answers (event type, headcount, budget, dietary needs, timing, fulfillment).
-- Start with a guided form; a chatbot is optional and needs evidence it improves the journey.
+- Start with a guided form. A rule-based chatbot (fixed questions, same labeled rule data, staff handoff when it cannot answer) is part of v1.
 - Output a structured order intent for the recommendation module.
 
 Definition of Done:
