@@ -1,27 +1,13 @@
-import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AppShell } from './components/AppShell'
 import { routes } from './routes'
+import { Gallery } from './views/Gallery'
 import { Placeholder } from './views/Placeholder'
-
-const nav = [
-  { to: routes.customer, label: 'Customer' },
-  { to: routes.staff, label: 'Staff' },
-  { to: routes.handoff, label: 'Handoff' },
-]
 
 export default function App() {
   return (
     <BrowserRouter>
-      <header className="flex items-center justify-between border-b border-line bg-panel px-6 py-4">
-        <span className="font-sans text-xl tracking-tight">Pearl Island2GO</span>
-        <nav className="flex gap-6 font-sans text-sm">
-          {nav.map((item) => (
-            <NavLink key={item.to} to={item.to}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-      </header>
-      <main>
+      <AppShell>
         <Routes>
           <Route path="/" element={<Navigate to={routes.customer} replace />} />
           <Route
@@ -54,9 +40,10 @@ export default function App() {
               />
             }
           />
+          <Route path={routes.gallery} element={<Gallery />} />
           <Route path="*" element={<Navigate to={routes.customer} replace />} />
         </Routes>
-      </main>
+      </AppShell>
     </BrowserRouter>
   )
 }
