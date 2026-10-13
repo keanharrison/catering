@@ -17,3 +17,13 @@ export function businessHoursBetween(fromIso: string, toIso: string): number {
   }
   return Math.floor(hours)
 }
+
+function pad(n: number): string {
+  return String(n).padStart(2, '0')
+}
+
+/** Adds minutes to a local date-time like 2026-10-13T09:00 and returns the same format. */
+export function addMinutes(iso: string, minutes: number): string {
+  const d = new Date(new Date(iso).getTime() + minutes * 60_000)
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}

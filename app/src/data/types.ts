@@ -132,6 +132,31 @@ export type Message = {
   at: string
 }
 
+export type Actor = 'customer' | 'staff'
+
+/** Whether staff changed the proposal and whether the customer has approved the change. */
+export type RevisionState = 'none' | 'pending' | 'approved'
+
+export type StatusChange = {
+  from: OrderStatus | null
+  to: OrderStatus
+  actor: Actor | 'system'
+  at: string
+  note?: string
+}
+
+export type Order = {
+  id: string
+  status: OrderStatus
+  intent: OrderIntent
+  lines: OrderLine[]
+  /** Raised at submission and kept through review, revision and handoff. */
+  flags: ExceptionFlag[]
+  revision: RevisionState
+  messages: Message[]
+  history: StatusChange[]
+}
+
 export type Scenario = Provenance & {
   id: string
   label: string
