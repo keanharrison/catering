@@ -20,6 +20,8 @@ function findScenario(id: string): Scenario {
 
 type DemoState = {
   scenarioId: string
+  /** Bumps whenever a scenario loads or resets, so screens can drop stale local form state. */
+  session: number
   /** Demo clock; starts at the scenario's fixed time and moves a minute per action. */
   clock: string
   order: Order
@@ -37,9 +39,15 @@ type DemoState = {
   reject: (reason: string) => void
 }
 
-function freshState(id: string) {
+function freshState(id: string, previousSession = 0) {
   const scenario = findScenario(id)
-  return { scenarioId: id, clock: scenario.now, order: machine.createOrder(scenario), lastError: null }
+  return {
+    scenarioId: id,
+    session: previousSession + 1,
+    clock: scenario.now,
+    order: machine.createOrder(scenario),
+    lastError: null,
+  }
 }
 
 export const useDemoStore = create<DemoState>()(
@@ -55,8 +63,8 @@ export const useDemoStore = create<DemoState>()(
 
       return {
         ...freshState(DEFAULT_SCENARIO),
-        loadScenario: (id) => set(freshState(id)),
-        reset: () => set(freshState(get().scenarioId)),
+        loadScenario: (id) => set(freshState(id, get().session)),
+        reset: () => set(freshState(get().scenarioId, get().session)),
         updateDraft: (patch) => run((order) => machine.updateDraft(order, patch)),
         submit: () => run((order, at) => machine.submit(order, at)),
         requestClarification: (text) => run((order, at) => machine.requestClarification(order, text, at)),

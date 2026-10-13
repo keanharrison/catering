@@ -1,7 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
-import { routes } from './routes'
+import { customerRoutes, routes } from './routes'
 import { Gallery } from './views/Gallery'
+import { IntakePage } from './views/customer/IntakePage'
 import { Placeholder } from './views/Placeholder'
 
 export default function App() {
@@ -10,13 +11,14 @@ export default function App() {
       <AppShell>
         <Routes>
           <Route path="/" element={<Navigate to={routes.customer} replace />} />
+          <Route path={customerRoutes.intake} element={<IntakePage />} />
           <Route
-            path={`${routes.customer}/*`}
+            path={customerRoutes.recommendation}
             element={
               <Placeholder
-                eyebrow="Customer"
-                title="Plan your catering order."
-                note="Placeholder. Intake and recommendations arrive in later build steps."
+                eyebrow="Your menu"
+                title="Your suggested menu."
+                note="Placeholder. Recommendations arrive in the next build step."
               />
             }
           />

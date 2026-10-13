@@ -1,0 +1,54 @@
+import { describe, expect, it } from 'vitest'
+import { catalog, type Scenario } from '../../data'
+import { formToIntent, intentToForm, stepErrors, validateForm } from './intake'
+
+const routine = catalog.scenarios.find((s) => s.id === 'routine') as Scenario
+const valid = () => intentToForm(routine.intent)
+const check = (patch: object) => validateForm({ ...valid(), ...patch }, routine.now, catalog)
+
+describe('intake validation', () => {
+  it('accepts both sample scenarios', () => {
+    for (const s of catalog.scenarios) {
+      expect(validateForm(intentToForm(s.intent), s.now, catalog), s.id).toEqual({})
+    }
+  })
+
+  it('round-trips an intent through the form', () => {
+    expect(formToIntent(valid())).toEqual(routine.intent)
+  })
+
+  it('requires a contact name', () => {
+    expect(check({ contactName: '  ' }).contactName).toBeTruthy()
+  })
+
+  it('requires a real event type', () => {
+    expect(check({ eventType: '' }).eventType).toBeTruthy()
+    expect(check({ eventType: 'bar-mitzvah' }).eventType).toBeTruthy()
+  })
+
+  it('requires a whole guest count of at least 1', () => {
+    for (const guestCount of ['', 'abc', '0', '-3', '12.5', '5001']) {
+      expect(check({ guestCount }).guestCount, guestCount).toBeTruthy()
+    }
+    expect(check({ guestCount: '1' }).guestCount).toBeUndefined()
+  })
+
+  it('requires a future date and time', () => {
+    expect(check({ eventAt: '' }).eventAt).toBeTruthy()
+    expect(check({ eventAt: '2026-10-01T12:00' }).eventAt).toBeTruthy()
+  })
+
+  it('treats the budget as optional but checks it when given', () => {
+    expect(check({ budget: '' }).budget).toBeUndefined()
+    expect(check({ budget: '$1,200' }).budget).toBeUndefined()
+    expect(check({ budget: 'lots' }).budget).toBeTruthy()
+    expect(check({ budget: '0' }).budget).toBeTruthy()
+    expect(formToIntent({ ...valid(), budget: '$1,200.50' }).budgetCents).toBe(120050)
+  })
+
+  it('reports errors only for the fields on a step', () => {
+    const errors = check({ contactName: '', guestCount: '' })
+    expect(Object.keys(stepErrors(errors, 'event'))).toEqual(['guestCount'])
+    expect(Object.keys(stepErrors(errors, 'contact'))).toEqual(['contactName'])
+  })
+})
