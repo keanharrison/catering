@@ -3,6 +3,7 @@ import { AppShell } from './components/AppShell'
 import { customerRoutes, routes } from './routes'
 import { Gallery } from './views/Gallery'
 import { IntakePage } from './views/customer/IntakePage'
+import { RecommendationPage } from './views/customer/RecommendationPage'
 import { Placeholder } from './views/Placeholder'
 
 export default function App() {
@@ -12,13 +13,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to={routes.customer} replace />} />
           <Route path={customerRoutes.intake} element={<IntakePage />} />
+          <Route path={customerRoutes.recommendation} element={<RecommendationPage />} />
           <Route
-            path={customerRoutes.recommendation}
+            path={customerRoutes.review}
             element={
               <Placeholder
-                eyebrow="Your menu"
-                title="Your suggested menu."
-                note="Placeholder. Recommendations arrive in the next build step."
+                eyebrow="Review"
+                title="Review your request."
+                note="Placeholder. Review and submit arrive in a later build step."
               />
             }
           />

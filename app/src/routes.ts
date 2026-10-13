@@ -8,6 +8,7 @@ export const routes = {
 export const customerRoutes = {
   intake: '/customer',
   recommendation: '/customer/recommendation',
+  review: '/customer/review',
 } as const
 
 export type Area = keyof typeof routes
