@@ -10,6 +10,7 @@ function provenanceRecords(): Array<{ label: string; record: Provenance }> {
     ...catalog.leadTimeRules.map((r) => ({ label: `leadTime:${r.leadTimeClass}`, record: r })),
     { label: 'changePolicy', record: catalog.changePolicy },
     { label: 'exceptionThresholds', record: catalog.exceptionThresholds },
+    { label: 'recommendationDefaults', record: catalog.recommendationDefaults },
     ...catalog.scenarios.map((r) => ({ label: `scenario:${r.id}`, record: r })),
   ]
 }

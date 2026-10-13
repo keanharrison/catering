@@ -1,5 +1,12 @@
 import { menu } from './menu'
-import { changePolicy, eventTypes, exceptionThresholds, leadTimeRules, portionRules } from './rules'
+import {
+  changePolicy,
+  eventTypes,
+  exceptionThresholds,
+  leadTimeRules,
+  portionRules,
+  recommendationDefaults,
+} from './rules'
 import { scenarios } from './scenarios'
 
 export * from './types'
@@ -12,6 +19,7 @@ export const catalog = {
   leadTimeRules,
   changePolicy,
   exceptionThresholds,
+  recommendationDefaults,
   scenarios,
 }
 

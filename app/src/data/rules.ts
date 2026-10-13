@@ -4,6 +4,7 @@ import type {
   ExceptionThresholds,
   LeadTimeRule,
   PortionRule,
+  RecommendationDefaults,
 } from './types'
 
 const TERMS_SOURCE = 'https://api.getspoonfed.com/1438/pearl-island/terms/'
@@ -79,4 +80,13 @@ export const exceptionThresholds: ExceptionThresholds = {
   dietaryComplexityCount: 2,
   status: 'illustrative',
   assumption: 'Placeholder triggers for staff review until Sober defines the real ones.',
+}
+
+export const recommendationDefaults: RecommendationDefaults = {
+  defaultEntreeIds: ['sous-poulet', 'curry-chicken'],
+  plantBasedEntreeId: 'curry-tofu',
+  plantBasedShare: 0.25,
+  status: 'illustrative',
+  assumption:
+    'Placeholder starting menu and an assumed 25% plant-based share; Sober to supply real recommendation logic.',
 }

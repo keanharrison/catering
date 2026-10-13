@@ -13,7 +13,7 @@ export type Provenance = {
 }
 
 // Dietary tags are descriptive and illustrative. They are NOT allergy safety claims.
-export type DietaryTag = 'vegetarian' | 'vegan' | 'spicy'
+export type DietaryTag = 'vegetarian' | 'vegan' | 'gluten-free' | 'spicy'
 
 export type MenuCategory = 'entree' | 'side' | 'boxed'
 export type ServiceStyle = 'buffet' | 'boxed' | 'family'
@@ -66,6 +66,16 @@ export type ExceptionThresholds = Provenance & {
   largeOrderGuests: number
   /** Number of distinct dietary requirements that counts as complex. */
   dietaryComplexityCount: number
+}
+
+/** Defaults the recommendation builder starts from. All illustrative until Sober defines them. */
+export type RecommendationDefaults = Provenance & {
+  /** Entrees proposed for every order; servings are split evenly between them. */
+  defaultEntreeIds: string[]
+  /** Entree used for vegetarian and vegan guests. */
+  plantBasedEntreeId: string
+  /** Share of guests assumed to need a plant-based entree when any dietary need is listed. */
+  plantBasedShare: number
 }
 
 export type FlagCode =
