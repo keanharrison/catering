@@ -1,0 +1,59 @@
+@import '@fontsource-variable/inter-tight';
+@import '@fontsource-variable/source-serif-4';
+@import '@fontsource-variable/jetbrains-mono';
+@import 'tailwindcss';
+
+/*
+ * Design tokens. Source: PRD section 8 and fin_marketing_reference_report.md.
+ * Approximate and original, not Fin's exact values. Replace the accent and
+ * type tokens when Pearl Island's approved brand assets are available.
+ */
+@theme {
+  --color-ivory: #f8f5ee;
+  --color-ivory-deep: #efece4;
+  --color-panel: #ffffff;
+  --color-charcoal: #1c1c1a;
+  --color-muted: #6b6a64;
+  --color-line: #ddd8cc;
+  --color-accent: #e4572e;
+  --color-status-confirmed: #2f7d4f;
+  --color-status-review: #c98a14;
+  --color-status-blocked: #c0392b;
+
+  --font-sans: 'Inter Tight Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', ui-serif, Georgia, serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+@layer base {
+  html {
+    background: var(--color-ivory);
+  }
+
+  body {
+    margin: 0;
+    color: var(--color-charcoal);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
