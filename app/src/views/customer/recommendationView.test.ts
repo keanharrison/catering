@@ -7,7 +7,7 @@ describe('recommendation view', () => {
   it('builds grouped rows from the engine for both scenarios', () => {
     for (const scenario of catalog.scenarios) {
       const view = buildRecommendationView(createOrder(scenario), scenario.now)
-      expect(view.groups.map((g) => g.category), scenario.id).toEqual(['entree', 'side'])
+      expect(view.groups.map((g) => g.category), scenario.id).toEqual(['entree', 'side', 'salad'])
       for (const row of view.groups.flatMap((g) => g.rows)) {
         expect(row.reason.length, row.itemId).toBeGreaterThan(0)
         expect(row.assumptions.length, row.itemId).toBeGreaterThan(0)
@@ -19,7 +19,7 @@ describe('recommendation view', () => {
   it('totals the routine order and raises no flags', () => {
     const routine = catalog.scenarios[0]
     const view = buildRecommendationView(createOrder(routine), routine.now)
-    expect(view.estimate.subtotalCents).toBe(106_400)
+    expect(view.estimate.subtotalCents).toBe(61_290)
     expect(view.flags).toEqual([])
   })
 

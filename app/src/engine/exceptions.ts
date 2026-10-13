@@ -21,11 +21,16 @@ function dollars(cents: number): string {
   return `$${(cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`
 }
 
-/** Custom requests and box lunches need the longer notice period. */
+/** The longest notice any part of the order needs: large order, custom request, or custom item. */
 function requiredLeadClass(input: ExceptionInput, catalog: Catalog): LeadTimeClass {
-  const hasCustomRequest = input.intent.customRequest.trim().length > 0
-  const hasCustomItem = input.lines.some((l) => getItem(catalog, l.itemId).leadTimeClass === 'custom')
-  return hasCustomRequest || hasCustomItem ? 'custom' : 'standard'
+  const classes = new Set<LeadTimeClass>(input.lines.map((l) => getItem(catalog, l.itemId).leadTimeClass))
+  classes.add('standard')
+  if (input.intent.customRequest.trim().length > 0) classes.add('custom')
+  const guests = input.intent.guestCount
+  if (guests !== null && guests > catalog.exceptionThresholds.largeOrderOverGuests) classes.add('large')
+
+  const hours = (c: LeadTimeClass) => catalog.leadTimeRules.find((r) => r.leadTimeClass === c)?.businessHours ?? 0
+  return [...classes].sort((a, b) => hours(b) - hours(a))[0]
 }
 
 /** Raises the reasons an order needs staff review. Pure and explains every flag. */
@@ -40,10 +45,10 @@ export function detectExceptions(
   const guests = intent.guestCount
   if (guests === null || guests < 1) {
     flags.push({ code: 'unclear_headcount', reason: 'The guest count is missing or unclear.' })
-  } else if (guests >= thresholds.largeOrderGuests) {
+  } else if (guests > thresholds.largeOrderOverGuests) {
     flags.push({
       code: 'large_order',
-      reason: `${guests} guests is at or above the ${thresholds.largeOrderGuests}-guest review threshold.`,
+      reason: `${guests} guests is over the ${thresholds.largeOrderOverGuests}-guest limit for standard ordering.`,
     })
   }
 

@@ -49,15 +49,15 @@ describe('menu', () => {
     for (const item of catalog.menu) {
       for (const sideId of item.includedSideIds) {
         const side = catalog.menu.find((i) => i.id === sideId)
-        expect(side?.category, `${item.id} -> ${sideId}`).toBe('side')
+        expect(['side', 'salad'], `${item.id} -> ${sideId}`).toContain(side?.category)
       }
     }
   })
 
-  it('has a portion rule for every category and a lead time rule for every class', () => {
+  it('has a portion rule for every food category and a lead time rule for every class', () => {
     for (const item of catalog.menu) {
       expect(
-        catalog.portionRules.some((r) => r.category === item.category),
+        item.category === 'supply' || catalog.portionRules.some((r) => r.category === item.category),
         item.id,
       ).toBe(true)
       expect(
@@ -65,6 +65,18 @@ describe('menu', () => {
         item.id,
       ).toBe(true)
     }
+  })
+})
+
+describe('menu source', () => {
+  it('credits a source for every item', () => {
+    for (const item of catalog.menu) {
+      expect(item.source?.length ?? 0, item.id).toBeGreaterThan(0)
+    }
+  })
+
+  it('has the observed categories', () => {
+    expect([...new Set(catalog.menu.map((i) => i.category))].sort()).toEqual(['entree', 'salad', 'side', 'supply'])
   })
 })
 
@@ -86,9 +98,9 @@ describe('scenarios', () => {
 
   it('makes the unusual scenario exceed the large-order threshold and the routine one not', () => {
     const [routine, unusual] = catalog.scenarios
-    expect(routine.intent.guestCount ?? 0).toBeLessThan(catalog.exceptionThresholds.largeOrderGuests)
-    expect(unusual.intent.guestCount ?? 0).toBeGreaterThanOrEqual(
-      catalog.exceptionThresholds.largeOrderGuests,
+    expect(routine.intent.guestCount ?? 0).toBeLessThan(catalog.exceptionThresholds.largeOrderOverGuests + 1)
+    expect(unusual.intent.guestCount ?? 0).toBeGreaterThan(
+      catalog.exceptionThresholds.largeOrderOverGuests,
     )
     expect(routine.expectedFlags).toEqual([])
     expect(unusual.expectedFlags.length).toBeGreaterThan(0)

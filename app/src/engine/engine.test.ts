@@ -29,10 +29,11 @@ describe('recommend', () => {
   it('proposes trays, sides and an explanation for each line (routine)', () => {
     const { lines } = recommend(routine.intent)
     const units = Object.fromEntries(lines.map((l) => [l.itemId, l.units]))
-    expect(units['sous-poulet']).toBe(2)
-    expect(units['curry-chicken']).toBe(2)
-    expect(units['curry-tofu']).toBe(1)
-    expect(units['kale-salad']).toBe(4)
+    expect(units['sous-poulet']).toBe(15)
+    expect(units['curry-chicken']).toBe(15)
+    expect(units['curry-tofu']).toBe(10)
+    expect(units['kale-salad']).toBe(40)
+    expect(units['pikliz']).toBe(40)
     for (const line of lines) {
       expect(line.reason.length).toBeGreaterThan(0)
       expect(line.assumptions.length).toBeGreaterThan(0)
@@ -67,14 +68,14 @@ describe('estimate', () => {
   it('totals line costs and reports cost per guest', () => {
     const { lines } = recommend(routine.intent)
     const result = estimate(lines, 40)
-    expect(result.subtotalCents).toBe(106_400)
-    expect(result.costPerGuestCents).toBe(2_660)
+    expect(result.subtotalCents).toBe(61_290)
+    expect(result.costPerGuestCents).toBe(1_532)
   })
 
   it('reports a shortfall and a below-minimum line after an edit', () => {
     const result = estimate([{ itemId: 'sous-poulet', units: 1 }], 40)
-    expect(result.entreeShortfall).toBe(28)
-    expect(estimate([{ itemId: 'box-salad', units: 3 }], 3).lines[0].belowMinimum).toBe(true)
+    expect(result.entreeShortfall).toBe(39)
+    expect(estimate([{ itemId: 'kale-salad', units: 0 }], 3).lines[0].belowMinimum).toBe(true)
   })
 })
 
@@ -100,6 +101,14 @@ describe('detectExceptions', () => {
   it('flags short notice for a standard order', () => {
     const intent = { ...routine.intent, eventAt: '2026-10-14T12:00' }
     expect(flagCodes(intent, routine.now)).toContain('short_notice')
+  })
+
+  it('flags orders over 50 guests and asks for 5 business days of notice', () => {
+    const intent = { ...routine.intent, guestCount: 51, eventAt: '2026-10-19T12:00' }
+    const flags = flagsFor(intent, routine.now)
+    expect(flags.map((f) => f.code)).toContain('large_order')
+    expect(flags.find((f) => f.code === 'short_notice')?.reason).toContain('120')
+    expect(flagCodes({ ...intent, guestCount: 50 }, routine.now)).not.toContain('large_order')
   })
 
   it('flags a budget below the estimate', () => {

@@ -13,12 +13,13 @@ export type Provenance = {
 }
 
 // Dietary tags are descriptive and illustrative. They are NOT allergy safety claims.
-export type DietaryTag = 'vegetarian' | 'vegan' | 'gluten-free' | 'spicy'
+export type DietaryTag = 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free' | 'spicy'
 
-export type MenuCategory = 'entree' | 'side' | 'boxed'
+export type MenuCategory = 'entree' | 'side' | 'salad' | 'supply'
 export type ServiceStyle = 'buffet' | 'boxed' | 'family'
-export type MenuUnit = 'tray' | 'box'
-export type LeadTimeClass = 'standard' | 'custom'
+/** What one unit of the item is: a 6oz serving, a bottle, a per-person charge, a set, or one piece. */
+export type MenuUnit = 'serving' | 'bottle' | 'person' | 'set' | 'each'
+export type LeadTimeClass = 'standard' | 'custom' | 'large'
 
 export type MenuItem = Provenance & {
   id: string
@@ -34,6 +35,10 @@ export type MenuItem = Provenance & {
   /** For entrees: sides included by default with a buffet order. */
   includedSideIds: string[]
   leadTimeClass: LeadTimeClass
+  /** Description as observed on the ordering page, when one was shown. */
+  description?: string
+  /** Serving note as observed, e.g. portion size. */
+  servingNote?: string
 }
 
 export type EventType = Provenance & {
@@ -63,7 +68,8 @@ export type ChangePolicy = Provenance & {
 
 /** Illustrative triggers for staff review until Sober defines the real ones. */
 export type ExceptionThresholds = Provenance & {
-  largeOrderGuests: number
+  /** Orders with more guests than this need staff review and longer notice. */
+  largeOrderOverGuests: number
   /** Number of distinct dietary requirements that counts as complex. */
   dietaryComplexityCount: number
 }

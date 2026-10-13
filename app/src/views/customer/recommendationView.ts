@@ -30,7 +30,8 @@ export type RecommendationView = {
 const GROUPS: Array<{ category: MenuCategory; title: string }> = [
   { category: 'entree', title: 'Entrees' },
   { category: 'side', title: 'Sides' },
-  { category: 'boxed', title: 'Boxed meals' },
+  { category: 'salad', title: 'Salads' },
+  { category: 'supply', title: 'Supplies' },
 ]
 
 /** Everything the recommendation screen shows, derived from the order and the engine. */

@@ -1,4 +1,4 @@
-import { catalog as defaultCatalog, type Catalog, type OrderIntent } from '../data'
+import { catalog as defaultCatalog, type Catalog, type MenuItem, type OrderIntent } from '../data'
 import { getItem, unitsFor } from './lookup'
 
 export type RecommendedLine = {
@@ -16,6 +16,11 @@ export type Recommendation = {
   notes: string[]
 }
 
+/** Extra wording when an item is sold in packs larger than one serving. */
+function packNote(item: MenuItem, units: number): string {
+  return item.servingsPerUnit > 1 ? `; one ${item.unit} serves ${item.servingsPerUnit}, so ${units}` : ''
+}
+
 function unique(values: Array<string | undefined>): string[] {
   return [...new Set(values.filter((v): v is string => Boolean(v)))]
 }
@@ -29,8 +34,7 @@ export function recommend(intent: OrderIntent, catalog: Catalog = defaultCatalog
 
   const defaults = catalog.recommendationDefaults
   const entreeRule = catalog.portionRules.find((r) => r.category === 'entree')
-  const sideRule = catalog.portionRules.find((r) => r.category === 'side')
-  if (!entreeRule || !sideRule) throw new Error('Missing entree or side portion rule')
+  if (!entreeRule) throw new Error('Missing entree portion rule')
 
   const notes: string[] = []
   const wantsPlantBased = intent.dietary.includes('vegetarian') || intent.dietary.includes('vegan')
@@ -47,7 +51,7 @@ export function recommend(intent: OrderIntent, catalog: Catalog = defaultCatalog
       itemId: id,
       units,
       servings: units * item.servingsPerUnit,
-      reason: `${entreeRule.explanation} ${perMeatEntree} servings of ${item.name}; one tray serves ${item.servingsPerUnit}, so ${units} trays.`,
+      reason: `${entreeRule.explanation} ${perMeatEntree} servings of ${item.name}${packNote(item, units)}.`,
       assumptions: unique([item.assumption, entreeRule.assumption, defaults.assumption]),
     })
   }
@@ -59,7 +63,7 @@ export function recommend(intent: OrderIntent, catalog: Catalog = defaultCatalog
       itemId: item.id,
       units,
       servings: units * item.servingsPerUnit,
-      reason: `Vegetarian or vegan guests were listed, so ${plantServings} entree servings go to ${item.name}; one tray serves ${item.servingsPerUnit}, so ${units} trays.`,
+      reason: `Vegetarian or vegan guests were listed, so ${plantServings} entree servings go to ${item.name}${packNote(item, units)}.`,
       assumptions: unique([item.assumption, entreeRule.assumption, defaults.assumption]),
     })
     notes.push(
@@ -68,16 +72,18 @@ export function recommend(intent: OrderIntent, catalog: Catalog = defaultCatalog
   }
 
   const sideIds = unique(lines.flatMap((l) => getItem(catalog, l.itemId).includedSideIds))
-  const sideServings = guests * sideRule.servingsPerGuest
   for (const id of sideIds) {
     const item = getItem(catalog, id)
-    const units = unitsFor(item, sideServings)
+    const rule = catalog.portionRules.find((r) => r.category === item.category)
+    if (!rule) throw new Error(`Missing portion rule for ${item.category}`)
+    const servingsNeeded = guests * rule.servingsPerGuest
+    const units = unitsFor(item, servingsNeeded)
     lines.push({
       itemId: id,
       units,
       servings: units * item.servingsPerUnit,
-      reason: `${sideRule.explanation} ${sideServings} servings of ${item.name}; one tray serves ${item.servingsPerUnit}, so ${units} trays.`,
-      assumptions: unique([item.assumption, sideRule.assumption]),
+      reason: `${rule.explanation} ${servingsNeeded} servings of ${item.name}${packNote(item, units)}.`,
+      assumptions: unique([item.assumption, rule.assumption]),
     })
   }
 

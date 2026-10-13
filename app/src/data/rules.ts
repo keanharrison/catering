@@ -39,10 +39,10 @@ export const portionRules: PortionRule[] = [
     assumption: 'Placeholder portion rule; Sober to supply the real one.',
   },
   {
-    id: 'boxed-per-guest',
-    category: 'boxed',
+    id: 'salad-per-guest',
+    category: 'salad',
     servingsPerGuest: 1,
-    explanation: 'One box per guest.',
+    explanation: 'One serving of each salad per guest.',
     status: 'illustrative',
     assumption: 'Placeholder portion rule; Sober to supply the real one.',
   },
@@ -60,12 +60,25 @@ export const leadTimeRules: LeadTimeRule[] = [
   {
     leadTimeClass: 'custom',
     businessHours: 72,
-    explanation: 'Custom items, appetizers and box lunches need 72 business hours of notice.',
+    explanation: 'Custom requests need 72 business hours of notice.',
     status: 'illustrative',
     assumption: 'Based on public Spoonfed terms; not confirmed by Pearl Island.',
     source: TERMS_SOURCE,
   },
 ]
+
+
+const FLOW_SOURCE = 'spoonfed_current_workflow_notes.md (Spoonfed ordering flow observed October 13, 2026)'
+
+leadTimeRules.push({
+  leadTimeClass: 'large',
+  businessHours: 120,
+  explanation: 'Orders over 50 guests need 5 business days of notice and should go through the restaurant.',
+  status: 'illustrative',
+  assumption:
+    'Observed on the Spoonfed ordering page; not confirmed by Sober. Five business days is modeled as 120 weekday hours.',
+  source: FLOW_SOURCE,
+})
 
 export const changePolicy: ChangePolicy = {
   changeCutoffHours: 24,
@@ -76,10 +89,12 @@ export const changePolicy: ChangePolicy = {
 }
 
 export const exceptionThresholds: ExceptionThresholds = {
-  largeOrderGuests: 100,
+  largeOrderOverGuests: 50,
   dietaryComplexityCount: 2,
   status: 'illustrative',
-  assumption: 'Placeholder triggers for staff review until Sober defines the real ones.',
+  assumption:
+    'The 50-guest limit was observed on the Spoonfed ordering page; the dietary trigger is a placeholder. Sober to confirm both.',
+  source: FLOW_SOURCE,
 }
 
 export const recommendationDefaults: RecommendationDefaults = {

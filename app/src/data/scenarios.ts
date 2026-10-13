@@ -17,7 +17,7 @@ export const scenarios: Scenario[] = [
       eventAt: '2026-10-19T12:00',
       fulfillment: 'pickup',
       dietary: ['vegetarian'],
-      budgetCents: 120000,
+      budgetCents: 80000,
       notes: '',
       customRequest: '',
     },
