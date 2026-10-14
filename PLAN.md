@@ -94,18 +94,18 @@ Core work:
 
 - Guided form: event details, required-field validation, progress indicator, editable answers (event type, headcount, budget, dietary needs, timing, fulfillment).
 - Start with a guided form. A rule-based chatbot (fixed questions, same labeled rule data, staff handoff when it cannot answer) is part of v1.
-- Output a structured order intent for the recommendation module.
+- Collect event basics up front; collect pickup or delivery time, contact and notes in a final details step. Output a structured order intent.
 
 Definition of Done:
 
 - A customer can complete intake start to finish; incomplete requests are prevented with clear help text.
 
-## 4. Recommendation Builder (Rule-Based)
+## 4. Menu Selection And Suggestions
 
 Core work:
 
-- Propose items and quantities from a fixed local rule set, with a plain explanation tied to each rule.
-- Customer can adjust selections; servings and estimated cost update together.
+- Customer browses the menu by category and selects items and quantities; servings coverage, cost and review flags update together. Required supplies are chosen here.
+- Suggestions are available on request: items and quantities from the local rule set, each with a plain explanation, which the customer can accept, change or ignore.
 - Unsupported combinations or missing information prompt review instead of a fabricated answer.
 
 Definition of Done:

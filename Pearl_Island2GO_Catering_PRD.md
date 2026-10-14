@@ -34,10 +34,10 @@ Before realistic recommendations, obtain the current menu, prices, serving units
 
 ## 3 Core user journey
 
-1. **Describe the event.** Customer supplies event details through a short guided form. Required fields and help text prevent incomplete requests.
-2. **Review a recommendation.** Software proposes menu items and quantities with a plain explanation tied to approved rules. It identifies missing information or cases requiring staff review.
-3. **Adjust the proposal.** Customer changes selections or quantities; servings and estimated cost update together. Unsupported combinations prompt review rather than a fabricated answer.
-4. **Submit the request.** Customer checks an event and order summary. Submission creates a request; it does not imply restaurant acceptance.
+1. **Describe the event.** Customer gives the event basics (type, guest count, date, pickup or delivery, dietary needs) through a short guided form. Required fields and help text prevent incomplete requests.
+2. **Choose from the menu.** Customer browses the menu by category (entrees, sides, salads), reads descriptions and dietary tags, and selects items and quantities. Servings coverage, cost and any review flags update as they choose. Required catering supplies are chosen here too.
+3. **Ask for help (optional).** At any point the customer can ask for suggestions or use the chatbot. Suggested items and quantities come with a plain explanation tied to the rules, and the customer can accept, change or ignore them. Unsupported combinations or missing information prompt staff review rather than a fabricated answer.
+4. **Add final details and submit.** Customer adds pickup or delivery time, contact details, notes and any custom request, then checks an event and order summary. Submission creates a request; it does not imply restaurant acceptance.
 5. **Review exceptions.** Sober or staff see the request, the reason for escalation, and its full context. They edit the proposal or request clarification. A changed proposal requires customer approval before acceptance.
 6. **Accept and hand off.** An authorized acceptance action creates a confirmed operational record, calendar preview, and kitchen handoff from the same order details. Automatic acceptance of routine requests remains undecided.
 
@@ -47,8 +47,9 @@ Proposed status sequence: Draft → Submitted → Needs review when applicable �
 
 | Demo component | Required behavior |
 | --- | --- |
-| Customer intake | Event details, required-field validation, progress indicator, editable answers |
-| Recommendation builder | A small approved or explicitly illustrative menu; rule-based quantities; explanations; responsive totals |
+| Customer intake | Event basics up front (type, guests, date, pickup or delivery, dietary needs); final details later (time, contact, notes, custom request); required-field validation, progress indicator, editable answers |
+| Menu selection | The menu by category with descriptions, dietary tags and per-serving prices; quantity controls; live servings coverage, totals and review flags; required supplies choice |
+| Suggestions | On request only: rule-based suggested items and quantities with explanations; customer can accept, change or ignore; later versions reason over preferences before suggesting |
 | Rule-based chatbot | Answers a fixed set of customer questions (menu, portions, quantities, lead time, fit for the event) from the same labeled rule data as the recommendation builder; suggested-question chips; helps with the order workflow; any question it cannot answer routes to staff review instead of guessing; no allergy or nutrition claims; labeled as a scripted prototype, not a live AI model |
 | Customer review | Clear estimate, selections, event details, notes, and submission status |
 | Staff workspace | Focused request queue, request detail, escalation reason, editable proposal, explicit approval actions |
@@ -142,3 +143,5 @@ Build boundary: one customer journey, one focused staff workspace, two scenarios
 **Decision (October 13, 2026):** Build an assumption-based prototype before the Sober call. Illustrative menu, pricing, and rule data is allowed if clearly labeled as an assumption in the UI. The purpose is to give Sober something concrete to correct. Coding is authorized for this prototype only.
 
 **Decision (October 13, 2026): no on-screen prototype wording.** The interface should feel like a real product, so it carries no persistent banner or "illustrative data" text. Disclosure moves to interaction: clicking an unverified value, menu item or simulated output opens a short note saying it is an assumption or a simulation, and the demo script states the simulation boundary aloud. The guardrails still hold: no final-quote language, no allergy or nutrition claims, no invented metrics, and simulated integrations are never presented as live. Replacement scope, real rules, and production behavior remain pending Sober's input. See `pearl_island_research_gate.md` for assumptions, questions, and the call agenda.
+
+**Decision (October 14, 2026): the customer chooses first.** Customers browse and select from the real menu before any suggestion appears; suggestions are available on request. The menu data now comes from Pearl Island's observed Spoonfed ordering page (`spoonfed_current_workflow_notes.md`): per-serving prices, dietary tags as listed there, and required supplies. It is still not confirmed by Sober. Pickup or delivery time is collected in a final details section; the date stays early because notice drives review flags. Multiple time slots, Standard vs Group order type, and delivery zones are not modeled in v1.

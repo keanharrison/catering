@@ -35,7 +35,9 @@ Tell us about your event.
 [Back]                    [Continue]
 ```
 
-### C2 Recommendation with chatbot (steps 2 and 3)
+### C2 Menu selection with chatbot and suggestions (steps 2 and 3)
+
+The customer browses by category (tabs: Entrees, Sides, Salads, Supplies), opens an item for its description and tags, and sets quantities. A running summary shows servings coverage, estimate and review flags. "Help me choose" offers suggestions on request. The layout below is the earlier suggestions-first version and is superseded by this description until wireframes are redrawn.
 
 ```
 RECOMMENDED FOR 40 GUESTS
@@ -107,7 +109,7 @@ Make: jerk chicken x 12 trays ...   Notes: ...   Exceptions: ...
 | Screen | PRD step |
 |---|---|
 | C1 | 1 Describe the event |
-| C2 | 2 Review a recommendation, 3 Adjust the proposal |
+| C2 | 2 Choose from the menu, 3 Ask for help |
 | C3 | 4 Submit the request |
 | C4 | 4-6 customer approval |
 | S1, S2 | 5 Review exceptions |

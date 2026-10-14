@@ -47,7 +47,8 @@ Priority: P0 must have for v1, P1 should have, P2 later, P3 exploratory. Complex
 | Item | Priority | Version | Complexity | Why it matters |
 |---|---|---|---|---|
 | Guided customer intake form (event, headcount, budget, dietary, timing, fulfillment) | P0 | v1 | M | Core of the customer journey |
-| Rule-based recommendations with plain explanations; editable quantities and cost | P0 | v1 | M | Shows the "no call needed" idea without AI risk |
+| Customer-led menu browsing and selection (categories, descriptions, tags, quantities) with live servings coverage, cost and review flags; required supplies | P0 | v1 | M | The customer keeps control; shows the real menu |
+| Suggestions on request: rule-based items and quantities with plain explanations | P1 | v1 | S | Proactive and personalized without taking over the choice |
 | Staff queue, request detail, escalation reason, approve/edit/request clarification | P0 | v1 | M | Keeps Sober's judgment in control |
 | Handoff previews: order summary, calendar event, kitchen prep sheet (simulated) | P0 | v1 | M | Shows the operational payoff |
 | Two scenarios (routine, difficult), demo controls and reset | P0 | v1 | S | Makes the demo repeatable |
@@ -55,7 +56,7 @@ Priority: P0 must have for v1, P1 should have, P2 later, P3 exploratory. Complex
 | Rule-based chatbot answering fixed customer questions from the labeled rule data, with handoff to staff when it cannot answer | P0 | v1 | M | Shows the "no call needed" vision without paying for or risking a live model; labeled as scripted |
 | Basic clarification exchange (staff note, customer reply) | P1 | v1 | S | Previews messaging |
 | Mobile-friendly customer flow | P1 | v1 | M | PRD requirement |
-| Probabilistic AI that works with the customer on their order, grounded in approved menu data | P1 | v2 | L | Delivers the actual end state |
+| Probabilistic AI that reasons about the customer's preferences, then works with them on their order, grounded in approved menu data | P1 | v2 | L | Delivers the actual end state |
 | Menu and rules as replaceable data so other restaurants can use the platform | P2 | v2 | M | The problem likely exists beyond Pearl Island; v1 keeps data separate from UI so this stays possible |
 | Full messaging thread and notifications | P2 | v2 | M | End-state feature |
 | Nutrition/calorie breakdown from approved data | P2 | v2 | M | Needs data Pearl Island confirms |
