@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest'
+import { recommend } from '../engine'
 
 // The store persists to localStorage, which does not exist in the node test runner.
 beforeAll(() => {
@@ -29,6 +30,8 @@ describe('demo store', () => {
     const store = await loadStore()
     const s = () => store.getState()
     s().loadScenario('unusual')
+    const lines = recommend(s().order.intent).lines.map(({ itemId, units }) => ({ itemId, units }))
+    s().updateDraft({ lines, suppliesChoice: 'none' })
     s().submit()
     expect(s().order.status).toBe('needs_review')
     s().accept('customer')

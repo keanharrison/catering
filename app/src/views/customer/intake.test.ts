@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog, type Scenario } from '../../data'
-import { formToIntent, intentToForm, stepErrors, validateForm } from './intake'
+import { formToIntent, intentToForm, sectionErrors, validateForm } from './intake'
 
 const routine = catalog.scenarios.find((s) => s.id === 'routine') as Scenario
 const valid = () => intentToForm(routine.intent)
@@ -14,7 +14,7 @@ describe('intake validation', () => {
   })
 
   it('round-trips an intent through the form', () => {
-    expect(formToIntent(valid())).toEqual(routine.intent)
+    for (const s of catalog.scenarios) expect(formToIntent(intentToForm(s.intent)), s.id).toEqual(s.intent)
   })
 
   it('requires a contact name', () => {
@@ -33,9 +33,10 @@ describe('intake validation', () => {
     expect(check({ guestCount: '1' }).guestCount).toBeUndefined()
   })
 
-  it('requires a future date and time', () => {
-    expect(check({ eventAt: '' }).eventAt).toBeTruthy()
-    expect(check({ eventAt: '2026-10-01T12:00' }).eventAt).toBeTruthy()
+  it('requires a future date and a time', () => {
+    expect(check({ eventDate: '' }).eventDate).toBeTruthy()
+    expect(check({ eventDate: '2026-10-01' }).eventDate).toBeTruthy()
+    expect(check({ eventTime: '' }).eventTime).toBeTruthy()
   })
 
   it('treats the budget as optional but checks it when given', () => {
@@ -46,9 +47,13 @@ describe('intake validation', () => {
     expect(formToIntent({ ...valid(), budget: '$1,200.50' }).budgetCents).toBe(120050)
   })
 
-  it('reports errors only for the fields on a step', () => {
+  it('keeps the default time when only the date is chosen', () => {
+    expect(formToIntent({ ...valid(), eventTime: '' }).eventAt.endsWith('T12:00')).toBe(true)
+  })
+
+  it('reports errors only for the fields in a section', () => {
     const errors = check({ contactName: '', guestCount: '' })
-    expect(Object.keys(stepErrors(errors, 'event'))).toEqual(['guestCount'])
-    expect(Object.keys(stepErrors(errors, 'contact'))).toEqual(['contactName'])
+    expect(Object.keys(sectionErrors(errors, 'basics'))).toEqual(['guestCount'])
+    expect(Object.keys(sectionErrors(errors, 'details'))).toEqual(['contactName'])
   })
 })

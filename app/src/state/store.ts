@@ -9,7 +9,7 @@ import * as machine from './orderMachine'
  * the browser so a refresh keeps the walkthrough, and reset returns to a known start.
  */
 
-const STORAGE_KEY = 'pi2go-demo-v1'
+const STORAGE_KEY = 'pi2go-demo'
 const DEFAULT_SCENARIO = 'routine'
 
 function findScenario(id: string): Scenario {
@@ -29,7 +29,11 @@ type DemoState = {
 
   loadScenario: (id: string) => void
   reset: () => void
-  updateDraft: (patch: { intent?: OrderIntent; lines?: OrderLine[] }) => void
+  updateDraft: (patch: {
+    intent?: OrderIntent
+    lines?: OrderLine[]
+    suppliesChoice?: Order['suppliesChoice']
+  }) => void
   submit: () => void
   requestClarification: (text: string) => void
   customerReply: (text: string) => void
@@ -77,7 +81,7 @@ export const useDemoStore = create<DemoState>()(
     },
     {
       name: STORAGE_KEY,
-      version: 1,
+      version: 2,
       storage: createJSONStorage(() => localStorage),
     },
   ),

@@ -26,11 +26,13 @@ export function estimate(
 ): Estimate {
   const estimateLines = lines.map((line) => {
     const item = getItem(catalog, line.itemId)
+    // Per-person supplies are priced once per guest; units only marks them as selected.
+    const perPerson = item.unit === 'person'
     return {
       itemId: line.itemId,
       units: line.units,
-      servings: line.units * item.servingsPerUnit,
-      costCents: line.units * item.priceCents,
+      servings: item.category === 'supply' ? 0 : line.units * item.servingsPerUnit,
+      costCents: (perPerson ? (guestCount ?? 0) : line.units) * item.priceCents,
       belowMinimum: line.units < item.minUnits,
     }
   })

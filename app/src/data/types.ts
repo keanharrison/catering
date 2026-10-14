@@ -156,6 +156,8 @@ export type Order = {
   status: OrderStatus
   intent: OrderIntent
   lines: OrderLine[]
+  /** null until the customer decides; supplies are a required choice. */
+  suppliesChoice: 'none' | 'selected' | null
   /** Raised at submission and kept through review, revision and handoff. */
   flags: ExceptionFlag[]
   revision: RevisionState

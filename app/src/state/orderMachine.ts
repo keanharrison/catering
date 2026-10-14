@@ -10,7 +10,7 @@ import {
   type OrderStatus,
   type Scenario,
 } from '../data'
-import { detectExceptions, recommend } from '../engine'
+import { detectExceptions } from '../engine'
 
 /**
  * The order status machine. Pure functions: each takes an order and returns a new
@@ -38,14 +38,14 @@ function addMessage(order: Order, author: MessageAuthor, text: string, at: strin
   return { ...order, messages: [...order.messages, message] }
 }
 
-/** Starts a draft order from a scenario, with the engine's recommended quantities. */
-export function createOrder(scenario: Scenario, catalog: Catalog = defaultCatalog): Order {
-  const { lines } = recommend(scenario.intent, catalog)
+/** Starts a draft from a scenario: event answers are prefilled, the menu starts empty. */
+export function createOrder(scenario: Scenario): Order {
   return {
     id: `order-${scenario.id}`,
     status: 'draft',
     intent: scenario.intent,
-    lines: lines.map(({ itemId, units }) => ({ itemId, units })),
+    lines: [],
+    suppliesChoice: null,
     flags: [],
     revision: 'none',
     messages: [],
@@ -56,15 +56,24 @@ export function createOrder(scenario: Scenario, catalog: Catalog = defaultCatalo
 /** The customer edits answers or quantities. Only possible before submission. */
 export function updateDraft(
   order: Order,
-  patch: { intent?: OrderIntent; lines?: OrderLine[] },
+  patch: { intent?: OrderIntent; lines?: OrderLine[]; suppliesChoice?: Order['suppliesChoice'] },
 ): Result {
   if (order.status !== 'draft') return fail('Only a draft can be edited by the customer.')
-  return ok({ ...order, intent: patch.intent ?? order.intent, lines: patch.lines ?? order.lines })
+  return ok({
+    ...order,
+    intent: patch.intent ?? order.intent,
+    lines: patch.lines ?? order.lines,
+    suppliesChoice: patch.suppliesChoice === undefined ? order.suppliesChoice : patch.suppliesChoice,
+  })
 }
 
 /** Submitting creates a request. It never means the restaurant accepted it. */
 export function submit(order: Order, at: string, catalog: Catalog = defaultCatalog): Result {
   if (order.status !== 'draft') return fail('Only a draft can be submitted.')
+  if (!order.lines.some((l) => catalog.menu.find((i) => i.id === l.itemId)?.category !== 'supply')) {
+    return fail('Add at least one menu item before submitting.')
+  }
+  if (order.suppliesChoice === null) return fail('Choose supplies, or choose that none are needed.')
   const flags = detectExceptions({ intent: order.intent, lines: order.lines, now: at }, catalog)
   const to: OrderStatus = flags.length > 0 ? 'needs_review' : 'submitted'
   return ok(moveTo({ ...order, flags }, to, 'customer', at))

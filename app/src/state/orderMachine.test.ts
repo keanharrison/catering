@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { catalog, type Order, type Scenario } from '../data'
-import { accept, canAccept, createOrder, customerApprove, customerReply, requestClarification, revise, reject, submit, updateDraft, type Result } from './orderMachine'
+import { recommend } from '../engine'
+import { accept, canAccept, createOrder as createBare, customerApprove, customerReply, requestClarification, revise, reject, submit, updateDraft, type Result } from './orderMachine'
 
 const routine = catalog.scenarios.find((s) => s.id === 'routine') as Scenario
 const unusual = catalog.scenarios.find((s) => s.id === 'unusual') as Scenario
 const at = routine.now
+
+/** A draft ready to submit: menu filled from the rule engine, supplies decided. */
+function createOrder(scenario: Scenario): Order {
+  const bare = createBare(scenario)
+  const lines = recommend(scenario.intent).lines.map(({ itemId, units }) => ({ itemId, units }))
+  return must(updateDraft(bare, { lines, suppliesChoice: 'none' }))
+}
 
 function must(result: Result): Order {
   if (!result.ok) throw new Error(`Expected success, got: ${result.error}`)
@@ -17,10 +25,17 @@ function refused(result: Result): string {
 }
 
 describe('submission', () => {
-  it('creates a draft from a scenario', () => {
-    const order = createOrder(routine)
+  it('creates a draft from a scenario with an empty menu', () => {
+    const order = createBare(routine)
     expect(order.status).toBe('draft')
-    expect(order.lines.length).toBeGreaterThan(0)
+    expect(order.lines).toEqual([])
+    expect(order.suppliesChoice).toBeNull()
+  })
+
+  it('refuses to submit an empty order or one with no supplies decision', () => {
+    expect(refused(submit(createBare(routine), at))).toMatch(/menu item/)
+    const noSupplies = must(updateDraft(createOrder(routine), { suppliesChoice: null }))
+    expect(refused(submit(noSupplies, at))).toMatch(/supplies/)
   })
 
   it('sends a routine order to submitted, not confirmed', () => {

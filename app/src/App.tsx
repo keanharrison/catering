@@ -1,53 +1,39 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
-import { customerRoutes, routes } from './routes'
+import { routes } from './routes'
 import { Gallery } from './views/Gallery'
+import { DetailsPage } from './views/customer/DetailsPage'
 import { IntakePage } from './views/customer/IntakePage'
-import { RecommendationPage } from './views/customer/RecommendationPage'
-import { Placeholder } from './views/Placeholder'
+import { MenuPage } from './views/customer/MenuPage'
+import { ReviewPage } from './views/customer/ReviewPage'
+import { SuppliesPage } from './views/customer/SuppliesPage'
+import { stagePath } from './views/customer/journey'
+import { HandoffPage } from './views/handoff/HandoffPage'
+import { StaffPage } from './views/staff/StaffPage'
+
+export function AppRoutes() {
+  return (
+    <AppShell>
+      <Routes>
+        <Route path="/" element={<Navigate to={routes.customer} replace />} />
+        <Route path={stagePath('event')} element={<IntakePage />} />
+        <Route path={stagePath('menu')} element={<MenuPage />} />
+        <Route path={stagePath('supplies')} element={<SuppliesPage />} />
+        <Route path={stagePath('details')} element={<DetailsPage />} />
+        <Route path={stagePath('review')} element={<ReviewPage />} />
+        <Route path={routes.staff} element={<StaffPage />} />
+        <Route path={routes.handoff} element={<HandoffPage />} />
+        <Route path={routes.gallery} element={<Gallery />} />
+        <Route path="*" element={<Navigate to={routes.customer} replace />} />
+      </Routes>
+    </AppShell>
+  )
+}
 
 export default function App() {
   return (
     <BrowserRouter>
-      <AppShell>
-        <Routes>
-          <Route path="/" element={<Navigate to={routes.customer} replace />} />
-          <Route path={customerRoutes.intake} element={<IntakePage />} />
-          <Route path={customerRoutes.recommendation} element={<RecommendationPage />} />
-          <Route
-            path={customerRoutes.review}
-            element={
-              <Placeholder
-                eyebrow="Review"
-                title="Review your request."
-                note="Placeholder. Review and submit arrive in a later build step."
-              />
-            }
-          />
-          <Route
-            path={`${routes.staff}/*`}
-            element={
-              <Placeholder
-                eyebrow="Staff"
-                title="Requests needing attention."
-                note="Placeholder. The staff workspace arrives in later build steps."
-              />
-            }
-          />
-          <Route
-            path={`${routes.handoff}/*`}
-            element={
-              <Placeholder
-                eyebrow="Handoff"
-                title="Order handoff preview."
-                note="Placeholder. Simulated summary, calendar and kitchen views arrive in later build steps."
-              />
-            }
-          />
-          <Route path={routes.gallery} element={<Gallery />} />
-          <Route path="*" element={<Navigate to={routes.customer} replace />} />
-        </Routes>
-      </AppShell>
+      <AppRoutes />
     </BrowserRouter>
   )
 }
