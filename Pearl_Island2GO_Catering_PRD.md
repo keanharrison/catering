@@ -50,10 +50,10 @@ Proposed status sequence: Draft → Submitted → Needs review when applicable �
 | Customer intake | Event basics up front (type, guests, date, pickup or delivery, dietary needs); final details later (time, contact, notes, custom request); required-field validation, progress indicator, editable answers |
 | Menu selection | The menu by category with descriptions, dietary tags and per-serving prices; quantity controls; live servings coverage, totals and review flags; required supplies choice |
 | Suggestions | On request only: rule-based suggested items and quantities with explanations; customer can accept, change or ignore; later versions reason over preferences before suggesting |
-| Rule-based chatbot | Answers a fixed set of customer questions (menu, portions, quantities, lead time, fit for the event) from the same labeled rule data as the recommendation builder; suggested-question chips; helps with the order workflow; any question it cannot answer routes to staff review instead of guessing; no allergy or nutrition claims; labeled as a scripted prototype, not a live AI model |
-| Customer review | Clear estimate, selections, event details, notes, and submission status |
-| Staff workspace | Focused request queue, request detail, escalation reason, editable proposal, explicit approval actions |
-| Operational handoff | Consistent order summary, calendar event preview, and kitchen preparation view |
+| Rule-based chatbot | Deferred behind the customer journey (section 9). Design intent unchanged: fixed questions answered from the same rule data, handing anything unanswerable to staff. |
+| Customer review | Clear estimate, selections, supplies, event details, notes, and a clearly simulated submission result |
+| Staff view (minimal, simulated) | One simulated request view with status, flags and reasons, and an accept action. The full workspace is deferred (section 9). |
+| Operational handoff (minimal, simulated) | A read-only order summary after acceptance. Calendar and kitchen previews are deferred. |
 | Demo controls | Repeatable sample scenarios, retained state during the walkthrough, and reset |
 
 **Two complete scenarios:** a routine event moves through guidance and acceptance; an unusual request is held for Sober, revised, approved by the customer, and then accepted. Exception triggers are illustrative until Sober defines them.
@@ -135,6 +135,37 @@ Values below were measured from Fin's public landing page where they are facts (
 | Details | Corner registration squares on sections and panels, dotted fills, light technical borders, product UI as the visual hero |
 
 Replace the accent and type tokens with Pearl Island's approved brand assets when available. Customer-flow views must stay mobile-friendly and meet the accessibility requirements in section 4.
+
+## 9 Demo narrowing: one complete customer journey
+
+Decision (October 14, 2026). The demo for the next Sober meeting is a hypothesis to test, not a product. It is narrowed to one outcome: **a customer can assemble a catering request without getting stuck.**
+
+**In scope (the journey):** event basics -> menu browsing and selection -> required supplies -> optional "help me choose" -> final details -> review and simulated submission. Sample scenarios prefill the event basics so the demo is repeatable; the customer still chooses the menu.
+
+**Minimal and simulated:** a single staff view that shows the submitted request, its review flags and reasons, and an accept action; a read-only order summary after acceptance. Both are labeled as simulated.
+
+**Deferred (do not build for this meeting):** the rule-based chatbot, advanced or probabilistic AI, a full staff workspace (queue, editing, clarification threads, customer re-approval screens), calendar and kitchen previews, multiple time slots, Standard vs Group order types, delivery zones, payments.
+
+**Optional help:** "Help me choose" runs the existing rule engine only. It adds no portion, pricing or dietary guidance beyond the labeled rules below, and it never appears unasked.
+
+**Simulation labeling:** submission must never imply a real order or payment. The confirmation states that the request was recorded in the demo, that nothing was sent to Pearl Island, and that no payment was taken. Staff and handoff views state that they are simulated.
+
+**Unconfirmed values (kept as assumptions, not facts):**
+
+| Value | Source | Status |
+| --- | --- | --- |
+| Item prices, descriptions, dietary tags | Observed on Pearl Island's Spoonfed ordering page, October 13, 2026 | Not confirmed by Sober; may be outdated or incomplete |
+| Which sides go with an entree | Placeholder used only by "help me choose" | Assumed |
+| Portion rule (1 serving per guest per category) | Placeholder | Assumed |
+| Share of entrees for plant-based guests (25%) | Placeholder | Assumed |
+| Lead times (48 / 72 business hours) | Public Spoonfed terms | Not confirmed |
+| Over 50 guests needs review and 5 business days | Observed on the Spoonfed page | Not confirmed; modeled as 120 weekday hours |
+| Supplies (prices, quantities, which options can combine) | Observed options and modifiers | Quantities and combinations assumed |
+| Default time of day before the customer picks one | Placeholder (12:00) | Assumed |
+
+Open questions for the meeting are in `SOBER_MEETING_QUESTIONS.md`.
+
+**Journey success criteria:** both sample scenarios complete from event basics to simulated submission with no dead end; the customer can build an order without any suggestion; totals, coverage and flags match the rule engine after every change; a flagged request is routed to review and an unflagged one is not; nothing in the interface implies a real order, payment or final price.
 
 ## Scope decision before coding
 
