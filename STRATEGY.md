@@ -59,6 +59,7 @@ Priority: P0 must have for v1, P1 should have, P2 later, P3 exploratory. Complex
 | Probabilistic AI that reasons about the customer's preferences, then works with them on their order, grounded in approved menu data | P1 | v2 | L | Delivers the actual end state |
 | Menu and rules as replaceable data so other restaurants can use the platform | P2 | v2 | M | The problem likely exists beyond Pearl Island; v1 keeps data separate from UI so this stays possible |
 | Full messaging thread and notifications | P2 | v2 | M | End-state feature |
+| Customer dashboard: past and current requests with status and history (backlog only; not built) | P2 | v2 | M | Lets customers check on a request without calling; needs real accounts and storage first |
 | Nutrition/calorie breakdown from approved data | P2 | v2 | M | Needs data Pearl Island confirms |
 | Spoonfed complement/integration, real calendar writes | P2 | v3 | L | Depends on Spoonfed research |
 | Payments, deposits, quotes as contracts | P3 | v3+ | L | Out of scope for now |

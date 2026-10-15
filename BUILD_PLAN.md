@@ -37,6 +37,30 @@ Done means: it meets its "Done when" check, type check, tests and production bui
 | 10 Mobile, keyboard and copy pass | Not started | Tests run in a simulated browser only; no real-browser or phone check yet |
 | 11 Demo readiness: deploy check, demo script | Not started | Vercel login needed for deploy |
 
+## UX refinement pass (October 15, 2026)
+
+Each item is its own commit and can be reverted alone with `git revert <commit>`.
+
+| Change | Commit |
+|---|---|
+| Removed extra copy: estimate note, details-page note, staff "why it needs a look" block (review flags unchanged and still shown in the staff summary) | 8a3dbc2 |
+| Details page: clearer labels for the custom-item request and order notes (ids, saved values, validation unchanged) | b56e781 |
+| Menu sidebar order: calculator, one "Continue to supplies" button, assistant mockup; the button is a fixed bar on phones | 0aa72d3, 09bce86 |
+| Customer assistant mockup labeled demo-only with a no-send caption | ce7ad40 |
+| Staff assistant mockup matching the customer one | 407685a |
+| Staff "Ask customer a question": draft composer with simulated send and a demo message log | 5233519 |
+| Staff "Edit request" through the existing revise flow; customer "Approve changes" on the review page | d0bb4bc |
+| Header scroll fix (focus no longer scrolls the header out of view) | a01d6df |
+
+### Mockup and simulation limitations
+
+- **Assistants (customer and staff):** display-only. No AI service is connected; the input, chips and Send are disabled; no answers, so no menu, allergy or pricing advice.
+- **Messages:** "Simulate send" records a message in this browser's demo state only. Nothing is delivered to a customer, and the customer view does not show staff messages.
+- **Edit and approval:** staff edits and the customer's "Approve changes" button change demo state only; no notification is sent. Accepting creates no real order, payment or calendar entry.
+- **Accounts:** none. The Customer/Staff switch is a demo control, not access control.
+- **Storage:** the draft and request live in this browser's local storage on this device. Two devices do not share state.
+- **Not built:** customer dashboard (past and current requests), real messaging, real AI answers, deployment automation.
+
 ## Branding pass (Pearl Island)
 
 Added October 15, 2026. Captured branding (`docs/branding/pearl-island/`) now takes precedence for brand identity; Fin-inspired layout patterns remain where useful. Every item below is its own commit, so any one can be undone with `git revert <commit>` without touching the others. Scope is branding only: no change to the journey, menu data, rules, validation or saved state.
@@ -57,7 +81,7 @@ Verification so far: the header was checked in a real browser at 1280px and 390p
 
 ## Deferred (not for this meeting)
 
-Rule-based chatbot, advanced AI, full staff workspace, calendar and kitchen previews, multiple time slots, Standard vs Group orders, delivery zones, payments.
+Customer dashboard for past and current requests (backlog: STRATEGY.md roadmap, P2), rule-based chatbot, advanced AI, full staff workspace, calendar and kitchen previews, multiple time slots, Standard vs Group orders, delivery zones, payments.
 
 ## Open decisions
 
