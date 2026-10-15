@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { routes } from '../routes'
 import { DemoBar } from './DemoBar'
 
@@ -20,6 +20,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     document.getElementById('main')?.focus({ preventScroll: true })
   }, [pathname])
 
+  // Active link: observed active-navigation color plus underline and weight (not color alone).
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `underline-offset-4 ${isActive ? 'font-semibold text-nav-active underline' : 'text-charcoal hover:underline'}`
 
@@ -32,8 +33,16 @@ export function AppShell({ children }: { children: ReactNode }) {
         Skip to main content
       </a>
       <header className="border-b border-line bg-panel">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-4 md:px-6">
-          <span className="font-sans text-xl tracking-tight md:text-2xl">Pearl Island2GO</span>
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3 md:py-4">
+          <Link to={routes.customer} className="flex items-center">
+            <img
+              src="/branding/pearl-island-logo.png"
+              alt="Pearl Island Catering"
+              width={320}
+              height={311}
+              className="h-12 w-auto md:h-14"
+            />
+          </Link>
           <nav aria-label="Primary" className="flex items-center gap-5 font-sans text-sm md:gap-6 md:text-base">
             {nav.map((item) => (
               <NavLink key={item.to} to={item.to} className={linkClass}>
