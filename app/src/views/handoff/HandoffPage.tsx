@@ -42,7 +42,7 @@ export function HandoffPage() {
         <PreviewTag label="Simulated - no real order exists" />
       </div>
       <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
-        <Panel corners className="self-start">
+        <Panel className="self-start p-6 md:p-8">
           <h2 className="font-sans text-2xl">
             {eventType}, {intent.guestCount} guests
           </h2>

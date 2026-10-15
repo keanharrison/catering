@@ -41,7 +41,7 @@ export function StaffPage() {
       <h1 className="mt-6 text-4xl md:text-7xl">Requests needing attention.</h1>
 
       <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
-        <Panel corners className="self-start">
+        <Panel className="self-start p-6 md:p-8">
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="font-sans text-2xl">

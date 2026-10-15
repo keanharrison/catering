@@ -18,7 +18,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, children }: O
   const { estimate, coverage, flags, groups, guestCount } = summary
   return (
     <div className="grid gap-6">
-      <Panel corners>
+      <Panel className="p-6 md:p-8">
         <Eyebrow>Your order</Eyebrow>
         {groups.length === 0 ? (
           <p className="mt-4 text-sm text-muted">Nothing chosen yet. Pick items from the menu to build your order.</p>

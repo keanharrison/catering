@@ -38,14 +38,14 @@ function SuppliesView() {
 
   return (
     <Band>
-      <Eyebrow marker>Supplies</Eyebrow>
+      <Eyebrow marker>Disposable catering supplies</Eyebrow>
       <h1 className="mt-6 text-4xl md:text-7xl">Plates, cutlery and serving.</h1>
       <div className="mt-10">
         <JourneyNav active="supplies" />
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
-        <Panel corners className="self-start">
+        <Panel className="self-start p-6 md:p-8">
           <fieldset className="grid gap-3">
             <legend className="mb-2 font-sans text-sm">Do you need disposable supplies?</legend>
             <label className="flex min-h-11 items-center gap-2 font-sans text-base">

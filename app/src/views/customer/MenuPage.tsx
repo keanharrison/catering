@@ -97,7 +97,7 @@ function MenuView() {
                 aria-pressed={filters.includes(tag)}
                 onClick={() => toggleFilter(tag)}
                 className={`rounded-sm border px-3 py-1 font-sans text-sm ${
-                  filters.includes(tag) ? 'border-charcoal bg-charcoal text-white' : 'border-line bg-panel'
+                  filters.includes(tag) ? 'border-action bg-action text-on-action' : 'border-control-line bg-panel'
                 }`}
               >
                 {label}

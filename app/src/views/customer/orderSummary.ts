@@ -25,7 +25,7 @@ const GROUPS: Array<{ category: MenuCategory; title: string }> = [
   { category: 'entree', title: 'Entrees' },
   { category: 'side', title: 'Sides' },
   { category: 'salad', title: 'Salads' },
-  { category: 'supply', title: 'Supplies' },
+  { category: 'supply', title: 'Disposable catering supplies' },
 ]
 
 /** Everything the order summary shows, derived from the order and the rule engine. */

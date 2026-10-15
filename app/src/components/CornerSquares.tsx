@@ -1,4 +1,5 @@
-// Fin-style registration squares marking the corners of a section or panel.
+// Optional corner squares for a Panel (`corners` prop). Not used on customer-facing screens since the
+// Pearl Island branding pass; kept so the component API stays stable.
 export function CornerSquares() {
   const square = 'absolute size-2 bg-line'
   return (

@@ -13,11 +13,11 @@ export function Button({ variant = 'primary', size = 'md', className, ...props }
       type="button"
       {...props}
       className={cx(
-        'rounded-md border font-sans transition-colors disabled:cursor-not-allowed disabled:opacity-40',
+        'rounded-lg border font-sans transition-colors disabled:cursor-not-allowed disabled:opacity-40',
         size === 'md' ? 'min-h-11 px-4 py-2 text-base' : 'min-h-9 px-3 py-1.5 text-sm',
         variant === 'primary'
-          ? 'border-charcoal bg-charcoal text-white hover:bg-black'
-          : 'border-charcoal bg-transparent text-charcoal hover:bg-ivory-deep',
+          ? 'border-action bg-action text-on-action hover:border-action-hover hover:bg-action-hover active:border-action-active active:bg-action-active'
+          : 'border-action bg-transparent text-action hover:bg-ivory-deep active:bg-accent/15',
         className,
       )}
     />

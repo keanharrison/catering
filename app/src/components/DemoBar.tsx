@@ -19,7 +19,7 @@ export function DemoBar() {
     <div className="border-b border-line bg-ivory-deep">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-2">
         <div className="ml-auto flex flex-wrap items-center gap-3">
-          <div role="group" aria-label="View as" className="flex border border-line bg-panel">
+          <div role="group" aria-label="View as" className="flex border border-control-line bg-panel">
             {roles.map((role) => (
               <NavLink
                 key={role.to}
@@ -27,7 +27,7 @@ export function DemoBar() {
                 className={({ isActive }) =>
                   cx(
                     'px-3 py-1 font-mono text-[11px] uppercase tracking-eyebrow',
-                    isActive ? 'bg-charcoal text-white' : 'text-charcoal hover:bg-ivory-deep',
+                    isActive ? 'bg-action text-on-action' : 'text-charcoal hover:bg-ivory-deep',
                   )
                 }
               >

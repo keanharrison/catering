@@ -58,7 +58,7 @@ function ReviewView() {
       </div>
 
       {submitted && (
-        <Panel corners className="mt-10" >
+        <Panel className="mt-10 p-6 md:p-8">
           <div className="flex items-center justify-between gap-3">
             <Eyebrow>Status</Eyebrow>
             <Pill tone={statusTone[order.status]}>{statusLabel[order.status]}</Pill>

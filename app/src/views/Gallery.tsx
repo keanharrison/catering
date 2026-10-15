@@ -68,7 +68,7 @@ export function Gallery() {
           <Panel tone="deep" className="p-0">
             <StepTabs label="Statuses" variant="list" items={statuses} activeId={status} onChange={setStatus} />
           </Panel>
-          <Panel corners>
+          <Panel className="p-6 md:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h3 className="font-sans text-xl">Wedding drop-off, 150 guests</h3>
