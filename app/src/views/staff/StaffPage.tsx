@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Band } from '../../components/Band'
 import { AssistantPanel } from '../../components/AssistantPanel'
@@ -12,6 +13,9 @@ import { routes } from '../../routes'
 import { canAccept } from '../../state/orderMachine'
 import { useDemoStore } from '../../state/store'
 import { buildOrderSummary } from '../customer/orderSummary'
+import { AskCustomerPanel } from './AskCustomerPanel'
+
+const authorLabel = { staff: 'You (staff)', customer: 'Customer', system: 'System' } as const
 
 // Minimal, simulated staff view: one request, its flags, and an accept action.
 export function StaffPage() {
@@ -19,6 +23,9 @@ export function StaffPage() {
   const clock = useDemoStore((state) => state.clock)
   const lastError = useDemoStore((state) => state.lastError)
   const accept = useDemoStore((state) => state.accept)
+  const requestClarification = useDemoStore((state) => state.requestClarification)
+  const [composing, setComposing] = useState(false)
+  const [notice, setNotice] = useState<string | null>(null)
 
   if (order.status === 'draft') {
     return (
@@ -35,6 +42,15 @@ export function StaffPage() {
   const summary = buildOrderSummary(order, clock)
   const eventType = catalog.eventTypes.find((e) => e.id === order.intent.eventType)?.label ?? order.intent.eventType
   const check = canAccept(order, 'staff')
+  const canAsk = order.status === 'submitted' || order.status === 'needs_review'
+
+  function simulateSend(text: string) {
+    requestClarification(text)
+    if (useDemoStore.getState().lastError === null) {
+      setComposing(false)
+      setNotice('Question saved in the demo only. Nothing was sent to the customer.')
+    }
+  }
 
   return (
     <Band>
@@ -57,8 +73,24 @@ export function StaffPage() {
           </div>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Button disabled={!check.allowed} onClick={() => accept('staff')}>
+            <Button
+              disabled={!check.allowed}
+              onClick={() => {
+                setNotice(null)
+                accept('staff')
+              }}
+            >
               Accept request
+            </Button>
+            <Button
+              variant="secondary"
+              disabled={!canAsk}
+              onClick={() => {
+                setNotice(null)
+                setComposing(true)
+              }}
+            >
+              Ask customer a question
             </Button>
             {order.status === 'confirmed' && (
               <Link to={routes.handoff} className="font-sans underline underline-offset-4">
@@ -66,10 +98,29 @@ export function StaffPage() {
               </Link>
             )}
           </div>
+          {composing && <AskCustomerPanel onSimulateSend={simulateSend} onCancel={() => setComposing(false)} />}
+          {notice && (
+            <p role="status" className="mt-3 font-sans text-sm">
+              {notice}
+            </p>
+          )}
           {lastError && (
             <p role="alert" className="mt-3 font-sans text-sm text-status-blocked">
               {lastError}
             </p>
+          )}
+          {order.messages.length > 0 && (
+            <div className="mt-6 border-t border-line pt-4">
+              <Eyebrow>Messages</Eyebrow>
+              <p className="mt-1 text-sm text-muted">Recorded in the demo. Not delivered to the customer.</p>
+              <ul className="mt-3 grid gap-2 text-sm">
+                {order.messages.map((message) => (
+                  <li key={message.id}>
+                    <strong className="font-sans">{authorLabel[message.author]}:</strong> {message.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           <p className="mt-4 text-sm text-muted">
             Simulated: accepting here does not create a real order or contact the customer.

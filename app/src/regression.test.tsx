@@ -206,4 +206,35 @@ describe('regression: full journeys and edge cases', () => {
     }
     expect(JSON.stringify(store().order)).toBe(before)
   })
+
+  it('staff can draft a question and simulate sending it without implying delivery', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/staff')
+
+    await user.click(btn('Ask customer a question'))
+    const send = btn('Simulate send')
+    expect((send as HTMLButtonElement).disabled).toBe(true) // empty draft cannot be sent
+    await user.type(screen.getByLabelText('Question for the customer'), 'Can the pickup move to 11:30?')
+    await user.click(send)
+
+    expect(screen.getByRole('status').textContent).toMatch(/Nothing was sent to the customer/)
+    expect(screen.getByText(/Recorded in the demo. Not delivered to the customer./)).toBeTruthy()
+    expect(store().order.messages.map((m) => m.text)).toContain('Can the pickup move to 11:30?')
+    expect(store().order.status).toBe('needs_review')
+    // Acceptance is unchanged: staff can still accept afterwards.
+    await user.click(btn('Accept request'))
+    expect(store().order.status).toBe('confirmed')
+  })
+
+  it('ask-customer is unavailable once the request is closed', async () => {
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    store().accept('staff')
+    renderAt('/staff')
+    expect((btn('Ask customer a question') as HTMLButtonElement).disabled).toBe(true)
+  })
 })
