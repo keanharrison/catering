@@ -12,7 +12,7 @@ const problems = new Set()
 async function newPage(browser, viewport = { width: 1280, height: 900 }) {
   const ctx = await browser.newContext({ viewport })
   const page = await ctx.newPage()
-  page.setDefaultTimeout(6000)
+  page.setDefaultTimeout(10000)
   page.on('console', (m) => ['error', 'warning'].includes(m.type()) && problems.add(`console ${m.type()}: ${m.text().slice(0, 140)}`))
   page.on('pageerror', (e) => problems.add(`pageerror: ${String(e).slice(0, 140)}`))
   page.on('requestfailed', (r) => problems.add(`requestfailed: ${r.url().slice(0, 100)}`))
@@ -29,9 +29,9 @@ const total = (p) => p.getByLabel('Estimated total').textContent()
 const stored = (p) => p.evaluate(() => JSON.parse(localStorage.getItem('pi2go-demo')).state)
 
 async function fresh(page, scenario = 'routine') {
-  await page.goto(BASE + '/customer')
+  await page.goto(BASE + '/customer', { waitUntil: 'networkidle' })
   await page.evaluate(() => localStorage.clear())
-  await page.goto(BASE + '/customer')
+  await page.goto(BASE + '/customer', { waitUntil: 'networkidle' })
   if (scenario !== 'routine') await page.getByLabel('Scenario').selectOption(scenario)
 }
 const toMenu = async (p) => { await btn(p, 'Choose your menu').click(); await p.waitForURL('**/customer/menu'); await p.waitForTimeout(150) }

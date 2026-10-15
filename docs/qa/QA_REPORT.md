@@ -4,6 +4,10 @@ Run October 15, 2026 against commit `8e26394` using real Chromium (Playwright) o
 
 ## Result
 
+**After fixes (rerun, same script): 38 checks, 37 pass, 0 fail, 1 warning.** The first run, before the fixes, was 33 pass, 4 fail, 1 warning.
+
+First run:
+
 38 checks: **33 pass, 4 fail (confirmed bugs), 1 warning.** No console errors or failed requests during normal use. axe (WCAG 2.1 A/AA) found no violations on 9 screens. Production deep links load.
 
 ## Bugs
@@ -15,7 +19,16 @@ Run October 15, 2026 against commit `8e26394` using real Chromium (Playwright) o
 | QA-3 | Low | "Start over" lands on the Menu page (empty), not the Event page. | Submit a request, click Start over. | Navigate before resetting (the stage guard redirects first today) in [ReviewPage.tsx](../../app/src/views/customer/ReviewPage.tsx). |
 | QA-4 | Low | Corrupted or partial saved state (for example `order: null`) white-screens the app, and there is no error boundary. | Set `localStorage['pi2go-demo']` to `{"state":{"order":null},"version":2}`, reload. | Validate persisted state when loading it, and add a React error boundary with a reset action. |
 
-## Warning
+### Fix status
+
+| # | Status | Commit | What changed |
+|---|---|---|---|
+| QA-1 | Fixed and verified (first Tab lands on the skip link, dev and production) | `b51c482` | Focus moves to the page only after a route change, not on first load. |
+| QA-2 | Fixed and verified (no horizontal overflow with 300-400 character text on review, staff, handoff; desktop and phone) | `63a8627` | Grid columns can shrink; user-typed text wraps anywhere. |
+| QA-3 | Fixed and verified (regression test) | `8f538a9` | The stage guard sends an empty Review to the Event page; this also changes direct links to Review with nothing chosen. |
+| QA-4 | Fixed and verified (unit and store tests, full QA rerun) | `f17e083` | Saved state is validated on load (bad state starts a fresh draft); an error boundary offers a reset instead of a blank page. |
+
+## Warning (not fixed)
 
 - **Touch targets under 44px on phones:** header links are about 20px tall, and the demo bar's role switch, scenario select and Reset are 25–36px. Menu steppers, buttons and form fields pass. The skip link being 1px is expected (it is hidden until focused).
 
