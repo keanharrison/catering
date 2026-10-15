@@ -122,4 +122,32 @@ describe('regression: full journeys and edge cases', () => {
     renderAt('/handoff')
     expect(h1()).toBe('Nothing to hand off yet.')
   })
+
+  it('details page: clearer question labels still save their values and keep validation', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    renderAt('/customer/details')
+
+    const request = screen.getByLabelText("Would you like to request an item that isn't on the menu?")
+    const notes = screen.getByLabelText('Is there anything else we should know about your order?')
+    await user.type(request, 'A vegan dessert tray')
+    await user.type(notes, 'Please label the spicy dishes')
+    await user.click(btn('Review your request'))
+
+    expect(store().order.intent.customRequest).toBe('A vegan dessert tray')
+    expect(store().order.intent.notes).toBe('Please label the spicy dishes')
+    expect(h1()).toBe('Review your request.')
+  })
+
+  it('details page: required contact name is still enforced after the label change', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    renderAt('/customer/details')
+    await user.clear(screen.getByLabelText('Your name'))
+    await user.click(btn('Review your request'))
+    expect(screen.getByRole('alert').textContent).toMatch(/contact name/)
+    expect(h1()).toBe('Almost there.')
+  })
 })

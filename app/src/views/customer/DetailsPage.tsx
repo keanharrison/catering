@@ -105,7 +105,7 @@ function DetailsView() {
               />
             </Field>
             <Field
-              label="Anything not on our menu? (optional)"
+              label="Would you like to request an item that isn't on the menu?"
               htmlFor="customRequest"
               hint="Our team will review custom requests."
             >
@@ -118,7 +118,7 @@ function DetailsView() {
                 onChange={(e) => set('customRequest', e.target.value)}
               />
             </Field>
-            <Field label="Notes (optional)" htmlFor="notes">
+            <Field label="Is there anything else we should know about your order?" htmlFor="notes">
               <textarea
                 id="notes"
                 name="notes"
