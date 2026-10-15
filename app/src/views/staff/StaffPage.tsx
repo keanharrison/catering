@@ -55,19 +55,6 @@ export function StaffPage() {
             <Pill tone={statusTone[order.status]}>{statusLabel[order.status]}</Pill>
           </div>
 
-          <div className="mt-6">
-            <Eyebrow>Why it needs a look</Eyebrow>
-            {order.flags.length === 0 ? (
-              <p className="mt-2 text-sm">Nothing flagged. This request fits the standard rules.</p>
-            ) : (
-              <ul className="mt-2 grid gap-2 text-sm">
-                {order.flags.map((flag) => (
-                  <li key={flag.code}>{flag.reason}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Button disabled={!check.allowed} onClick={() => accept('staff')}>
               Accept request

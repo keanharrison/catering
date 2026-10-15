@@ -57,9 +57,6 @@ export function OrderSummaryPanel({ summary, showCoverage = false, children }: O
               ]}
             />
           </div>
-          <p className="mt-3 text-sm text-muted">
-            Estimate for the items above, before tax and fees. Our team confirms the final price.
-          </p>
         </div>
 
         {showCoverage && coverage.guests !== null && (

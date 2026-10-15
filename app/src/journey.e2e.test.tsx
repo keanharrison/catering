@@ -63,7 +63,7 @@ describe('customer journey end to end', () => {
 
     // Minimal simulated staff view accepts it.
     await user.click(screen.getAllByRole('link', { name: 'Staff' })[0])
-    expect(screen.getByText(/Nothing flagged/)).toBeTruthy()
+    expect(screen.queryByText('Our team will check')).toBeNull() // nothing flagged for the routine order
     await click(user, 'Accept request')
     expect(useDemoStore.getState().order.status).toBe('confirmed')
     await click(user, 'View handoff summary', 'link')
@@ -93,8 +93,15 @@ describe('customer journey end to end', () => {
     await click(user, 'Submit request')
 
     expect(useDemoStore.getState().order.status).toBe('needs_review')
+    expect(useDemoStore.getState().order.flags.length).toBeGreaterThan(0)
     expect(screen.getAllByText('Needs review').length).toBeGreaterThan(0)
+
     expect(screen.getByText(/recorded in the demo/)).toBeTruthy()
+
+    // The review flags are still shown on the staff side, without the extra explanatory heading.
+    await user.click(screen.getAllByRole('link', { name: 'Staff' })[0])
+    expect(screen.getByText(/over the 50-guest limit/)).toBeTruthy()
+    expect(screen.queryByText('Why it needs a look')).toBeNull()
   })
 
   it('undo restores the menu from before the suggestion', async () => {

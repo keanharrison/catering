@@ -136,10 +136,6 @@ function DetailsView() {
             </div>
           </form>
         </Panel>
-        <Panel tone="deep" className="self-start p-6">
-          <Eyebrow>Next</Eyebrow>
-          <p className="mt-4 text-sm">You will review everything before you send your request.</p>
-        </Panel>
       </div>
     </Band>
   )
