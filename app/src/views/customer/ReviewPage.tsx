@@ -28,6 +28,7 @@ function ReviewView() {
   const lastError = useDemoStore((state) => state.lastError)
   const submit = useDemoStore((state) => state.submit)
   const reset = useDemoStore((state) => state.reset)
+  const customerApprove = useDemoStore((state) => state.customerApprove)
 
   const summary = buildOrderSummary(order, clock)
   const { intent } = order
@@ -71,7 +72,22 @@ function ReviewView() {
             {order.status === 'needs_review' && 'In the live flow, our team would check the items listed and follow up with you.'}
             {order.status === 'confirmed' && 'Accepted in the staff demo view. No real order exists.'}
             {order.status === 'rejected' && 'Declined in the staff demo view.'}
+            {order.status === 'awaiting_customer_approval' && 'Changes made in the staff demo view need your approval.'}
           </p>
+          {order.status === 'awaiting_customer_approval' && (
+            <div className="mt-4">
+              {order.revision === 'pending' ? (
+                <>
+                  <p className="text-sm">Our team changed the items in your order. Check the updated order below, then approve the changes.</p>
+                  <div className="mt-3">
+                    <Button onClick={customerApprove}>Approve changes</Button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm">You approved the changes. They are waiting for our team to accept.</p>
+              )}
+            </div>
+          )}
           <div className="mt-6">
             <Button
               variant="secondary"

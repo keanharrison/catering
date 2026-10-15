@@ -14,6 +14,7 @@ import { canAccept } from '../../state/orderMachine'
 import { useDemoStore } from '../../state/store'
 import { buildOrderSummary } from '../customer/orderSummary'
 import { AskCustomerPanel } from './AskCustomerPanel'
+import { EditRequestPanel } from './EditRequestPanel'
 
 const authorLabel = { staff: 'You (staff)', customer: 'Customer', system: 'System' } as const
 
@@ -24,7 +25,8 @@ export function StaffPage() {
   const lastError = useDemoStore((state) => state.lastError)
   const accept = useDemoStore((state) => state.accept)
   const requestClarification = useDemoStore((state) => state.requestClarification)
-  const [composing, setComposing] = useState(false)
+  const revise = useDemoStore((state) => state.revise)
+  const [panel, setPanel] = useState<'ask' | 'edit' | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
 
   if (order.status === 'draft') {
@@ -43,12 +45,23 @@ export function StaffPage() {
   const eventType = catalog.eventTypes.find((e) => e.id === order.intent.eventType)?.label ?? order.intent.eventType
   const check = canAccept(order, 'staff')
   const canAsk = order.status === 'submitted' || order.status === 'needs_review'
+  const canEdit = canAsk || order.status === 'awaiting_customer_approval'
 
   function simulateSend(text: string) {
     requestClarification(text)
     if (useDemoStore.getState().lastError === null) {
-      setComposing(false)
+      setPanel(null)
       setNotice('Question saved in the demo only. Nothing was sent to the customer.')
+    }
+  }
+
+  function saveEdit(lines: typeof order.lines) {
+    revise(lines)
+    if (useDemoStore.getState().lastError === null) {
+      setPanel(null)
+      setNotice(
+        'Changes saved in the demo. The customer must approve them before this request can be accepted. Nothing was sent to the customer.',
+      )
     }
   }
 
@@ -87,10 +100,20 @@ export function StaffPage() {
               disabled={!canAsk}
               onClick={() => {
                 setNotice(null)
-                setComposing(true)
+                setPanel('ask')
               }}
             >
               Ask customer a question
+            </Button>
+            <Button
+              variant="secondary"
+              disabled={!canEdit}
+              onClick={() => {
+                setNotice(null)
+                setPanel('edit')
+              }}
+            >
+              Edit request
             </Button>
             {order.status === 'confirmed' && (
               <Link to={routes.handoff} className="font-sans underline underline-offset-4">
@@ -98,7 +121,18 @@ export function StaffPage() {
               </Link>
             )}
           </div>
-          {composing && <AskCustomerPanel onSimulateSend={simulateSend} onCancel={() => setComposing(false)} />}
+          {order.status === 'awaiting_customer_approval' && order.revision === 'pending' && (
+            <p className="mt-3 text-sm text-muted">Waiting for the customer to approve the changes.</p>
+          )}
+          {panel === 'ask' && <AskCustomerPanel onSimulateSend={simulateSend} onCancel={() => setPanel(null)} />}
+          {panel === 'edit' && (
+            <EditRequestPanel
+              lines={order.lines}
+              guestCount={order.intent.guestCount}
+              onSave={saveEdit}
+              onCancel={() => setPanel(null)}
+            />
+          )}
           {notice && (
             <p role="status" className="mt-3 font-sans text-sm">
               {notice}

@@ -237,4 +237,54 @@ describe('regression: full journeys and edge cases', () => {
     renderAt('/staff')
     expect((btn('Ask customer a question') as HTMLButtonElement).disabled).toBe(true)
   })
+
+  it('staff edit goes through the revise flow: customer must approve before acceptance', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/staff')
+
+    await user.click(btn('Edit request'))
+    expect((btn('Save changes') as HTMLButtonElement).disabled).toBe(true) // nothing changed yet
+    const qty = screen.getByRole('spinbutton', { name: 'Quantity of Sous Poulet Chicken' })
+    await user.clear(qty)
+    await user.type(qty, '30')
+    expect(screen.getByTestId('edit-estimate').textContent).toContain('$150')
+    expect(screen.getByTestId('edit-estimate').textContent).toContain('30')
+    await user.click(btn('Save changes'))
+
+    expect(store().order.lines).toEqual([{ itemId: 'sous-poulet', units: 30 }])
+    expect(store().order.status).toBe('awaiting_customer_approval')
+    expect(screen.getByRole('status').textContent).toMatch(/Nothing was sent to the customer/)
+    expect((btn('Accept request') as HTMLButtonElement).disabled).toBe(true)
+    cleanup()
+
+    renderAt('/customer/review')
+    await user.click(btn('Approve changes'))
+    expect(store().order.revision).toBe('approved')
+    cleanup()
+
+    renderAt('/staff')
+    await user.click(btn('Accept request'))
+    expect(store().order.status).toBe('confirmed')
+  })
+
+  it('staff edit can be cancelled without changing the order, and is unavailable once accepted', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/staff')
+    const before = JSON.stringify(store().order)
+    await user.click(btn('Edit request'))
+    await user.click(screen.getByRole('button', { name: 'Increase quantity of Sous Poulet Chicken' }))
+    await user.click(btn('Cancel'))
+    expect(JSON.stringify(store().order)).toBe(before)
+    cleanup()
+
+    store().accept('staff')
+    renderAt('/staff')
+    expect((btn('Edit request') as HTMLButtonElement).disabled).toBe(true)
+  })
 })
