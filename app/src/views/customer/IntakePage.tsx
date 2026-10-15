@@ -84,7 +84,7 @@ function IntakeFormView() {
         <JourneyNav active="event" />
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="p-6 md:p-8">
           <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-6">
             <Field label="Event type" htmlFor="eventType" error={errors.eventType}>

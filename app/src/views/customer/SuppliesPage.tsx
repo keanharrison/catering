@@ -44,7 +44,7 @@ function SuppliesView() {
         <JourneyNav active="supplies" />
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="self-start p-6 md:p-8">
           <fieldset className="grid gap-3">
             <legend className="mb-2 font-sans text-sm">Do you need disposable supplies?</legend>

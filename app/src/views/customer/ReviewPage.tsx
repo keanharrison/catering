@@ -102,14 +102,14 @@ function ReviewView() {
         </Panel>
       )}
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="self-start p-0">
           <dl>
             {details.map((row) => (
               <div key={row.label} className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line px-6 py-3 last:border-b-0">
                 <dt className="font-mono text-xs uppercase tracking-eyebrow text-muted">{row.label}</dt>
-                <dd className="flex items-baseline gap-4 font-sans">
-                  <span>{row.value}</span>
+                <dd className="flex min-w-0 items-baseline gap-4 font-sans">
+                  <span className="[overflow-wrap:anywhere]">{row.value}</span>
                   {!submitted && (
                     <button type="button" className="text-sm underline underline-offset-2" onClick={() => navigate(stagePath(row.edit))}>
                       Edit

@@ -41,20 +41,20 @@ export function HandoffPage() {
       <div className="mt-4">
         <PreviewTag label="Simulated - no real order exists" />
       </div>
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="self-start p-6 md:p-8">
-          <h2 className="font-sans text-2xl">
+          <h2 className="font-sans text-2xl [overflow-wrap:anywhere]">
             {eventType}, {intent.guestCount} guests
           </h2>
           <p className="mt-2 font-sans text-sm text-muted">
             {intent.fulfillment === 'delivery' ? 'Delivery' : 'Pickup'}: {formatEventTime(intent.eventAt)}
           </p>
-          <p className="mt-2 font-sans text-sm">
+          <p className="mt-2 font-sans text-sm [overflow-wrap:anywhere]">
             {intent.contactName}
             {intent.organization ? `, ${intent.organization}` : ''}
           </p>
-          {intent.customRequest && <p className="mt-4 text-sm">Custom request: {intent.customRequest}</p>}
-          {intent.notes && <p className="mt-2 text-sm">Notes: {intent.notes}</p>}
+          {intent.customRequest && <p className="mt-4 text-sm [overflow-wrap:anywhere]">Custom request: {intent.customRequest}</p>}
+          {intent.notes && <p className="mt-2 text-sm [overflow-wrap:anywhere]">Notes: {intent.notes}</p>}
         </Panel>
         <div className="self-start">
           <OrderSummaryPanel summary={buildOrderSummary(order, clock)} />

@@ -80,7 +80,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, children, foo
           </div>
           <ul className="mt-4 grid gap-2 text-sm">
             {flags.map((flag) => (
-              <li key={flag.code}>{flag.reason}</li>
+              <li key={flag.code} className="[overflow-wrap:anywhere]">{flag.reason}</li>
             ))}
           </ul>
         </Panel>

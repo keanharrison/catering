@@ -70,14 +70,14 @@ export function StaffPage() {
       <Eyebrow marker>Staff view &middot; simulated</Eyebrow>
       <h1 className="mt-6 text-4xl md:text-7xl">Requests needing attention.</h1>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="self-start p-6 md:p-8">
           <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="font-sans text-2xl">
+            <div className="min-w-0">
+              <h2 className="font-sans text-2xl [overflow-wrap:anywhere]">
                 {eventType}, {order.intent.guestCount} guests
               </h2>
-              <p className="mt-1 font-sans text-sm text-muted">
+              <p className="mt-1 font-sans text-sm text-muted [overflow-wrap:anywhere]">
                 {order.intent.contactName}
                 {order.intent.organization ? `, ${order.intent.organization}` : ''}
               </p>
@@ -149,7 +149,7 @@ export function StaffPage() {
               <p className="mt-1 text-sm text-muted">Recorded in the demo. Not delivered to the customer.</p>
               <ul className="mt-3 grid gap-2 text-sm">
                 {order.messages.map((message) => (
-                  <li key={message.id}>
+                  <li key={message.id} className="[overflow-wrap:anywhere]">
                     <strong className="font-sans">{authorLabel[message.author]}:</strong> {message.text}
                   </li>
                 ))}

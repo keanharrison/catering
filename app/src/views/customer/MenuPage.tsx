@@ -79,7 +79,7 @@ function MenuView() {
         <JourneyNav active="menu" />
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <div className="grid gap-6 self-start">
           <StepTabs
             label="Menu categories"
