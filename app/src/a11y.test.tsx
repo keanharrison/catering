@@ -27,6 +27,14 @@ describe('keyboard and structure', () => {
     expect(link.getAttribute('href')).toBe('#main')
   })
 
+  it('leaves focus at the top on first load so the skip link is the first Tab stop', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer')
+    expect(document.activeElement?.id).not.toBe('main')
+    await user.tab()
+    expect(document.activeElement?.textContent).toBe('Skip to main content')
+  })
+
   it('moves focus to the page after navigating', async () => {
     const user = userEvent.setup()
     renderAt('/customer')

@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { routes } from '../routes'
 import { DemoBar } from './DemoBar'
@@ -14,7 +14,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
 
   // After navigating, move focus to the page so keyboard and screen reader users start at the top.
+  // Not on first load, so the skip link and header stay first in the Tab order.
+  const lastPath = useRef(pathname)
   useEffect(() => {
+    if (lastPath.current === pathname) return
+    lastPath.current = pathname
     // Start each page at the top, then focus it without letting the browser scroll past the header.
     document.documentElement.scrollTop = 0
     document.getElementById('main')?.focus({ preventScroll: true })
