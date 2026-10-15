@@ -117,8 +117,11 @@ describe('customer journey end to end', () => {
 
   it('does not let the customer skip ahead by URL', () => {
     useDemoStore.getState().loadScenario('routine')
-    renderAt('/customer/review')
+    renderAt('/customer/supplies')
     expect(heading('Choose what you would like.')).toBeTruthy()
+    cleanup()
+    renderAt('/customer/review')
+    expect(heading('Tell us about your event.')).toBeTruthy()
   })
 
   it('goes back to the previous stage', async () => {

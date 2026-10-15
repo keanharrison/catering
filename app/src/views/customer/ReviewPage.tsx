@@ -92,8 +92,9 @@ function ReviewView() {
             <Button
               variant="secondary"
               onClick={() => {
-                reset()
+                // Navigate first: once the draft is reset, the stage guard would redirect to the menu.
                 navigate(stagePath('event'))
+                reset()
               }}
             >
               Start over

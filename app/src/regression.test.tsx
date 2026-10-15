@@ -81,11 +81,11 @@ describe('regression: full journeys and edge cases', () => {
   it('handles scenario switching, reset and direct URLs without dead ends', async () => {
     const user = userEvent.setup()
     renderAt('/customer/review')
-    expect(h1()).toBe('Choose what you would like.')
+    expect(h1()).toBe('Tell us about your event.') // nothing to review yet: start at the beginning
     store().loadScenario('unusual')
     expect(store().order.status).toBe('draft')
     await user.click(btn('Reset'))
-    expect(h1()).toBe('Choose what you would like.')
+    expect(h1()).toBe('Tell us about your event.')
   })
 
   it('keeps the draft in browser storage', async () => {
@@ -286,5 +286,17 @@ describe('regression: full journeys and edge cases', () => {
     store().accept('staff')
     renderAt('/staff')
     expect((btn('Edit request') as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('Start over returns to the event page with a fresh draft', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/customer/review')
+    await user.click(btn('Start over'))
+    expect(h1()).toBe('Tell us about your event.')
+    expect(store().order.status).toBe('draft')
+    expect(store().order.lines).toEqual([])
   })
 })
