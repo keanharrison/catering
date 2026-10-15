@@ -161,7 +161,7 @@ describe('regression: full journeys and edge cases', () => {
     const continues = screen.getAllByRole('button', { name: 'Continue to supplies' })
     expect(continues).toHaveLength(1)
     expect(screen.queryByRole('button', { name: 'Next: supplies' })).toBeNull()
-    const assistant = screen.getByRole('region', { name: /assistant preview/i })
+    const assistant = screen.getByRole('region', { name: /demo only/i })
 
     const after = (a: Element, b: Element) => Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
     expect(after(total, continues[0])).toBe(true)
@@ -171,7 +171,7 @@ describe('regression: full journeys and edge cases', () => {
   it('assistant mockup is display-only: every control is disabled and nothing changes the order', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    const assistant = screen.getByRole('region', { name: /assistant preview/i })
+    const assistant = screen.getByRole('region', { name: /demo only/i })
     const before = JSON.stringify(store().order)
     expect((screen.getByLabelText('Ask a question') as HTMLInputElement).disabled).toBe(true)
     for (const control of assistant.querySelectorAll('button')) {
@@ -179,5 +179,14 @@ describe('regression: full journeys and edge cases', () => {
       await user.click(control)
     }
     expect(JSON.stringify(store().order)).toBe(before)
+  })
+
+  it('assistant mockup says it is demo-only and shows no answers', () => {
+    renderAt('/customer/menu')
+    const assistant = screen.getByRole('region', { name: /demo only/i })
+    expect(assistant.textContent).toContain('Demo only')
+    expect(assistant.textContent).toMatch(/can't be sent or answered/)
+    // Suggested questions only: nothing in the panel states a price, allergen or portion answer.
+    expect(assistant.textContent).not.toMatch(/\$\d|allergen|contains/i)
   })
 })

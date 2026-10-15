@@ -4,8 +4,9 @@ import { inputClass } from './Field'
 import { Panel } from './Panel'
 import { Pill } from './Pill'
 
-// Sample questions shown as chips. They are display-only: the assistant is a mockup, so every
-// control is disabled and nothing here sends a message or produces an answer.
+// Display-only assistant mockup: a heading, suggested questions and an input area. No AI service is
+// connected, every control is disabled, and the copy says so plainly. It shows no answers, so it cannot
+// give menu, allergy or pricing advice.
 const sampleQuestions = [
   'How much food should I order?',
   'Which items are vegan or gluten-free?',
@@ -14,11 +15,11 @@ const sampleQuestions = [
 
 export function AssistantPanel() {
   return (
-    <section aria-label="Ask a question (assistant preview)">
+    <section aria-label="Ask a question (assistant demo only)">
       <Panel className="p-6">
         <div className="flex items-center justify-between gap-3">
           <Eyebrow>Ask a question</Eyebrow>
-          <Pill>Preview</Pill>
+          <Pill>Demo only</Pill>
         </div>
 
         <p className="mt-4 rounded-lg bg-ivory-deep px-4 py-3 text-sm">
@@ -50,6 +51,10 @@ export function AssistantPanel() {
           />
           <Button disabled>Send</Button>
         </div>
+        <p className="mt-3 text-sm text-muted">
+          Demo only. Questions can't be sent or answered yet, so nothing you see here is advice about the menu,
+          ingredients or pricing.
+        </p>
       </Panel>
     </section>
   )
