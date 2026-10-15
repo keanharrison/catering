@@ -15,7 +15,9 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   // After navigating, move focus to the page so keyboard and screen reader users start at the top.
   useEffect(() => {
-    document.getElementById('main')?.focus()
+    // Start each page at the top, then focus it without letting the browser scroll past the header.
+    document.documentElement.scrollTop = 0
+    document.getElementById('main')?.focus({ preventScroll: true })
   }, [pathname])
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
