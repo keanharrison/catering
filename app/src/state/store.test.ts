@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { recommend } from '../engine'
 
 // The store persists to localStorage, which does not exist in the node test runner.
@@ -54,5 +54,27 @@ describe('demo store', () => {
     const store = await loadStore()
     store.getState().loadScenario('routine')
     expect(store.getState().order.intent.guestCount).toBe(40)
+  })
+
+  it('ignores malformed saved state and starts from a fresh draft', async () => {
+    for (const saved of ['{not json', JSON.stringify({ state: { order: null }, version: 2 })]) {
+      vi.resetModules()
+      localStorage.setItem('pi2go-demo', saved)
+      const { useDemoStore: fresh } = await import('./store')
+      expect(fresh.getState().order.status, saved).toBe('draft')
+      expect(fresh.getState().scenarioId).toBe('routine')
+    }
+  })
+
+  it('keeps valid saved state across a reload', async () => {
+    vi.resetModules()
+    localStorage.clear()
+    const first = (await import('./store')).useDemoStore
+    first.getState().loadScenario('unusual')
+    first.getState().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 7 }] })
+    vi.resetModules()
+    const second = (await import('./store')).useDemoStore
+    expect(second.getState().scenarioId).toBe('unusual')
+    expect(second.getState().order.lines).toEqual([{ itemId: 'sous-poulet', units: 7 }])
   })
 })

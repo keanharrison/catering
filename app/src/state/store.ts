@@ -3,13 +3,14 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { catalog, type Actor, type Order, type OrderIntent, type OrderLine, type Scenario } from '../data'
 import { addMinutes } from '../engine'
 import * as machine from './orderMachine'
+import { isValidDemoState } from './validate'
 
 /**
  * The live demo state: current scenario, a demo clock, and the order. Persisted in
  * the browser so a refresh keeps the walkthrough, and reset returns to a known start.
  */
 
-const STORAGE_KEY = 'pi2go-demo'
+export const STORAGE_KEY = 'pi2go-demo'
 const DEFAULT_SCENARIO = 'routine'
 
 function findScenario(id: string): Scenario {
@@ -83,6 +84,8 @@ export const useDemoStore = create<DemoState>()(
       name: STORAGE_KEY,
       version: 2,
       storage: createJSONStorage(() => localStorage),
+      // Ignore saved data that fails validation and start from the fresh state instead.
+      merge: (persisted, current) => (isValidDemoState(persisted) ? { ...current, ...(persisted as object) } : current),
     },
   ),
 )
