@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catalog, type OrderIntent, type Scenario } from '../data'
-import { businessHoursBetween, detectExceptions, estimate, recommend } from './index'
+import { businessHoursBetween, detectExceptions, estimate, MAX_QUANTITY, recommend, setQuantity } from './index'
 
 const routine = catalog.scenarios.find((s) => s.id === 'routine') as Scenario
 const unusual = catalog.scenarios.find((s) => s.id === 'unusual') as Scenario
@@ -118,5 +118,18 @@ describe('detectExceptions', () => {
 
   it('does not flag a vegetarian-only request on its own', () => {
     expect(flagCodes(routine.intent, routine.now)).not.toContain('dietary_complexity')
+  })
+})
+
+describe('setQuantity', () => {
+  it('adds, updates, removes and caps quantities', () => {
+    let lines = setQuantity([], 'kale-salad', 3)
+    expect(lines).toEqual([{ itemId: 'kale-salad', units: 3 }])
+    lines = setQuantity(lines, 'kale-salad', 5)
+    expect(lines).toEqual([{ itemId: 'kale-salad', units: 5 }])
+    expect(setQuantity(lines, 'kale-salad', 0)).toEqual([])
+    expect(setQuantity(lines, 'kale-salad', -2)).toEqual([])
+    expect(setQuantity([], 'kale-salad', 2.9)).toEqual([{ itemId: 'kale-salad', units: 2 }])
+    expect(setQuantity([], 'kale-salad', 999_999_999)[0].units).toBe(MAX_QUANTITY)
   })
 })
