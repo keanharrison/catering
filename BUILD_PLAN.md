@@ -34,8 +34,8 @@ Done means: it meets its "Done when" check, type check, tests and production bui
 | 7 Review and simulated submission | Done | Confirmation says nothing was sent and no payment was taken |
 | 8 Minimal staff view and handoff summary | Done | Both labeled simulated; accept goes through the status machine |
 | 9 End-to-end journey tests (UI level, both scenarios) | Done | 7 tests in `journey.e2e.test.tsx` |
-| 10 Mobile, keyboard and copy pass | Not started | Tests run in a simulated browser only; no real-browser or phone check yet |
-| 11 Demo readiness: deploy check, demo script | Not started | Vercel login needed for deploy |
+| 10 Mobile, keyboard and copy pass | Done | Checked in a real browser at 390px and 1280px (commit a18088a); keyboard behavior covered by tests |
+| 11 Demo readiness: deploy check, demo script | Partly done | Dry run and QA pass done and fixed; Vercel link is live; meeting questions are in `SOBER_MEETING_QUESTIONS.md`. Demo script deliberately deferred (owner decision) |
 
 ## UX refinement pass (October 15, 2026)
 
@@ -51,6 +51,7 @@ Each item is its own commit and can be reverted alone with `git revert <commit>`
 | Staff "Ask customer a question": draft composer with simulated send and a demo message log | 5233519 |
 | Staff "Edit request" through the existing revise flow; customer "Approve changes" on the review page | d0bb4bc |
 | Header scroll fix (focus no longer scrolls the header out of view) | a01d6df |
+| QA pass: 38 browser checks, 4 bugs found and fixed (skip link, long-text overflow, Start over, corrupted saved state); rerun 37 pass, 0 fail, 1 warning (small touch targets, not fixed). See `docs/qa/QA_REPORT.md` | b51c482, 63a8627, 8f538a9, f17e083 |
 
 ### Mockup and simulation limitations
 
@@ -59,6 +60,7 @@ Each item is its own commit and can be reverted alone with `git revert <commit>`
 - **Edit and approval:** staff edits and the customer's "Approve changes" button change demo state only; no notification is sent. Accepting creates no real order, payment or calendar entry.
 - **Accounts:** none. The Customer/Staff switch is a demo control, not access control.
 - **Storage:** the draft and request live in this browser's local storage on this device. Two devices do not share state.
+- **Open warning:** header links and demo-bar controls are under 44px tall on phones.
 - **Not built:** customer dashboard (past and current requests), real messaging, real AI answers, deployment automation.
 
 ## Branding pass (Pearl Island)
@@ -75,7 +77,7 @@ Added October 15, 2026. Captured branding (`docs/branding/pearl-island/`) now ta
 | B6 | Logo in the header, upper-left, aligned to the content's left edge, nav right, alt text, aspect ratio kept | Done | f91e443 |
 | Fix | Header was scrolled out of view on every page load because focus moved to the page; now scrolls to top and focuses without scrolling | Done | a01d6df |
 | B7 | `IMPLEMENTATION.md` decision record, PRD section 8, `TECH_DESIGN.md` styling rows, README link, Gallery update | Not started | |
-| B8 | Full-journey desktop and mobile visual check (long labels, steppers, sticky total, errors, review) | Not started | |
+| B8 | Full-journey desktop and mobile visual check (long labels, steppers, sticky total, errors, review) | Done (browser sweep of 9 screens at 1280px and 390px, plus the QA suite) | |
 
 Verification so far: the header was checked in a real browser at 1280px and 390px (logo and page heading share a left edge, no horizontal overflow). The rest of the journey has not yet been visually checked.
 
