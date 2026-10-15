@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Band } from '../../components/Band'
+import { AssistantPanel } from '../../components/AssistantPanel'
 import { Button } from '../../components/Button'
 import { Eyebrow } from '../../components/Eyebrow'
 import { OrderSummaryPanel } from '../../components/OrderSummaryPanel'
@@ -75,8 +76,9 @@ export function StaffPage() {
           </p>
         </Panel>
 
-        <div className="self-start">
+        <div className="grid gap-6 self-start">
           <OrderSummaryPanel summary={summary} />
+          <AssistantPanel audience="staff" />
         </div>
       </div>
     </Band>

@@ -189,4 +189,21 @@ describe('regression: full journeys and edge cases', () => {
     // Suggested questions only: nothing in the panel states a price, allergen or portion answer.
     expect(assistant.textContent).not.toMatch(/\$\d|allergen|contains/i)
   })
+
+  it('staff assistant mockup matches the customer one: demo-only, disabled, no answers', async () => {
+    const user = userEvent.setup()
+    store().loadScenario('routine')
+    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/staff')
+    const assistant = screen.getByRole('region', { name: /staff assistant \(demo only\)/i })
+    expect(assistant.textContent).toContain('Demo only')
+    expect(assistant.textContent).toMatch(/can't be sent or answered/)
+    const before = JSON.stringify(store().order)
+    for (const control of [...assistant.querySelectorAll('button'), ...assistant.querySelectorAll('input')]) {
+      expect((control as HTMLButtonElement | HTMLInputElement).disabled).toBe(true)
+      await user.click(control)
+    }
+    expect(JSON.stringify(store().order)).toBe(before)
+  })
 })
