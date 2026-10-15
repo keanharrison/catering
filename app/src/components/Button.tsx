@@ -14,7 +14,7 @@ export function Button({ variant = 'primary', size = 'md', className, ...props }
       {...props}
       className={cx(
         'rounded-md border font-sans transition-colors disabled:cursor-not-allowed disabled:opacity-40',
-        size === 'md' ? 'px-4 py-2 text-base' : 'px-3 py-1.5 text-sm',
+        size === 'md' ? 'min-h-11 px-4 py-2 text-base' : 'min-h-9 px-3 py-1.5 text-sm',
         variant === 'primary'
           ? 'border-charcoal bg-charcoal text-white hover:bg-black'
           : 'border-charcoal bg-transparent text-charcoal hover:bg-ivory-deep',

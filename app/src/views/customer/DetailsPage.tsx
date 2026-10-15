@@ -60,7 +60,7 @@ function DetailsView() {
   return (
     <Band>
       <Eyebrow marker>Final details</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Almost there.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Almost there.</h1>
       <div className="mt-10">
         <JourneyNav active="details" />
       </div>

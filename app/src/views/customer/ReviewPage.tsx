@@ -52,7 +52,7 @@ function ReviewView() {
   return (
     <Band>
       <Eyebrow marker>Review</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">{submitted ? 'Request recorded.' : 'Review your request.'}</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">{submitted ? 'Request recorded.' : 'Review your request.'}</h1>
       <div className="mt-10">
         <JourneyNav active="review" />
       </div>

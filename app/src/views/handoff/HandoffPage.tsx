@@ -37,7 +37,7 @@ export function HandoffPage() {
   return (
     <Band>
       <Eyebrow marker>Order handoff &middot; simulated</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Order summary.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Order summary.</h1>
       <div className="mt-4">
         <PreviewTag label="Simulated - no real order exists" />
       </div>

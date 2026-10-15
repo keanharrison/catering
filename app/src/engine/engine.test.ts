@@ -107,7 +107,7 @@ describe('detectExceptions', () => {
     const intent = { ...routine.intent, guestCount: 51, eventAt: '2026-10-19T12:00' }
     const flags = flagsFor(intent, routine.now)
     expect(flags.map((f) => f.code)).toContain('large_order')
-    expect(flags.find((f) => f.code === 'short_notice')?.reason).toContain('120')
+    expect(flags.find((f) => f.code === 'short_notice')?.reason).toContain('5 business days')
     expect(flagCodes({ ...intent, guestCount: 50 }, routine.now)).not.toContain('large_order')
   })
 

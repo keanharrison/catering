@@ -39,7 +39,7 @@ function SuppliesView() {
   return (
     <Band>
       <Eyebrow marker>Supplies</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Plates, cutlery and serving.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Plates, cutlery and serving.</h1>
       <div className="mt-10">
         <JourneyNav active="supplies" />
       </div>
@@ -48,7 +48,7 @@ function SuppliesView() {
         <Panel corners className="self-start">
           <fieldset className="grid gap-3">
             <legend className="mb-2 font-sans text-sm">Do you need disposable supplies?</legend>
-            <label className="flex items-center gap-2 font-sans text-base">
+            <label className="flex min-h-11 items-center gap-2 font-sans text-base">
               <input
                 type="radio"
                 name="supplies"
@@ -58,7 +58,7 @@ function SuppliesView() {
               />
               No cutlery, plates or serving utensils needed
             </label>
-            <label className="flex items-center gap-2 font-sans text-base">
+            <label className="flex min-h-11 items-center gap-2 font-sans text-base">
               <input
                 type="radio"
                 name="supplies"
@@ -85,7 +85,7 @@ function SuppliesView() {
                       </p>
                     </div>
                     {perPerson ? (
-                      <label className="flex items-center gap-2 font-sans text-sm">
+                      <label className="flex min-h-11 items-center gap-2 font-sans text-sm">
                         <input
                           type="checkbox"
                           className="accent-accent"

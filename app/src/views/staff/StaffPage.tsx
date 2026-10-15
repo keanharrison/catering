@@ -38,7 +38,7 @@ export function StaffPage() {
   return (
     <Band>
       <Eyebrow marker>Staff view &middot; simulated</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Requests needing attention.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Requests needing attention.</h1>
 
       <div className="mt-10 grid gap-6 md:grid-cols-[2fr_1fr]">
         <Panel corners className="self-start">

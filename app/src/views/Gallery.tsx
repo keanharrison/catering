@@ -42,7 +42,7 @@ export function Gallery() {
     <>
       <Band>
         <Eyebrow marker>Component gallery</Eyebrow>
-        <h1 className="mt-6 text-5xl md:text-7xl">Design system.</h1>
+        <h1 className="mt-6 text-4xl md:text-7xl">Design system.</h1>
         <p className="mt-8 max-w-xl text-muted">
           Shared components for every screen, built from PRD section 8 and the Fin references.
           Internal reference only.

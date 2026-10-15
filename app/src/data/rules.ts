@@ -52,7 +52,7 @@ export const leadTimeRules: LeadTimeRule[] = [
   {
     leadTimeClass: 'standard',
     businessHours: 48,
-    explanation: 'Standard menu orders need 48 business hours of notice.',
+    explanation: 'Standard menu orders need 2 business days of notice.',
     status: 'illustrative',
     assumption: 'Based on public Spoonfed terms; not confirmed by Pearl Island.',
     source: TERMS_SOURCE,
@@ -60,7 +60,7 @@ export const leadTimeRules: LeadTimeRule[] = [
   {
     leadTimeClass: 'custom',
     businessHours: 72,
-    explanation: 'Custom requests need 72 business hours of notice.',
+    explanation: 'Custom requests need 3 business days of notice.',
     status: 'illustrative',
     assumption: 'Based on public Spoonfed terms; not confirmed by Pearl Island.',
     source: TERMS_SOURCE,

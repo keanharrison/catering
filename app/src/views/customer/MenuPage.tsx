@@ -73,7 +73,7 @@ function MenuView() {
   return (
     <Band>
       <Eyebrow marker>Your menu</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Choose what you would like.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Choose what you would like.</h1>
       <div className="mt-10">
         <JourneyNav active="menu" />
       </div>
@@ -85,6 +85,7 @@ function MenuView() {
             items={browseCategories.map((c) => ({ id: c.category, label: c.title }))}
             activeId={category}
             onChange={(id) => setCategory(id as MenuCategory)}
+            panelId="menu-panel"
           />
 
           <div role="group" aria-label="Show only" className="flex flex-wrap items-center gap-2">
@@ -105,6 +106,7 @@ function MenuView() {
           </div>
 
           <Panel className="p-0">
+            <div role="tabpanel" id="menu-panel" aria-labelledby={`tab-${category}`}>
             {entries.length === 0 ? (
               <p className="px-6 py-6 text-sm text-muted">No items match these filters in this category.</p>
             ) : (
@@ -148,6 +150,7 @@ function MenuView() {
                 ))}
               </ul>
             )}
+            </div>
           </Panel>
 
           {suggestion && (
@@ -225,6 +228,18 @@ function MenuView() {
           Back
         </Button>
       </div>
+
+      {/* Phones: keep the running total and the next step in reach while scrolling a long menu. */}
+      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-line bg-panel px-5 py-3 md:hidden">
+        <div>
+          <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">Estimated total</p>
+          <p className="font-sans text-2xl leading-none">{formatMoney(summary.estimate.subtotalCents)}</p>
+        </div>
+        <Button disabled={!summary.hasFood} onClick={() => navigate(stagePath('supplies'))}>
+          Next: supplies
+        </Button>
+      </div>
+      <div aria-hidden className="h-20 md:hidden" />
     </Band>
   )
 }

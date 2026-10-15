@@ -79,7 +79,7 @@ function IntakeFormView() {
   return (
     <Band>
       <Eyebrow marker>Event details</Eyebrow>
-      <h1 className="mt-6 text-5xl md:text-7xl">Tell us about your event.</h1>
+      <h1 className="mt-6 text-4xl md:text-7xl">Tell us about your event.</h1>
       <div className="mt-10">
         <JourneyNav active="event" />
       </div>
@@ -136,7 +136,7 @@ function IntakeFormView() {
             </Field>
             <Choices legend="Pickup or delivery">
               {fulfillmentOptions.map((option) => (
-                <label key={option.id} className="flex items-center gap-2 font-sans text-base">
+                <label key={option.id} className="flex min-h-11 items-center gap-2 font-sans text-base">
                   <input
                     type="radio"
                     name="fulfillment"
@@ -150,7 +150,7 @@ function IntakeFormView() {
             </Choices>
             <Choices legend="Dietary needs (optional)">
               {dietaryOptions.map((option) => (
-                <label key={option.id} className="flex items-center gap-2 font-sans text-base">
+                <label key={option.id} className="flex min-h-11 items-center gap-2 font-sans text-base">
                   <input
                     type="checkbox"
                     name="dietary"

@@ -9,7 +9,7 @@ type FieldProps = {
 }
 
 export const inputClass =
-  'w-full rounded-md border border-line bg-panel px-3 py-2 font-sans text-base text-charcoal placeholder:text-muted'
+  'min-h-11 w-full rounded-md border border-line bg-panel px-3 py-2 font-sans text-base text-charcoal placeholder:text-muted'
 
 export function Field({ label, htmlFor, hint, error, children }: FieldProps) {
   return (

@@ -6,6 +6,7 @@ import {
   type OrderIntent,
   type OrderLine,
 } from '../data'
+import { pluralize } from '../lib/format'
 import { estimate } from './estimate'
 import { getItem } from './lookup'
 import { businessHoursBetween } from './time'
@@ -59,14 +60,14 @@ export function detectExceptions(
   if (noticeHours < leadRule.businessHours) {
     flags.push({
       code: 'short_notice',
-      reason: `${noticeHours} business hours of notice; this order needs ${leadRule.businessHours}. ${leadRule.explanation}`,
+      reason: `${pluralize(Math.floor(noticeHours / 24), 'business day')} of notice; this order needs ${pluralize(Math.round(leadRule.businessHours / 24), 'business day')}. ${leadRule.explanation}`,
     })
   }
 
   const needs = intent.dietary.filter((tag) => tag !== 'spicy')
   const unsupported = needs.filter((tag) => !catalog.menu.some((i) => i.dietaryTags.includes(tag)))
   if (needs.length >= thresholds.dietaryComplexityCount || unsupported.length > 0) {
-    const parts = [`Dietary needs listed: ${needs.join(', ')}.`]
+    const parts = [`Dietary needs listed: ${needs.join(', ')}. Our team will confirm what can be accommodated.`]
     if (unsupported.length > 0) {
       parts.push(`No menu item is tagged ${unsupported.join(', ')}, so staff must check.`)
     }

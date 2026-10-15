@@ -11,7 +11,7 @@ type BandProps = {
 export function Band({ children, tone = 'ivory', className }: BandProps) {
   return (
     <section className={cx(tone === 'ivory' ? 'bg-ivory' : 'bg-panel')}>
-      <div className={cx('mx-auto max-w-6xl px-6 py-16 md:py-24', className)}>{children}</div>
+      <div className={cx('mx-auto max-w-6xl px-6 py-10 md:py-24', className)}>{children}</div>
     </section>
   )
 }

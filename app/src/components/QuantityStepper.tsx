@@ -7,7 +7,7 @@ type QuantityStepperProps = {
 }
 
 const stepButton =
-  'size-9 rounded-md border border-charcoal bg-transparent font-sans text-lg leading-none hover:bg-ivory-deep disabled:cursor-not-allowed disabled:opacity-40'
+  'size-11 rounded-md md:size-9 border border-charcoal bg-transparent font-sans text-lg leading-none hover:bg-ivory-deep disabled:cursor-not-allowed disabled:opacity-40'
 
 export function QuantityStepper({ label, value, onChange }: QuantityStepperProps) {
   return (
