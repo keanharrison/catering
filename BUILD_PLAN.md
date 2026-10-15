@@ -37,6 +37,24 @@ Done means: it meets its "Done when" check, type check, tests and production bui
 | 10 Mobile, keyboard and copy pass | Not started | Tests run in a simulated browser only; no real-browser or phone check yet |
 | 11 Demo readiness: deploy check, demo script | Not started | Vercel login needed for deploy |
 
+## Branding pass (Pearl Island)
+
+Added October 15, 2026. Captured branding (`docs/branding/pearl-island/`) now takes precedence for brand identity; Fin-inspired layout patterns remain where useful. Every item below is its own commit, so any one can be undone with `git revert <commit>` without touching the others. Scope is branding only: no change to the journey, menu data, rules, validation or saved state.
+
+| Step | What | Status | Commit |
+|---|---|---|---|
+| B1 | Reference files in `docs/branding/pearl-island/` | Done | f49f833 |
+| B2 | Theme tokens (turquoise accent, dark turquoise actions, nav color, marketing accent) and Inter-only typography | Done | d6fef0b |
+| B3 | Shared component states, 3:1 control borders, corner decorations removed from screens, captured supplies label | Done | d6c4f41 |
+| B4 | Header navigation uses the observed active-link color | Done | 8d21592 |
+| B5 | Logo asset, page title and icon (default Vite identity removed) | Done | ca072e4 |
+| B6 | Logo in the header, upper-left, aligned to the content's left edge, nav right, alt text, aspect ratio kept | Done | f91e443 |
+| Fix | Header was scrolled out of view on every page load because focus moved to the page; now scrolls to top and focuses without scrolling | Done | a01d6df |
+| B7 | `IMPLEMENTATION.md` decision record, PRD section 8, `TECH_DESIGN.md` styling rows, README link, Gallery update | Not started | |
+| B8 | Full-journey desktop and mobile visual check (long labels, steppers, sticky total, errors, review) | Not started | |
+
+Verification so far: the header was checked in a real browser at 1280px and 390px (logo and page heading share a left edge, no horizontal overflow). The rest of the journey has not yet been visually checked.
+
 ## Deferred (not for this meeting)
 
 Rule-based chatbot, advanced AI, full staff workspace, calendar and kitchen previews, multiple time slots, Standard vs Group orders, delivery zones, payments.
