@@ -11,10 +11,12 @@ type OrderSummaryPanelProps = {
   /** Show the "entree servings vs guests" line (menu stage). */
   showCoverage?: boolean
   children?: ReactNode
+  /** Rendered directly below the calculator panel, above any review notes (e.g. the continue button). */
+  footer?: ReactNode
 }
 
 // "Your order" panel: chosen items, estimate, and the reasons our team may review the request.
-export function OrderSummaryPanel({ summary, showCoverage = false, children }: OrderSummaryPanelProps) {
+export function OrderSummaryPanel({ summary, showCoverage = false, children, footer }: OrderSummaryPanelProps) {
   const { estimate, coverage, flags, groups, guestCount } = summary
   return (
     <div className="grid gap-6">
@@ -67,6 +69,8 @@ export function OrderSummaryPanel({ summary, showCoverage = false, children }: O
         )}
         {children && <div className="mt-6">{children}</div>}
       </Panel>
+
+      {footer}
 
       {flags.length > 0 && (
         <Panel tone="deep" className="p-6">

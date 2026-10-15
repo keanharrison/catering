@@ -150,4 +150,34 @@ describe('regression: full journeys and edge cases', () => {
     expect(screen.getByRole('alert').textContent).toMatch(/contact name/)
     expect(h1()).toBe('Almost there.')
   })
+
+  it('menu sidebar order: calculator, one continue button, then the assistant mockup', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer/menu')
+    await user.click(btn('Help me choose'))
+    await user.click(btn('Use these'))
+
+    const total = screen.getByLabelText('Estimated total')
+    const continues = screen.getAllByRole('button', { name: 'Continue to supplies' })
+    expect(continues).toHaveLength(1)
+    expect(screen.queryByRole('button', { name: 'Next: supplies' })).toBeNull()
+    const assistant = screen.getByRole('region', { name: /assistant preview/i })
+
+    const after = (a: Element, b: Element) => Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
+    expect(after(total, continues[0])).toBe(true)
+    expect(after(continues[0], assistant)).toBe(true)
+  })
+
+  it('assistant mockup is display-only: every control is disabled and nothing changes the order', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer/menu')
+    const assistant = screen.getByRole('region', { name: /assistant preview/i })
+    const before = JSON.stringify(store().order)
+    expect((screen.getByLabelText('Ask a question') as HTMLInputElement).disabled).toBe(true)
+    for (const control of assistant.querySelectorAll('button')) {
+      expect((control as HTMLButtonElement).disabled).toBe(true)
+      await user.click(control)
+    }
+    expect(JSON.stringify(store().order)).toBe(before)
+  })
 })

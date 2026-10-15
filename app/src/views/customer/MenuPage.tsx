@@ -4,6 +4,7 @@ import { Band } from '../../components/Band'
 import { Button } from '../../components/Button'
 import { Eyebrow } from '../../components/Eyebrow'
 import { JourneyNav } from '../../components/JourneyNav'
+import { AssistantPanel } from '../../components/AssistantPanel'
 import { OrderSummaryPanel } from '../../components/OrderSummaryPanel'
 import { Panel } from '../../components/Panel'
 import { Pill } from '../../components/Pill'
@@ -206,20 +207,31 @@ function MenuView() {
           )}
         </div>
 
-        <div className="self-start">
-          <OrderSummaryPanel summary={summary} showCoverage>
-            <div className="grid gap-2">
-              <Button
-                variant="secondary"
-                onClick={() => setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })}
-              >
-                Help me choose
-              </Button>
-              <Button disabled={!summary.hasFood} onClick={() => navigate(stagePath('supplies'))}>
-                Continue to supplies
-              </Button>
-            </div>
+        <div className="grid gap-6 self-start">
+          <OrderSummaryPanel
+            summary={summary}
+            showCoverage
+            footer={
+              // One continue button. Wide screens: directly under the calculator. Phones: the same
+              // button becomes a fixed bar with the running total, so both stay in reach.
+              <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-line bg-panel px-6 py-3 md:static md:z-auto md:block md:border-0 md:bg-transparent md:p-0">
+                <p aria-hidden className="font-sans text-2xl leading-none md:hidden">
+                  {formatMoney(summary.estimate.subtotalCents)}
+                </p>
+                <Button className="md:w-full" disabled={!summary.hasFood} onClick={() => navigate(stagePath('supplies'))}>
+                  Continue to supplies
+                </Button>
+              </div>
+            }
+          >
+            <Button
+              variant="secondary"
+              onClick={() => setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })}
+            >
+              Help me choose
+            </Button>
           </OrderSummaryPanel>
+          <AssistantPanel />
         </div>
       </div>
 
@@ -229,16 +241,7 @@ function MenuView() {
         </Button>
       </div>
 
-      {/* Phones: keep the running total and the next step in reach while scrolling a long menu. */}
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-line bg-panel px-5 py-3 md:hidden">
-        <div>
-          <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">Estimated total</p>
-          <p className="font-sans text-2xl leading-none">{formatMoney(summary.estimate.subtotalCents)}</p>
-        </div>
-        <Button disabled={!summary.hasFood} onClick={() => navigate(stagePath('supplies'))}>
-          Next: supplies
-        </Button>
-      </div>
+      {/* Room for the fixed continue bar on phones so it never covers the last content. */}
       <div aria-hidden className="h-20 md:hidden" />
     </Band>
   )
