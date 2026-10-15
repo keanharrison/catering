@@ -76,7 +76,7 @@ Added October 15, 2026. Captured branding (`docs/branding/pearl-island/`) now ta
 | B5 | Logo asset, page title and icon (default Vite identity removed) | Done | ca072e4 |
 | B6 | Logo in the header, upper-left, aligned to the content's left edge, nav right, alt text, aspect ratio kept | Done | f91e443 |
 | Fix | Header was scrolled out of view on every page load because focus moved to the page; now scrolls to top and focuses without scrolling | Done | a01d6df |
-| B7 | `IMPLEMENTATION.md` decision record, PRD section 8, `TECH_DESIGN.md` styling rows, README link, Gallery update | Not started | |
+| B7 | `IMPLEMENTATION.md` decision record, PRD section 8, `TECH_DESIGN.md` styling rows, README link, Gallery update | Partly done: decision record written (`docs/branding/pearl-island/IMPLEMENTATION.md`); PRD section 8, TECH_DESIGN rows, README link and Gallery still pending | |
 | B8 | Full-journey desktop and mobile visual check (long labels, steppers, sticky total, errors, review) | Done (browser sweep of 9 screens at 1280px and 390px, plus the QA suite) | |
 
 Verification so far: the header was checked in a real browser at 1280px and 390px (logo and page heading share a left edge, no horizontal overflow). The rest of the journey has not yet been visually checked.
