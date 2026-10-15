@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [pathname])
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `underline-offset-4 ${isActive ? 'underline' : 'hover:underline'}`
+    `underline-offset-4 ${isActive ? 'font-semibold text-nav-active underline' : 'text-charcoal hover:underline'}`
 
   return (
     <div className="min-h-screen bg-ivory">
