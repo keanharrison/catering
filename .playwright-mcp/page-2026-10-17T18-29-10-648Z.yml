@@ -1,0 +1,141 @@
+- generic [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - link [ref=f4e1733] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - button [ref=f4e1734]:
+          - generic [ref=f4e8]: Toggle Sidebar
+        - link [ref=f4e1735] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f4e11]: Pearl Island2GO
+        - generic [ref=f4e12]:
+          - separator [ref=f4e13]
+          - button [ref=f4e1737]
+          - separator [ref=f4e15]
+      - generic [ref=f4e1705]:
+        - generic [ref=f4e1706]:
+          - heading [level=1] [ref=f4e1738]: Catering requests
+          - paragraph [ref=f4e1708]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+        - generic [ref=f4e1709]:
+          - tablist [ref=f4e1710]:
+            - tab [selected] [ref=f4e1739]:
+              - text: All
+              - generic [ref=f4e1712]: "1"
+            - tab [ref=f4e1740]:
+              - text: Needs review
+              - generic [ref=f4e1714]: "0"
+            - tab [ref=f4e1741]:
+              - text: Awaiting customer
+              - generic [ref=f4e1716]: "1"
+            - tab [ref=f4e1742]:
+              - text: Confirmed
+              - generic [ref=f4e1718]: "0"
+          - tabpanel [ref=f4e1743]:
+            - generic [ref=f4e1721]:
+              - generic [ref=f4e1722]:
+                - generic [ref=f4e1723]: Request list
+                - generic [ref=f4e1724]: Select a request to review its details and actions.
+              - list [ref=f4e1744]:
+                - listitem [ref=f4e1727]:
+                  - button [pressed] [ref=f4e1745]:
+                    - generic [ref=f4e1729]:
+                      - generic [ref=f4e1730]: Jordan Lee
+                      - generic [ref=f4e1731]: Oct 19, 2026 · 40 guests · pickup
+                    - generic [ref=f4e1732]: Awaiting approval
+  - dialog [ref=f4e1749]:
+    - generic [ref=f4e1750]:
+      - heading "Request details" [level=2] [ref=f4e1751]
+      - paragraph [ref=f4e1752]: Review the event and record a staff action.
+    - generic [ref=f4e1754]:
+      - generic [ref=f4e1756]:
+        - generic [ref=f4e1757]:
+          - generic [ref=f4e1758]: Corporate lunch
+          - generic [ref=f4e1759]: Jordan Lee · Sample Co.
+        - generic [ref=f4e1760]: Awaiting approval
+      - generic [ref=f4e1761]:
+        - region "Event" [ref=f4e1762]:
+          - heading "Event" [level=3] [ref=f4e1763]
+          - generic [ref=f4e1764]:
+            - generic [ref=f4e1765]:
+              - term [ref=f4e1766]: Date and time
+              - definition [ref=f4e1767]: Monday, October 19, 2026 at 12:00 PM
+            - generic [ref=f4e1768]:
+              - term [ref=f4e1769]: Guests
+              - definition [ref=f4e1770]: "40"
+            - generic [ref=f4e1771]:
+              - term [ref=f4e1772]: Fulfillment
+              - definition [ref=f4e1773]: pickup
+        - separator [ref=f4e1774]
+        - region "Food and supplies" [ref=f4e1775]:
+          - generic [ref=f4e1776]:
+            - heading "Food and supplies" [level=3] [ref=f4e1777]
+            - generic [ref=f4e1778]: Estimate only
+          - generic [ref=f4e1780]:
+            - heading "Entrees" [level=4] [ref=f4e1781]
+            - list [ref=f4e1782]:
+              - listitem [ref=f4e1783]:
+                - generic [ref=f4e1784]:
+                  - text: Slow Roasted Pork
+                  - generic [ref=f4e1785]: (2 servings)
+                - generic [ref=f4e1786]: $12.50
+          - generic [ref=f4e1788]:
+            - generic [ref=f4e1789]: Food subtotal
+            - generic [ref=f4e1790]: $12.50
+          - paragraph [ref=f4e1791]: No supplies needed.
+          - generic [ref=f4e1792]:
+            - generic [ref=f4e1793]:
+              - generic [ref=f4e1794]: Supplies subtotal
+              - generic [ref=f4e1795]: $0
+            - generic [ref=f4e1796]:
+              - generic [ref=f4e1797]: Estimated total
+              - generic [ref=f4e1798]: $12.50
+          - paragraph [ref=f4e1799]: "Entree coverage: 2 servings for 40 guests · 38 not yet covered."
+        - separator [ref=f4e1800]
+        - region "Contact and instructions" [ref=f4e1801]:
+          - heading "Contact and instructions" [level=3] [ref=f4e1802]
+          - generic [ref=f4e1803]:
+            - generic [ref=f4e1804]:
+              - term [ref=f4e1805]: Name
+              - definition [ref=f4e1806]: Jordan Lee
+            - generic [ref=f4e1807]:
+              - term [ref=f4e1808]: Organization
+              - definition [ref=f4e1809]: Sample Co.
+            - generic [ref=f4e1810]:
+              - term [ref=f4e1811]: Email
+              - definition [ref=f4e1812]: demo@example.com
+            - generic [ref=f4e1813]:
+              - term [ref=f4e1814]: Phone
+              - definition [ref=f4e1815]: 555-0100
+            - generic [ref=f4e1816]:
+              - term [ref=f4e1817]: Dietary needs
+              - definition [ref=f4e1818]: None noted
+          - generic [ref=f4e1819]:
+            - generic [ref=f4e1820]:
+              - term [ref=f4e1821]: Custom request
+              - definition [ref=f4e1822]: None provided
+            - generic [ref=f4e1823]:
+              - term [ref=f4e1824]: Additional notes
+              - definition [ref=f4e1825]: None provided
+        - separator [ref=f4e1826]
+        - region "Request messages" [ref=f4e1827]:
+          - generic [ref=f4e1828]:
+            - heading "Request messages" [level=3] [ref=f4e1829]
+            - generic [ref=f4e1830]: Demo only · not delivered
+          - list [ref=f4e1831]:
+            - listitem [ref=f4e1832]:
+              - paragraph [ref=f4e1833]: Pearl Island team
+              - paragraph [ref=f4e1834]: Please confirm how many guests need vegetarian meals.
+            - listitem [ref=f4e1835]:
+              - paragraph [ref=f4e1836]: Request update
+              - paragraph [ref=f4e1837]: Staff revised the proposal. Customer approval is needed.
+            - listitem [ref=f4e1838]:
+              - paragraph [ref=f4e1839]: Customer
+              - paragraph [ref=f4e1840]: Customer approved the revised proposal.
+        - paragraph [ref=f4e1841]: Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
+      - generic [ref=f4e1842]:
+        - button "Accept request" [active] [ref=f4e1843]
+        - button "Ask for clarification" [disabled]
+        - button "Edit request" [ref=f4e1844]
+    - button "Close" [ref=f4e1845]

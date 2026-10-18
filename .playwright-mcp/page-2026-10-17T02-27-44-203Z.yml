@@ -1,0 +1,117 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - link "Pearl Island2GO home" [ref=e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=e11]
+      - generic [ref=e12]: Pearl Island2GO
+    - separator [ref=e13]
+    - generic [ref=e15]:
+      - generic [ref=e16]: Navigation
+      - list [ref=e18]:
+        - listitem [ref=e19]:
+          - link "New request" [ref=e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=e23]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - separator [ref=e28]
+      - navigation "breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "New request" [ref=e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=e33]
+          - listitem [ref=e36]:
+            - link "Event details" [disabled] [ref=e37]
+      - button "Guest account menu" [ref=e38]:
+        - generic [ref=e39]: Guest
+    - navigation "Request progress" [ref=e42]:
+      - list [ref=e43]:
+        - listitem [ref=e44]:
+          - button "Event" [ref=e45]:
+            - generic [aria-hidden] [ref=e46]: "1"
+        - listitem [ref=e48]:
+          - button "Menu" [ref=e49]:
+            - generic [aria-hidden] [ref=e50]: "2"
+        - listitem [ref=e52]:
+          - button "Supplies" [disabled] [ref=e53]:
+            - generic [aria-hidden] [ref=e54]: "3"
+        - listitem [ref=e56]:
+          - button "Details" [disabled] [ref=e57]:
+            - generic [aria-hidden] [ref=e58]: "4"
+        - listitem [ref=e60]:
+          - button "Review" [disabled] [ref=e61]:
+            - generic [aria-hidden] [ref=e62]: "5"
+      - generic [ref=e64]:
+        - progressbar "Request progress" [ref=e65]: x
+        - generic [ref=e68]: Step 1 of 5
+    - generic [ref=e71]:
+      - generic [ref=e72]:
+        - heading "Plan your catering" [level=1] [ref=e73]
+        - paragraph [ref=e74]: Tell us about your event to start building a catering request.
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]: Event details
+          - generic [ref=e79]: Start with the basics. You can change these details later.
+        - generic [ref=e81]:
+          - group "Event details" [ref=e82]:
+            - generic [ref=e84]:
+              - group [ref=e85]:
+                - generic [ref=e86]: Event type
+                - combobox "Event type" [expanded] [ref=e87]:
+                  - generic [ref=e88]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - listbox [ref=e141]:
+                  - group "Event type" [ref=e142]:
+                    - generic [aria-hidden] [ref=e143]: Event type
+                    - option "Corporate lunch" [active] [selected] [ref=e144]
+                    - option "Recurring office catering" [ref=e146]
+                    - option "Wedding" [ref=e148]
+                    - option "Birthday or special occasion" [ref=e150]
+                - textbox [aria-hidden] [ref=e89]: corporate-lunch
+              - group [ref=e90]:
+                - generic [ref=e91]: Number of guests
+                - spinbutton "Number of guests" [ref=e92]: "40"
+                - paragraph [ref=e93]: An estimate is fine. You can change it later.
+              - group [ref=e94]:
+                - generic [ref=e95]: Event date
+                - textbox "Event date" [ref=e96]: 2026-10-19
+          - group "Pickup or delivery" [ref=e97]:
+            - radiogroup [ref=e99]:
+              - group [ref=e100]:
+                - radio "Pickup" [checked] [ref=e101]
+                - radio [checked] [aria-hidden] [ref=e104]
+                - generic [ref=e105]: Pickup
+              - group [ref=e106]:
+                - radio "Delivery" [ref=e107]
+                - radio [aria-hidden] [ref=e108]
+                - generic [ref=e109]: Delivery
+          - group "Dietary needs (optional)" [ref=e110]:
+            - generic [ref=e112]:
+              - group [ref=e113]:
+                - checkbox "Vegetarian" [checked] [ref=e114]
+                - checkbox [checked] [aria-hidden] [ref=e118]
+                - generic [ref=e119]: Vegetarian
+              - group [ref=e120]:
+                - checkbox "Vegan" [ref=e121]
+                - checkbox [aria-hidden] [ref=e122]
+                - generic [ref=e123]: Vegan
+              - group [ref=e124]:
+                - checkbox "Gluten-free" [ref=e125]
+                - checkbox [aria-hidden] [ref=e126]
+                - generic [ref=e127]: Gluten-free
+              - group [ref=e128]:
+                - checkbox "Dairy-free" [ref=e129]
+                - checkbox [aria-hidden] [ref=e130]
+                - generic [ref=e131]: Dairy-free
+          - group [ref=e132]:
+            - generic [ref=e133]: Budget (optional)
+            - textbox "Budget (optional)" [ref=e134]:
+              - /placeholder: 1,200
+              - text: "800"
+            - paragraph [ref=e135]: Total for food, in dollars.
+        - button "Choose your menu" [ref=e137]

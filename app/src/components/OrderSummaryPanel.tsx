@@ -10,13 +10,15 @@ type OrderSummaryPanelProps = {
   summary: OrderSummary
   /** Show the "entree servings vs guests" line (menu stage). */
   showCoverage?: boolean
+  /** Show review flags beside this summary. Staff can place them beside request actions instead. */
+  showFlags?: boolean
   children?: ReactNode
   /** Rendered directly below the calculator panel, above any review notes (e.g. the continue button). */
   footer?: ReactNode
 }
 
 // "Your order" panel: chosen items, estimate, and the reasons our team may review the request.
-export function OrderSummaryPanel({ summary, showCoverage = false, children, footer }: OrderSummaryPanelProps) {
+export function OrderSummaryPanel({ summary, showCoverage = false, showFlags = true, children, footer }: OrderSummaryPanelProps) {
   const { estimate, coverage, flags, groups, guestCount } = summary
   return (
     <div className="grid gap-6">
@@ -62,17 +64,23 @@ export function OrderSummaryPanel({ summary, showCoverage = false, children, foo
         </div>
 
         {showCoverage && coverage.guests !== null && (
-          <p className="mt-4 font-sans text-sm" data-testid="coverage">
-            Entree servings: <strong>{coverage.servings}</strong> of {coverage.guests} guests
-            {coverage.shortfall > 0 ? ` (${coverage.shortfall} more to cover everyone)` : ' (everyone covered)'}
-          </p>
+          <div className="mt-4 grid gap-2 font-sans text-sm" data-testid="coverage">
+            <p>
+              Entree servings: <strong>{coverage.servings}</strong> of {coverage.guests} guests
+              {coverage.shortfall > 0 ? ` (${coverage.shortfall} more to cover everyone)` : ' (everyone covered)'}
+            </p>
+            <p className="text-muted">
+              For this demo, coverage counts one entree serving per guest; side quantities are separate. Adjust
+              quantities to suit how you plan to serve the meal.
+            </p>
+          </div>
         )}
         {children && <div className="mt-6">{children}</div>}
       </Panel>
 
       {footer}
 
-      {flags.length > 0 && (
+      {showFlags && flags.length > 0 && (
         <Panel tone="deep" className="p-6">
           <div className="flex items-center justify-between gap-3">
             <Eyebrow>Our team will check</Eyebrow>

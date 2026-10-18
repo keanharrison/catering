@@ -1,0 +1,11 @@
+[      88ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  338323ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  373663ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  651368ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5179/@vite/client:1082
+[  651599ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  651642ms] [ERROR] Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` prop, or set `nativeButton` to `false`.
+    at Button (http://127.0.0.1:5179/src/components/ui/button.tsx:33:25)
+    at RequestDetails (http://127.0.0.1:5179/src/views/staff/RequestDetails.tsx?t=1792261761007:673:64)
+    at StaffPage (http://127.0.0.1:5179/src/views/staff/StaffPage.tsx?t=1792261761007:117:82)
+    at AppRoutes (http://127.0.0.1:5179/src/App.tsx?t=1792261761007:130:50)
+    at App (http://127.0.0.1:5179/src/App.tsx?t=1792261761007:210:230) @ http://127.0.0.1:5179/@vite/client:356

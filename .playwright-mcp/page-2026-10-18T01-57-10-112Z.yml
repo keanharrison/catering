@@ -1,0 +1,309 @@
+- generic [ref=f54e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f54e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f54e191]:
+    - link "Pearl Island2GO home" [ref=f54e194] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f54e195]
+      - generic [ref=f54e196]: Pearl Island2GO
+    - separator [ref=f54e197]
+    - generic [ref=f54e199]:
+      - generic [ref=f54e200]: Navigation
+      - list [ref=f54e202]:
+        - listitem [ref=f54e203]:
+          - link "New request" [ref=f54e204] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f54e207]:
+          - link "Current orders" [ref=f54e208] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f54e215]:
+          - link "Past orders" [ref=f54e216] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f54e222]:
+          - link "Messages" [ref=f54e223] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f54e227]:
+          - link "Account settings" [ref=f54e228] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f54e233]:
+      - separator [ref=f54e234]
+      - generic [ref=f54e235]:
+        - button "Settings (coming soon)" [ref=f54e236]
+        - button "Customer demo account menu" [ref=f54e240]:
+          - generic [ref=f54e244]: Customer demo
+    - button "Toggle Sidebar" [ref=f54e247]
+  - main [ref=f54e5]:
+    - generic [ref=f54e6]:
+      - button "Toggle navigation" [ref=f54e7]:
+        - generic [ref=f54e8]: Toggle Sidebar
+      - separator [ref=f54e248]
+      - navigation "breadcrumb" [ref=f54e249]:
+        - list [ref=f54e250]:
+          - listitem [ref=f54e251]:
+            - link "New request" [ref=f54e252] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f54e253]
+          - listitem [ref=f54e256]:
+            - link "Menu" [disabled] [ref=f54e257]
+      - generic [ref=f54e12]:
+        - separator [ref=f54e13]
+        - button "Switch to dark mode" [ref=f54e14]
+        - separator [ref=f54e15]
+    - navigation "Request progress" [ref=f54e19]:
+      - list [ref=f54e20]:
+        - listitem [ref=f54e21]:
+          - button "Event" [ref=f54e22]:
+            - generic [aria-hidden] [ref=f54e258]: "1"
+        - listitem [ref=f54e24]:
+          - button "Menu" [ref=f54e25]:
+            - generic [aria-hidden] [ref=f54e259]: "2"
+        - listitem [ref=f54e27]:
+          - button "Supplies" [ref=f54e28]:
+            - generic [aria-hidden] [ref=f54e260]: "3"
+        - listitem [ref=f54e30]:
+          - button "Details" [disabled] [ref=f54e31]:
+            - generic [aria-hidden] [ref=f54e261]: "4"
+        - listitem [ref=f54e33]:
+          - button "Review" [disabled] [ref=f54e34]:
+            - generic [aria-hidden] [ref=f54e262]: "5"
+      - generic [ref=f54e36]:
+        - progressbar "Request progress" [ref=f54e37]: x
+        - generic [ref=f54e40]: Step 2 of 5
+    - generic [ref=f54e42]:
+      - generic [ref=f54e43]:
+        - heading "Build your menu" [level=1] [ref=f54e44]
+        - paragraph [ref=f54e45]: Choose entrées, sides, and salads for your event.
+      - generic [ref=f54e46]:
+        - generic [ref=f54e47]:
+          - generic [ref=f54e48]:
+            - generic [ref=f54e49]:
+              - generic [ref=f54e50]: Menu selections
+              - generic [ref=f54e51]: Browse Pearl Island’s menu and choose quantities for your guests.
+            - generic "Menu categories" [ref=f54e53]:
+              - tablist [ref=f54e54]:
+                - tab "Entrees" [selected] [ref=f54e55]
+                - tab "Sides" [ref=f54e56]
+                - tab "Salads" [ref=f54e57]
+              - generic [ref=f54e58]:
+                - heading "Filter by dietary preference" [level=3] [ref=f54e59]
+                - group "Filter menu by dietary preference" [ref=f54e60]:
+                  - button "Vegetarian" [ref=f54e61]
+                  - button "Vegan" [ref=f54e62]
+                  - button "Gluten-free" [ref=f54e63]
+                  - button "Dairy-free" [ref=f54e64]
+                - paragraph [ref=f54e65]: Dietary labels are guides and don’t confirm allergy or nutrition requirements.
+              - tabpanel "Entrees" [ref=f54e66]:
+                - list [ref=f54e67]:
+                  - listitem [ref=f54e68]:
+                    - generic [ref=f54e69]:
+                      - generic [ref=f54e70]:
+                        - generic [ref=f54e71]: Slow Roasted Pork
+                        - paragraph [ref=f54e72]:
+                          - text: $6.25
+                          - generic [ref=f54e73]: per serving
+                          - generic [ref=f54e74]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e75]:
+                          - generic [ref=f54e76]: Gluten-free
+                          - generic [ref=f54e77]: Dairy-free
+                      - group "Slow Roasted Pork quantity" [ref=f54e79]:
+                        - button "Decrease quantity of Slow Roasted Pork" [disabled]
+                        - spinbutton "Quantity of Slow Roasted Pork" [ref=f54e80]: "0"
+                        - button "Increase quantity of Slow Roasted Pork" [ref=f54e81]
+                      - heading [level=3] [ref=f54e84]:
+                        - button "About this item" [ref=f54e85]
+                  - listitem [ref=f54e86]:
+                    - generic [ref=f54e87]:
+                      - generic [ref=f54e88]:
+                        - generic [ref=f54e89]: Sous Poulet Chicken
+                        - paragraph [ref=f54e90]:
+                          - text: $5
+                          - generic [ref=f54e91]: per serving
+                          - generic [ref=f54e92]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e93]:
+                          - generic [ref=f54e94]: Gluten-free
+                          - generic [ref=f54e95]: Dairy-free
+                      - group "Sous Poulet Chicken quantity" [ref=f54e97]:
+                        - button "Decrease quantity of Sous Poulet Chicken" [ref=f54e319]
+                        - spinbutton "Quantity of Sous Poulet Chicken" [ref=f54e98]: "20"
+                        - button "Increase quantity of Sous Poulet Chicken" [ref=f54e99]
+                  - listitem [ref=f54e100]:
+                    - generic [ref=f54e101]:
+                      - generic [ref=f54e102]:
+                        - generic [ref=f54e103]: Curry Chicken
+                        - paragraph [ref=f54e104]:
+                          - text: $5
+                          - generic [ref=f54e105]: per serving
+                          - generic [ref=f54e106]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e107]:
+                          - generic [ref=f54e108]: Gluten-free
+                          - generic [ref=f54e109]: Dairy-free
+                      - group "Curry Chicken quantity" [ref=f54e111]:
+                        - button "Decrease quantity of Curry Chicken" [ref=f54e320]
+                        - spinbutton "Quantity of Curry Chicken" [ref=f54e112]: "20"
+                        - button "Increase quantity of Curry Chicken" [ref=f54e113]
+                  - listitem [ref=f54e114]:
+                    - generic [ref=f54e115]:
+                      - generic [ref=f54e116]:
+                        - generic [ref=f54e117]: Jerk Chicken
+                        - paragraph [ref=f54e118]:
+                          - text: $5
+                          - generic [ref=f54e119]: per serving
+                          - generic [ref=f54e120]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e121]:
+                          - generic [ref=f54e122]: Gluten-free
+                          - generic [ref=f54e123]: Dairy-free
+                      - group "Jerk Chicken quantity" [ref=f54e125]:
+                        - button "Decrease quantity of Jerk Chicken" [disabled]
+                        - spinbutton "Quantity of Jerk Chicken" [ref=f54e126]: "0"
+                        - button "Increase quantity of Jerk Chicken" [ref=f54e127]
+                  - listitem [ref=f54e128]:
+                    - generic [ref=f54e129]:
+                      - generic [ref=f54e130]:
+                        - generic [ref=f54e131]: Curry Tofu
+                        - paragraph [ref=f54e132]:
+                          - text: $5.25
+                          - generic [ref=f54e133]: per serving
+                          - generic [ref=f54e134]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e135]:
+                          - generic [ref=f54e136]: Vegan
+                          - generic [ref=f54e137]: Gluten-free
+                      - group "Curry Tofu quantity" [ref=f54e139]:
+                        - button "Decrease quantity of Curry Tofu" [disabled]
+                        - spinbutton "Quantity of Curry Tofu" [ref=f54e140]: "0"
+                        - button "Increase quantity of Curry Tofu" [ref=f54e141]
+                  - listitem [ref=f54e142]:
+                    - generic [ref=f54e143]:
+                      - generic [ref=f54e144]:
+                        - generic [ref=f54e145]: Creole Beans
+                        - paragraph [ref=f54e146]:
+                          - text: $5.25
+                          - generic [ref=f54e147]: per serving
+                          - generic [ref=f54e148]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e149]:
+                          - generic [ref=f54e150]: Vegan
+                          - generic [ref=f54e151]: Gluten-free
+                      - group "Creole Beans quantity" [ref=f54e153]:
+                        - button "Decrease quantity of Creole Beans" [disabled]
+                        - spinbutton "Quantity of Creole Beans" [ref=f54e154]: "0"
+                        - button "Increase quantity of Creole Beans" [ref=f54e155]
+                  - listitem [ref=f54e156]:
+                    - generic [ref=f54e157]:
+                      - generic [ref=f54e158]:
+                        - generic [ref=f54e159]: Jerk Tofu
+                        - paragraph [ref=f54e160]:
+                          - text: $5.25
+                          - generic [ref=f54e161]: per serving
+                          - generic [ref=f54e162]: · 6oz serving
+                        - generic "Dietary labels" [ref=f54e163]:
+                          - generic [ref=f54e164]: Vegetarian
+                          - generic [ref=f54e165]: Gluten-free
+                      - group "Jerk Tofu quantity" [ref=f54e167]:
+                        - button "Decrease quantity of Jerk Tofu" [disabled]
+                        - spinbutton "Quantity of Jerk Tofu" [ref=f54e168]: "0"
+                        - button "Increase quantity of Jerk Tofu" [ref=f54e169]
+          - generic [ref=f54e170]:
+            - generic [ref=f54e171]:
+              - generic [ref=f54e172]: Help me choose
+              - generic [ref=f54e173]: Get a starting point based on your guest count and dietary preferences. Review quantities before continuing.
+            - generic [ref=f54e263]:
+              - generic [ref=f54e264]:
+                - heading "Suggested for 40 guests" [level=3] [ref=f54e265]
+                - list [ref=f54e266]:
+                  - listitem [ref=f54e267]:
+                    - generic [ref=f54e268]: Sous Poulet Chicken
+                    - generic [ref=f54e269]: 20 servings
+                    - generic [ref=f54e270]: One entree serving per guest. 20 servings of Sous Poulet Chicken.
+                  - listitem [ref=f54e271]:
+                    - generic [ref=f54e272]: Curry Chicken
+                    - generic [ref=f54e273]: 20 servings
+                    - generic [ref=f54e274]: One entree serving per guest. 20 servings of Curry Chicken.
+                  - listitem [ref=f54e275]:
+                    - generic [ref=f54e276]: Rice w/ Pigeon Peas
+                    - generic [ref=f54e277]: 40 servings
+                    - generic [ref=f54e278]: One serving of each side per guest. 40 servings of Rice w/ Pigeon Peas.
+                  - listitem [ref=f54e279]:
+                    - generic [ref=f54e280]: Kale Salad
+                    - generic [ref=f54e281]: 40 servings
+                    - generic [ref=f54e282]: One serving of each salad per guest. 40 servings of Kale Salad.
+                  - listitem [ref=f54e283]:
+                    - generic [ref=f54e284]: Amarillos
+                    - generic [ref=f54e285]: 40 servings
+                    - generic [ref=f54e286]: One serving of each side per guest. 40 servings of Amarillos.
+                  - listitem [ref=f54e287]:
+                    - generic [ref=f54e288]: Pikliz
+                    - generic [ref=f54e289]: 40 servings
+                    - generic [ref=f54e290]: One serving of each side per guest. 40 servings of Pikliz.
+                - group [ref=f54e291]:
+                  - generic "How was this chosen?" [ref=f54e292] [cursor=pointer]
+              - alert [ref=f54e321]:
+                - generic [ref=f54e325]: Suggestion applied
+                - generic [ref=f54e326]: Suggested quantities applied. You can restore your previous quantities with Undo.
+            - generic [ref=f54e174]:
+              - button "Suggest again" [ref=f54e327]
+              - button "Undo" [ref=f54e328]
+        - complementary "Order summary" [ref=f54e295]:
+          - generic [ref=f54e296]:
+            - generic [ref=f54e297]: Your order
+            - generic [ref=f54e299]:
+              - generic [ref=f54e329]:
+                - region "Entrees" [ref=f54e330]:
+                  - heading "Entrees" [level=3] [ref=f54e331]
+                  - list [ref=f54e332]:
+                    - listitem [ref=f54e333]:
+                      - generic [ref=f54e334]:
+                        - text: Sous Poulet Chicken
+                        - generic [ref=f54e335]: 20 servings
+                      - generic [ref=f54e336]: $100
+                    - listitem [ref=f54e337]:
+                      - generic [ref=f54e338]:
+                        - text: Curry Chicken
+                        - generic [ref=f54e339]: 20 servings
+                      - generic [ref=f54e340]: $100
+                - region "Sides" [ref=f54e341]:
+                  - separator [ref=f54e342]
+                  - heading "Sides" [level=3] [ref=f54e343]
+                  - list [ref=f54e344]:
+                    - listitem [ref=f54e345]:
+                      - generic [ref=f54e346]:
+                        - text: Rice w/ Pigeon Peas
+                        - generic [ref=f54e347]: 40 servings
+                      - generic [ref=f54e348]: $110.40
+                    - listitem [ref=f54e349]:
+                      - generic [ref=f54e350]:
+                        - text: Amarillos
+                        - generic [ref=f54e351]: 40 servings
+                      - generic [ref=f54e352]: $110
+                    - listitem [ref=f54e353]:
+                      - generic [ref=f54e354]:
+                        - text: Pikliz
+                        - generic [ref=f54e355]: 40 servings
+                      - generic [ref=f54e356]: $40
+                - region "Salads" [ref=f54e357]:
+                  - separator [ref=f54e358]
+                  - heading "Salads" [level=3] [ref=f54e359]
+                  - list [ref=f54e360]:
+                    - listitem [ref=f54e361]:
+                      - generic [ref=f54e362]:
+                        - text: Kale Salad
+                        - generic [ref=f54e363]: 40 servings
+                      - generic [ref=f54e364]: $150
+              - separator [ref=f54e301]
+              - generic [ref=f54e302]:
+                - generic [ref=f54e303]: Estimated total
+                - generic [ref=f54e304]: $610.40
+              - generic [ref=f54e305]:
+                - generic [ref=f54e306]: Guests
+                - generic [ref=f54e307]: "40"
+              - generic [ref=f54e308]:
+                - generic [ref=f54e309]: Per guest
+                - generic [ref=f54e310]: $15.26
+              - generic [ref=f54e311]:
+                - paragraph [ref=f54e312]:
+                  - text: "Entree servings:"
+                  - strong [ref=f54e313]: "40"
+                  - text: of 40 guests
+                - paragraph [ref=f54e314]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.
+            - generic [ref=f54e316]:
+              - button "Back" [ref=f54e317]
+              - button "Choose supplies" [ref=f54e365]

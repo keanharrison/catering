@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { Button } from '../../components/Button'
-import { Eyebrow } from '../../components/Eyebrow'
 import { QuantityStepper } from '../../components/QuantityStepper'
-import { Panel } from '../../components/Panel'
 import { catalog, type OrderLine } from '../../data'
 import { estimate, MAX_QUANTITY } from '../../engine'
 import { formatMoney } from '../../lib/format'
+import { Button } from '../../components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
 
 type EditRequestPanelProps = {
   lines: OrderLine[]
@@ -13,6 +12,7 @@ type EditRequestPanelProps = {
   /** Called with the edited lines; the demo state records them as a revised proposal. */
   onSave: (lines: OrderLine[]) => void
   onCancel: () => void
+  error?: string | null
 }
 
 function itemOf(itemId: string) {
@@ -23,7 +23,7 @@ function itemOf(itemId: string) {
 
 // Edits the order's items and quantities. Saving goes through the existing revise action, so the
 // customer must approve the change before staff can accept (the guardrail from the status machine).
-export function EditRequestPanel({ lines, guestCount, onSave, onCancel }: EditRequestPanelProps) {
+export function EditRequestPanel({ lines, guestCount, onSave, onCancel, error }: EditRequestPanelProps) {
   // While editing, a quantity of 0 keeps its row (so you can clear the box and type a new number).
   // Zero rows are dropped from the estimate and from what gets saved.
   const [draft, setDraft] = useState<OrderLine[]>(lines)
@@ -38,13 +38,13 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel }: EditRe
   const addable = catalog.menu.filter((item) => !draft.some((l) => l.itemId === item.id))
 
   return (
-    <Panel tone="deep" className="mt-6 p-6">
-      <Eyebrow>Edit request</Eyebrow>
-      <p className="mt-2 text-sm text-muted">
-        Changes need the customer's approval before this request can be accepted.
-      </p>
-
-      <ul className="mt-4 grid gap-3">
+    <Card>
+      <CardHeader>
+        <CardTitle>Edit proposal</CardTitle>
+        <CardDescription>Changes need the customer's approval before this request can be accepted.</CardDescription>
+      </CardHeader>
+      <CardContent>
+      <ul className="grid gap-3">
         {draft.map((line) => {
           const item = itemOf(line.itemId)
           return (
@@ -77,7 +77,7 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel }: EditRe
         </label>
         <select
           id="add-item"
-          className="min-h-11 w-full rounded-lg border border-control-line bg-panel px-3 py-2 font-sans text-base md:w-auto"
+          className="min-h-9 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm md:w-auto"
           value=""
           onChange={(event) => event.target.value && setDraft([...draft, { itemId: event.target.value, units: 1 }])}
         >
@@ -99,15 +99,16 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel }: EditRe
           </>
         )}
       </p>
-
-      <div className="mt-4 flex flex-wrap gap-2">
+      {error && <p role="alert" className="mt-3 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
+      </CardContent>
+      <CardFooter className="flex flex-wrap gap-2">
         <Button disabled={!hasFood || !changed} onClick={() => onSave(kept)}>
           Save changes
         </Button>
-        <Button variant="secondary" onClick={onCancel}>
+        <Button variant="outline" onClick={onCancel}>
           Cancel
         </Button>
-      </div>
-    </Panel>
+      </CardFooter>
+    </Card>
   )
 }

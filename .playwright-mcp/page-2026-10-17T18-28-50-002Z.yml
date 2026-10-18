@@ -1,0 +1,83 @@
+- generic [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - link [ref=f4e1275] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - button [ref=f4e1276]:
+          - generic [ref=f4e8]: Toggle Sidebar
+        - link [ref=f4e1277] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f4e11]: Pearl Island2GO
+        - generic [ref=f4e12]:
+          - separator [ref=f4e13]
+          - button [ref=f4e1279]
+          - separator [ref=f4e15]
+      - generic [ref=f4e867]:
+        - generic [ref=f4e868]:
+          - heading [level=1] [ref=f4e1280]: Catering requests
+          - paragraph [ref=f4e870]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+        - generic [ref=f4e871]:
+          - tablist [ref=f4e872]:
+            - tab [selected] [ref=f4e1281]:
+              - text: All
+              - generic [ref=f4e874]: "1"
+            - tab [ref=f4e1282]:
+              - text: Needs review
+              - generic [ref=f4e876]: "0"
+            - tab [ref=f4e1283]:
+              - text: Awaiting customer
+              - generic [ref=f4e878]: "1"
+            - tab [ref=f4e1284]:
+              - text: Confirmed
+              - generic [ref=f4e880]: "0"
+          - tabpanel [ref=f4e1285]:
+            - generic [ref=f4e997]:
+              - generic [ref=f4e998]:
+                - generic [ref=f4e999]: Request list
+                - generic [ref=f4e1000]: Select a request to review its details and actions.
+              - list [ref=f4e1286]:
+                - listitem [ref=f4e1100]:
+                  - button [pressed] [ref=f4e1287]:
+                    - generic [ref=f4e1102]:
+                      - generic [ref=f4e1103]: Jordan Lee
+                      - generic [ref=f4e1104]: Oct 19, 2026 · 40 guests · pickup
+                    - generic [ref=f4e1105]: Awaiting approval
+  - dialog "Sidebar" [ref=f4e1291]:
+    - generic [ref=f4e1292]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f4e1293]:
+      - generic [ref=f4e1295]:
+        - link "Pearl Island2GO home" [ref=f4e1296] [cursor=pointer]:
+          - /url: /staff
+          - img "Pearl Island" [ref=f4e1297]
+          - generic [ref=f4e1298]: Pearl Island2GO
+        - button "Close navigation" [ref=f4e1299]
+      - separator [ref=f4e1303]
+      - generic [ref=f4e1305]:
+        - generic [ref=f4e1306]: Navigation
+        - list [ref=f4e1308]:
+          - listitem [ref=f4e1309]:
+            - link "Requests" [ref=f4e1310] [cursor=pointer]:
+              - /url: /staff
+          - listitem [ref=f4e1315]:
+            - button "Handoff" [ref=f4e1316]
+            - generic: Later
+          - listitem [ref=f4e1323]:
+            - button "Messages" [ref=f4e1324]
+            - generic: Later
+      - generic [ref=f4e1328]:
+        - separator [ref=f4e1329]
+        - generic [ref=f4e1330]:
+          - button "Settings (coming soon)" [ref=f4e1331]
+          - button "Pearl Island team account menu" [expanded] [ref=f4e1335]:
+            - generic [ref=f4e1339]: Pearl Island team
+          - menu "Pearl Island team account menu" [active] [ref=f4e1347]:
+            - group "Pearl Island team account" [ref=f4e1348]:
+              - generic [aria-hidden] [ref=f4e1349]: Pearl Island team account
+            - separator [ref=f4e1350]
+            - menuitem "Switch account" [ref=f4e1351]
+            - separator [ref=f4e1352]
+            - menuitem "Sign out" [ref=f4e1353]

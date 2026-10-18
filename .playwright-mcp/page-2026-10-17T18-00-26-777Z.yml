@@ -1,0 +1,164 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - link "Pearl Island2GO home" [ref=e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=e11]
+      - generic [ref=e12]: Pearl Island2GO
+    - separator [ref=e13]
+    - generic [ref=e15]:
+      - generic [ref=e16]: Navigation
+      - list [ref=e18]:
+        - listitem [ref=e19]:
+          - link "New request" [ref=e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=e23]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - separator [ref=e28]
+      - navigation "breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "New request" [ref=e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=e33]
+          - listitem [ref=e36]:
+            - link "Review" [disabled] [ref=e37]
+      - generic [ref=e38]:
+        - separator [ref=e39]
+        - button "Switch to dark mode" [ref=e40]
+        - separator [ref=e41]
+      - button "Guest account menu" [ref=e42]:
+        - generic [ref=e43]: Guest
+    - navigation "Request progress" [ref=e46]:
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - button "Event" [ref=e49]:
+            - generic [aria-hidden] [ref=e50]: "1"
+        - listitem [ref=e52]:
+          - button "Menu" [ref=e53]:
+            - generic [aria-hidden] [ref=e54]: "2"
+        - listitem [ref=e56]:
+          - button "Supplies" [disabled] [ref=e57]:
+            - generic [aria-hidden] [ref=e58]: "3"
+        - listitem [ref=e60]:
+          - button "Details" [disabled] [ref=e61]:
+            - generic [aria-hidden] [ref=e62]: "4"
+        - listitem [ref=e64]:
+          - button "Review" [ref=e65]:
+            - generic [aria-hidden] [ref=e66]: "5"
+      - generic [ref=e68]:
+        - progressbar "Request progress" [ref=e69]: x
+        - generic [ref=e72]: Step 5 of 5
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - heading "Review your catering request" [level=1] [ref=e77]
+        - paragraph [ref=e78]: Check your event, selections, and contact details before asking Pearl Island to review your request.
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e82]:
+            - generic [ref=e83]: Request details
+            - generic [ref=e84]: Review each section and edit it before submission.
+          - generic [ref=e85]:
+            - region [ref=e86]:
+              - generic [ref=e87]:
+                - heading "Event" [level=2] [ref=e88]
+                - button "Edit event" [ref=e89]
+              - generic [ref=e90]:
+                - generic [ref=e91]:
+                  - term [ref=e92]: Event type
+                  - definition [ref=e93]: Corporate lunch
+                - generic [ref=e94]:
+                  - term [ref=e95]: Guests
+                  - definition [ref=e96]: "40"
+                - generic [ref=e97]:
+                  - term [ref=e98]: Event date
+                  - definition [ref=e99]: Monday, October 19, 2026
+                - generic [ref=e100]:
+                  - term [ref=e101]: Pickup time
+                  - definition [ref=e102]: 12:00 PM
+                - generic [ref=e103]:
+                  - term [ref=e104]: Fulfillment
+                  - definition [ref=e105]: Pickup
+            - separator [ref=e106]
+            - region [ref=e107]:
+              - generic [ref=e108]:
+                - heading "Food selections" [level=2] [ref=e109]
+                - button "Edit menu" [ref=e110]
+              - table [ref=e112]:
+                - caption [ref=e113]: Selected food and quantities
+                - rowgroup [ref=e114]:
+                  - row [ref=e115]:
+                    - columnheader "Item" [ref=e116]
+                    - columnheader "Qty" [ref=e117]
+                    - columnheader "Unit" [ref=e118]
+                    - columnheader "Line total" [ref=e119]
+                - rowgroup
+            - separator [ref=e120]
+            - region [ref=e121]:
+              - generic [ref=e122]:
+                - heading "Supplies" [level=2] [ref=e123]
+                - button "Edit supplies" [ref=e124]
+              - paragraph [ref=e125]: No supplies needed.
+            - separator [ref=e126]
+            - region [ref=e127]:
+              - generic [ref=e128]:
+                - heading "Contact and instructions" [level=2] [ref=e129]
+                - button "Edit details" [ref=e130]
+              - generic [ref=e131]:
+                - generic [ref=e132]:
+                  - term [ref=e133]: Contact
+                  - definition [ref=e134]: Jordan Lee
+                - generic [ref=e135]:
+                  - term [ref=e136]: Email
+                  - definition
+                - generic [ref=e137]:
+                  - term [ref=e138]: Phone
+                  - definition
+                - generic [ref=e139]:
+                  - term [ref=e140]: Company or organization
+                  - definition [ref=e141]: Sample Co.
+                - generic [ref=e142]:
+                  - term [ref=e143]: Dietary needs
+                  - definition [ref=e144]: vegetarian
+                - generic [ref=e145]:
+                  - term [ref=e146]: Custom request
+                  - definition [ref=e147]: None
+                - generic [ref=e148]:
+                  - term [ref=e149]: Additional notes
+                  - definition [ref=e150]: None
+        - complementary "Estimated total" [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - generic [ref=e154]: Estimated total
+              - generic [ref=e155]: Food and supplies estimate
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - generic [ref=e158]:
+                  - generic [ref=e159]: Food
+                  - generic [ref=e160]: $0
+                - generic [ref=e161]:
+                  - generic [ref=e162]: Supplies
+                  - generic [ref=e163]: $0
+              - separator [ref=e164]
+              - generic [ref=e165]:
+                - generic [ref=e166]: Estimated total
+                - generic [ref=e167]: $0
+              - paragraph [ref=e168]: No tax, fees, or tip included.
+              - separator [ref=e169]
+              - generic [ref=e170]:
+                - generic [ref=e171]: Guests
+                - generic [ref=e172]: "40"
+              - generic [ref=e173]:
+                - generic [ref=e174]: Entree servings
+                - generic [ref=e175]: 0 of 40
+              - paragraph [ref=e176]: The current menu has 40 fewer entree servings than guests.
+              - paragraph [ref=e177]: This is an estimate for review. Pearl Island has not confirmed the menu or final pricing.
+      - generic [ref=e178]:
+        - button "Back to details" [ref=e179]
+        - generic [ref=e180]:
+          - button "Submit request" [ref=e181]
+          - paragraph [ref=e182]: Submitting records this request in the demo on this device. Nothing is sent, and no payment is taken.

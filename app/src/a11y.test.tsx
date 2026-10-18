@@ -1,17 +1,13 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AppRoutes } from './App'
 import { useDemoStore } from './state/store'
+import { renderAppAt } from './test/renderApp'
 
 function renderAt(path: string) {
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <AppRoutes />
-    </MemoryRouter>,
-  )
+  return renderAppAt(path, <AppRoutes />)
 }
 
 beforeEach(() => {
@@ -44,7 +40,7 @@ describe('keyboard and structure', () => {
 
   it('marks the current journey step and disables steps that cannot be reached yet', () => {
     renderAt('/customer/menu')
-    const nav = screen.getByRole('navigation', { name: 'Your request' })
+    const nav = screen.getByRole('navigation', { name: 'Request progress' })
     expect(within(nav).getByRole('button', { name: 'Menu' }).getAttribute('aria-current')).toBe('step')
     expect((within(nav).getByRole('button', { name: 'Supplies' }) as HTMLButtonElement).disabled).toBe(true)
     expect((within(nav).getByRole('button', { name: 'Event' }) as HTMLButtonElement).disabled).toBe(false)
@@ -58,11 +54,13 @@ describe('keyboard and structure', () => {
     expect(entrees.tabIndex).toBe(0)
     expect(sides.tabIndex).toBe(-1)
 
-    entrees.focus()
+    await user.click(entrees)
     await user.keyboard('{ArrowRight}')
-    expect(sides.getAttribute('aria-selected')).toBe('true')
     expect(document.activeElement).toBe(sides)
-    expect(screen.getByRole('tabpanel').getAttribute('aria-labelledby')).toBe('tab-side')
+    expect(sides.tabIndex).toBe(0)
+    await user.keyboard('{Enter}')
+    expect(sides.getAttribute('aria-selected')).toBe('true')
+    expect(screen.getByRole('tabpanel').getAttribute('aria-labelledby')).toBe(sides.id)
   })
 
   it('labels every quantity control and filter button', () => {
@@ -78,13 +76,20 @@ describe('keyboard and structure', () => {
   it('supports completing the event form with the keyboard alone', async () => {
     const user = userEvent.setup()
     renderAt('/customer')
-    const guests = screen.getByLabelText('Number of guests')
+    const guests = screen.getByLabelText('Number of guests (required)')
     guests.focus()
     await user.keyboard('{Control>}a{/Control}45{Tab}')
-    expect(document.activeElement).toBe(screen.getByLabelText('Event date'))
+    expect(document.activeElement).toBe(screen.getByLabelText('Event date (required)'))
     expect(useDemoStore.getState().order.intent.guestCount).toBe(40) // nothing saved until the form is submitted
+    const chooseMenu = screen.getByRole('button', { name: 'Choose your menu' })
+    let tabCount = 0
+    while (document.activeElement !== chooseMenu && tabCount < 12) {
+      await user.tab()
+      tabCount += 1
+    }
+    expect(document.activeElement).toBe(chooseMenu)
     await user.keyboard('{Enter}') // Enter submits the form
     expect(useDemoStore.getState().order.intent.guestCount).toBe(45)
-    expect(screen.getByRole('heading', { level: 1, name: 'Choose what you would like.' })).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 1, name: 'Build your menu' })).toBeTruthy()
   })
 })

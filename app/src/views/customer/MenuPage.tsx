@@ -50,9 +50,11 @@ function MenuView() {
   const [category, setCategory] = useState<MenuCategory>('entree')
   const [filters, setFilters] = useState<DietaryTag[]>([])
   const [suggestion, setSuggestion] = useState<Suggestion | null>(null)
+  const [feedback, setFeedback] = useState('')
 
   const summary = buildOrderSummary(order, clock)
   const entries = menuEntries(order, category, filters)
+  const selectedRows = summary.groups.reduce((count, group) => count + group.rows.length, 0)
 
   function toggleFilter(tag: DietaryTag) {
     setFilters((current) => (current.includes(tag) ? current.filter((t) => t !== tag) : [...current, tag]))
@@ -64,17 +66,22 @@ function MenuView() {
     const suggested = suggestion.recommendation.lines.map(({ itemId, units }) => ({ itemId, units }))
     setSuggestion({ ...suggestion, undoLines: order.lines, applied: true })
     updateDraft({ lines: [...suggested, ...supplyLines] })
+    setFeedback('Suggested quantities applied. You can restore your previous quantities with Undo.')
   }
 
   function undoSuggestion() {
     if (suggestion?.undoLines) updateDraft({ lines: suggestion.undoLines })
     setSuggestion(null)
+    setFeedback('Previous quantities restored.')
   }
 
   return (
     <Band>
-      <Eyebrow marker>Your menu</Eyebrow>
-      <h1 className="mt-6 text-4xl md:text-7xl">Choose what you would like.</h1>
+      <Eyebrow marker>Your Pearl Island menu</Eyebrow>
+      <h1 className="mt-6 text-3xl md:text-5xl">Build your menu.</h1>
+      <p className="mt-4 max-w-2xl font-sans text-base text-muted md:text-lg">
+        Choose entrées, sides, and salads for your gathering. Your selections and estimated total update as you choose.
+      </p>
       <div className="mt-10">
         <JourneyNav active="menu" />
       </div>
@@ -97,7 +104,7 @@ function MenuView() {
                 type="button"
                 aria-pressed={filters.includes(tag)}
                 onClick={() => toggleFilter(tag)}
-                className={`rounded-sm border px-3 py-1 font-sans text-sm ${
+                className={`min-h-11 rounded-sm border px-3 py-2 font-sans text-sm ${
                   filters.includes(tag) ? 'border-action bg-action text-on-action' : 'border-control-line bg-panel'
                 }`}
               >
@@ -106,21 +113,36 @@ function MenuView() {
             ))}
           </div>
 
+          <p role="note" className="-mt-3 font-sans text-sm text-muted">
+            Dietary tags are guides, not allergy or nutrition guarantees. If allergies or ingredient restrictions matter,
+            confirm ingredients and preparation directly with Pearl Island.
+          </p>
+
           <Panel className="p-0">
+            <div
+              aria-hidden="true"
+              className="hidden border-b border-line bg-ivory-deep px-6 py-3 font-mono text-[10px] uppercase tracking-eyebrow text-muted xl:grid xl:grid-cols-[minmax(0,1fr)_7rem_8rem_11.5rem] xl:items-center xl:gap-4"
+            >
+              <span>Item</span>
+              <span>Price</span>
+              <span>Portion</span>
+              <span className="text-right">Quantity</span>
+            </div>
             <div role="tabpanel" id="menu-panel" aria-labelledby={`tab-${category}`}>
             {entries.length === 0 ? (
               <p className="px-6 py-6 text-sm text-muted">No items match these filters in this category.</p>
             ) : (
               <ul>
                 {entries.map(({ item, quantity }) => (
-                  <li key={item.id} className="border-b border-line last:border-b-0">
-                    <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4">
-                      <div>
+                  <li
+                    key={item.id}
+                    className={`border-b border-line transition-colors duration-200 last:border-b-0 motion-reduce:transition-none ${
+                      quantity > 0 ? 'bg-ivory-deep' : ''
+                    }`}
+                  >
+                    <div className="grid gap-4 px-6 py-4 xl:grid-cols-[minmax(0,1fr)_7rem_8rem_11.5rem] xl:items-center xl:gap-4">
+                      <div className="min-w-0">
                         <p className="font-sans text-lg">{item.name}</p>
-                        <p className="font-sans text-sm text-muted">
-                          {formatMoney(item.priceCents)} per {item.unit}
-                          {item.servingNote ? ` - ${item.servingNote}` : ''}
-                        </p>
                         {item.dietaryTags.length > 0 && (
                           <div className="mt-2 flex flex-wrap gap-1">
                             {item.dietaryTags.map((tag) => (
@@ -130,23 +152,35 @@ function MenuView() {
                             ))}
                           </div>
                         )}
+                        <dl className="mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 font-sans text-sm xl:hidden">
+                          <dt className="font-mono text-[10px] uppercase tracking-eyebrow text-muted">Price</dt>
+                          <dd className="tabular-nums">{formatMoney(item.priceCents)} per {item.unit}</dd>
+                          <dt className="font-mono text-[10px] uppercase tracking-eyebrow text-muted">Portion</dt>
+                          <dd className="text-muted">{item.servingNote ?? 'Not listed'}</dd>
+                        </dl>
                       </div>
+                      <p className="hidden font-sans text-sm tabular-nums xl:block">
+                        {formatMoney(item.priceCents)}
+                        <span className="mt-1 block text-xs text-muted">per {item.unit}</span>
+                      </p>
+                      <p className="hidden font-sans text-sm text-muted xl:block">
+                        {item.servingNote ?? 'Not listed'}
+                      </p>
                       <QuantityStepper
                         label={item.name}
                         value={quantity}
-                        onChange={(value) => updateDraft({ lines: setQuantity(order.lines, item.id, value) })}
+                        onChange={(value) => {
+                          setFeedback('')
+                          updateDraft({ lines: setQuantity(order.lines, item.id, value) })
+                        }}
                       />
                     </div>
-                    <details className="bg-ivory-deep px-6 py-3 text-sm">
-                      <summary className="cursor-pointer font-sans">About this item</summary>
-                      <div className="mt-2 grid gap-2">
-                        {item.description && <p>{item.description}</p>}
-                        <p className="text-muted">
-                          Price, tags and serving size are as listed on our current ordering page and may not be
-                          final. Tags are not allergy or nutrition claims.
-                        </p>
-                      </div>
-                    </details>
+                    {item.description && (
+                      <details className="bg-ivory-deep px-6 py-3 text-sm">
+                        <summary className="cursor-pointer font-sans">About this item</summary>
+                        <p className="mt-2">{item.description}</p>
+                      </details>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -182,8 +216,8 @@ function MenuView() {
                   <details className="mt-3 text-sm">
                     <summary className="cursor-pointer font-sans">How was this chosen?</summary>
                     <p className="mt-2 text-muted">
-                      Suggestions follow our serving guidelines for your guest count and a standard set of dishes.
-                      Those guidelines are not final. You can change anything.
+                      These suggestions use the portion assumptions for this demo. Review and adjust all quantities
+                      before continuing.
                     </p>
                   </details>
                 </>
@@ -205,34 +239,50 @@ function MenuView() {
               </div>
             </Panel>
           )}
+          {feedback && (
+            <p role="status" aria-live="polite" className="font-sans text-sm text-action">
+              {feedback}
+            </p>
+          )}
         </div>
 
-        <div className="grid gap-6 self-start">
-          <OrderSummaryPanel
-            summary={summary}
-            showCoverage
-            footer={
-              // One continue button. Wide screens: directly under the calculator. Phones: the same
-              // button becomes a fixed bar with the running total, so both stay in reach.
-              <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-line bg-panel px-6 py-3 md:static md:z-auto md:block md:border-0 md:bg-transparent md:p-0">
-                <p aria-hidden className="font-sans text-2xl leading-none md:hidden">
-                  {formatMoney(summary.estimate.subtotalCents)}
-                </p>
-                <Button className="md:w-full" disabled={!summary.hasFood} onClick={() => navigate(stagePath('supplies'))}>
-                  Continue to supplies
-                </Button>
-              </div>
-            }
-          >
-            <Button
-              variant="secondary"
-              onClick={() => setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })}
+        <div className="hidden gap-6 self-start md:grid">
+          <div className="md:sticky md:top-4">
+            <OrderSummaryPanel
+              summary={summary}
+              showCoverage
+              footer={
+                <div>
+                  <Button
+                    className="w-full"
+                    disabled={!summary.hasFood}
+                    aria-describedby={!summary.hasFood ? 'menu-continue-hint-desktop' : undefined}
+                    onClick={() => navigate(stagePath('supplies'))}
+                  >
+                    Continue to supplies
+                  </Button>
+                  {!summary.hasFood && (
+                    <p id="menu-continue-hint-desktop" className="mt-2 font-sans text-sm text-muted">
+                      Choose at least one menu item to continue.
+                    </p>
+                  )}
+                </div>
+              }
             >
-              Help me choose
-            </Button>
-          </OrderSummaryPanel>
+              <Button
+                variant="secondary"
+                onClick={() => setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })}
+              >
+                Help me choose
+              </Button>
+            </OrderSummaryPanel>
+          </div>
           <AssistantPanel />
         </div>
+      </div>
+
+      <div className="mt-6 md:hidden">
+        <AssistantPanel />
       </div>
 
       <div className="mt-10">
@@ -241,8 +291,56 @@ function MenuView() {
         </Button>
       </div>
 
-      {/* Room for the fixed continue bar on phones so it never covers the last content. */}
-      <div aria-hidden className="h-20 md:hidden" />
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-panel px-4 pb-[env(safe-area-inset-bottom)] pt-2 md:hidden">
+        <details className="group relative">
+          <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 py-1 focus-visible:rounded-sm">
+            <span className="min-w-0">
+              <span className="block font-sans text-sm font-semibold">Order summary</span>
+              <span className="block truncate font-sans text-xs text-muted">
+                {selectedRows} {selectedRows === 1 ? 'item' : 'items'} · {summary.coverage.servings} /{' '}
+                {summary.guestCount ?? '–'} entree servings
+              </span>
+              <span className="block font-sans text-xs text-action group-open:hidden">View items and coverage</span>
+              <span className="hidden font-sans text-xs text-action group-open:block">Hide order details</span>
+            </span>
+            <span className="shrink-0 font-sans text-lg tabular-nums" aria-label="Estimated total">
+              {formatMoney(summary.estimate.subtotalCents)}
+            </span>
+          </summary>
+          <div className="absolute inset-x-0 bottom-full mb-2 max-h-[65dvh] overflow-y-auto bg-ivory">
+            <OrderSummaryPanel
+              summary={summary}
+              showCoverage
+              footer={null}
+            >
+              <Button
+                variant="secondary"
+                onClick={() => setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })}
+              >
+                Help me choose
+              </Button>
+            </OrderSummaryPanel>
+          </div>
+        </details>
+        <div className="flex justify-end pb-2 pt-1">
+          <Button
+            className="w-full"
+            disabled={!summary.hasFood}
+            aria-describedby={!summary.hasFood ? 'menu-continue-hint-mobile' : undefined}
+            onClick={() => navigate(stagePath('supplies'))}
+          >
+            Continue to supplies
+          </Button>
+        </div>
+        {!summary.hasFood && (
+          <p id="menu-continue-hint-mobile" className="pb-2 text-right font-sans text-sm text-muted">
+            Choose at least one menu item to continue.
+          </p>
+        )}
+      </div>
+
+      {/* Room for the fixed mobile summary and continue action so they never cover the last content. */}
+      <div aria-hidden className="h-32 md:hidden" />
     </Band>
   )
 }

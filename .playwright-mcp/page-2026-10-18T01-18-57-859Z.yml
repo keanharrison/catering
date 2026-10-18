@@ -1,0 +1,112 @@
+- generic [ref=f17e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f17e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f17e5]:
+    - generic [ref=f17e6]:
+      - button "Toggle navigation" [ref=f17e7]:
+        - generic [ref=f17e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f17e9] [cursor=pointer]:
+        - /url: /staff
+        - img "Pearl Island" [ref=f17e10]
+        - generic [ref=f17e11]: Pearl Island2GO
+      - generic [ref=f17e12]:
+        - separator [ref=f17e13]
+        - button "Switch to dark mode" [ref=f17e14]
+        - separator [ref=f17e15]
+    - generic [ref=f17e17]:
+      - generic [ref=f17e18]:
+        - generic [ref=f17e19]:
+          - generic [ref=f17e20]:
+            - heading "Staff handoff" [level=1] [ref=f17e21]
+            - paragraph [ref=f17e22]: Accepted order · Request sample-confirmed-past
+          - generic [ref=f17e23]: Accepted
+        - alert [ref=f17e24]:
+          - generic [ref=f17e27]: Preparation warnings
+          - generic [ref=f17e28]:
+            - paragraph [ref=f17e29]: "Review: 0 business days of notice; this order needs 2 business days. Standard menu orders need 2 business days of notice."
+            - paragraph [ref=f17e30]: "Dietary preferences: vegetarian. These are customer-noted preferences, not verified allergy or nutrition information."
+        - generic [ref=f17e31]:
+          - generic [ref=f17e32]:
+            - generic [ref=f17e33]:
+              - generic [ref=f17e34]: Event and fulfillment
+              - generic [ref=f17e35]: Corporate lunch
+            - generic [ref=f17e37]:
+              - generic [ref=f17e38]:
+                - term [ref=f17e39]: Event date and time
+                - definition [ref=f17e40]: Tuesday, September 22, 2026 at 12:00 PM
+              - generic [ref=f17e41]:
+                - term [ref=f17e42]: Guest count
+                - definition [ref=f17e43]: "40"
+              - generic [ref=f17e44]:
+                - term [ref=f17e45]: Fulfillment
+                - definition [ref=f17e46]: pickup
+          - generic [ref=f17e47]:
+            - generic [ref=f17e48]: Customer contact
+            - generic [ref=f17e51]:
+              - generic [ref=f17e52]:
+                - term [ref=f17e53]: Name
+                - definition [ref=f17e54]: Taylor Brooks
+              - generic [ref=f17e55]:
+                - term [ref=f17e56]: Organization
+                - definition [ref=f17e57]: Harbor Group
+              - generic [ref=f17e58]:
+                - term [ref=f17e59]: Email
+                - definition [ref=f17e60]: Not provided
+              - generic [ref=f17e61]:
+                - term [ref=f17e62]: Phone
+                - definition [ref=f17e63]: Not provided
+          - generic [ref=f17e64]:
+            - generic [ref=f17e65]:
+              - generic [ref=f17e66]: Food and supplies
+              - generic [ref=f17e67]: Accepted quantities and estimated prices
+            - generic [ref=f17e68]:
+              - region "Food" [ref=f17e69]:
+                - heading "Food" [level=3] [ref=f17e70]
+                - table [ref=f17e73]:
+                  - rowgroup [ref=f17e74]:
+                    - row [ref=f17e75]:
+                      - columnheader "Item" [ref=f17e76]
+                      - columnheader "Quantity" [ref=f17e77]
+                      - columnheader "Line total" [ref=f17e78]
+                  - rowgroup [ref=f17e79]:
+                    - row [ref=f17e80]:
+                      - cell "Sous Poulet Chicken $5 / serving" [ref=f17e81]:
+                        - text: Sous Poulet Chicken
+                        - generic [ref=f17e82]: $5 / serving
+                      - cell "30 servings" [ref=f17e83]
+                      - cell "$150" [ref=f17e84]
+                    - row [ref=f17e85]:
+                      - cell "Yellow Rice $2.75 / serving" [ref=f17e86]:
+                        - text: Yellow Rice
+                        - generic [ref=f17e87]: $2.75 / serving
+                      - cell "30 servings" [ref=f17e88]
+                      - cell "$82.50" [ref=f17e89]
+                    - row [ref=f17e90]:
+                      - cell "Kale Salad $3.75 / serving" [ref=f17e91]:
+                        - text: Kale Salad
+                        - generic [ref=f17e92]: $3.75 / serving
+                      - cell "30 servings" [ref=f17e93]
+                      - cell "$112.50" [ref=f17e94]
+              - separator [ref=f17e95]
+              - region "Supplies" [ref=f17e96]:
+                - heading "Supplies" [level=3] [ref=f17e97]
+                - paragraph [ref=f17e98]: No supplies recorded.
+          - generic [ref=f17e99]:
+            - generic [ref=f17e100]:
+              - generic [ref=f17e101]: Cost summary
+              - generic [ref=f17e102]: Estimate based on the accepted selections
+            - generic [ref=f17e104]:
+              - generic [ref=f17e105]:
+                - term [ref=f17e106]: Food subtotal
+                - definition [ref=f17e107]: $345
+              - generic [ref=f17e108]:
+                - term [ref=f17e109]: Supplies subtotal
+                - definition [ref=f17e110]: $0
+              - separator [ref=f17e111]
+              - generic [ref=f17e112]:
+                - term [ref=f17e113]: Estimated total
+                - definition [ref=f17e114]: $345
+      - generic [ref=f17e115]:
+        - button "Back to requests" [ref=f17e116] [cursor=pointer]
+        - button "Print handoff" [ref=f17e117]

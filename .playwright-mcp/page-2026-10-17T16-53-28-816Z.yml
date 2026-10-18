@@ -1,0 +1,42 @@
+- generic [ref=f5e3]:
+  - link "Skip to main content" [ref=f5e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f5e5]:
+    - generic [ref=f5e6]:
+      - button "Toggle navigation" [ref=f5e7]:
+        - generic [ref=f5e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f5e9] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f5e10]
+        - generic [ref=f5e11]: Pearl Island2GO
+      - button "Guest account menu" [ref=f5e12]:
+        - generic [ref=f5e13]: Guest
+    - navigation "Request progress" [ref=f5e16]:
+      - list [ref=f5e17]:
+        - listitem [ref=f5e18]:
+          - button "Event" [ref=f5e19]
+        - listitem [ref=f5e21]:
+          - button "Menu" [ref=f5e22]
+        - listitem [ref=f5e24]:
+          - button "Supplies" [disabled] [ref=f5e25]
+        - listitem [ref=f5e27]:
+          - button "Details" [disabled] [ref=f5e28]
+        - listitem [ref=f5e30]:
+          - button "Review" [disabled] [ref=f5e31]
+      - generic [ref=f5e33]:
+        - progressbar "Request progress" [ref=f5e34]: x
+        - generic [ref=f5e37]: Step 2 of 5
+    - generic [ref=f5e40]:
+      - generic [ref=f5e41]:
+        - heading "Build your menu" [level=1] [ref=f5e42]
+        - paragraph [ref=f5e43]: Choose entrées, sides, and salads for your event.
+      - generic [ref=f5e44]:
+        - generic [ref=f5e45]:
+          - generic [ref=f5e46]: Menu selections
+          - generic [ref=f5e47]: Browse Pearl Island’s menu and choose quantities for your guests.
+        - generic "Menu categories" [ref=f5e49]:
+          - tablist [ref=f5e50]:
+            - tab "Entrees" [ref=f5e51]
+            - tab "Sides" [active] [selected] [ref=f5e52]
+            - tab "Salads" [ref=f5e53]
+          - tabpanel "Sides"

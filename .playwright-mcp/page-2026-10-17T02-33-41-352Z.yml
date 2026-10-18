@@ -1,0 +1,180 @@
+- generic [ref=f5e3]:
+  - link "Skip to main content" [ref=f5e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f5e24]:
+    - generic [ref=f5e25]:
+      - button "Toggle navigation" [ref=f5e26]:
+        - generic [ref=f5e27]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f5e308] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f5e309]
+        - generic [ref=f5e310]: Pearl Island2GO
+      - button "Guest account menu" [ref=f5e38]:
+        - generic [ref=f5e39]: Guest
+    - navigation "Request progress" [ref=f5e42]:
+      - list [ref=f5e43]:
+        - listitem [ref=f5e44]:
+          - button "Event" [ref=f5e45]
+        - listitem [ref=f5e48]:
+          - button "Menu" [ref=f5e49]
+        - listitem [ref=f5e52]:
+          - button "Supplies" [disabled] [ref=f5e53]
+        - listitem [ref=f5e56]:
+          - button "Details" [disabled] [ref=f5e57]
+        - listitem [ref=f5e60]:
+          - button "Review" [disabled] [ref=f5e61]
+      - generic [ref=f5e64]:
+        - progressbar "Request progress" [ref=f5e65]: x
+        - generic [ref=f5e68]: Step 1 of 5
+    - generic [ref=f5e71]:
+      - generic [ref=f5e72]:
+        - heading "Plan your catering" [level=1] [ref=f5e73]
+        - paragraph [ref=f5e74]: Tell us about your event to start building a catering request.
+      - generic [ref=f5e76]:
+        - generic [ref=f5e77]:
+          - generic [ref=f5e78]: Event details
+          - generic [ref=f5e79]: Start with the basics. You can change these details later.
+        - generic [ref=f5e81]:
+          - group "Event details" [ref=f5e82]:
+            - generic [ref=f5e84]:
+              - group [ref=f5e85]:
+                - generic [ref=f5e86]: Event type
+                - combobox "Event type" [ref=f5e87]:
+                  - generic [ref=f5e88]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f5e89]: corporate-lunch
+              - group [ref=f5e90]:
+                - generic [ref=f5e91]: Number of guests
+                - spinbutton "Number of guests" [ref=f5e92]: "40"
+                - paragraph [ref=f5e93]: An estimate is fine. You can change it later.
+              - group [ref=f5e94]:
+                - generic [ref=f5e95]: Event date
+                - button "Event date" [expanded] [ref=f5e96]: October 19th, 2026
+                - dialog [ref=f5e315]:
+                  - generic [ref=f5e317]:
+                    - navigation "Navigation bar" [ref=f5e318]:
+                      - button "Go to the Previous Month" [active] [ref=f5e319]
+                      - button "Go to the Next Month" [ref=f5e320]
+                    - generic [ref=f5e321]:
+                      - status [ref=f5e323]: October 2026
+                      - grid "October 2026" [ref=f5e324]:
+                        - rowgroup [aria-hidden] [ref=f5e325]:
+                          - row [ref=f5e326]:
+                            - columnheader [ref=f5e327]: Su
+                            - columnheader [ref=f5e328]: Mo
+                            - columnheader [ref=f5e329]: Tu
+                            - columnheader [ref=f5e330]: We
+                            - columnheader [ref=f5e331]: Th
+                            - columnheader [ref=f5e332]: Fr
+                            - columnheader [ref=f5e333]: Sa
+                        - rowgroup [ref=f5e334]:
+                          - row [ref=f5e335]:
+                            - gridcell "Sunday, September 27th, 2026" [ref=f5e336]:
+                              - button "Sunday, September 27th, 2026" [disabled]: "27"
+                            - gridcell "Monday, September 28th, 2026" [ref=f5e337]:
+                              - button "Monday, September 28th, 2026" [disabled]: "28"
+                            - gridcell "Tuesday, September 29th, 2026" [ref=f5e338]:
+                              - button "Tuesday, September 29th, 2026" [disabled]: "29"
+                            - gridcell "Wednesday, September 30th, 2026" [ref=f5e339]:
+                              - button "Wednesday, September 30th, 2026" [disabled]: "30"
+                            - gridcell "Thursday, October 1st, 2026" [ref=f5e340]:
+                              - button "Thursday, October 1st, 2026" [disabled]: "1"
+                            - gridcell "Friday, October 2nd, 2026" [ref=f5e341]:
+                              - button "Friday, October 2nd, 2026" [disabled]: "2"
+                            - gridcell "Saturday, October 3rd, 2026" [ref=f5e342]:
+                              - button "Saturday, October 3rd, 2026" [disabled]: "3"
+                          - row [ref=f5e343]:
+                            - gridcell "Sunday, October 4th, 2026" [ref=f5e344]:
+                              - button "Sunday, October 4th, 2026" [disabled]: "4"
+                            - gridcell "Monday, October 5th, 2026" [ref=f5e345]:
+                              - button "Monday, October 5th, 2026" [disabled]: "5"
+                            - gridcell "Tuesday, October 6th, 2026" [ref=f5e346]:
+                              - button "Tuesday, October 6th, 2026" [disabled]: "6"
+                            - gridcell "Wednesday, October 7th, 2026" [ref=f5e347]:
+                              - button "Wednesday, October 7th, 2026" [disabled]: "7"
+                            - gridcell "Thursday, October 8th, 2026" [ref=f5e348]:
+                              - button "Thursday, October 8th, 2026" [disabled]: "8"
+                            - gridcell "Friday, October 9th, 2026" [ref=f5e349]:
+                              - button "Friday, October 9th, 2026" [disabled]: "9"
+                            - gridcell "Saturday, October 10th, 2026" [ref=f5e350]:
+                              - button "Saturday, October 10th, 2026" [disabled]: "10"
+                          - row [ref=f5e351]:
+                            - gridcell "Sunday, October 11th, 2026" [ref=f5e352]:
+                              - button "Sunday, October 11th, 2026" [disabled]: "11"
+                            - gridcell "Monday, October 12th, 2026" [ref=f5e353]:
+                              - button "Monday, October 12th, 2026" [disabled]: "12"
+                            - gridcell [ref=f5e354]:
+                              - button "Tuesday, October 13th, 2026" [ref=f5e355]: "13"
+                            - gridcell [ref=f5e356]:
+                              - button "Wednesday, October 14th, 2026" [ref=f5e357]: "14"
+                            - gridcell [ref=f5e358]:
+                              - button "Thursday, October 15th, 2026" [ref=f5e359]: "15"
+                            - gridcell [ref=f5e360]:
+                              - button "Today, Friday, October 16th, 2026" [ref=f5e361]: "16"
+                            - gridcell [ref=f5e362]:
+                              - button "Saturday, October 17th, 2026" [ref=f5e363]: "17"
+                          - row [ref=f5e364]:
+                            - gridcell [ref=f5e365]:
+                              - button "Sunday, October 18th, 2026" [ref=f5e366]: "18"
+                            - gridcell [selected] [ref=f5e367]:
+                              - button "Monday, October 19th, 2026, selected" [ref=f5e368]: "19"
+                            - gridcell [ref=f5e369]:
+                              - button "Tuesday, October 20th, 2026" [ref=f5e370]: "20"
+                            - gridcell [ref=f5e371]:
+                              - button "Wednesday, October 21st, 2026" [ref=f5e372]: "21"
+                            - gridcell [ref=f5e373]:
+                              - button "Thursday, October 22nd, 2026" [ref=f5e374]: "22"
+                            - gridcell [ref=f5e375]:
+                              - button "Friday, October 23rd, 2026" [ref=f5e376]: "23"
+                            - gridcell [ref=f5e377]:
+                              - button "Saturday, October 24th, 2026" [ref=f5e378]: "24"
+                          - row [ref=f5e379]:
+                            - gridcell [ref=f5e380]:
+                              - button "Sunday, October 25th, 2026" [ref=f5e381]: "25"
+                            - gridcell [ref=f5e382]:
+                              - button "Monday, October 26th, 2026" [ref=f5e383]: "26"
+                            - gridcell [ref=f5e384]:
+                              - button "Tuesday, October 27th, 2026" [ref=f5e385]: "27"
+                            - gridcell [ref=f5e386]:
+                              - button "Wednesday, October 28th, 2026" [ref=f5e387]: "28"
+                            - gridcell [ref=f5e388]:
+                              - button "Thursday, October 29th, 2026" [ref=f5e389]: "29"
+                            - gridcell [ref=f5e390]:
+                              - button "Friday, October 30th, 2026" [ref=f5e391]: "30"
+                            - gridcell [ref=f5e392]:
+                              - button "Saturday, October 31st, 2026" [ref=f5e393]: "31"
+          - group "Pickup or delivery" [ref=f5e97]:
+            - radiogroup [ref=f5e99]:
+              - group [ref=f5e100]:
+                - radio "Pickup" [checked] [ref=f5e101]
+                - radio [checked] [aria-hidden] [ref=f5e104]
+                - generic [ref=f5e105]: Pickup
+              - group [ref=f5e106]:
+                - radio "Delivery" [ref=f5e107]
+                - radio [aria-hidden] [ref=f5e108]
+                - generic [ref=f5e109]: Delivery
+          - group "Dietary needs (optional)" [ref=f5e110]:
+            - generic [ref=f5e112]:
+              - group [ref=f5e113]:
+                - checkbox "Vegetarian" [checked] [ref=f5e114]
+                - checkbox [checked] [aria-hidden] [ref=f5e118]
+                - generic [ref=f5e119]: Vegetarian
+              - group [ref=f5e120]:
+                - checkbox "Vegan" [ref=f5e121]
+                - checkbox [aria-hidden] [ref=f5e122]
+                - generic [ref=f5e123]: Vegan
+              - group [ref=f5e124]:
+                - checkbox "Gluten-free" [ref=f5e125]
+                - checkbox [aria-hidden] [ref=f5e126]
+                - generic [ref=f5e127]: Gluten-free
+              - group [ref=f5e128]:
+                - checkbox "Dairy-free" [ref=f5e129]
+                - checkbox [aria-hidden] [ref=f5e130]
+                - generic [ref=f5e131]: Dairy-free
+          - group [ref=f5e132]:
+            - generic [ref=f5e133]: Budget (optional)
+            - textbox "Budget (optional)" [ref=f5e134]:
+              - /placeholder: 1,200
+              - text: "800"
+            - paragraph [ref=f5e135]: Total for food, in dollars.
+        - button "Choose your menu" [ref=f5e137]

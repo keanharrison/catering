@@ -1,0 +1,71 @@
+[     125ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  990739ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5179/src/components/AppSidebar.tsx?t=1792261132332:0
+[  990745ms] [ERROR] [vite] Failed to reload /src/components/AppSidebar.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5179/@vite/client:356
+[  990907ms] [ERROR] %o
+
+%s
+
+%s
+ Error: useDemoAccount must be used within DemoAccountProvider.
+    at useDemoAccount (http://127.0.0.1:5179/src/state/demoAccount.tsx:42:22)
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:17:22)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:14142:12)
+    at renderWithHooks (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:4400:19)
+    at updateFunctionComponent (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:5775:16)
+    at beginWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:6391:20)
+    at runWithFiberInDEV (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:944:66)
+    at performUnitOfWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9148:92)
+    at workLoopSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9044:37)
+    at renderRootSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9028:6) The above error occurred in the <AppShell> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://127.0.0.1:5179/@vite/client:356
+[  990908ms] [ERROR] Screen failed to render Error: useDemoAccount must be used within DemoAccountProvider.
+    at useDemoAccount (http://127.0.0.1:5179/src/state/demoAccount.tsx:42:22)
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:17:22)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:14142:12)
+    at renderWithHooks (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:4400:19)
+    at updateFunctionComponent (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:5775:16)
+    at beginWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:6391:20)
+    at runWithFiberInDEV (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:944:66)
+    at performUnitOfWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9148:92)
+    at workLoopSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9044:37)
+    at renderRootSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9028:6) 
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:14:28)
+    at DemoAccountProvider (http://127.0.0.1:5179/src/state/demoAccount.tsx?t=1792261132347:15:39)
+    at Router (http://127.0.0.1:5179/node_modules/.vite/deps/react-router-dom.js?v=9784e705:4838:29)
+    at BrowserRouter (http://127.0.0.1:5179/node_modules/.vite/deps/react-router-dom.js?v=9784e705:7287:26)
+    at ThemeProvider (http://127.0.0.1:5179/src/components/ThemeProvider.tsx:11:33)
+    at App (<anonymous>)
+    at ErrorBoundary (http://127.0.0.1:5179/src/components/ErrorBoundary.tsx:7:8) @ http://127.0.0.1:5179/@vite/client:356
+[ 1002558ms] [ERROR] %o
+
+%s
+
+%s
+ Error: useDemoAccount must be used within DemoAccountProvider.
+    at useDemoAccount (http://127.0.0.1:5179/src/state/demoAccount.tsx:42:22)
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:17:22)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:14142:12)
+    at renderWithHooks (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:4400:19)
+    at updateFunctionComponent (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:5775:16)
+    at beginWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:6391:20)
+    at runWithFiberInDEV (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:944:66)
+    at performUnitOfWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9148:92)
+    at workLoopSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9044:37)
+    at renderRootSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9028:6) The above error occurred in the <AppShell> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://127.0.0.1:5179/@vite/client:356
+[ 1002558ms] [ERROR] Screen failed to render Error: useDemoAccount must be used within DemoAccountProvider.
+    at useDemoAccount (http://127.0.0.1:5179/src/state/demoAccount.tsx:42:22)
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:17:22)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:14142:12)
+    at renderWithHooks (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:4400:19)
+    at updateFunctionComponent (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:5775:16)
+    at beginWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:6391:20)
+    at runWithFiberInDEV (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:944:66)
+    at performUnitOfWork (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9148:92)
+    at workLoopSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9044:37)
+    at renderRootSync (http://127.0.0.1:5179/node_modules/.vite/deps/react-dom_client.js?v=9784e705:9028:6) 
+    at AppShell (http://127.0.0.1:5179/src/components/AppShell.tsx:14:28)
+    at DemoAccountProvider (http://127.0.0.1:5179/src/state/demoAccount.tsx?t=1792261132347:15:39)
+    at Router (http://127.0.0.1:5179/node_modules/.vite/deps/react-router-dom.js?v=9784e705:4838:29)
+    at BrowserRouter (http://127.0.0.1:5179/node_modules/.vite/deps/react-router-dom.js?v=9784e705:7287:26)
+    at ThemeProvider (http://127.0.0.1:5179/src/components/ThemeProvider.tsx:11:33)
+    at App (<anonymous>)
+    at ErrorBoundary (http://127.0.0.1:5179/src/components/ErrorBoundary.tsx:7:8) @ http://127.0.0.1:5179/@vite/client:356

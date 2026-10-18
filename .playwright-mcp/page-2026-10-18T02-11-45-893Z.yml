@@ -1,0 +1,213 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - region "Notifications alt+T"
+    - link [aria-hidden] [ref=f3e669] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [aria-hidden] [ref=f3e64]:
+      - generic [ref=f3e65]:
+        - button [ref=f3e670]:
+          - generic [ref=f3e67]: Toggle Sidebar
+        - link [ref=f3e671] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f3e480]: Pearl Island2GO
+        - generic [ref=f3e78]:
+          - separator [ref=f3e79]
+          - button [ref=f3e673]
+          - separator [ref=f3e81]
+      - generic [ref=f3e606]:
+        - generic [ref=f3e607]:
+          - heading [level=1] [ref=f3e674]: Catering requests
+          - paragraph [ref=f3e609]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+        - generic [ref=f3e610]:
+          - tablist [ref=f3e611]:
+            - tab [selected] [ref=f3e675]:
+              - text: All
+              - generic [ref=f3e613]: "6"
+            - tab [ref=f3e676]:
+              - text: Needs review
+              - generic [ref=f3e615]: "2"
+            - tab [ref=f3e677]:
+              - text: Awaiting customer
+              - generic [ref=f3e617]: "1"
+            - tab [ref=f3e678]:
+              - text: Confirmed
+              - generic [ref=f3e619]: "2"
+          - tabpanel [ref=f3e679]:
+            - generic [ref=f3e622]:
+              - generic [ref=f3e623]:
+                - generic [ref=f3e624]: Request list
+                - generic [ref=f3e625]: Select a request to review its details and actions.
+              - list [ref=f3e680]:
+                - listitem [ref=f3e628]:
+                  - button [ref=f3e681]:
+                    - generic [ref=f3e630]:
+                      - generic [ref=f3e631]:
+                        - text: Jordan Lee
+                        - generic [ref=f3e632]: Sample
+                      - generic [ref=f3e633]: Oct 19, 2026 · 40 guests · pickup
+                    - generic [ref=f3e634]: Submitted
+                - listitem [ref=f3e635]:
+                  - button [ref=f3e682]:
+                    - generic [ref=f3e637]:
+                      - generic [ref=f3e638]:
+                        - text: Sam Rivera
+                        - generic [ref=f3e639]: Sample
+                      - generic [ref=f3e640]: Oct 15, 2026 · 150 guests · delivery
+                    - generic [ref=f3e641]: Needs review
+                - listitem [ref=f3e642]:
+                  - button [ref=f3e683]:
+                    - generic [ref=f3e644]:
+                      - generic [ref=f3e645]:
+                        - text: Morgan Chen
+                        - generic [ref=f3e646]: Sample
+                      - generic [ref=f3e647]: Oct 22, 2026 · 40 guests · pickup
+                    - generic [ref=f3e648]: Awaiting approval
+                - listitem [ref=f3e649]:
+                  - button [ref=f3e684]:
+                    - generic [ref=f3e651]:
+                      - generic [ref=f3e652]:
+                        - text: Taylor Brooks
+                        - generic [ref=f3e653]: Sample
+                      - generic [ref=f3e654]: Sep 22, 2026 · 40 guests · pickup
+                    - generic [ref=f3e655]: Accepted
+                - listitem [ref=f3e656]:
+                  - button [ref=f3e685]:
+                    - generic [ref=f3e658]:
+                      - generic [ref=f3e659]:
+                        - text: Avery James
+                        - generic [ref=f3e660]: Sample
+                      - generic [ref=f3e661]: Oct 16, 2026 · 150 guests · delivery
+                    - generic [ref=f3e662]: Declined
+                - listitem [ref=f3e663]:
+                  - button [pressed] [ref=f3e686]:
+                    - generic [ref=f3e665]:
+                      - generic [ref=f3e666]: Workflow Customer
+                      - generic [ref=f3e667]: Oct 19, 2026 · 40 guests · pickup
+                    - generic [ref=f3e668]: Accepted
+  - dialog [ref=f3e690]:
+    - generic [ref=f3e691]:
+      - heading "Request details" [active] [level=2] [ref=f3e692]
+      - paragraph [ref=f3e693]: Review the event and record a staff action.
+    - generic [ref=f3e695]:
+      - generic [ref=f3e697]:
+        - generic [ref=f3e698]:
+          - generic [ref=f3e699]: Corporate lunch
+          - generic [ref=f3e700]: Workflow Customer · Workflow QA
+        - generic [ref=f3e701]: Accepted
+      - generic [ref=f3e702]:
+        - region "Event" [ref=f3e703]:
+          - heading "Event" [level=3] [ref=f3e704]
+          - generic [ref=f3e705]:
+            - generic [ref=f3e706]:
+              - term [ref=f3e707]: Date and time
+              - definition [ref=f3e708]: Monday, October 19, 2026 at 12:00 PM
+            - generic [ref=f3e709]:
+              - term [ref=f3e710]: Guests
+              - definition [ref=f3e711]: "40"
+            - generic [ref=f3e712]:
+              - term [ref=f3e713]: Fulfillment
+              - definition [ref=f3e714]: pickup
+        - separator [ref=f3e715]
+        - region "Food and supplies" [ref=f3e716]:
+          - generic [ref=f3e717]:
+            - heading "Food and supplies" [level=3] [ref=f3e718]
+            - generic [ref=f3e719]: Estimate only
+          - generic [ref=f3e720]:
+            - generic [ref=f3e721]:
+              - heading "Entrees" [level=4] [ref=f3e722]
+              - list [ref=f3e723]:
+                - listitem [ref=f3e724]:
+                  - generic [ref=f3e725]:
+                    - text: Sous Poulet Chicken
+                    - generic [ref=f3e726]: (20 servings)
+                  - generic [ref=f3e727]: $100
+                - listitem [ref=f3e728]:
+                  - generic [ref=f3e729]:
+                    - text: Curry Chicken
+                    - generic [ref=f3e730]: (21 servings)
+                  - generic [ref=f3e731]: $105
+            - generic [ref=f3e732]:
+              - heading "Sides" [level=4] [ref=f3e733]
+              - list [ref=f3e734]:
+                - listitem [ref=f3e735]:
+                  - generic [ref=f3e736]:
+                    - text: Rice w/ Pigeon Peas
+                    - generic [ref=f3e737]: (40 servings)
+                  - generic [ref=f3e738]: $110.40
+                - listitem [ref=f3e739]:
+                  - generic [ref=f3e740]:
+                    - text: Amarillos
+                    - generic [ref=f3e741]: (40 servings)
+                  - generic [ref=f3e742]: $110
+                - listitem [ref=f3e743]:
+                  - generic [ref=f3e744]:
+                    - text: Pikliz
+                    - generic [ref=f3e745]: (40 servings)
+                  - generic [ref=f3e746]: $40
+            - generic [ref=f3e747]:
+              - heading "Salads" [level=4] [ref=f3e748]
+              - list [ref=f3e749]:
+                - listitem [ref=f3e750]:
+                  - generic [ref=f3e751]:
+                    - text: Kale Salad
+                    - generic [ref=f3e752]: (40 servings)
+                  - generic [ref=f3e753]: $150
+          - generic [ref=f3e755]:
+            - generic [ref=f3e756]: Food subtotal
+            - generic [ref=f3e757]: $615.40
+          - paragraph [ref=f3e758]: No supplies needed.
+          - generic [ref=f3e759]:
+            - generic [ref=f3e760]:
+              - generic [ref=f3e761]: Supplies subtotal
+              - generic [ref=f3e762]: $0
+            - generic [ref=f3e763]:
+              - generic [ref=f3e764]: Estimated total
+              - generic [ref=f3e765]: $615.40
+          - paragraph [ref=f3e766]: "Entree coverage: 41 servings for 40 guests · everyone covered."
+        - separator [ref=f3e767]
+        - region "Contact and instructions" [ref=f3e768]:
+          - heading "Contact and instructions" [level=3] [ref=f3e769]
+          - generic [ref=f3e770]:
+            - generic [ref=f3e771]:
+              - term [ref=f3e772]: Name
+              - definition [ref=f3e773]: Workflow Customer
+            - generic [ref=f3e774]:
+              - term [ref=f3e775]: Organization
+              - definition [ref=f3e776]: Workflow QA
+            - generic [ref=f3e777]:
+              - term [ref=f3e778]: Email
+              - definition [ref=f3e779]: workflow@example.com
+            - generic [ref=f3e780]:
+              - term [ref=f3e781]: Phone
+              - definition [ref=f3e782]: 555-0134
+            - generic [ref=f3e783]:
+              - term [ref=f3e784]: Dietary needs
+              - definition [ref=f3e785]: None noted
+          - generic [ref=f3e786]:
+            - generic [ref=f3e787]:
+              - term [ref=f3e788]: Custom request
+              - definition [ref=f3e789]: None provided
+            - generic [ref=f3e790]:
+              - term [ref=f3e791]: Additional notes
+              - definition [ref=f3e792]: None provided
+        - separator [ref=f3e793]
+        - region "Request messages" [ref=f3e794]:
+          - generic [ref=f3e795]:
+            - heading "Request messages" [level=3] [ref=f3e796]
+            - generic [ref=f3e797]: Demo only · not delivered
+          - list [ref=f3e798]:
+            - listitem [ref=f3e799]:
+              - paragraph [ref=f3e800]: Pearl Island team
+              - paragraph [ref=f3e801]: Can you confirm the 20/20 entree split works for your guests?
+            - listitem [ref=f3e802]:
+              - paragraph [ref=f3e803]: Customer
+              - paragraph [ref=f3e804]: Yes, the split works for our group of 40.
+            - listitem [ref=f3e805]:
+              - paragraph [ref=f3e806]: Request update
+              - paragraph [ref=f3e807]: Staff revised the proposal. Customer approval is needed.
+            - listitem [ref=f3e808]:
+              - paragraph [ref=f3e809]: Customer
+              - paragraph [ref=f3e810]: Customer approved the revised proposal.
+      - button "View handoff" [ref=f3e812] [cursor=pointer]
+    - button "Close" [ref=f3e813]

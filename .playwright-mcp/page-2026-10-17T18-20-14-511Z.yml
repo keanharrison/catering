@@ -1,0 +1,95 @@
+- generic [ref=f2e3]:
+  - link "Skip to main content" [ref=f2e303] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f2e58]:
+    - generic [ref=f2e59]:
+      - button "Toggle navigation" [ref=f2e304]:
+        - generic [ref=f2e61]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f2e305] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f2e306]
+        - generic [ref=f2e219]: Pearl Island2GO
+      - generic [ref=f2e72]:
+        - separator [ref=f2e73]
+        - button "Switch to dark mode" [ref=f2e307]
+        - separator [ref=f2e75]
+    - navigation "Request progress" [ref=f2e310]:
+      - list [ref=f2e311]:
+        - listitem [ref=f2e312]:
+          - button "Event" [ref=f2e313]
+        - listitem [ref=f2e315]:
+          - button "Menu" [ref=f2e316]
+        - listitem [ref=f2e318]:
+          - button "Supplies" [ref=f2e319]
+        - listitem [ref=f2e321]:
+          - button "Details" [ref=f2e322]
+        - listitem [ref=f2e324]:
+          - button "Review" [disabled] [ref=f2e325]
+      - generic [ref=f2e327]:
+        - progressbar "Request progress" [ref=f2e328]: x
+        - generic [ref=f2e331]: Step 1 of 5
+    - generic [ref=f2e333]:
+      - generic [ref=f2e334]:
+        - heading "Plan your catering" [level=1] [ref=f2e335]
+        - paragraph [ref=f2e336]: Tell us about your event to start building a catering request.
+      - generic [ref=f2e338]:
+        - generic [ref=f2e339]:
+          - generic [ref=f2e340]: Event details
+          - generic [ref=f2e341]: Start with the basics. You can change these details later.
+        - generic [ref=f2e343]:
+          - group "Event details" [ref=f2e344]:
+            - generic [ref=f2e346]:
+              - group [ref=f2e347]:
+                - generic [ref=f2e348]: Event type (required)
+                - combobox "Event type (required)" [ref=f2e349]:
+                  - generic [ref=f2e350]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f2e351]: corporate-lunch
+              - group [ref=f2e352]:
+                - generic [ref=f2e353]: Number of guests (required)
+                - spinbutton "Number of guests (required)" [ref=f2e354]: "40"
+                - paragraph [ref=f2e355]: An estimate is fine. You can change it later.
+              - group [ref=f2e356]:
+                - generic [ref=f2e357]: Event date (required)
+                - button "Event date (required)" [ref=f2e358]: October 19th, 2026
+                - paragraph [ref=f2e359]: You’ll choose your pickup or delivery time on the Details step.
+          - group "Pickup or delivery" [ref=f2e360]:
+            - radiogroup [ref=f2e362]:
+              - group [ref=f2e363]:
+                - radio "Pickup" [checked] [ref=f2e364]
+                - radio [checked] [aria-hidden] [ref=f2e367]
+                - generic [ref=f2e368]: Pickup
+              - group [ref=f2e369]:
+                - radio "Delivery" [ref=f2e370]
+                - radio [aria-hidden] [ref=f2e371]
+                - generic [ref=f2e372]: Delivery
+          - group "Dietary needs (optional)" [ref=f2e373]:
+            - generic [ref=f2e375]:
+              - group [ref=f2e376]:
+                - checkbox "Vegetarian" [ref=f2e377]
+                - checkbox [aria-hidden] [ref=f2e378]
+                - generic [ref=f2e379]: Vegetarian
+              - group [ref=f2e380]:
+                - checkbox "Vegan" [ref=f2e381]
+                - checkbox [aria-hidden] [ref=f2e382]
+                - generic [ref=f2e383]: Vegan
+              - group [ref=f2e384]:
+                - checkbox "Gluten-free" [ref=f2e385]
+                - checkbox [aria-hidden] [ref=f2e386]
+                - generic [ref=f2e387]: Gluten-free
+              - group [ref=f2e388]:
+                - checkbox "Dairy-free" [ref=f2e389]
+                - checkbox [aria-hidden] [ref=f2e390]
+                - generic [ref=f2e391]: Dairy-free
+          - group [ref=f2e392]:
+            - generic [ref=f2e393]: Budget (optional)
+            - group [ref=f2e394]:
+              - group [aria-hidden] [ref=f2e395]: $
+              - textbox "Budget (optional)" [ref=f2e396]:
+                - /placeholder: 1,200
+                - text: "800"
+            - paragraph [ref=f2e397]: Total for food, in dollars.
+        - generic [ref=f2e398]:
+          - status [ref=f2e399]:
+            - button "Save draft" [ref=f2e400]
+          - button "Choose your menu" [ref=f2e401]

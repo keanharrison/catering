@@ -1,0 +1,249 @@
+- generic [ref=f3e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f3e7]:
+    - link "Pearl Island2GO home" [ref=f3e10] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f3e11]
+      - generic [ref=f3e12]: Pearl Island2GO
+    - separator [ref=f3e13]
+    - generic [ref=f3e15]:
+      - generic [ref=f3e16]: Navigation
+      - list [ref=f3e18]:
+        - listitem [ref=f3e138]:
+          - link "Requests" [ref=f3e139] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f3e144]:
+          - link "Handoff" [ref=f3e145] [cursor=pointer]:
+            - /url: /handoff
+        - listitem [ref=f3e38]:
+          - link "Messages" [ref=f3e39] [cursor=pointer]:
+            - /url: /staff/messages
+        - listitem [ref=f3e152]:
+          - link "Menu and rules" [ref=f3e153] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f3e49]:
+      - separator [ref=f3e50]
+      - generic [ref=f3e51]:
+        - button "Settings (coming soon)" [ref=f3e52]
+        - button "Pearl Island team account menu" [ref=f3e158]:
+          - generic [ref=f3e60]: Pearl Island team
+    - button "Toggle Sidebar" [ref=f3e63]
+  - main [ref=f3e64]:
+    - generic [ref=f3e65]:
+      - button "Toggle navigation" [ref=f3e66]:
+        - generic [ref=f3e67]: Toggle Sidebar
+      - separator [ref=f3e68]
+      - navigation "breadcrumb" [ref=f3e69]:
+        - list [ref=f3e70]:
+          - listitem [ref=f3e71]:
+            - link "Requests" [disabled] [ref=f3e159]
+      - generic [ref=f3e78]:
+        - separator [ref=f3e79]
+        - button "Switch to dark mode" [ref=f3e80]
+        - separator [ref=f3e81]
+    - generic [ref=f3e160]:
+      - generic [ref=f3e161]:
+        - heading "Catering requests" [level=1] [ref=f3e162]
+        - paragraph [ref=f3e163]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f3e164]:
+        - tablist [ref=f3e165]:
+          - tab "All 6" [selected] [ref=f3e166]:
+            - text: All
+            - generic [ref=f3e167]: "6"
+          - tab "Needs review 2" [ref=f3e168]:
+            - text: Needs review
+            - generic [ref=f3e169]: "2"
+          - tab "Awaiting customer 2" [ref=f3e170]:
+            - text: Awaiting customer
+            - generic [ref=f3e171]: "2"
+          - tab "Confirmed 1" [ref=f3e172]:
+            - text: Confirmed
+            - generic [ref=f3e173]: "1"
+        - tabpanel "All 6" [ref=f3e174]:
+          - generic [ref=f3e175]:
+            - generic [ref=f3e176]:
+              - generic [ref=f3e177]:
+                - generic [ref=f3e178]: Request list
+                - generic [ref=f3e179]: Select a request to review its details and actions.
+              - table [ref=f3e183]:
+                - rowgroup [ref=f3e184]:
+                  - row [ref=f3e185]:
+                    - columnheader "Customer" [ref=f3e186]
+                    - columnheader "Event date" [ref=f3e187]
+                    - columnheader "Guests" [ref=f3e188]
+                    - columnheader "Fulfillment" [ref=f3e189]
+                    - columnheader "Status" [ref=f3e190]
+                - rowgroup [ref=f3e191]:
+                  - row "Jordan Lee, Oct 19, 2026, 40 guests, pickup, Submitted" [ref=f3e192] [cursor=pointer]:
+                    - cell "Jordan Lee Sample" [ref=f3e193]:
+                      - text: Jordan Lee
+                      - generic [ref=f3e194]: Sample
+                    - cell "Oct 19, 2026" [ref=f3e195]
+                    - cell "40" [ref=f3e196]
+                    - cell "pickup" [ref=f3e197]
+                    - cell "Submitted" [ref=f3e198]
+                  - row "Sam Rivera, Oct 15, 2026, 150 guests, delivery, Needs review" [ref=f3e200] [cursor=pointer]:
+                    - cell "Sam Rivera Sample" [ref=f3e201]:
+                      - text: Sam Rivera
+                      - generic [ref=f3e202]: Sample
+                    - cell "Oct 15, 2026" [ref=f3e203]
+                    - cell "150" [ref=f3e204]
+                    - cell "delivery" [ref=f3e205]
+                    - cell "Needs review" [ref=f3e206]
+                  - row "Morgan Chen, Oct 22, 2026, 40 guests, pickup, Awaiting approval" [ref=f3e208] [cursor=pointer]:
+                    - cell "Morgan Chen Sample" [ref=f3e209]:
+                      - text: Morgan Chen
+                      - generic [ref=f3e210]: Sample
+                    - cell "Oct 22, 2026" [ref=f3e211]
+                    - cell "40" [ref=f3e212]
+                    - cell "pickup" [ref=f3e213]
+                    - cell "Awaiting approval" [ref=f3e214]
+                  - row "Taylor Brooks, Sep 22, 2026, 40 guests, pickup, Accepted" [ref=f3e216] [cursor=pointer]:
+                    - cell "Taylor Brooks Sample" [ref=f3e217]:
+                      - text: Taylor Brooks
+                      - generic [ref=f3e218]: Sample
+                    - cell "Sep 22, 2026" [ref=f3e219]
+                    - cell "40" [ref=f3e220]
+                    - cell "pickup" [ref=f3e221]
+                    - cell "Accepted" [ref=f3e222]
+                  - row "Avery James, Oct 16, 2026, 150 guests, delivery, Declined" [ref=f3e224] [cursor=pointer]:
+                    - cell "Avery James Sample" [ref=f3e225]:
+                      - text: Avery James
+                      - generic [ref=f3e226]: Sample
+                    - cell "Oct 16, 2026" [ref=f3e227]
+                    - cell "150" [ref=f3e228]
+                    - cell "delivery" [ref=f3e229]
+                    - cell "Declined" [ref=f3e230]
+                  - row "Workflow Customer, Oct 19, 2026, 40 guests, pickup, Awaiting approval" [selected] [ref=f3e232] [cursor=pointer]:
+                    - cell "Workflow Customer" [ref=f3e233]
+                    - cell "Oct 19, 2026" [ref=f3e234]
+                    - cell "40" [ref=f3e235]
+                    - cell "pickup" [ref=f3e236]
+                    - cell "Awaiting approval" [ref=f3e237]
+            - generic [ref=f3e241]:
+              - generic [ref=f3e243]:
+                - generic [ref=f3e244]:
+                  - generic [ref=f3e245]: Corporate lunch
+                  - generic [ref=f3e246]: Workflow Customer · Workflow QA
+                - generic [ref=f3e247]: Awaiting approval
+              - generic [ref=f3e248]:
+                - region [ref=f3e249]:
+                  - heading "Event" [level=3] [ref=f3e250]
+                  - generic [ref=f3e251]:
+                    - generic [ref=f3e252]:
+                      - term [ref=f3e253]: Date and time
+                      - definition [ref=f3e254]: Monday, October 19, 2026 at 12:00 PM
+                    - generic [ref=f3e255]:
+                      - term [ref=f3e256]: Guests
+                      - definition [ref=f3e257]: "40"
+                    - generic [ref=f3e258]:
+                      - term [ref=f3e259]: Fulfillment
+                      - definition [ref=f3e260]: pickup
+                - separator [ref=f3e261]
+                - region [ref=f3e262]:
+                  - generic [ref=f3e263]:
+                    - heading "Food and supplies" [level=3] [ref=f3e264]
+                    - generic [ref=f3e265]: Estimate only
+                  - generic [ref=f3e266]:
+                    - generic [ref=f3e267]:
+                      - heading "Entrees" [level=4] [ref=f3e268]
+                      - list [ref=f3e269]:
+                        - listitem [ref=f3e270]:
+                          - generic [ref=f3e271]:
+                            - text: Sous Poulet Chicken
+                            - generic [ref=f3e272]: (20 servings)
+                          - generic [ref=f3e273]: $100
+                        - listitem [ref=f3e274]:
+                          - generic [ref=f3e275]:
+                            - text: Curry Chicken
+                            - generic [ref=f3e276]: (21 servings)
+                          - generic [ref=f3e277]: $105
+                    - generic [ref=f3e278]:
+                      - heading "Sides" [level=4] [ref=f3e279]
+                      - list [ref=f3e280]:
+                        - listitem [ref=f3e281]:
+                          - generic [ref=f3e282]:
+                            - text: Rice w/ Pigeon Peas
+                            - generic [ref=f3e283]: (40 servings)
+                          - generic [ref=f3e284]: $110.40
+                        - listitem [ref=f3e285]:
+                          - generic [ref=f3e286]:
+                            - text: Amarillos
+                            - generic [ref=f3e287]: (40 servings)
+                          - generic [ref=f3e288]: $110
+                        - listitem [ref=f3e289]:
+                          - generic [ref=f3e290]:
+                            - text: Pikliz
+                            - generic [ref=f3e291]: (40 servings)
+                          - generic [ref=f3e292]: $40
+                    - generic [ref=f3e293]:
+                      - heading "Salads" [level=4] [ref=f3e294]
+                      - list [ref=f3e295]:
+                        - listitem [ref=f3e296]:
+                          - generic [ref=f3e297]:
+                            - text: Kale Salad
+                            - generic [ref=f3e298]: (40 servings)
+                          - generic [ref=f3e299]: $150
+                  - generic [ref=f3e301]:
+                    - generic [ref=f3e302]: Food subtotal
+                    - generic [ref=f3e303]: $615.40
+                  - paragraph [ref=f3e304]: No supplies needed.
+                  - generic [ref=f3e305]:
+                    - generic [ref=f3e306]:
+                      - generic [ref=f3e307]: Supplies subtotal
+                      - generic [ref=f3e308]: $0
+                    - generic [ref=f3e309]:
+                      - generic [ref=f3e310]: Estimated total
+                      - generic [ref=f3e311]: $615.40
+                  - paragraph [ref=f3e312]: "Entree coverage: 41 servings for 40 guests · everyone covered."
+                - separator [ref=f3e313]
+                - region [ref=f3e314]:
+                  - heading "Contact and instructions" [level=3] [ref=f3e315]
+                  - generic [ref=f3e316]:
+                    - generic [ref=f3e317]:
+                      - term [ref=f3e318]: Name
+                      - definition [ref=f3e319]: Workflow Customer
+                    - generic [ref=f3e320]:
+                      - term [ref=f3e321]: Organization
+                      - definition [ref=f3e322]: Workflow QA
+                    - generic [ref=f3e323]:
+                      - term [ref=f3e324]: Email
+                      - definition [ref=f3e325]: workflow@example.com
+                    - generic [ref=f3e326]:
+                      - term [ref=f3e327]: Phone
+                      - definition [ref=f3e328]: 555-0134
+                    - generic [ref=f3e329]:
+                      - term [ref=f3e330]: Dietary needs
+                      - definition [ref=f3e331]: None noted
+                  - generic [ref=f3e332]:
+                    - generic [ref=f3e333]:
+                      - term [ref=f3e334]: Custom request
+                      - definition [ref=f3e335]: None provided
+                    - generic [ref=f3e336]:
+                      - term [ref=f3e337]: Additional notes
+                      - definition [ref=f3e338]: None provided
+                - separator [ref=f3e339]
+                - region [ref=f3e340]:
+                  - generic [ref=f3e341]:
+                    - heading "Request messages" [level=3] [ref=f3e342]
+                    - generic [ref=f3e343]: Demo only · not delivered
+                  - list [ref=f3e344]:
+                    - listitem [ref=f3e345]:
+                      - paragraph [ref=f3e346]: Pearl Island team
+                      - paragraph [ref=f3e347]: Can you confirm the 20/20 entree split works for your guests?
+                    - listitem [ref=f3e348]:
+                      - paragraph [ref=f3e349]: Customer
+                      - paragraph [ref=f3e350]: Yes, the split works for our group of 40.
+                    - listitem [ref=f3e351]:
+                      - paragraph [ref=f3e352]: Request update
+                      - paragraph [ref=f3e353]: Staff revised the proposal. Customer approval is needed.
+                    - listitem [ref=f3e354]:
+                      - paragraph [ref=f3e355]: Customer
+                      - paragraph [ref=f3e356]: Customer approved the revised proposal.
+                - paragraph [ref=f3e357]: Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
+              - generic [ref=f3e358]:
+                - button "Accept request" [ref=f3e359]
+                - button "Ask for clarification" [disabled]
+                - button "Edit request" [ref=f3e360]

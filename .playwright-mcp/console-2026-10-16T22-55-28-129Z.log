@@ -1,0 +1,4 @@
+[     136ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5177/node_modules/.vite/deps/react-dom_client.js?v=8bcff8d9:15804
+[  305194ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5177/src/components/JourneyNav.tsx?t=1792191633320:0
+[  305196ms] [ERROR] [vite] Failed to reload /src/components/JourneyNav.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5177/@vite/client:356
+[  312594ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5177/node_modules/.vite/deps/react-dom_client.js?v=5ea6f056:15804

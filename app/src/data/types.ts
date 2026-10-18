@@ -4,6 +4,8 @@
 
 export type DataStatus = 'illustrative' | 'approved'
 
+export const MAX_MESSAGE_LENGTH = 2000
+
 export type Provenance = {
   status: DataStatus
   /** Required when status is 'illustrative': what is assumed and why. */
@@ -102,7 +104,13 @@ export type Fulfillment = 'pickup' | 'delivery'
 /** What the customer tells us at intake. */
 export type OrderIntent = {
   contactName: string
+  email: string
+  phone: string
   organization: string
+  deliveryAddress: string
+  deliveryCity: string
+  deliveryState: string
+  deliveryZip: string
   eventType: string
   /** null means unknown or unanswered. */
   guestCount: number | null
@@ -153,6 +161,8 @@ export type StatusChange = {
 
 export type Order = {
   id: string
+  /** Explicit fixture marker for locally seeded demo records. */
+  demoSample?: true
   status: OrderStatus
   intent: OrderIntent
   lines: OrderLine[]

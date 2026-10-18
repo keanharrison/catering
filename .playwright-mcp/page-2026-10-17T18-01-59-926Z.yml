@@ -1,0 +1,56 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=e662] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=e663]
+        - generic [ref=e664]: Pearl Island2GO
+      - generic [ref=e38]:
+        - separator [ref=e39]
+        - button "Switch to dark mode" [ref=e40]
+        - separator [ref=e41]
+      - button "Guest account menu" [ref=e42]:
+        - generic [ref=e43]: Guest
+    - navigation "Request progress" [ref=e46]:
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - button "Event" [ref=e49]
+        - listitem [ref=e52]:
+          - button "Menu" [ref=e53]
+        - listitem [ref=e56]:
+          - button "Supplies" [ref=e57]
+        - listitem [ref=e60]:
+          - button "Details" [ref=e61]
+        - listitem [ref=e64]:
+          - button "Review" [disabled] [ref=e65]
+      - generic [ref=e68]:
+        - progressbar "Request progress" [ref=e69]: x
+        - generic [ref=e72]: Step 3 of 5
+    - generic [ref=e73]:
+      - generic [ref=e897]:
+        - generic [ref=e898]:
+          - generic [ref=e899]: Catering supplies
+          - generic [ref=e900]: Next, choose whether your event needs disposable catering supplies.
+        - group [ref=e902]:
+          - radiogroup "Do you need catering supplies? (required)" [ref=e904]:
+            - group [ref=e905]:
+              - radio "I need supplies" [ref=e906]
+              - radio [aria-hidden] [ref=e907]
+              - generic [ref=e908]: I need supplies
+            - group [ref=e909]:
+              - radio "No supplies needed" [checked] [active] [ref=e910]
+              - radio [checked] [aria-hidden] [ref=e911]
+              - generic [ref=e912]: No supplies needed
+          - paragraph [ref=e913]: No supply charges will be added to your estimate.
+        - generic [ref=e914]:
+          - button "Back to menu" [ref=e915]
+          - button "Continue to details" [ref=e930]
+      - generic [ref=e921]:
+        - generic [ref=e922]:
+          - paragraph [ref=e923]: Your order
+          - paragraph [ref=e924]: 1 selected item · $6.25
+        - button "Toggle order summary" [ref=e925]

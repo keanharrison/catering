@@ -1,0 +1,203 @@
+- generic [ref=f5e3]:
+  - link "Skip to main content" [ref=f5e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f5e7]:
+    - link "Pearl Island2GO home" [ref=f5e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f5e11]
+      - generic [ref=f5e12]: Pearl Island2GO
+    - separator [ref=f5e13]
+    - generic [ref=f5e15]:
+      - generic [ref=f5e16]: Navigation
+      - list [ref=f5e18]:
+        - listitem [ref=f5e19]:
+          - link "New request" [ref=f5e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=f5e23]
+  - main [ref=f5e24]:
+    - generic [ref=f5e25]:
+      - button "Toggle navigation" [ref=f5e26]:
+        - generic [ref=f5e27]: Toggle Sidebar
+      - separator [ref=f5e28]
+      - navigation "breadcrumb" [ref=f5e29]:
+        - list [ref=f5e30]:
+          - listitem [ref=f5e31]:
+            - link "New request" [ref=f5e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f5e33]
+          - listitem [ref=f5e36]:
+            - link "Event details" [disabled] [ref=f5e37]
+      - button "Guest account menu" [ref=f5e38]:
+        - generic [ref=f5e39]: Guest
+    - navigation "Request progress" [ref=f5e42]:
+      - list [ref=f5e43]:
+        - listitem [ref=f5e44]:
+          - button "Event" [ref=f5e45]:
+            - generic [aria-hidden] [ref=f5e46]: "1"
+        - listitem [ref=f5e48]:
+          - button "Menu" [ref=f5e49]:
+            - generic [aria-hidden] [ref=f5e50]: "2"
+        - listitem [ref=f5e52]:
+          - button "Supplies" [disabled] [ref=f5e53]:
+            - generic [aria-hidden] [ref=f5e54]: "3"
+        - listitem [ref=f5e56]:
+          - button "Details" [disabled] [ref=f5e57]:
+            - generic [aria-hidden] [ref=f5e58]: "4"
+        - listitem [ref=f5e60]:
+          - button "Review" [disabled] [ref=f5e61]:
+            - generic [aria-hidden] [ref=f5e62]: "5"
+      - generic [ref=f5e64]:
+        - progressbar "Request progress" [ref=f5e65]: x
+        - generic [ref=f5e68]: Step 1 of 5
+    - generic [ref=f5e71]:
+      - generic [ref=f5e72]:
+        - heading "Plan your catering" [level=1] [ref=f5e73]
+        - paragraph [ref=f5e74]: Tell us about your event to start building a catering request.
+      - generic [ref=f5e76]:
+        - generic [ref=f5e77]:
+          - generic [ref=f5e78]: Event details
+          - generic [ref=f5e79]: Start with the basics. You can change these details later.
+        - generic [ref=f5e81]:
+          - group "Event details" [ref=f5e82]:
+            - generic [ref=f5e84]:
+              - group [ref=f5e85]:
+                - generic [ref=f5e86]: Event type
+                - combobox "Event type" [ref=f5e87]:
+                  - generic [ref=f5e88]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f5e89]: corporate-lunch
+              - group [ref=f5e90]:
+                - generic [ref=f5e91]: Number of guests
+                - spinbutton "Number of guests" [ref=f5e92]: "40"
+                - paragraph [ref=f5e93]: An estimate is fine. You can change it later.
+              - group [ref=f5e94]:
+                - generic [ref=f5e95]: Event date
+                - button "Event date" [expanded] [ref=f5e96]: October 19th, 2026
+                - dialog [ref=f5e142]:
+                  - generic [ref=f5e144]:
+                    - navigation "Navigation bar" [ref=f5e145]:
+                      - button "Go to the Previous Month" [active] [ref=f5e146]
+                      - button "Go to the Next Month" [ref=f5e147]
+                    - generic [ref=f5e148]:
+                      - status [ref=f5e150]: October 2026
+                      - grid "October 2026" [ref=f5e151]:
+                        - rowgroup [aria-hidden] [ref=f5e152]:
+                          - row [ref=f5e153]:
+                            - columnheader [ref=f5e154]: Su
+                            - columnheader [ref=f5e155]: Mo
+                            - columnheader [ref=f5e156]: Tu
+                            - columnheader [ref=f5e157]: We
+                            - columnheader [ref=f5e158]: Th
+                            - columnheader [ref=f5e159]: Fr
+                            - columnheader [ref=f5e160]: Sa
+                        - rowgroup [ref=f5e161]:
+                          - row [ref=f5e162]:
+                            - gridcell "Sunday, September 27th, 2026" [ref=f5e163]:
+                              - button "Sunday, September 27th, 2026" [disabled]: "27"
+                            - gridcell "Monday, September 28th, 2026" [ref=f5e164]:
+                              - button "Monday, September 28th, 2026" [disabled]: "28"
+                            - gridcell "Tuesday, September 29th, 2026" [ref=f5e165]:
+                              - button "Tuesday, September 29th, 2026" [disabled]: "29"
+                            - gridcell "Wednesday, September 30th, 2026" [ref=f5e166]:
+                              - button "Wednesday, September 30th, 2026" [disabled]: "30"
+                            - gridcell "Thursday, October 1st, 2026" [ref=f5e167]:
+                              - button "Thursday, October 1st, 2026" [disabled]: "1"
+                            - gridcell "Friday, October 2nd, 2026" [ref=f5e168]:
+                              - button "Friday, October 2nd, 2026" [disabled]: "2"
+                            - gridcell "Saturday, October 3rd, 2026" [ref=f5e169]:
+                              - button "Saturday, October 3rd, 2026" [disabled]: "3"
+                          - row [ref=f5e170]:
+                            - gridcell "Sunday, October 4th, 2026" [ref=f5e171]:
+                              - button "Sunday, October 4th, 2026" [disabled]: "4"
+                            - gridcell "Monday, October 5th, 2026" [ref=f5e172]:
+                              - button "Monday, October 5th, 2026" [disabled]: "5"
+                            - gridcell "Tuesday, October 6th, 2026" [ref=f5e173]:
+                              - button "Tuesday, October 6th, 2026" [disabled]: "6"
+                            - gridcell "Wednesday, October 7th, 2026" [ref=f5e174]:
+                              - button "Wednesday, October 7th, 2026" [disabled]: "7"
+                            - gridcell "Thursday, October 8th, 2026" [ref=f5e175]:
+                              - button "Thursday, October 8th, 2026" [disabled]: "8"
+                            - gridcell "Friday, October 9th, 2026" [ref=f5e176]:
+                              - button "Friday, October 9th, 2026" [disabled]: "9"
+                            - gridcell "Saturday, October 10th, 2026" [ref=f5e177]:
+                              - button "Saturday, October 10th, 2026" [disabled]: "10"
+                          - row [ref=f5e178]:
+                            - gridcell "Sunday, October 11th, 2026" [ref=f5e179]:
+                              - button "Sunday, October 11th, 2026" [disabled]: "11"
+                            - gridcell "Monday, October 12th, 2026" [ref=f5e180]:
+                              - button "Monday, October 12th, 2026" [disabled]: "12"
+                            - gridcell [ref=f5e181]:
+                              - button "Tuesday, October 13th, 2026" [ref=f5e182]: "13"
+                            - gridcell [ref=f5e183]:
+                              - button "Wednesday, October 14th, 2026" [ref=f5e184]: "14"
+                            - gridcell [ref=f5e185]:
+                              - button "Thursday, October 15th, 2026" [ref=f5e186]: "15"
+                            - gridcell [ref=f5e187]:
+                              - button "Today, Friday, October 16th, 2026" [ref=f5e188]: "16"
+                            - gridcell [ref=f5e189]:
+                              - button "Saturday, October 17th, 2026" [ref=f5e190]: "17"
+                          - row [ref=f5e191]:
+                            - gridcell [ref=f5e192]:
+                              - button "Sunday, October 18th, 2026" [ref=f5e193]: "18"
+                            - gridcell [selected] [ref=f5e194]:
+                              - button "Monday, October 19th, 2026, selected" [ref=f5e195]: "19"
+                            - gridcell [ref=f5e196]:
+                              - button "Tuesday, October 20th, 2026" [ref=f5e197]: "20"
+                            - gridcell [ref=f5e198]:
+                              - button "Wednesday, October 21st, 2026" [ref=f5e199]: "21"
+                            - gridcell [ref=f5e200]:
+                              - button "Thursday, October 22nd, 2026" [ref=f5e201]: "22"
+                            - gridcell [ref=f5e202]:
+                              - button "Friday, October 23rd, 2026" [ref=f5e203]: "23"
+                            - gridcell [ref=f5e204]:
+                              - button "Saturday, October 24th, 2026" [ref=f5e205]: "24"
+                          - row [ref=f5e206]:
+                            - gridcell [ref=f5e207]:
+                              - button "Sunday, October 25th, 2026" [ref=f5e208]: "25"
+                            - gridcell [ref=f5e209]:
+                              - button "Monday, October 26th, 2026" [ref=f5e210]: "26"
+                            - gridcell [ref=f5e211]:
+                              - button "Tuesday, October 27th, 2026" [ref=f5e212]: "27"
+                            - gridcell [ref=f5e213]:
+                              - button "Wednesday, October 28th, 2026" [ref=f5e214]: "28"
+                            - gridcell [ref=f5e215]:
+                              - button "Thursday, October 29th, 2026" [ref=f5e216]: "29"
+                            - gridcell [ref=f5e217]:
+                              - button "Friday, October 30th, 2026" [ref=f5e218]: "30"
+                            - gridcell [ref=f5e219]:
+                              - button "Saturday, October 31st, 2026" [ref=f5e220]: "31"
+          - group "Pickup or delivery" [ref=f5e97]:
+            - radiogroup [ref=f5e99]:
+              - group [ref=f5e100]:
+                - radio "Pickup" [checked] [ref=f5e101]
+                - radio [checked] [aria-hidden] [ref=f5e104]
+                - generic [ref=f5e105]: Pickup
+              - group [ref=f5e106]:
+                - radio "Delivery" [ref=f5e107]
+                - radio [aria-hidden] [ref=f5e108]
+                - generic [ref=f5e109]: Delivery
+          - group "Dietary needs (optional)" [ref=f5e110]:
+            - generic [ref=f5e112]:
+              - group [ref=f5e113]:
+                - checkbox "Vegetarian" [checked] [ref=f5e114]
+                - checkbox [checked] [aria-hidden] [ref=f5e118]
+                - generic [ref=f5e119]: Vegetarian
+              - group [ref=f5e120]:
+                - checkbox "Vegan" [ref=f5e121]
+                - checkbox [aria-hidden] [ref=f5e122]
+                - generic [ref=f5e123]: Vegan
+              - group [ref=f5e124]:
+                - checkbox "Gluten-free" [ref=f5e125]
+                - checkbox [aria-hidden] [ref=f5e126]
+                - generic [ref=f5e127]: Gluten-free
+              - group [ref=f5e128]:
+                - checkbox "Dairy-free" [ref=f5e129]
+                - checkbox [aria-hidden] [ref=f5e130]
+                - generic [ref=f5e131]: Dairy-free
+          - group [ref=f5e132]:
+            - generic [ref=f5e133]: Budget (optional)
+            - textbox "Budget (optional)" [ref=f5e134]:
+              - /placeholder: 1,200
+              - text: "800"
+            - paragraph [ref=f5e135]: Total for food, in dollars.
+        - button "Choose your menu" [ref=f5e137]

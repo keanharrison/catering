@@ -1,0 +1,70 @@
+- generic [ref=f4e3]:
+  - link "Skip to main content" [ref=f4e199] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f4e228]:
+    - link "Pearl Island2GO home" [ref=f4e231] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f4e232]
+      - generic [ref=f4e233]: Pearl Island2GO
+    - separator [ref=f4e234]
+    - generic [ref=f4e236]:
+      - generic [ref=f4e237]: Navigation
+      - list [ref=f4e239]:
+        - listitem [ref=f4e240]:
+          - link "Requests" [ref=f4e241] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f4e246]:
+          - button "Handoff" [ref=f4e247]
+          - generic: Later
+        - listitem [ref=f4e254]:
+          - button "Messages" [ref=f4e255]
+          - generic: Later
+    - generic [ref=f4e259]:
+      - separator [ref=f4e260]
+      - generic [ref=f4e261]:
+        - button "Settings (coming soon)" [ref=f4e262]
+        - button "Pearl Island team account menu" [expanded] [ref=f4e266]:
+          - generic [ref=f4e270]: Pearl Island team
+        - menu "Pearl Island team account menu" [active] [ref=f4e283]:
+          - group "Pearl Island team account" [ref=f4e284]:
+            - generic [aria-hidden] [ref=f4e285]: Pearl Island team account
+          - separator [ref=f4e286]
+          - menuitem "Switch account" [ref=f4e287]
+          - separator [ref=f4e288]
+          - menuitem "Sign out" [ref=f4e289]
+    - button "Toggle Sidebar" [ref=f4e273]
+  - main [ref=f4e5]:
+    - generic [ref=f4e6]:
+      - button "Toggle navigation" [ref=f4e200]:
+        - generic [ref=f4e8]: Toggle Sidebar
+      - separator [ref=f4e274]
+      - navigation "breadcrumb" [ref=f4e275]:
+        - list [ref=f4e276]:
+          - listitem [ref=f4e277]:
+            - link "Requests" [disabled] [ref=f4e278]
+      - generic [ref=f4e12]:
+        - separator [ref=f4e13]
+        - button "Switch to dark mode" [ref=f4e203]
+        - separator [ref=f4e15]
+    - generic [ref=f4e204]:
+      - generic [ref=f4e205]:
+        - heading "Catering requests" [level=1] [ref=f4e206]
+        - paragraph [ref=f4e207]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f4e208]:
+        - tablist [ref=f4e209]:
+          - tab "All 0" [selected] [ref=f4e210]:
+            - text: All
+            - generic [ref=f4e211]: "0"
+          - tab "Needs review 0" [ref=f4e212]:
+            - text: Needs review
+            - generic [ref=f4e213]: "0"
+          - tab "Awaiting customer 0" [ref=f4e214]:
+            - text: Awaiting customer
+            - generic [ref=f4e215]: "0"
+          - tab "Confirmed 0" [ref=f4e216]:
+            - text: Confirmed
+            - generic [ref=f4e217]: "0"
+        - tabpanel "All 0" [ref=f4e218]:
+          - generic [ref=f4e222]:
+            - generic [ref=f4e224]: No requests yet
+            - generic [ref=f4e225]: A catering request will appear here after it is submitted from the customer ordering flow.

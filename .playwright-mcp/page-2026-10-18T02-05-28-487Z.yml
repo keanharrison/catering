@@ -1,0 +1,168 @@
+- generic [ref=f1e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f1e7]:
+    - link "Pearl Island2GO home" [ref=f1e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f1e11]
+      - generic [ref=f1e12]: Pearl Island2GO
+    - separator [ref=f1e13]
+    - generic [ref=f1e15]:
+      - generic [ref=f1e16]: Navigation
+      - list [ref=f1e18]:
+        - listitem [ref=f1e19]:
+          - link "New request" [ref=f1e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f1e23]:
+          - link "Current orders" [ref=f1e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f1e31]:
+          - link "Past orders" [ref=f1e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f1e38]:
+          - link "Messages" [ref=f1e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f1e43]:
+          - link "Account settings" [ref=f1e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f1e49]:
+      - separator [ref=f1e50]
+      - generic [ref=f1e51]:
+        - button "Settings (coming soon)" [ref=f1e52]
+        - button "Customer demo account menu" [ref=f1e56]:
+          - generic [ref=f1e60]: Customer demo
+    - button "Toggle Sidebar" [ref=f1e63]
+  - main [ref=f1e64]:
+    - generic [ref=f1e65]:
+      - button "Toggle navigation" [ref=f1e66]:
+        - generic [ref=f1e67]: Toggle Sidebar
+      - separator [ref=f1e68]
+      - navigation "breadcrumb" [ref=f1e69]:
+        - list [ref=f1e70]:
+          - listitem [ref=f1e71]:
+            - link "New request" [ref=f1e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f1e73]
+          - listitem [ref=f1e76]:
+            - link "Details" [disabled] [ref=f1e504]
+      - generic [ref=f1e78]:
+        - separator [ref=f1e79]
+        - button "Switch to dark mode" [ref=f1e80]
+        - separator [ref=f1e81]
+    - navigation "Request progress" [ref=f1e84]:
+      - list [ref=f1e85]:
+        - listitem [ref=f1e86]:
+          - button "Event" [ref=f1e87]:
+            - generic [aria-hidden] [ref=f1e88]: "1"
+        - listitem [ref=f1e90]:
+          - button "Menu" [ref=f1e91]:
+            - generic [aria-hidden] [ref=f1e92]: "2"
+        - listitem [ref=f1e94]:
+          - button "Supplies" [ref=f1e95]:
+            - generic [aria-hidden] [ref=f1e96]: "3"
+        - listitem [ref=f1e98]:
+          - button "Details" [ref=f1e99]:
+            - generic [aria-hidden] [ref=f1e100]: "4"
+        - listitem [ref=f1e102]:
+          - button "Review" [disabled] [ref=f1e103]:
+            - generic [aria-hidden] [ref=f1e104]: "5"
+      - generic [ref=f1e106]:
+        - progressbar "Request progress" [ref=f1e107]: x
+        - generic [ref=f1e110]: Step 4 of 5
+    - generic [ref=f1e507]:
+      - generic [ref=f1e508]:
+        - generic [ref=f1e509]:
+          - generic [ref=f1e510]: Final details
+          - generic [ref=f1e511]: Add your contact information and any details our catering team needs to prepare your request.
+        - generic [ref=f1e513]:
+          - generic [ref=f1e514]:
+            - group [ref=f1e515]:
+              - generic [ref=f1e516]: Pickup time (required)
+              - textbox "Pickup time (required)" [ref=f1e517]: 12:00
+              - paragraph [ref=f1e518]: Choose when the order should be ready.
+            - group [ref=f1e519]:
+              - generic [ref=f1e520]: Contact name (required)
+              - textbox "Contact name (required)" [ref=f1e521]: Jordan Lee
+            - group [ref=f1e522]:
+              - generic [ref=f1e523]: Email (required)
+              - textbox "Email (required)" [ref=f1e524]
+            - group [ref=f1e525]:
+              - generic [ref=f1e526]: Phone (required)
+              - textbox "Phone (required)" [ref=f1e527]
+            - group [ref=f1e528]:
+              - generic [ref=f1e529]: Company or organization (optional)
+              - textbox "Company or organization (optional)" [ref=f1e530]: Sample Co.
+            - group [ref=f1e531]:
+              - generic [ref=f1e532]: Custom request (optional)
+              - textbox "Custom request (optional)" [ref=f1e533]
+              - paragraph [ref=f1e534]: Requests outside the listed menu need review by our catering team.
+            - group [ref=f1e535]:
+              - generic [ref=f1e536]: Additional notes (optional)
+              - textbox "Additional notes (optional)" [ref=f1e537]
+              - paragraph [ref=f1e538]: Share pickup or delivery instructions and other event details.
+          - generic [ref=f1e539]:
+            - button "Back to supplies" [ref=f1e540]
+            - button "Review your request" [ref=f1e541]
+      - complementary "Order summary" [ref=f1e542]:
+        - generic [ref=f1e543]:
+          - generic [ref=f1e544]: Your order
+          - generic [ref=f1e546]:
+            - generic [ref=f1e547]:
+              - region "Entrees" [ref=f1e548]:
+                - heading "Entrees" [level=3] [ref=f1e549]
+                - list [ref=f1e550]:
+                  - listitem [ref=f1e551]:
+                    - generic [ref=f1e552]:
+                      - text: Sous Poulet Chicken
+                      - generic [ref=f1e553]: 20 servings
+                    - generic [ref=f1e554]: $100
+                  - listitem [ref=f1e555]:
+                    - generic [ref=f1e556]:
+                      - text: Curry Chicken
+                      - generic [ref=f1e557]: 20 servings
+                    - generic [ref=f1e558]: $100
+              - region "Sides" [ref=f1e559]:
+                - separator [ref=f1e560]
+                - heading "Sides" [level=3] [ref=f1e561]
+                - list [ref=f1e562]:
+                  - listitem [ref=f1e563]:
+                    - generic [ref=f1e564]:
+                      - text: Rice w/ Pigeon Peas
+                      - generic [ref=f1e565]: 40 servings
+                    - generic [ref=f1e566]: $110.40
+                  - listitem [ref=f1e567]:
+                    - generic [ref=f1e568]:
+                      - text: Amarillos
+                      - generic [ref=f1e569]: 40 servings
+                    - generic [ref=f1e570]: $110
+                  - listitem [ref=f1e571]:
+                    - generic [ref=f1e572]:
+                      - text: Pikliz
+                      - generic [ref=f1e573]: 40 servings
+                    - generic [ref=f1e574]: $40
+              - region "Salads" [ref=f1e575]:
+                - separator [ref=f1e576]
+                - heading "Salads" [level=3] [ref=f1e577]
+                - list [ref=f1e578]:
+                  - listitem [ref=f1e579]:
+                    - generic [ref=f1e580]:
+                      - text: Kale Salad
+                      - generic [ref=f1e581]: 40 servings
+                    - generic [ref=f1e582]: $150
+            - separator [ref=f1e583]
+            - generic [ref=f1e584]:
+              - generic [ref=f1e585]: Estimated total
+              - generic [ref=f1e586]: $610.40
+            - generic [ref=f1e587]:
+              - generic [ref=f1e588]: Guests
+              - generic [ref=f1e589]: "40"
+            - generic [ref=f1e590]:
+              - generic [ref=f1e591]: Per guest
+              - generic [ref=f1e592]: $15.26
+            - generic [ref=f1e593]:
+              - paragraph [ref=f1e594]:
+                - text: "Entree servings:"
+                - strong [ref=f1e595]: "40"
+                - text: of 40 guests
+              - paragraph [ref=f1e596]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.

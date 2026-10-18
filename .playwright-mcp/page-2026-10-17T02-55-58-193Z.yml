@@ -1,0 +1,120 @@
+- generic [ref=f12e3]:
+  - link "Skip to main content" [ref=f12e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f12e7]:
+    - link "Pearl Island2GO home" [ref=f12e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f12e11]
+      - generic [ref=f12e12]: Pearl Island2GO
+    - separator [ref=f12e13]
+    - generic [ref=f12e15]:
+      - generic [ref=f12e16]: Navigation
+      - list [ref=f12e18]:
+        - listitem [ref=f12e19]:
+          - link "New request" [ref=f12e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=f12e23]
+  - main [ref=f12e24]:
+    - generic [ref=f12e25]:
+      - button "Toggle navigation" [ref=f12e26]:
+        - generic [ref=f12e27]: Toggle Sidebar
+      - separator [ref=f12e28]
+      - navigation "breadcrumb" [ref=f12e29]:
+        - list [ref=f12e30]:
+          - listitem [ref=f12e31]:
+            - link "New request" [ref=f12e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f12e33]
+          - listitem [ref=f12e36]:
+            - link "Event details" [disabled] [ref=f12e37]
+      - button "Guest account menu" [ref=f12e38]:
+        - generic [ref=f12e39]: Guest
+    - navigation "Request progress" [ref=f12e42]:
+      - list [ref=f12e43]:
+        - listitem [ref=f12e44]:
+          - button "Event" [ref=f12e45]:
+            - generic [aria-hidden] [ref=f12e46]: "1"
+        - listitem [ref=f12e48]:
+          - button "Menu" [ref=f12e49]:
+            - generic [aria-hidden] [ref=f12e50]: "2"
+        - listitem [ref=f12e52]:
+          - button "Supplies" [disabled] [ref=f12e53]:
+            - generic [aria-hidden] [ref=f12e54]: "3"
+        - listitem [ref=f12e56]:
+          - button "Details" [disabled] [ref=f12e57]:
+            - generic [aria-hidden] [ref=f12e58]: "4"
+        - listitem [ref=f12e60]:
+          - button "Review" [disabled] [ref=f12e61]:
+            - generic [aria-hidden] [ref=f12e62]: "5"
+      - generic [ref=f12e64]:
+        - progressbar "Request progress" [ref=f12e65]: x
+        - generic [ref=f12e68]: Step 1 of 5
+    - generic [ref=f12e71]:
+      - generic [ref=f12e72]:
+        - heading "Plan your catering" [level=1] [ref=f12e73]
+        - paragraph [ref=f12e74]: Tell us about your event to start building a catering request.
+      - generic [ref=f12e76]:
+        - generic [ref=f12e77]:
+          - generic [ref=f12e78]: Event details
+          - generic [ref=f12e79]: Start with the basics. You can change these details later.
+        - generic [ref=f12e81]:
+          - group "Event details" [ref=f12e82]:
+            - generic [ref=f12e84]:
+              - group [ref=f12e85]:
+                - generic [ref=f12e86]: Event type (required)
+                - combobox "Event type (required)" [ref=f12e87]:
+                  - generic [ref=f12e88]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f12e89]: corporate-lunch
+              - group [ref=f12e90]:
+                - generic [ref=f12e91]: Number of guests (required)
+                - spinbutton "Number of guests (required)" [ref=f12e92]: "40"
+                - paragraph [ref=f12e93]: An estimate is fine. You can change it later.
+              - group [ref=f12e94]:
+                - generic [ref=f12e95]: Event date (required)
+                - button "Event date (required)" [ref=f12e96]: October 19th, 2026
+                - paragraph [ref=f12e97]: You’ll choose your pickup or delivery time on the Details step.
+          - group "Pickup or delivery" [ref=f12e98]:
+            - radiogroup [ref=f12e100]:
+              - group [ref=f12e101]:
+                - radio "Pickup" [checked] [ref=f12e102]
+                - radio [checked] [aria-hidden] [ref=f12e105]
+                - generic [ref=f12e106]: Pickup
+              - group [ref=f12e107]:
+                - radio "Delivery" [ref=f12e108]
+                - radio [aria-hidden] [ref=f12e109]
+                - generic [ref=f12e110]: Delivery
+          - group "Dietary needs (optional)" [ref=f12e111]:
+            - alert [ref=f12e113]:
+              - generic [ref=f12e116]: Dietary guidance
+              - generic [ref=f12e117]:
+                - text: Choose any that apply. These selections note preferences and don’t guarantee allergy or nutrition requirements. For allergy-specific questions, contact
+                - link "Pearl Island’s catering team" [ref=f12e118] [cursor=pointer]:
+                  - /url: mailto:info@pearlislandcatering.com?subject=Catering%20dietary%20question
+                - text: before ordering.
+            - generic [ref=f12e119]:
+              - group [ref=f12e120]:
+                - checkbox "Vegetarian" [checked] [ref=f12e121]
+                - checkbox [checked] [aria-hidden] [ref=f12e125]
+                - generic [ref=f12e126]: Vegetarian
+              - group [ref=f12e127]:
+                - checkbox "Vegan" [ref=f12e128]
+                - checkbox [aria-hidden] [ref=f12e129]
+                - generic [ref=f12e130]: Vegan
+              - group [ref=f12e131]:
+                - checkbox "Gluten-free" [ref=f12e132]
+                - checkbox [aria-hidden] [ref=f12e133]
+                - generic [ref=f12e134]: Gluten-free
+              - group [ref=f12e135]:
+                - checkbox "Dairy-free" [ref=f12e136]
+                - checkbox [aria-hidden] [ref=f12e137]
+                - generic [ref=f12e138]: Dairy-free
+          - group [ref=f12e139]:
+            - generic [ref=f12e140]: Budget (optional)
+            - group [ref=f12e141]:
+              - group [aria-hidden] [ref=f12e142]: $
+              - textbox "Budget (optional)" [ref=f12e143]:
+                - /placeholder: 1,200
+                - text: "800"
+            - paragraph [ref=f12e144]: Total for food, in dollars.
+        - button "Choose your menu" [ref=f12e146]

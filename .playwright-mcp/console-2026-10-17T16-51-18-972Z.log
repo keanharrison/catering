@@ -1,0 +1,68 @@
+[     121ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:15804
+[  104708ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:15804
+[  110509ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  110618ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  110620ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Cannot read properties of null (reading 'useRef')
+    at exports.useRef (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=35694684:766:30)
+    at TabsRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tabs.js?v=66866756:60:36)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9148:92)
+    at workLoopSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9044:37)
+    at renderRootSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9028:6) The above error occurred in the <TabsRoot> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://127.0.0.1:5178/@vite/client:356
+[  110658ms] [ERROR] Screen failed to render TypeError: Cannot read properties of null (reading 'useRef')
+    at exports.useRef (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=35694684:766:30)
+    at TabsRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tabs.js?v=66866756:60:36)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9148:92)
+    at workLoopSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9044:37)
+    at renderRootSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=5a902bbb:9028:6) 
+    at TabsRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tabs.js?v=66866756:58:10)
+    at Tabs (http://127.0.0.1:5178/src/components/ui/tabs.tsx:6:17)
+    at div (<anonymous>)
+    at CardContent (http://127.0.0.1:5178/src/components/ui/card.tsx:66:24)
+    at div (<anonymous>)
+    at Card (http://127.0.0.1:5178/src/components/ui/card.tsx:5:17)
+    at section (<anonymous>)
+    at div (<anonymous>)
+    at StageGate (http://127.0.0.1:5178/src/components/StageGate.tsx:11:29)
+    at MenuPageShell (<anonymous>)
+    at RenderedRoute (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=5a902bbb:4204:26)
+    at Routes (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=5a902bbb:4886:19)
+    at AppRoutes (http://127.0.0.1:5178/src/App.tsx?t=1792255873135:50:22)
+    at div (<anonymous>)
+    at main (<anonymous>)
+    at SidebarInset (http://127.0.0.1:5178/src/components/ui/sidebar.tsx:288:25)
+    at div (<anonymous>)
+    at SidebarProvider (http://127.0.0.1:5178/src/components/ui/sidebar.tsx:35:28)
+    at FloatingDelayGroup (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=5a902bbb:47:10)
+    at TooltipProvider (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=5a902bbb:895:10)
+    at TooltipProvider (http://127.0.0.1:5178/src/components/ui/tooltip.tsx:6:28)
+    at AppShell (http://127.0.0.1:5178/src/components/AppShell.tsx:14:28)
+    at DemoAccountProvider (http://127.0.0.1:5178/src/state/demoAccount.tsx:15:39)
+    at Router (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=5a902bbb:4838:29)
+    at BrowserRouter (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=5a902bbb:7287:26)
+    at ThemeProvider (http://127.0.0.1:5178/src/components/ThemeProvider.tsx:11:33)
+    at App (<anonymous>)
+    at ErrorBoundary (http://127.0.0.1:5178/src/components/ErrorBoundary.tsx:7:8) @ http://127.0.0.1:5178/@vite/client:356
+[  111106ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=35694684:15804

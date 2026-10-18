@@ -1,0 +1,117 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - link "Pearl Island2GO home" [ref=e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=e11]
+      - generic [ref=e12]: Pearl Island2GO
+    - separator [ref=e13]
+    - generic [ref=e15]:
+      - generic [ref=e16]: Navigation
+      - list [ref=e18]:
+        - listitem [ref=e19]:
+          - link "New request" [ref=e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=e23]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - separator [ref=e28]
+      - navigation "breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "New request" [ref=e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=e33]
+          - listitem [ref=e36]:
+            - link "Details" [disabled] [ref=e479]
+      - generic [ref=e38]:
+        - separator [ref=e39]
+        - button "Switch to dark mode" [ref=e40]
+        - separator [ref=e41]
+      - button "Guest account menu" [ref=e42]:
+        - generic [ref=e43]: Guest
+    - navigation "Request progress" [ref=e46]:
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - button "Event" [ref=e49]:
+            - generic [aria-hidden] [ref=e50]: "1"
+        - listitem [ref=e52]:
+          - button "Menu" [ref=e53]:
+            - generic [aria-hidden] [ref=e54]: "2"
+        - listitem [ref=e56]:
+          - button "Supplies" [ref=e57]:
+            - generic [aria-hidden] [ref=e58]: "3"
+        - listitem [ref=e60]:
+          - button "Details" [ref=e61]:
+            - generic [aria-hidden] [ref=e62]: "4"
+        - listitem [ref=e64]:
+          - button "Review" [disabled] [ref=e65]:
+            - generic [aria-hidden] [ref=e66]: "5"
+      - generic [ref=e68]:
+        - progressbar "Request progress" [ref=e69]: x
+        - generic [ref=e72]: Step 4 of 5
+    - generic [ref=e482]:
+      - generic [ref=e483]:
+        - generic [ref=e484]:
+          - generic [ref=e485]: Final details
+          - generic [ref=e486]: Add your contact information and any details our catering team needs to prepare your request.
+        - generic [ref=e488]:
+          - generic [ref=e489]:
+            - group [ref=e490]:
+              - generic [ref=e491]: Pickup time (required)
+              - textbox "Pickup time (required)" [ref=e492]: 12:00
+              - paragraph [ref=e493]: Choose when the order should be ready.
+            - group [ref=e494]:
+              - generic [ref=e495]: Contact name (required)
+              - textbox "Contact name (required)" [ref=e496]: Jordan Lee
+            - group [ref=e497]:
+              - generic [ref=e498]: Email (required)
+              - textbox "Email (required)" [ref=e499]
+            - group [ref=e500]:
+              - generic [ref=e501]: Phone (required)
+              - textbox "Phone (required)" [ref=e502]
+            - group [ref=e503]:
+              - generic [ref=e504]: Company or organization (optional)
+              - textbox "Company or organization (optional)" [ref=e505]: Sample Co.
+            - group [ref=e506]:
+              - generic [ref=e507]: Custom request (optional)
+              - textbox "Custom request (optional)" [ref=e508]
+              - paragraph [ref=e509]: Requests outside the listed menu need review by our catering team.
+            - group [ref=e510]:
+              - generic [ref=e511]: Additional notes (optional)
+              - textbox "Additional notes (optional)" [ref=e512]
+              - paragraph [ref=e513]: Share pickup or delivery instructions and other event details.
+          - generic [ref=e514]:
+            - button "Back to supplies" [ref=e515]
+            - button "Review your request" [ref=e516]
+      - complementary "Order summary" [ref=e517]:
+        - generic [ref=e518]:
+          - generic [ref=e519]: Your order
+          - generic [ref=e521]:
+            - region "Entrees" [ref=e523]:
+              - heading "Entrees" [level=3] [ref=e524]
+              - list [ref=e525]:
+                - listitem [ref=e526]:
+                  - generic [ref=e527]:
+                    - text: Slow Roasted Pork
+                    - generic [ref=e528]: 1 serving
+                  - generic [ref=e529]: $6.25
+            - separator [ref=e530]
+            - generic [ref=e531]:
+              - generic [ref=e532]: Estimated total
+              - generic [ref=e533]: $6.25
+            - generic [ref=e534]:
+              - generic [ref=e535]: Guests
+              - generic [ref=e536]: "40"
+            - generic [ref=e537]:
+              - generic [ref=e538]: Per guest
+              - generic [ref=e539]: $0.16
+            - generic [ref=e540]:
+              - paragraph [ref=e541]:
+                - text: "Entree servings:"
+                - strong [ref=e542]: "1"
+                - text: of 40 guests
+              - paragraph [ref=e543]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.

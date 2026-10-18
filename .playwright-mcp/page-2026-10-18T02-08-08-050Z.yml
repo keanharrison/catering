@@ -1,0 +1,149 @@
+- generic [ref=f3e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f3e7]:
+    - link "Pearl Island2GO home" [ref=f3e10] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f3e11]
+      - generic [ref=f3e12]: Pearl Island2GO
+    - separator [ref=f3e13]
+    - generic [ref=f3e15]:
+      - generic [ref=f3e16]: Navigation
+      - list [ref=f3e18]:
+        - listitem [ref=f3e138]:
+          - link "Requests" [ref=f3e139] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f3e144]:
+          - link "Handoff" [ref=f3e145] [cursor=pointer]:
+            - /url: /handoff
+        - listitem [ref=f3e38]:
+          - link "Messages" [ref=f3e39] [cursor=pointer]:
+            - /url: /staff/messages
+        - listitem [ref=f3e152]:
+          - link "Menu and rules" [ref=f3e153] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f3e49]:
+      - separator [ref=f3e50]
+      - generic [ref=f3e51]:
+        - button "Settings (coming soon)" [ref=f3e52]
+        - button "Pearl Island team account menu" [ref=f3e158]:
+          - generic [ref=f3e60]: Pearl Island team
+    - button "Toggle Sidebar" [ref=f3e63]
+  - main [ref=f3e64]:
+    - generic [ref=f3e65]:
+      - button "Toggle navigation" [ref=f3e66]:
+        - generic [ref=f3e67]: Toggle Sidebar
+      - separator [ref=f3e68]
+      - navigation "breadcrumb" [ref=f3e69]:
+        - list [ref=f3e70]:
+          - listitem [ref=f3e71]:
+            - link "Handoff" [disabled] [ref=f3e367]
+      - generic [ref=f3e78]:
+        - separator [ref=f3e79]
+        - button "Switch to dark mode" [ref=f3e80]
+        - separator [ref=f3e81]
+    - generic [ref=f3e368]:
+      - generic [ref=f3e369]:
+        - generic [ref=f3e370]:
+          - generic [ref=f3e371]:
+            - heading "Staff handoff" [level=1] [ref=f3e372]
+            - paragraph [ref=f3e373]: Accepted order · Request order-routine
+          - generic [ref=f3e374]: Accepted
+        - generic [ref=f3e375]:
+          - generic [ref=f3e376]:
+            - generic [ref=f3e377]:
+              - generic [ref=f3e378]: Event and fulfillment
+              - generic [ref=f3e379]: Corporate lunch
+            - generic [ref=f3e381]:
+              - generic [ref=f3e382]:
+                - term [ref=f3e383]: Event date and time
+                - definition [ref=f3e384]: Monday, October 19, 2026 at 12:00 PM
+              - generic [ref=f3e385]:
+                - term [ref=f3e386]: Guest count
+                - definition [ref=f3e387]: "40"
+              - generic [ref=f3e388]:
+                - term [ref=f3e389]: Fulfillment
+                - definition [ref=f3e390]: pickup
+          - generic [ref=f3e391]:
+            - generic [ref=f3e392]: Customer contact
+            - generic [ref=f3e395]:
+              - generic [ref=f3e396]:
+                - term [ref=f3e397]: Name
+                - definition [ref=f3e398]: Workflow Customer
+              - generic [ref=f3e399]:
+                - term [ref=f3e400]: Organization
+                - definition [ref=f3e401]: Workflow QA
+              - generic [ref=f3e402]:
+                - term [ref=f3e403]: Email
+                - definition [ref=f3e404]: workflow@example.com
+              - generic [ref=f3e405]:
+                - term [ref=f3e406]: Phone
+                - definition [ref=f3e407]: 555-0134
+          - generic [ref=f3e408]:
+            - generic [ref=f3e409]:
+              - generic [ref=f3e410]: Food and supplies
+              - generic [ref=f3e411]: Accepted quantities and estimated prices
+            - generic [ref=f3e412]:
+              - region "Food" [ref=f3e413]:
+                - heading "Food" [level=3] [ref=f3e414]
+                - table [ref=f3e417]:
+                  - rowgroup [ref=f3e418]:
+                    - row [ref=f3e419]:
+                      - columnheader "Item" [ref=f3e420]
+                      - columnheader "Quantity" [ref=f3e421]
+                      - columnheader "Unit price" [ref=f3e422]
+                      - columnheader "Line total" [ref=f3e423]
+                  - rowgroup [ref=f3e424]:
+                    - row [ref=f3e425]:
+                      - cell "Sous Poulet Chicken" [ref=f3e426]
+                      - cell "20 servings" [ref=f3e427]
+                      - cell "$5 / serving" [ref=f3e428]
+                      - cell "$100" [ref=f3e429]
+                    - row [ref=f3e430]:
+                      - cell "Curry Chicken" [ref=f3e431]
+                      - cell "21 servings" [ref=f3e432]
+                      - cell "$5 / serving" [ref=f3e433]
+                      - cell "$105" [ref=f3e434]
+                    - row [ref=f3e435]:
+                      - cell "Rice w/ Pigeon Peas" [ref=f3e436]
+                      - cell "40 servings" [ref=f3e437]
+                      - cell "$2.76 / serving" [ref=f3e438]
+                      - cell "$110.40" [ref=f3e439]
+                    - row [ref=f3e440]:
+                      - cell "Amarillos" [ref=f3e441]
+                      - cell "40 servings" [ref=f3e442]
+                      - cell "$2.75 / serving" [ref=f3e443]
+                      - cell "$110" [ref=f3e444]
+                    - row [ref=f3e445]:
+                      - cell "Pikliz" [ref=f3e446]
+                      - cell "40 servings" [ref=f3e447]
+                      - cell "$1 / serving" [ref=f3e448]
+                      - cell "$40" [ref=f3e449]
+                    - row [ref=f3e450]:
+                      - cell "Kale Salad" [ref=f3e451]
+                      - cell "40 servings" [ref=f3e452]
+                      - cell "$3.75 / serving" [ref=f3e453]
+                      - cell "$150" [ref=f3e454]
+              - separator [ref=f3e455]
+              - region "Supplies" [ref=f3e456]:
+                - heading "Supplies" [level=3] [ref=f3e457]
+                - paragraph [ref=f3e458]: No supplies recorded.
+          - generic [ref=f3e459]:
+            - generic [ref=f3e460]:
+              - generic [ref=f3e461]: Cost summary
+              - generic [ref=f3e462]: Estimate based on the accepted selections
+            - generic [ref=f3e464]:
+              - generic [ref=f3e465]:
+                - term [ref=f3e466]: Food subtotal
+                - definition [ref=f3e467]: $615.40
+              - generic [ref=f3e468]:
+                - term [ref=f3e469]: Supplies subtotal
+                - definition [ref=f3e470]: $0
+              - separator [ref=f3e471]
+              - generic [ref=f3e472]:
+                - term [ref=f3e473]: Estimated total
+                - definition [ref=f3e474]: $615.40
+      - generic [ref=f3e475]:
+        - button "Back to requests" [ref=f3e476] [cursor=pointer]
+        - button "Print handoff" [ref=f3e477]

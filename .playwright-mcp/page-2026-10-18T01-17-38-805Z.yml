@@ -1,0 +1,50 @@
+- generic [ref=f15e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f15e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f15e7]:
+    - link "Pearl Island2GO home" [ref=f15e10] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f15e11]
+      - generic [ref=f15e12]: Pearl Island2GO
+    - separator [ref=f15e13]
+    - generic [ref=f15e15]:
+      - generic [ref=f15e16]: Navigation
+      - list [ref=f15e18]:
+        - listitem [ref=f15e19]:
+          - link "Requests" [ref=f15e20] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f15e25]:
+          - link "Handoff" [ref=f15e26] [cursor=pointer]:
+            - /url: /handoff
+        - listitem [ref=f15e33]:
+          - link "Messages" [ref=f15e34] [cursor=pointer]:
+            - /url: /staff/messages
+        - listitem [ref=f15e38]:
+          - link "Menu and rules" [ref=f15e39] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f15e44]:
+      - separator [ref=f15e45]
+      - generic [ref=f15e46]:
+        - button "Settings (coming soon)" [ref=f15e47]
+        - button "Pearl Island team account menu" [ref=f15e51]:
+          - generic [ref=f15e55]: Pearl Island team
+    - button "Toggle Sidebar" [ref=f15e58]
+  - main [ref=f15e59]:
+    - generic [ref=f15e60]:
+      - button "Toggle navigation" [ref=f15e61]:
+        - generic [ref=f15e62]: Toggle Sidebar
+      - separator [ref=f15e63]
+      - navigation "breadcrumb" [ref=f15e64]:
+        - list [ref=f15e65]:
+          - listitem [ref=f15e66]:
+            - link "Handoff" [disabled] [ref=f15e67]
+      - generic [ref=f15e68]:
+        - separator [ref=f15e69]
+        - button "Switch to dark mode" [ref=f15e70]
+        - separator [ref=f15e71]
+    - generic [ref=f15e74]:
+      - generic [ref=f15e75]:
+        - generic [ref=f15e76]: Handoff is not ready
+        - generic [ref=f15e77]: Request sample-submitted-routine has not been accepted yet. Accept it from Staff Requests to prepare a read-only handoff summary.
+      - button "Back to requests" [ref=f15e79] [cursor=pointer]

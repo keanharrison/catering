@@ -1,0 +1,88 @@
+- generic [ref=f5e1]:
+  - generic [ref=f5e3]:
+    - region "Notifications alt+T"
+    - link [aria-hidden] [ref=f5e118] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [aria-hidden] [ref=f5e64]:
+      - generic [ref=f5e65]:
+        - button [ref=f5e119]:
+          - generic [ref=f5e67]: Toggle Sidebar
+        - link [ref=f5e120] [cursor=pointer]:
+          - /url: /customer
+          - generic [ref=f5e122]: Pearl Island2GO
+        - generic [ref=f5e78]:
+          - separator [ref=f5e79]
+          - button [ref=f5e123]
+          - separator [ref=f5e81]
+      - generic [ref=f5e83]:
+        - generic [ref=f5e84]:
+          - generic [ref=f5e85]:
+            - heading [level=1] [ref=f5e124]: Current orders
+            - paragraph [ref=f5e87]: Track your catering requests and respond when the Pearl Island team needs you.
+          - button [ref=f5e125] [cursor=pointer]: New catering request
+        - tablist [ref=f5e90]:
+          - tab [selected] [ref=f5e126]:
+            - text: All active
+            - generic [ref=f5e92]: "1"
+          - tab [ref=f5e127]:
+            - text: Needs your action
+            - generic [ref=f5e94]: "0"
+          - tab [ref=f5e128]:
+            - text: Confirmed
+            - generic [ref=f5e96]: "1"
+        - generic [ref=f5e98]:
+          - generic [ref=f5e100]:
+            - generic [ref=f5e101]:
+              - generic [ref=f5e102]: Request order-routine
+              - generic [ref=f5e103]: Monday, October 19, 2026 at 12:00 PM
+            - generic [ref=f5e104]: Accepted
+          - generic [ref=f5e105]:
+            - generic [ref=f5e106]:
+              - generic [ref=f5e107]:
+                - term [ref=f5e108]: Guests
+                - definition [ref=f5e109]: "40"
+              - generic [ref=f5e110]:
+                - term [ref=f5e111]: Pickup or delivery
+                - definition [ref=f5e112]: pickup
+            - generic [ref=f5e113]:
+              - generic [ref=f5e114]:
+                - paragraph [ref=f5e115]: Estimated total
+                - paragraph [ref=f5e116]: $615.40
+              - button [ref=f5e129]: View order
+  - dialog "Sidebar" [ref=f5e133]:
+    - generic [ref=f5e134]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f5e135]:
+      - generic [ref=f5e137]:
+        - link "Pearl Island2GO home" [active] [ref=f5e138] [cursor=pointer]:
+          - /url: /customer
+          - img "Pearl Island" [ref=f5e139]
+          - generic [ref=f5e140]: Pearl Island2GO
+        - button "Close navigation" [ref=f5e141]
+      - separator [ref=f5e145]
+      - generic [ref=f5e147]:
+        - generic [ref=f5e148]: Navigation
+        - list [ref=f5e150]:
+          - listitem [ref=f5e151]:
+            - link "New request" [ref=f5e152] [cursor=pointer]:
+              - /url: /customer
+          - listitem [ref=f5e155]:
+            - link "Current orders" [ref=f5e156] [cursor=pointer]:
+              - /url: /customer/orders
+          - listitem [ref=f5e163]:
+            - link "Past orders" [ref=f5e164] [cursor=pointer]:
+              - /url: /customer/orders/past
+          - listitem [ref=f5e170]:
+            - link "Messages" [ref=f5e171] [cursor=pointer]:
+              - /url: /customer/messages
+          - listitem [ref=f5e175]:
+            - link "Account settings" [ref=f5e176] [cursor=pointer]:
+              - /url: /settings
+      - generic [ref=f5e181]:
+        - separator [ref=f5e182]
+        - generic [ref=f5e183]:
+          - button "Settings (coming soon)" [ref=f5e184]
+          - button "Customer demo account menu" [ref=f5e188]:
+            - generic [ref=f5e192]: Customer demo

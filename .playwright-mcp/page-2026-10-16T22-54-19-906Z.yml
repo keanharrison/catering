@@ -1,0 +1,30 @@
+- generic [ref=f19e3]:
+  - link "Skip to main content" [ref=f19e233] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f19e25]:
+    - generic [ref=f19e169]:
+      - button "Toggle navigation" [ref=f19e234]:
+        - generic [ref=f19e171]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f19e235] [cursor=pointer]:
+        - /url: /staff
+        - img "Pearl Island" [ref=f19e236]
+        - generic [ref=f19e179]: Pearl Island2GO
+      - button "Team account menu" [expanded] [ref=f19e237]:
+        - generic [ref=f19e181]: Team
+      - menu "Team account menu" [active] [ref=f19e245]:
+        - group "Pearl Island team account" [ref=f19e246]:
+          - generic [aria-hidden] [ref=f19e247]: Pearl Island team account
+        - separator [ref=f19e248]
+        - menuitem "Switch account" [ref=f19e249]
+        - separator [ref=f19e250]
+        - menuitem "Sign out" [ref=f19e251]
+    - region "Demo controls" [ref=f19e238]:
+      - group [ref=f19e42]:
+        - generic "Demo controls Show" [ref=f19e239] [cursor=pointer]:
+          - generic [ref=f19e44]: Demo controls
+          - generic [ref=f19e45]: Show
+        - option "Routine event" [selected]
+        - option "Unusual request"
+    - generic [ref=f19e166]:
+      - heading "Requests" [level=1] [ref=f19e240]
+      - paragraph [ref=f19e168]: The Pearl Island team account is selected. This workspace will be built as its own page after the event request flow.

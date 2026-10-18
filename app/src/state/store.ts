@@ -4,6 +4,8 @@ import { catalog, type Actor, type Order, type OrderIntent, type OrderLine, type
 import { addMinutes } from '../engine'
 import * as machine from './orderMachine'
 import { isValidDemoState } from './validate'
+import { sampleOrders } from '../data/sampleOrders'
+import { prefillMissingContact } from './customerProfile'
 
 /**
  * The live demo state: current scenario, a demo clock, and the order. Persisted in
@@ -26,9 +28,14 @@ type DemoState = {
   /** Demo clock; starts at the scenario's fixed time and moves a minute per action. */
   clock: string
   order: Order
+  draftOrder: Order
+  orders: Order[]
   lastError: string | null
+  clearError: () => void
 
   loadScenario: (id: string) => void
+  activateOrder: (id: string) => void
+  activateDraft: () => void
   reset: () => void
   updateDraft: (patch: {
     intent?: OrderIntent
@@ -46,11 +53,14 @@ type DemoState = {
 
 function freshState(id: string, previousSession = 0) {
   const scenario = findScenario(id)
+  const order = machine.createOrder({ ...scenario, intent: prefillMissingContact(scenario.intent) })
   return {
     scenarioId: id,
     session: previousSession + 1,
     clock: scenario.now,
-    order: machine.createOrder(scenario),
+    order,
+    draftOrder: order,
+    orders: sampleOrders,
     lastError: null,
   }
 }
@@ -60,16 +70,40 @@ export const useDemoStore = create<DemoState>()(
     (set, get) => {
       // Runs one machine action at the demo clock; keeps the error if it is refused.
       const run = (action: (order: Order, at: string) => machine.Result) => {
-        const { order, clock } = get()
+        const { order, clock, orders, scenarioId } = get()
         const result = action(order, clock)
-        if (result.ok) set({ order: result.order, clock: addMinutes(clock, 1), lastError: null })
+        if (result.ok) {
+          let nextOrder = result.order
+          if (order.status === 'draft' && nextOrder.status !== 'draft' && orders.some((item) => item.id === nextOrder.id)) {
+            const ordinal = orders.filter((item) => item.id.startsWith(nextOrder.id)).length + 1
+            nextOrder = { ...nextOrder, id: `${nextOrder.id}-${ordinal}` }
+          }
+          const nextDraft = order.status !== 'draft'
+            ? get().draftOrder
+            : nextOrder.status === 'draft'
+              ? nextOrder
+              : machine.createOrder({ ...findScenario(scenarioId), intent: prefillMissingContact(findScenario(scenarioId).intent) })
+          const nextOrders = nextOrder.status === 'draft'
+            ? orders
+            : [...orders.filter((item) => item.id !== nextOrder.id), nextOrder]
+          set({ order: nextOrder, draftOrder: nextDraft, orders: nextOrders, clock: addMinutes(clock, 1), lastError: null })
+        }
         else set({ lastError: result.error })
       }
 
       return {
         ...freshState(DEFAULT_SCENARIO),
-        loadScenario: (id) => set(freshState(id, get().session)),
-        reset: () => set(freshState(get().scenarioId, get().session)),
+        clearError: () => set({ lastError: null }),
+        loadScenario: (id) => {
+          const previous = get()
+          set({ ...freshState(id, previous.session), orders: previous.orders })
+        },
+        activateOrder: (id) => {
+          const order = get().orders.find((item) => item.id === id)
+          if (order) set({ order, lastError: null })
+        },
+        activateDraft: () => set({ order: get().draftOrder, lastError: null }),
+        reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders }),
         updateDraft: (patch) => run((order) => machine.updateDraft(order, patch)),
         submit: () => run((order, at) => machine.submit(order, at)),
         requestClarification: (text) => run((order, at) => machine.requestClarification(order, text, at)),
@@ -82,10 +116,39 @@ export const useDemoStore = create<DemoState>()(
     },
     {
       name: STORAGE_KEY,
-      version: 2,
+      version: 5,
       storage: createJSONStorage(() => localStorage),
+      migrate: (persisted, version) => {
+        if (version < 5 && persisted && typeof persisted === 'object') {
+          const state = persisted as { order?: Order & { intent?: Record<string, unknown> }; orders?: Order[]; draftOrder?: Order }
+          if (state.order?.intent) {
+            state.order.intent.email ??= ''
+            state.order.intent.phone ??= ''
+            state.order.intent.deliveryAddress ??= ''
+            state.order.intent.deliveryCity ??= ''
+            state.order.intent.deliveryState ??= ''
+            state.order.intent.deliveryZip ??= ''
+          }
+        }
+        if (persisted && typeof persisted === 'object') {
+          const state = persisted as { orders?: Order[]; order?: Order; draftOrder?: Order }
+          state.draftOrder ??= state.order?.status === 'draft' ? state.order : undefined
+          const savedOrders = state.orders ?? (state.order && state.order.status !== 'draft' ? [state.order] : [])
+          state.orders = [...sampleOrders, ...savedOrders.filter((order) => !sampleOrders.some((sample) => sample.id === order.id))]
+        }
+        return persisted as DemoState
+      },
       // Ignore saved data that fails validation and start from the fresh state instead.
-      merge: (persisted, current) => (isValidDemoState(persisted) ? { ...current, ...(persisted as object) } : current),
+      merge: (persisted, current) => {
+        if (!isValidDemoState(persisted)) return current
+        const saved = persisted as Partial<DemoState>
+        return {
+          ...current,
+          ...saved,
+          draftOrder: saved.draftOrder ?? (saved.order?.status === 'draft' ? saved.order : current.draftOrder),
+          orders: saved.orders?.length ? saved.orders : current.orders,
+        }
+      },
     },
   ),
 )

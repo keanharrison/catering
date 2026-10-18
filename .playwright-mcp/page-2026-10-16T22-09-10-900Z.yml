@@ -1,0 +1,4 @@
+- main [ref=f9e3]:
+  - group [ref=f9e4]:
+    - generic [ref=f9e5]: Event type
+    - textbox "Event type" [ref=f9e6]

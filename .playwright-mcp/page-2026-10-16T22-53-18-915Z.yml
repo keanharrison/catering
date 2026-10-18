@@ -1,0 +1,63 @@
+- generic [ref=f19e3]:
+  - link "Skip to main content" [ref=f19e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f19e7]:
+    - link "Pearl Island2GO home" [ref=f19e10] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f19e11]
+      - generic [ref=f19e12]: Pearl Island2GO
+    - separator [ref=f19e13]
+    - generic [ref=f19e15]:
+      - generic [ref=f19e16]: Navigation
+      - list [ref=f19e18]:
+        - listitem [ref=f19e136]:
+          - link "Requests" [ref=f19e137] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f19e142]:
+          - button "Handoff" [ref=f19e143]
+          - generic: Later
+        - listitem [ref=f19e150]:
+          - button "Messages" [ref=f19e151]
+          - generic: Later
+        - listitem [ref=f19e155]:
+          - button "Settings" [ref=f19e156]
+          - generic: Later
+    - generic [ref=f19e23]: Pearl Island team account
+    - button "Toggle Sidebar" [ref=f19e24]
+  - main [ref=f19e25]:
+    - generic [ref=f19e26]:
+      - button "Toggle navigation" [ref=f19e27]:
+        - generic [ref=f19e28]: Toggle Sidebar
+      - separator [ref=f19e29]
+      - navigation "breadcrumb" [ref=f19e30]:
+        - list [ref=f19e31]:
+          - listitem [ref=f19e32]:
+            - link "Requests" [disabled] [ref=f19e161]
+      - button "Team account menu" [expanded] [ref=f19e162]:
+        - generic [ref=f19e40]: Team
+      - generic:
+        - generic:
+          - menu "Team account menu" [ref=f19e163]:
+            - group "Pearl Island team account" [ref=f19e164]:
+              - generic [aria-hidden] [ref=f19e121]: Pearl Island team account
+            - separator [ref=f19e122]
+            - menuitem "Switch account" [expanded] [ref=f19e123]
+            - separator [ref=f19e124]
+            - menuitem "Sign out" [ref=f19e165]
+          - generic:
+            - menu "Switch account" [ref=f19e128]:
+              - group [ref=f19e129]:
+                - menuitemradio "Guest (signed out)" [ref=f19e130]
+                - menuitemradio "Customer demo account" [ref=f19e131]
+                - menuitemradio "Pearl Island team account" [checked] [ref=f19e132]
+            - group
+    - region "Demo controls" [ref=f19e41]:
+      - group [ref=f19e42]:
+        - generic "Demo controls Show" [ref=f19e43] [cursor=pointer]:
+          - generic [ref=f19e44]: Demo controls
+          - generic [ref=f19e45]: Show
+        - option "Routine event" [selected]
+        - option "Unusual request"
+    - generic [ref=f19e166]:
+      - heading "Requests" [level=1] [ref=f19e167]
+      - paragraph [ref=f19e168]: The Pearl Island team account is selected. This workspace will be built as its own page after the event request flow.

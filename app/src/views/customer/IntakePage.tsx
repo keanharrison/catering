@@ -4,7 +4,14 @@ import { Band } from '../../components/Band'
 import { Button } from '../../components/Button'
 import { Choices } from '../../components/Choices'
 import { Eyebrow } from '../../components/Eyebrow'
-import { Field, inputClass } from '../../components/Field'
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '../../components/ui/field'
+import { Input, NativeSelect } from '../../components/ui/input'
 import { JourneyNav } from '../../components/JourneyNav'
 import { Panel } from '../../components/Panel'
 import { StageGate } from '../../components/StageGate'
@@ -12,6 +19,8 @@ import { catalog, type DietaryTag, type Fulfillment } from '../../data'
 import { stagePath } from './journey'
 import { useDemoStore } from '../../state/store'
 import {
+  loadIntakeFormDraft,
+  saveIntakeFormDraft,
   formToIntent,
   intentToForm,
   sectionErrors,
@@ -45,16 +54,19 @@ export function IntakePage() {
 
 function IntakeFormView() {
   const navigate = useNavigate()
+  const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
   const updateDraft = useDemoStore((state) => state.updateDraft)
 
-  const [form, setForm] = useState<IntakeForm>(() => intentToForm(order.intent))
+  const [form, setForm] = useState<IntakeForm>(() => loadIntakeFormDraft(session, intentToForm(order.intent)))
   const [errors, setErrors] = useState<IntakeErrors>({})
   const formRef = useRef<HTMLFormElement>(null)
 
   function set<K extends IntakeField>(field: K, value: IntakeForm[K]) {
-    setForm((current) => ({ ...current, [field]: value }))
+    const next = { ...form, [field]: value }
+    setForm(next)
+    saveIntakeFormDraft(session, next)
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
   }
 
@@ -79,7 +91,7 @@ function IntakeFormView() {
   return (
     <Band>
       <Eyebrow marker>Event details</Eyebrow>
-      <h1 className="mt-6 text-4xl md:text-7xl">Tell us about your event.</h1>
+      <h1 className="mt-6 text-3xl md:text-5xl">Tell us about your event.</h1>
       <div className="mt-10">
         <JourneyNav active="event" />
       </div>
@@ -87,13 +99,15 @@ function IntakeFormView() {
       <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <Panel className="p-6 md:p-8">
           <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-6">
-            <Field label="Event type" htmlFor="eventType" error={errors.eventType}>
-              <select
+            <FieldGroup>
+              <Field data-invalid={Boolean(errors.eventType) || undefined}>
+                <FieldLabel htmlFor="eventType">Event type</FieldLabel>
+                <NativeSelect
                 id="eventType"
                 name="eventType"
-                className={inputClass}
                 value={form.eventType}
                 aria-invalid={Boolean(errors.eventType)}
+                aria-describedby={errors.eventType ? 'eventType-error' : undefined}
                 onChange={(e) => set('eventType', e.target.value)}
               >
                 <option value="">Choose one</option>
@@ -102,45 +116,49 @@ function IntakeFormView() {
                     {type.label}
                   </option>
                 ))}
-              </select>
-            </Field>
-            <Field
-              label="Number of guests"
-              htmlFor="guestCount"
-              hint="An estimate is fine. You can change it later."
-              error={errors.guestCount}
-            >
-              <input
+                </NativeSelect>
+                {errors.eventType && <FieldError id="eventType-error">{errors.eventType}</FieldError>}
+              </Field>
+              <Field data-invalid={Boolean(errors.guestCount) || undefined}>
+                <FieldLabel htmlFor="guestCount">Number of guests</FieldLabel>
+                <Input
                 id="guestCount"
                 name="guestCount"
                 type="number"
                 inputMode="numeric"
                 min={1}
-                className={inputClass}
                 value={form.guestCount}
                 aria-invalid={Boolean(errors.guestCount)}
+                aria-describedby={errors.guestCount ? 'guestCount-error' : 'guestCount-hint'}
                 onChange={(e) => set('guestCount', e.target.value)}
               />
-            </Field>
-            <Field label="Event date" htmlFor="eventDate" error={errors.eventDate}>
-              <input
+                {errors.guestCount ? (
+                  <FieldError id="guestCount-error">{errors.guestCount}</FieldError>
+                ) : (
+                  <FieldDescription id="guestCount-hint">An estimate is fine. You can change it later.</FieldDescription>
+                )}
+              </Field>
+              <Field data-invalid={Boolean(errors.eventDate) || undefined}>
+                <FieldLabel htmlFor="eventDate">Event date</FieldLabel>
+                <Input
                 id="eventDate"
                 name="eventDate"
                 type="date"
                 min={clock.slice(0, 10)}
-                className={inputClass}
                 value={form.eventDate}
                 aria-invalid={Boolean(errors.eventDate)}
+                aria-describedby={errors.eventDate ? 'eventDate-error' : undefined}
                 onChange={(e) => set('eventDate', e.target.value)}
               />
-            </Field>
+                {errors.eventDate && <FieldError id="eventDate-error">{errors.eventDate}</FieldError>}
+              </Field>
             <Choices legend="Pickup or delivery">
               {fulfillmentOptions.map((option) => (
-                <label key={option.id} className="flex min-h-11 items-center gap-2 font-sans text-base">
+                <label key={option.id} className="flex min-h-11 items-center gap-2 text-base">
                   <input
                     type="radio"
                     name="fulfillment"
-                    className="accent-accent"
+                    className="accent-neutral-950"
                     checked={form.fulfillment === option.id}
                     onChange={() => set('fulfillment', option.id)}
                   />
@@ -150,11 +168,11 @@ function IntakeFormView() {
             </Choices>
             <Choices legend="Dietary needs (optional)">
               {dietaryOptions.map((option) => (
-                <label key={option.id} className="flex min-h-11 items-center gap-2 font-sans text-base">
+                <label key={option.id} className="flex min-h-11 items-center gap-2 text-base">
                   <input
                     type="checkbox"
                     name="dietary"
-                    className="accent-accent"
+                    className="accent-neutral-950"
                     checked={form.dietary.includes(option.id)}
                     onChange={() => toggleDietary(option.id)}
                   />
@@ -162,23 +180,25 @@ function IntakeFormView() {
                 </label>
               ))}
             </Choices>
-            <Field
-              label="Budget (optional)"
-              htmlFor="budget"
-              hint="Total for food, in dollars."
-              error={errors.budget}
-            >
-              <input
+              <Field data-invalid={Boolean(errors.budget) || undefined}>
+                <FieldLabel htmlFor="budget">Budget (optional)</FieldLabel>
+                <Input
                 id="budget"
                 name="budget"
                 inputMode="decimal"
                 placeholder="1,200"
-                className={inputClass}
                 value={form.budget}
                 aria-invalid={Boolean(errors.budget)}
+                aria-describedby={errors.budget ? 'budget-error' : 'budget-hint'}
                 onChange={(e) => set('budget', e.target.value)}
               />
-            </Field>
+                {errors.budget ? (
+                  <FieldError id="budget-error">{errors.budget}</FieldError>
+                ) : (
+                  <FieldDescription id="budget-hint">Total for food, in dollars.</FieldDescription>
+                )}
+              </Field>
+            </FieldGroup>
             <div className="flex justify-end">
               <Button type="submit">Choose your menu</Button>
             </div>

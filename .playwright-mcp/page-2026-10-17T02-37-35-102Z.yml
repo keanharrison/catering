@@ -1,0 +1,88 @@
+- generic [ref=f7e3]:
+  - link "Skip to main content" [ref=f7e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f7e5]:
+    - generic [ref=f7e6]:
+      - button "Toggle navigation" [ref=f7e7]:
+        - generic [ref=f7e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f7e9] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f7e10]
+        - generic [ref=f7e11]: Pearl Island2GO
+      - button "Guest account menu" [ref=f7e12]:
+        - generic [ref=f7e13]: Guest
+    - navigation "Request progress" [ref=f7e16]:
+      - list [ref=f7e17]:
+        - listitem [ref=f7e18]:
+          - button "Event" [ref=f7e19]
+        - listitem [ref=f7e21]:
+          - button "Menu" [ref=f7e22]
+        - listitem [ref=f7e24]:
+          - button "Supplies" [disabled] [ref=f7e25]
+        - listitem [ref=f7e27]:
+          - button "Details" [disabled] [ref=f7e28]
+        - listitem [ref=f7e30]:
+          - button "Review" [disabled] [ref=f7e31]
+      - generic [ref=f7e33]:
+        - progressbar "Request progress" [ref=f7e34]: x
+        - generic [ref=f7e37]: Step 1 of 5
+    - generic [ref=f7e40]:
+      - generic [ref=f7e41]:
+        - heading "Plan your catering" [level=1] [ref=f7e42]
+        - paragraph [ref=f7e43]: Tell us about your event to start building a catering request.
+      - generic [ref=f7e45]:
+        - generic [ref=f7e46]:
+          - generic [ref=f7e47]: Event details
+          - generic [ref=f7e48]: Start with the basics. You can change these details later.
+        - generic [ref=f7e50]:
+          - group "Event details" [ref=f7e51]:
+            - generic [ref=f7e53]:
+              - group [ref=f7e54]:
+                - generic [ref=f7e55]: Event type
+                - combobox "Event type" [ref=f7e56]:
+                  - generic [ref=f7e57]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f7e58]: corporate-lunch
+              - group [ref=f7e59]:
+                - generic [ref=f7e60]: Number of guests
+                - spinbutton "Number of guests" [ref=f7e61]: "40"
+                - paragraph [ref=f7e62]: An estimate is fine. You can change it later.
+              - group [ref=f7e63]:
+                - generic [ref=f7e64]: Event date
+                - button "Event date" [ref=f7e65]: October 19th, 2026
+          - group "Pickup or delivery" [ref=f7e66]:
+            - radiogroup [ref=f7e68]:
+              - group [ref=f7e69]:
+                - radio "Pickup" [checked] [ref=f7e70]
+                - radio [checked] [aria-hidden] [ref=f7e73]
+                - generic [ref=f7e74]: Pickup
+              - group [ref=f7e75]:
+                - radio "Delivery" [ref=f7e76]
+                - radio [aria-hidden] [ref=f7e77]
+                - generic [ref=f7e78]: Delivery
+          - group "Dietary needs (optional)" [ref=f7e79]:
+            - paragraph [ref=f7e81]: Choose any that apply. These selections note preferences; they don’t guarantee allergy or nutrition requirements.
+            - generic [ref=f7e82]:
+              - group [ref=f7e83]:
+                - checkbox "Vegetarian" [checked] [ref=f7e84]
+                - checkbox [checked] [aria-hidden] [ref=f7e88]
+                - generic [ref=f7e89]: Vegetarian
+              - group [ref=f7e90]:
+                - checkbox "Vegan" [checked] [active] [ref=f7e91]
+                - checkbox [checked] [aria-hidden] [ref=f7e92]
+                - generic [ref=f7e93]: Vegan
+              - group [ref=f7e94]:
+                - checkbox "Gluten-free" [ref=f7e95]
+                - checkbox [aria-hidden] [ref=f7e96]
+                - generic [ref=f7e97]: Gluten-free
+              - group [ref=f7e98]:
+                - checkbox "Dairy-free" [ref=f7e99]
+                - checkbox [aria-hidden] [ref=f7e100]
+                - generic [ref=f7e101]: Dairy-free
+          - group [ref=f7e102]:
+            - generic [ref=f7e103]: Budget (optional)
+            - textbox "Budget (optional)" [ref=f7e104]:
+              - /placeholder: 1,200
+              - text: "800"
+            - paragraph [ref=f7e105]: Total for food, in dollars.
+        - button "Choose your menu" [ref=f7e107]

@@ -1,0 +1,16 @@
+- generic [ref=f49e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f49e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f49e5]:
+    - generic [ref=f49e6]:
+      - button "Toggle navigation" [ref=f49e7]:
+        - generic [ref=f49e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f49e9] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f49e10]
+        - generic [ref=f49e11]: Pearl Island2GO
+      - generic [ref=f49e12]:
+        - separator [ref=f49e13]
+        - button "Switch to dark mode" [ref=f49e14]
+        - separator [ref=f49e15]

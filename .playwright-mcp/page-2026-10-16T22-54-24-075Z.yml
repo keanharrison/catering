@@ -1,0 +1,79 @@
+- generic [ref=f19e3]:
+  - link "Skip to main content" [ref=f19e233] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f19e25]:
+    - generic [ref=f19e169]:
+      - button "Toggle navigation" [ref=f19e234]:
+        - generic [ref=f19e171]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f19e235] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f19e236]
+        - generic [ref=f19e179]: Pearl Island2GO
+      - button "Guest account menu" [ref=f19e254]:
+        - generic [ref=f19e181]: Guest
+    - region "Demo controls" [ref=f19e238]:
+      - group [ref=f19e42]:
+        - generic "Demo controls Show" [ref=f19e239] [cursor=pointer]:
+          - generic [ref=f19e44]: Demo controls
+          - generic [ref=f19e45]: Show
+        - option "Routine event" [selected]
+        - option "Unusual request"
+    - generic [ref=f19e256]:
+      - generic [ref=f19e257]:
+        - heading "Plan your catering" [level=1] [ref=f19e258]
+        - paragraph [ref=f19e259]: Tell us about your event to start building a catering request.
+      - generic [ref=f19e261]:
+        - generic [ref=f19e262]:
+          - generic [ref=f19e263]: Event details
+          - generic [ref=f19e264]: Start with the basics. You can change these details later.
+        - generic [ref=f19e266]:
+          - group "Event details" [ref=f19e267]:
+            - generic [ref=f19e269]:
+              - group [ref=f19e270]:
+                - generic [ref=f19e271]: Event type
+                - combobox "Event type" [ref=f19e272]:
+                  - generic [ref=f19e273]: Corporate lunch
+                  - img [aria-hidden]: ▼
+                - textbox [aria-hidden] [ref=f19e274]: corporate-lunch
+              - group [ref=f19e275]:
+                - generic [ref=f19e276]: Number of guests
+                - spinbutton "Number of guests" [ref=f19e277]: "40"
+                - paragraph [ref=f19e278]: An estimate is fine. You can change it later.
+              - group [ref=f19e279]:
+                - generic [ref=f19e280]: Event date
+                - textbox "Event date" [ref=f19e281]: 2026-10-19
+          - group "Pickup or delivery" [ref=f19e282]:
+            - radiogroup [ref=f19e284]:
+              - group [ref=f19e285]:
+                - radio "Pickup" [checked] [ref=f19e286]
+                - radio [checked] [aria-hidden] [ref=f19e289]
+                - generic [ref=f19e290]: Pickup
+              - group [ref=f19e291]:
+                - radio "Delivery" [ref=f19e292]
+                - radio [aria-hidden] [ref=f19e293]
+                - generic [ref=f19e294]: Delivery
+          - group "Dietary needs (optional)" [ref=f19e295]:
+            - generic [ref=f19e297]:
+              - group [ref=f19e298]:
+                - checkbox "Vegetarian" [checked] [ref=f19e299]
+                - checkbox [checked] [aria-hidden] [ref=f19e303]
+                - generic [ref=f19e304]: Vegetarian
+              - group [ref=f19e305]:
+                - checkbox "Vegan" [ref=f19e306]
+                - checkbox [aria-hidden] [ref=f19e307]
+                - generic [ref=f19e308]: Vegan
+              - group [ref=f19e309]:
+                - checkbox "Gluten-free" [ref=f19e310]
+                - checkbox [aria-hidden] [ref=f19e311]
+                - generic [ref=f19e312]: Gluten-free
+              - group [ref=f19e313]:
+                - checkbox "Dairy-free" [ref=f19e314]
+                - checkbox [aria-hidden] [ref=f19e315]
+                - generic [ref=f19e316]: Dairy-free
+          - group [ref=f19e317]:
+            - generic [ref=f19e318]: Budget (optional)
+            - textbox "Budget (optional)" [ref=f19e319]:
+              - /placeholder: 1,200
+              - text: "800"
+            - paragraph [ref=f19e320]: Total for food, in dollars.
+        - button "Choose your menu" [ref=f19e322]

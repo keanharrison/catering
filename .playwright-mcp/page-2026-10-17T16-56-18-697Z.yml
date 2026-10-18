@@ -1,0 +1,50 @@
+- generic [ref=f7e3]:
+  - link "Skip to main content" [ref=f7e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f7e5]:
+    - generic [ref=f7e6]:
+      - button "Toggle navigation" [ref=f7e7]:
+        - generic [ref=f7e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f7e9] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f7e10]
+        - generic [ref=f7e11]: Pearl Island2GO
+      - button "Guest account menu" [ref=f7e12]:
+        - generic [ref=f7e13]: Guest
+    - navigation "Request progress" [ref=f7e16]:
+      - list [ref=f7e17]:
+        - listitem [ref=f7e18]:
+          - button "Event" [ref=f7e19]
+        - listitem [ref=f7e21]:
+          - button "Menu" [ref=f7e22]
+        - listitem [ref=f7e24]:
+          - button "Supplies" [disabled] [ref=f7e25]
+        - listitem [ref=f7e27]:
+          - button "Details" [disabled] [ref=f7e28]
+        - listitem [ref=f7e30]:
+          - button "Review" [disabled] [ref=f7e31]
+      - generic [ref=f7e33]:
+        - progressbar "Request progress" [ref=f7e34]: x
+        - generic [ref=f7e37]: Step 2 of 5
+    - generic [ref=f7e40]:
+      - generic [ref=f7e41]:
+        - heading "Build your menu" [level=1] [ref=f7e42]
+        - paragraph [ref=f7e43]: Choose entrées, sides, and salads for your event.
+      - generic [ref=f7e44]:
+        - generic [ref=f7e45]:
+          - generic [ref=f7e46]: Menu selections
+          - generic [ref=f7e47]: Browse Pearl Island’s menu and choose quantities for your guests.
+        - generic "Menu categories" [ref=f7e49]:
+          - tablist [ref=f7e50]:
+            - tab "Entrees" [selected] [ref=f7e51]
+            - tab "Sides" [ref=f7e52]
+            - tab "Salads" [ref=f7e53]
+          - generic [ref=f7e54]:
+            - heading "Filter by dietary preference" [level=3] [ref=f7e55]
+            - group "Filter menu by dietary preference" [ref=f7e56]:
+              - button "Vegetarian" [ref=f7e57]
+              - button "Vegan" [ref=f7e58]
+              - button "Gluten-free" [ref=f7e59]
+              - button "Dairy-free" [ref=f7e60]
+            - paragraph [ref=f7e61]: Dietary labels are guides and don’t confirm allergy or nutrition requirements.
+          - tabpanel "Entrees"

@@ -1,0 +1,32 @@
+- generic [ref=f5e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f5e196] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f5e64]:
+    - generic [ref=f5e65]:
+      - button "Toggle navigation" [ref=f5e197]:
+        - generic [ref=f5e67]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f5e198] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f5e199]
+        - generic [ref=f5e122]: Pearl Island2GO
+      - generic [ref=f5e78]:
+        - separator [ref=f5e79]
+        - button "Switch to dark mode" [ref=f5e200]
+        - separator [ref=f5e81]
+    - generic [ref=f5e201]:
+      - generic [ref=f5e202]:
+        - heading "Messages" [level=1] [ref=f5e203]
+        - paragraph [ref=f5e204]: Conversations stay with their catering requests. Messages in this demo are saved on this device and are not delivered.
+      - generic [ref=f5e206]:
+        - generic [ref=f5e207]:
+          - generic [ref=f5e208]: Conversations
+          - generic [ref=f5e209]: 1 request thread
+        - button "Request order-routine Corporate lunch · Monday, October 19, 2026 at 12:00 PM Customer approved the revised proposal. Oct 13, 2026, 9:08 AM Accepted" [ref=f5e211]:
+          - generic [ref=f5e212]:
+            - generic [ref=f5e213]:
+              - generic [ref=f5e214]: Request order-routine
+              - paragraph [ref=f5e215]: Corporate lunch · Monday, October 19, 2026 at 12:00 PM
+              - paragraph [ref=f5e216]: Customer approved the revised proposal.
+              - generic [ref=f5e217]: Oct 13, 2026, 9:08 AM
+            - generic [ref=f5e218]: Accepted

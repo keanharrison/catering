@@ -14,7 +14,13 @@ function isValidIntent(x: unknown): boolean {
   if (!isRecord(x)) return false
   return (
     isText(x.contactName) &&
+    isText(x.email) &&
+    isText(x.phone) &&
     isText(x.organization) &&
+    isText(x.deliveryAddress) &&
+    isText(x.deliveryCity) &&
+    isText(x.deliveryState) &&
+    isText(x.deliveryZip) &&
     isText(x.eventType) &&
     isNumberOrNull(x.guestCount) &&
     isText(x.eventAt) &&
@@ -58,6 +64,8 @@ export function isValidDemoState(x: unknown): boolean {
     typeof x.session === 'number' &&
     isText(x.clock) &&
     !Number.isNaN(Date.parse(x.clock)) &&
-    isValidOrder(x.order)
+    isValidOrder(x.order) &&
+    (x.draftOrder === undefined || isValidOrder(x.draftOrder)) &&
+    (x.orders === undefined || (Array.isArray(x.orders) && x.orders.every(isValidOrder)))
   )
 }

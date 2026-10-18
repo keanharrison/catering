@@ -1,0 +1,42 @@
+- generic [ref=f51e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f51e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f51e5]:
+    - generic [ref=f51e6]:
+      - button "Toggle navigation" [ref=f51e7]:
+        - generic [ref=f51e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f51e9] [cursor=pointer]:
+        - /url: /customer
+        - img "Pearl Island" [ref=f51e10]
+        - generic [ref=f51e11]: Pearl Island2GO
+      - generic [ref=f51e12]:
+        - separator [ref=f51e13]
+        - button "Switch to dark mode" [ref=f51e14]
+        - separator [ref=f51e15]
+    - generic [ref=f51e17]:
+      - generic [ref=f51e18]:
+        - heading "Account settings" [level=1] [ref=f51e19]
+        - paragraph [ref=f51e20]: Save contact details for this browser. This is a demo profile, not a Pearl Island account.
+      - generic [ref=f51e21]:
+        - generic [ref=f51e22]:
+          - generic [ref=f51e23]: Contact information
+          - generic [ref=f51e24]: Saved details can fill blank contact fields on new requests. Existing drafts and orders keep their original information.
+        - generic [ref=f51e26]:
+          - generic [ref=f51e27]:
+            - group [ref=f51e28]:
+              - generic [ref=f51e29]: Name (required)
+              - textbox "Name (required)" [ref=f51e30]: Test Profile
+            - group [ref=f51e31]:
+              - generic [ref=f51e32]: Email (required)
+              - textbox "Email (required)" [ref=f51e33]: test@example.com
+              - paragraph [ref=f51e34]: Used only as a saved convenience in this demo.
+            - group [ref=f51e35]:
+              - generic [ref=f51e36]: Phone (required)
+              - textbox "Phone (required)" [ref=f51e37]: 555-0109
+            - group [ref=f51e38]:
+              - generic [ref=f51e39]: Company or organization (optional)
+              - textbox "Company or organization (optional)" [ref=f51e40]: Test Org
+          - generic [ref=f51e41]:
+            - button "Discard changes" [disabled]
+            - button "Save changes" [disabled]

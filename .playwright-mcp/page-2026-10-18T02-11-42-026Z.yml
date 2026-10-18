@@ -1,0 +1,86 @@
+- generic [ref=f3e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f3e601] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f3e64]:
+    - generic [ref=f3e65]:
+      - button "Toggle navigation" [ref=f3e602]:
+        - generic [ref=f3e67]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f3e603] [cursor=pointer]:
+        - /url: /staff
+        - img "Pearl Island" [ref=f3e604]
+        - generic [ref=f3e480]: Pearl Island2GO
+      - generic [ref=f3e78]:
+        - separator [ref=f3e79]
+        - button "Switch to dark mode" [ref=f3e605]
+        - separator [ref=f3e81]
+    - generic [ref=f3e606]:
+      - generic [ref=f3e607]:
+        - heading "Catering requests" [level=1] [ref=f3e608]
+        - paragraph [ref=f3e609]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f3e610]:
+        - tablist [ref=f3e611]:
+          - tab "All 6" [selected] [ref=f3e612]:
+            - text: All
+            - generic [ref=f3e613]: "6"
+          - tab "Needs review 2" [ref=f3e614]:
+            - text: Needs review
+            - generic [ref=f3e615]: "2"
+          - tab "Awaiting customer 1" [ref=f3e616]:
+            - text: Awaiting customer
+            - generic [ref=f3e617]: "1"
+          - tab "Confirmed 2" [ref=f3e618]:
+            - text: Confirmed
+            - generic [ref=f3e619]: "2"
+        - tabpanel "All 6" [ref=f3e620]:
+          - generic [ref=f3e622]:
+            - generic [ref=f3e623]:
+              - generic [ref=f3e624]: Request list
+              - generic [ref=f3e625]: Select a request to review its details and actions.
+            - list "Catering requests" [ref=f3e627]:
+              - listitem [ref=f3e628]:
+                - button "Jordan Lee Sample Oct 19, 2026 · 40 guests · pickup Submitted" [ref=f3e629]:
+                  - generic [ref=f3e630]:
+                    - generic [ref=f3e631]:
+                      - text: Jordan Lee
+                      - generic [ref=f3e632]: Sample
+                    - generic [ref=f3e633]: Oct 19, 2026 · 40 guests · pickup
+                  - generic [ref=f3e634]: Submitted
+              - listitem [ref=f3e635]:
+                - button "Sam Rivera Sample Oct 15, 2026 · 150 guests · delivery Needs review" [ref=f3e636]:
+                  - generic [ref=f3e637]:
+                    - generic [ref=f3e638]:
+                      - text: Sam Rivera
+                      - generic [ref=f3e639]: Sample
+                    - generic [ref=f3e640]: Oct 15, 2026 · 150 guests · delivery
+                  - generic [ref=f3e641]: Needs review
+              - listitem [ref=f3e642]:
+                - button "Morgan Chen Sample Oct 22, 2026 · 40 guests · pickup Awaiting approval" [ref=f3e643]:
+                  - generic [ref=f3e644]:
+                    - generic [ref=f3e645]:
+                      - text: Morgan Chen
+                      - generic [ref=f3e646]: Sample
+                    - generic [ref=f3e647]: Oct 22, 2026 · 40 guests · pickup
+                  - generic [ref=f3e648]: Awaiting approval
+              - listitem [ref=f3e649]:
+                - button "Taylor Brooks Sample Sep 22, 2026 · 40 guests · pickup Accepted" [ref=f3e650]:
+                  - generic [ref=f3e651]:
+                    - generic [ref=f3e652]:
+                      - text: Taylor Brooks
+                      - generic [ref=f3e653]: Sample
+                    - generic [ref=f3e654]: Sep 22, 2026 · 40 guests · pickup
+                  - generic [ref=f3e655]: Accepted
+              - listitem [ref=f3e656]:
+                - button "Avery James Sample Oct 16, 2026 · 150 guests · delivery Declined" [ref=f3e657]:
+                  - generic [ref=f3e658]:
+                    - generic [ref=f3e659]:
+                      - text: Avery James
+                      - generic [ref=f3e660]: Sample
+                    - generic [ref=f3e661]: Oct 16, 2026 · 150 guests · delivery
+                  - generic [ref=f3e662]: Declined
+              - listitem [ref=f3e663]:
+                - button "Workflow Customer Oct 19, 2026 · 40 guests · pickup Accepted" [pressed] [ref=f3e664]:
+                  - generic [ref=f3e665]:
+                    - generic [ref=f3e666]: Workflow Customer
+                    - generic [ref=f3e667]: Oct 19, 2026 · 40 guests · pickup
+                  - generic [ref=f3e668]: Accepted

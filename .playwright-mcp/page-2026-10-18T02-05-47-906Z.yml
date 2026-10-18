@@ -1,0 +1,218 @@
+- generic [ref=f1e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f1e7]:
+    - link "Pearl Island2GO home" [ref=f1e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f1e11]
+      - generic [ref=f1e12]: Pearl Island2GO
+    - separator [ref=f1e13]
+    - generic [ref=f1e15]:
+      - generic [ref=f1e16]: Navigation
+      - list [ref=f1e18]:
+        - listitem [ref=f1e19]:
+          - link "New request" [ref=f1e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f1e23]:
+          - link "Current orders" [ref=f1e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f1e31]:
+          - link "Past orders" [ref=f1e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f1e38]:
+          - link "Messages" [ref=f1e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f1e43]:
+          - link "Account settings" [ref=f1e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f1e49]:
+      - separator [ref=f1e50]
+      - generic [ref=f1e51]:
+        - button "Settings (coming soon)" [ref=f1e52]
+        - button "Customer demo account menu" [expanded] [ref=f1e56]:
+          - generic [ref=f1e60]: Customer demo
+        - generic:
+          - generic:
+            - menu "Customer demo account menu":
+              - group "Customer demo account":
+                - generic [aria-hidden]: Customer demo account
+              - separator
+              - menuitem "Switch demo account" [expanded] [active] [ref=f1e756]
+              - separator
+              - menuitem "Sign-in and permissions are not connected in this demo." [disabled]
+            - generic:
+              - menu "Switch demo account" [ref=f1e761]:
+                - group [ref=f1e762]:
+                  - menuitemradio "Customer demo account" [checked] [ref=f1e763]
+                  - menuitemradio "Pearl Island team account" [ref=f1e764]
+              - group
+    - button "Toggle Sidebar" [ref=f1e63]
+  - main [ref=f1e64]:
+    - generic [ref=f1e65]:
+      - button "Toggle navigation" [ref=f1e66]:
+        - generic [ref=f1e67]: Toggle Sidebar
+      - separator [ref=f1e68]
+      - navigation "breadcrumb" [ref=f1e69]:
+        - list [ref=f1e70]:
+          - listitem [ref=f1e71]:
+            - link "New request" [ref=f1e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f1e73]
+          - listitem [ref=f1e76]:
+            - link "Review" [disabled] [ref=f1e597]
+      - generic [ref=f1e78]:
+        - separator [ref=f1e79]
+        - button "Switch to dark mode" [ref=f1e80]
+        - separator [ref=f1e81]
+    - navigation "Request progress" [ref=f1e84]:
+      - list [ref=f1e85]:
+        - listitem [ref=f1e86]:
+          - button "Event" [disabled] [ref=f1e87]:
+            - generic [aria-hidden] [ref=f1e88]: "1"
+        - listitem [ref=f1e90]:
+          - button "Menu" [disabled] [ref=f1e91]:
+            - generic [aria-hidden] [ref=f1e92]: "2"
+        - listitem [ref=f1e94]:
+          - button "Supplies" [disabled] [ref=f1e95]:
+            - generic [aria-hidden] [ref=f1e96]: "3"
+        - listitem [ref=f1e98]:
+          - button "Details" [disabled] [ref=f1e99]:
+            - generic [aria-hidden] [ref=f1e100]: "4"
+        - listitem [ref=f1e102]:
+          - button "Review" [ref=f1e103]:
+            - generic [aria-hidden] [ref=f1e104]: "5"
+      - generic [ref=f1e106]:
+        - progressbar "Request progress" [ref=f1e107]: x
+        - generic [ref=f1e110]: Step 5 of 5
+    - generic [ref=f1e599]:
+      - generic [ref=f1e600]:
+        - heading "Review your catering request" [level=1] [ref=f1e601]
+        - paragraph [ref=f1e602]: Your request is recorded in this demo. The restaurant has not received it.
+      - alert [ref=f1e739]:
+        - generic [ref=f1e743]: Request recorded · Submitted
+        - generic [ref=f1e744]:
+          - paragraph [ref=f1e745]: Nothing was sent to Pearl Island, and no payment was taken.
+          - paragraph [ref=f1e746]: "Next step in this demo: switch to the Pearl Island team account to review the request."
+      - generic [ref=f1e603]:
+        - generic [ref=f1e604]:
+          - generic [ref=f1e606]:
+            - generic [ref=f1e607]: Request details
+            - generic [ref=f1e608]: Current event, selections, and contact details for this request.
+          - generic [ref=f1e609]:
+            - region [ref=f1e610]:
+              - heading "Event" [level=2] [ref=f1e612]
+              - generic [ref=f1e614]:
+                - generic [ref=f1e615]:
+                  - term [ref=f1e616]: Event type
+                  - definition [ref=f1e617]: Corporate lunch
+                - generic [ref=f1e618]:
+                  - term [ref=f1e619]: Guests
+                  - definition [ref=f1e620]: "40"
+                - generic [ref=f1e621]:
+                  - term [ref=f1e622]: Event date
+                  - definition [ref=f1e623]: Monday, October 19, 2026
+                - generic [ref=f1e624]:
+                  - term [ref=f1e625]: Pickup time
+                  - definition [ref=f1e626]: 12:00 PM
+                - generic [ref=f1e627]:
+                  - term [ref=f1e628]: Fulfillment
+                  - definition [ref=f1e629]: Pickup
+            - separator [ref=f1e630]
+            - region [ref=f1e631]:
+              - heading "Food selections" [level=2] [ref=f1e633]
+              - table [ref=f1e636]:
+                - caption [ref=f1e637]: Selected food and quantities
+                - rowgroup [ref=f1e638]:
+                  - row [ref=f1e639]:
+                    - columnheader "Item" [ref=f1e640]
+                    - columnheader "Qty" [ref=f1e641]
+                    - columnheader "Unit" [ref=f1e642]
+                    - columnheader "Line total" [ref=f1e643]
+                - rowgroup [ref=f1e644]:
+                  - row [ref=f1e645]:
+                    - cell "Sous Poulet Chicken" [ref=f1e646]
+                    - cell "20" [ref=f1e647]
+                    - cell "servings" [ref=f1e648]
+                    - cell "$100" [ref=f1e649]
+                  - row [ref=f1e650]:
+                    - cell "Curry Chicken" [ref=f1e651]
+                    - cell "20" [ref=f1e652]
+                    - cell "servings" [ref=f1e653]
+                    - cell "$100" [ref=f1e654]
+                  - row [ref=f1e655]:
+                    - cell "Rice w/ Pigeon Peas" [ref=f1e656]
+                    - cell "40" [ref=f1e657]
+                    - cell "servings" [ref=f1e658]
+                    - cell "$110.40" [ref=f1e659]
+                  - row [ref=f1e660]:
+                    - cell "Amarillos" [ref=f1e661]
+                    - cell "40" [ref=f1e662]
+                    - cell "servings" [ref=f1e663]
+                    - cell "$110" [ref=f1e664]
+                  - row [ref=f1e665]:
+                    - cell "Pikliz" [ref=f1e666]
+                    - cell "40" [ref=f1e667]
+                    - cell "servings" [ref=f1e668]
+                    - cell "$40" [ref=f1e669]
+                  - row [ref=f1e670]:
+                    - cell "Kale Salad" [ref=f1e671]
+                    - cell "40" [ref=f1e672]
+                    - cell "servings" [ref=f1e673]
+                    - cell "$150" [ref=f1e674]
+            - separator [ref=f1e675]
+            - region [ref=f1e676]:
+              - heading "Supplies" [level=2] [ref=f1e678]
+              - paragraph [ref=f1e680]: No supplies needed.
+            - separator [ref=f1e681]
+            - region [ref=f1e682]:
+              - heading "Contact and instructions" [level=2] [ref=f1e684]
+              - generic [ref=f1e686]:
+                - generic [ref=f1e687]:
+                  - term [ref=f1e688]: Contact
+                  - definition [ref=f1e689]: Workflow Customer
+                - generic [ref=f1e690]:
+                  - term [ref=f1e691]: Email
+                  - definition [ref=f1e692]: workflow@example.com
+                - generic [ref=f1e693]:
+                  - term [ref=f1e694]: Phone
+                  - definition [ref=f1e695]: 555-0134
+                - generic [ref=f1e696]:
+                  - term [ref=f1e697]: Company or organization
+                  - definition [ref=f1e698]: Workflow QA
+                - generic [ref=f1e699]:
+                  - term [ref=f1e700]: Dietary needs
+                  - definition [ref=f1e701]: None listed
+                - generic [ref=f1e702]:
+                  - term [ref=f1e703]: Custom request
+                  - definition [ref=f1e704]: None
+                - generic [ref=f1e705]:
+                  - term [ref=f1e706]: Additional notes
+                  - definition [ref=f1e707]: None
+        - complementary "Estimated total" [ref=f1e708]:
+          - generic [ref=f1e709]:
+            - generic [ref=f1e710]:
+              - generic [ref=f1e711]: Estimated total
+              - generic [ref=f1e712]: Food and supplies estimate
+            - generic [ref=f1e713]:
+              - generic [ref=f1e714]:
+                - generic [ref=f1e715]:
+                  - generic [ref=f1e716]: Food
+                  - generic [ref=f1e717]: $610.40
+                - generic [ref=f1e718]:
+                  - generic [ref=f1e719]: Supplies
+                  - generic [ref=f1e720]: $0
+              - separator [ref=f1e721]
+              - generic [ref=f1e722]:
+                - generic [ref=f1e723]: Estimated total
+                - generic [ref=f1e724]: $610.40
+              - paragraph [ref=f1e725]: No tax, fees, or tip included.
+              - separator [ref=f1e726]
+              - generic [ref=f1e727]:
+                - generic [ref=f1e728]: Guests
+                - generic [ref=f1e729]: "40"
+              - generic [ref=f1e730]:
+                - generic [ref=f1e731]: Entree servings
+                - generic [ref=f1e732]: 40 of 40
+              - paragraph [ref=f1e733]: This is an estimate for review. Pearl Island has not confirmed the menu or final pricing.
+      - button "Start a new request" [ref=f1e747]

@@ -1,0 +1,169 @@
+import { useNavigate } from 'react-router-dom'
+import { Band } from '../../components/Band'
+import { Button } from '../../components/Button'
+import { Eyebrow } from '../../components/Eyebrow'
+import { JourneyNav } from '../../components/JourneyNav'
+import { OrderSummaryPanel } from '../../components/OrderSummaryPanel'
+import { Panel } from '../../components/Panel'
+import { Pill } from '../../components/Pill'
+import { StageGate } from '../../components/StageGate'
+import { catalog } from '../../data'
+import { formatEventTime, statusLabel, statusTone } from '../../lib/status'
+import { useDemoStore } from '../../state/store'
+import { stagePath, type Stage } from './journey'
+import { buildOrderSummary } from './orderSummary'
+
+export function ReviewPage() {
+  return (
+    <StageGate stage="review">
+      <ReviewView />
+    </StageGate>
+  )
+}
+
+function ReviewView() {
+  const navigate = useNavigate()
+  const order = useDemoStore((state) => state.order)
+  const clock = useDemoStore((state) => state.clock)
+  const lastError = useDemoStore((state) => state.lastError)
+  const submit = useDemoStore((state) => state.submit)
+  const reset = useDemoStore((state) => state.reset)
+  const customerApprove = useDemoStore((state) => state.customerApprove)
+
+  const summary = buildOrderSummary(order, clock)
+  const { intent } = order
+  const eventType = catalog.eventTypes.find((e) => e.id === intent.eventType)?.label ?? intent.eventType
+  const submitted = order.status !== 'draft'
+
+  const details: Array<{ label: string; value: string; edit: Stage }> = [
+    { label: 'Event', value: eventType, edit: 'event' },
+    { label: 'Guests', value: String(intent.guestCount ?? ''), edit: 'event' },
+    {
+      label: intent.fulfillment === 'delivery' ? 'Delivery' : 'Pickup',
+      value: formatEventTime(intent.eventAt),
+      edit: 'details',
+    },
+    { label: 'Dietary needs', value: intent.dietary.length > 0 ? intent.dietary.join(', ') : 'None listed', edit: 'event' },
+    { label: 'Budget', value: intent.budgetCents === null ? 'Not given' : `$${(intent.budgetCents / 100).toLocaleString('en-US')}`, edit: 'event' },
+    { label: 'Contact', value: [intent.contactName, intent.organization].filter(Boolean).join(', '), edit: 'details' },
+    { label: 'Custom request', value: intent.customRequest || 'None', edit: 'details' },
+    { label: 'Notes', value: intent.notes || 'None', edit: 'details' },
+  ]
+
+  return (
+    <Band>
+      <Eyebrow marker>Review</Eyebrow>
+      <h1 className="mt-6 text-3xl md:text-5xl">{submitted ? 'Request recorded.' : 'Review your request.'}</h1>
+      <div className="mt-10">
+        <JourneyNav active="review" />
+      </div>
+
+      {submitted && (
+        <Panel className="mt-10 p-6 md:p-8">
+          <div className="flex items-center justify-between gap-3">
+            <Eyebrow>Status</Eyebrow>
+            <Pill tone={statusTone[order.status]}>{statusLabel[order.status]}</Pill>
+          </div>
+          <p className="mt-4 font-sans text-xl">
+            This request was recorded in the demo. Nothing was sent to Pearl Island, and no payment was taken.
+          </p>
+          <div className="mt-4">
+            <h2 className="font-sans text-base font-medium">What happens next</h2>
+            <p className="mt-1 text-sm text-muted">
+              {order.status === 'submitted' && 'Next in this walkthrough: switch to Staff above to simulate a review. The request stays on this device.'}
+              {order.status === 'needs_review' && 'Next in this walkthrough: switch to Staff above to review the flagged items and simulate follow-up.'}
+              {order.status === 'confirmed' && 'Accepted in the staff demo view. No real order exists.'}
+              {order.status === 'rejected' && 'Declined in the staff demo view.'}
+              {order.status === 'awaiting_customer_approval' && 'Changes made in the staff demo view need your approval.'}
+            </p>
+          </div>
+          {order.status === 'awaiting_customer_approval' && (
+            <div className="mt-4">
+              {order.revision === 'pending' ? (
+                <>
+                  <p className="text-sm">Our team changed the items in your order. Check the updated order below, then approve the changes.</p>
+                  <div className="mt-3">
+                    <Button onClick={customerApprove}>Approve changes</Button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-sm">You approved the changes. They are waiting for our team to accept.</p>
+              )}
+            </div>
+          )}
+          <div className="mt-6">
+            <Button
+              variant="secondary"
+              onClick={() => {
+                // Navigate first: once the draft is reset, the stage guard would redirect to the menu.
+                navigate(stagePath('event'))
+                reset()
+              }}
+            >
+              Start over
+            </Button>
+          </div>
+        </Panel>
+      )}
+
+      <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+        <Panel className="self-start p-0">
+          <dl>
+            {details.map((row) => (
+              <div key={row.label} className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line px-6 py-3 last:border-b-0">
+                <dt className="font-mono text-xs uppercase tracking-eyebrow text-muted">{row.label}</dt>
+                <dd className="flex min-w-0 items-baseline gap-4 font-sans">
+                  <span className="[overflow-wrap:anywhere]">{row.value}</span>
+                  {!submitted && (
+                    <button type="button" className="text-sm underline underline-offset-2" onClick={() => navigate(stagePath(row.edit))}>
+                      Edit
+                    </button>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </Panel>
+
+        <div className="self-start">
+          <OrderSummaryPanel summary={summary} showCoverage={!submitted}>
+            {!submitted && (
+              <div className="grid gap-5">
+                <div className="border-t border-line pt-4">
+                  <p className="font-sans text-sm font-medium">Want to change anything?</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Button variant="secondary" size="sm" onClick={() => navigate(stagePath('menu'))}>
+                      Edit menu
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => navigate(stagePath('supplies'))}>
+                      Edit supplies
+                    </Button>
+                  </div>
+                </div>
+                <div className="grid gap-2">
+                  <Button onClick={submit}>Submit request</Button>
+                  <p className="text-sm text-muted">
+                    In this demo, submitting records your request on this device only. Nothing is sent to Pearl Island, it is not an accepted order, and no payment is taken.
+                  </p>
+                  {lastError && (
+                    <p role="alert" className="font-sans text-sm text-status-blocked">
+                      {lastError}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </OrderSummaryPanel>
+        </div>
+      </div>
+
+      {!submitted && (
+        <div className="mt-10">
+          <Button variant="secondary" onClick={() => navigate(stagePath('details'))}>
+            Back
+          </Button>
+        </div>
+      )}
+    </Band>
+  )
+}

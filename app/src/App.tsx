@@ -1,39 +1,61 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { AppShell } from './components/AppShell'
+import type { ReactNode } from 'react'
 import { routes } from './routes'
-import { Gallery } from './views/Gallery'
-import { DetailsPage } from './views/customer/DetailsPage'
-import { IntakePage } from './views/customer/IntakePage'
-import { MenuPage } from './views/customer/MenuPage'
-import { ReviewPage } from './views/customer/ReviewPage'
+import { EventPage } from './views/customer/EventPage'
+import { MenuPageShell } from './views/customer/MenuPageShell'
 import { SuppliesPage } from './views/customer/SuppliesPage'
+import { DetailsPage } from './views/customer/DetailsPage'
+import { ReviewPage } from './views/customer/ReviewPage'
+import { AppShell } from './components/AppShell'
+import { ThemeProvider } from './components/ThemeProvider'
+import { DemoAccountProvider, useDemoAccount } from './state/demoAccount'
 import { stagePath } from './views/customer/journey'
-import { HandoffPage } from './views/handoff/HandoffPage'
 import { StaffPage } from './views/staff/StaffPage'
+import { HandoffPage } from './views/handoff/HandoffPage'
+import { OrdersPage } from './views/customer/OrdersPage'
+import { MessagesPage } from './views/messages/MessagesPage'
+import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
+import { SettingsPage } from './views/settings/SettingsPage'
 
 export function AppRoutes() {
+  const { account } = useDemoAccount()
+  const customerPage = (page: ReactNode) =>
+    account === 'team' ? <Navigate to={routes.staff} replace /> : page
+
   return (
-    <AppShell>
-      <Routes>
-        <Route path="/" element={<Navigate to={routes.customer} replace />} />
-        <Route path={stagePath('event')} element={<IntakePage />} />
-        <Route path={stagePath('menu')} element={<MenuPage />} />
-        <Route path={stagePath('supplies')} element={<SuppliesPage />} />
-        <Route path={stagePath('details')} element={<DetailsPage />} />
-        <Route path={stagePath('review')} element={<ReviewPage />} />
-        <Route path={routes.staff} element={<StaffPage />} />
-        <Route path={routes.handoff} element={<HandoffPage />} />
-        <Route path={routes.gallery} element={<Gallery />} />
-        <Route path="*" element={<Navigate to={routes.customer} replace />} />
-      </Routes>
-    </AppShell>
+    <Routes>
+      <Route path="/" element={<Navigate to={routes.customer} replace />} />
+      <Route path={stagePath('event')} element={customerPage(<EventPage />)} />
+      <Route path={stagePath('menu')} element={customerPage(<MenuPageShell />)} />
+      <Route path={stagePath('supplies')} element={customerPage(<SuppliesPage />)} />
+      <Route path={stagePath('details')} element={customerPage(<DetailsPage />)} />
+      <Route path={stagePath('review')} element={customerPage(<ReviewPage />)} />
+      <Route
+        path={routes.staff}
+        element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
+      />
+      <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
+      <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
+      <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
+      <Route path={routes.staffMessages} element={account === 'team' ? <MessagesPage /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.settings} element={<SettingsPage />} />
+      <Route path={routes.handoff} element={account === 'team' ? <HandoffPage /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.gallery} element={<Navigate to={routes.customer} replace />} />
+      <Route path="*" element={<Navigate to={routes.customer} replace />} />
+    </Routes>
   )
 }
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AppRoutes />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <DemoAccountProvider>
+          <AppShell>
+            <AppRoutes />
+          </AppShell>
+        </DemoAccountProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }

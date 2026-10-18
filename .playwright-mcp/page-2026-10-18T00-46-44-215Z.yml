@@ -1,0 +1,52 @@
+- generic [ref=f3e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f3e7]:
+    - link "Pearl Island2GO home" [ref=f3e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f3e11]
+      - generic [ref=f3e12]: Pearl Island2GO
+    - separator [ref=f3e13]
+    - generic [ref=f3e15]:
+      - generic [ref=f3e16]: Navigation
+      - list [ref=f3e18]:
+        - listitem [ref=f3e19]:
+          - link "New request" [ref=f3e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f3e23]:
+          - link "Current orders" [ref=f3e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f3e31]:
+          - link "Past orders" [ref=f3e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f3e38]:
+          - link "Messages" [ref=f3e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f3e43]:
+          - link "Account settings" [ref=f3e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f3e49]:
+      - separator [ref=f3e50]
+      - generic [ref=f3e51]:
+        - button "Settings (coming soon)" [ref=f3e52]
+        - button "Customer demo account menu" [ref=f3e56]:
+          - generic [ref=f3e60]: Customer demo
+    - button "Toggle Sidebar" [ref=f3e63]
+  - main [ref=f3e64]:
+    - generic [ref=f3e65]:
+      - button "Toggle navigation" [ref=f3e66]:
+        - generic [ref=f3e67]: Toggle Sidebar
+      - separator [ref=f3e68]
+      - navigation "breadcrumb" [ref=f3e69]:
+        - list [ref=f3e70]:
+          - listitem [ref=f3e71]:
+            - link "New request" [ref=f3e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f3e73]
+          - listitem [ref=f3e76]:
+            - link "Requests" [disabled] [ref=f3e77]
+      - generic [ref=f3e78]:
+        - separator [ref=f3e79]
+        - button "Switch to dark mode" [ref=f3e80]
+        - separator [ref=f3e81]

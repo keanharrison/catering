@@ -1,0 +1,177 @@
+- generic [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - link [ref=f4e1584] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - button [ref=f4e1585]:
+          - generic [ref=f4e8]: Toggle Sidebar
+        - link [ref=f4e1586] [cursor=pointer]:
+          - /url: /customer
+          - generic [ref=f4e11]: Pearl Island2GO
+        - generic [ref=f4e12]:
+          - separator [ref=f4e13]
+          - button [ref=f4e1588]
+          - separator [ref=f4e15]
+      - navigation [ref=f4e1589]:
+        - list [ref=f4e1373]:
+          - listitem [ref=f4e1374]:
+            - button [disabled] [ref=f4e1590]:
+              - generic [ref=f4e1376]: Event
+          - listitem [ref=f4e1377]:
+            - button [disabled] [ref=f4e1591]:
+              - generic [ref=f4e1379]: Menu
+          - listitem [ref=f4e1380]:
+            - button [disabled] [ref=f4e1592]:
+              - generic [ref=f4e1382]: Supplies
+          - listitem [ref=f4e1383]:
+            - button [disabled] [ref=f4e1593]:
+              - generic [ref=f4e1385]: Details
+          - listitem [ref=f4e1386]:
+            - button [ref=f4e1594]:
+              - generic [ref=f4e1388]: Review
+        - generic [ref=f4e1389]:
+          - progressbar [ref=f4e1595]: x
+          - generic [ref=f4e1393]: Step 5 of 5
+      - generic [ref=f4e1465]:
+        - generic [ref=f4e1466]:
+          - heading [level=1] [ref=f4e1596]: Review your catering request
+          - paragraph [ref=f4e1468]: Your request is recorded in this demo. The restaurant has not received it.
+        - alert [ref=f4e1469]:
+          - generic [ref=f4e1473]: Request recorded · Awaiting approval
+          - generic [ref=f4e1474]:
+            - paragraph [ref=f4e1475]: Nothing was sent to Pearl Island, and no payment was taken.
+            - paragraph [ref=f4e1476]: The team proposed changes. Review the updated selections below and approve them if they work for you.
+            - paragraph [ref=f4e1583]: You approved the changes. They are waiting for the team to accept.
+        - generic [ref=f4e1478]:
+          - generic [ref=f4e1479]:
+            - generic [ref=f4e1481]:
+              - generic [ref=f4e1482]: Request details
+              - generic [ref=f4e1483]: Current event, selections, and contact details for this request.
+            - generic [ref=f4e1484]:
+              - region [ref=f4e1597]:
+                - heading [level=2] [ref=f4e1598]: Event
+                - generic [ref=f4e1488]:
+                  - generic [ref=f4e1489]:
+                    - term [ref=f4e1490]: Event type
+                    - definition [ref=f4e1491]: Corporate lunch
+                  - generic [ref=f4e1492]:
+                    - term [ref=f4e1493]: Guests
+                    - definition [ref=f4e1494]: "40"
+                  - generic [ref=f4e1495]:
+                    - term [ref=f4e1496]: Event date
+                    - definition [ref=f4e1497]: Monday, October 19, 2026
+                  - generic [ref=f4e1498]:
+                    - term [ref=f4e1499]: Pickup time
+                    - definition [ref=f4e1500]: 12:00 PM
+                  - generic [ref=f4e1501]:
+                    - term [ref=f4e1502]: Fulfillment
+                    - definition [ref=f4e1503]: Pickup
+              - separator [ref=f4e1504]
+              - region [ref=f4e1599]:
+                - heading [level=2] [ref=f4e1600]: Food selections
+                - table [ref=f4e1601]:
+                  - caption [ref=f4e1510]: Selected food and quantities
+                  - rowgroup [ref=f4e1511]:
+                    - row [ref=f4e1602]:
+                      - columnheader [ref=f4e1603]: Item
+                      - columnheader [ref=f4e1604]: Qty
+                      - columnheader [ref=f4e1605]: Unit
+                      - columnheader [ref=f4e1606]: Line total
+                  - rowgroup [ref=f4e1517]:
+                    - row [ref=f4e1607]:
+                      - cell [ref=f4e1608]: Slow Roasted Pork
+                      - cell [ref=f4e1609]: "2"
+                      - cell [ref=f4e1610]: servings
+                      - cell [ref=f4e1611]: $12.50
+              - separator [ref=f4e1523]
+              - region [ref=f4e1612]:
+                - heading [level=2] [ref=f4e1613]: Supplies
+                - paragraph [ref=f4e1527]: No supplies needed.
+              - separator [ref=f4e1528]
+              - region [ref=f4e1614]:
+                - heading [level=2] [ref=f4e1615]: Contact and instructions
+                - generic [ref=f4e1532]:
+                  - generic [ref=f4e1533]:
+                    - term [ref=f4e1534]: Contact
+                    - definition [ref=f4e1535]: Jordan Lee
+                  - generic [ref=f4e1536]:
+                    - term [ref=f4e1537]: Email
+                    - definition [ref=f4e1538]: demo@example.com
+                  - generic [ref=f4e1539]:
+                    - term [ref=f4e1540]: Phone
+                    - definition [ref=f4e1541]: 555-0100
+                  - generic [ref=f4e1542]:
+                    - term [ref=f4e1543]: Company or organization
+                    - definition [ref=f4e1544]: Sample Co.
+                  - generic [ref=f4e1545]:
+                    - term [ref=f4e1546]: Dietary needs
+                    - definition [ref=f4e1547]: None listed
+                  - generic [ref=f4e1548]:
+                    - term [ref=f4e1549]: Custom request
+                    - definition [ref=f4e1550]: None
+                  - generic [ref=f4e1551]:
+                    - term [ref=f4e1552]: Additional notes
+                    - definition [ref=f4e1553]: None
+          - complementary [ref=f4e1616]:
+            - generic [ref=f4e1555]:
+              - generic [ref=f4e1556]:
+                - generic [ref=f4e1557]: Estimated total
+                - generic [ref=f4e1558]: Food and supplies estimate
+              - generic [ref=f4e1559]:
+                - generic [ref=f4e1560]:
+                  - generic [ref=f4e1561]:
+                    - generic [ref=f4e1562]: Food
+                    - generic [ref=f4e1563]: $12.50
+                  - generic [ref=f4e1564]:
+                    - generic [ref=f4e1565]: Supplies
+                    - generic [ref=f4e1566]: $0
+                - separator [ref=f4e1567]
+                - generic [ref=f4e1568]:
+                  - generic [ref=f4e1569]: Estimated total
+                  - generic [ref=f4e1570]: $12.50
+                - paragraph [ref=f4e1571]: No tax, fees, or tip included.
+                - separator [ref=f4e1572]
+                - generic [ref=f4e1573]:
+                  - generic [ref=f4e1574]: Guests
+                  - generic [ref=f4e1575]: "40"
+                - generic [ref=f4e1576]:
+                  - generic [ref=f4e1577]: Entree servings
+                  - generic [ref=f4e1578]: 2 of 40
+                - paragraph [ref=f4e1579]: The current menu has 38 fewer entree servings than guests.
+                - paragraph [ref=f4e1580]: This is an estimate for review. Pearl Island has not confirmed the menu or final pricing.
+        - button [ref=f4e1617]: Start a new request
+  - dialog "Sidebar" [ref=f4e1621]:
+    - generic [ref=f4e1622]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f4e1623]:
+      - generic [ref=f4e1625]:
+        - link "Pearl Island2GO home" [active] [ref=f4e1626] [cursor=pointer]:
+          - /url: /customer
+          - img "Pearl Island" [ref=f4e1627]
+          - generic [ref=f4e1628]: Pearl Island2GO
+        - button "Close navigation" [ref=f4e1629]
+      - separator [ref=f4e1633]
+      - generic [ref=f4e1635]:
+        - generic [ref=f4e1636]: Navigation
+        - list [ref=f4e1638]:
+          - listitem [ref=f4e1639]:
+            - link "New request" [ref=f4e1640] [cursor=pointer]:
+              - /url: /customer
+          - listitem [ref=f4e1643]:
+            - button "Current orders" [ref=f4e1644]
+            - generic: Later
+          - listitem [ref=f4e1651]:
+            - button "Past orders" [ref=f4e1652]
+            - generic: Later
+          - listitem [ref=f4e1658]:
+            - button "Messages" [ref=f4e1659]
+            - generic: Later
+      - generic [ref=f4e1663]:
+        - separator [ref=f4e1664]
+        - generic [ref=f4e1665]:
+          - button "Settings (coming soon)" [ref=f4e1666]
+          - button "Customer demo account menu" [ref=f4e1670]:
+            - generic [ref=f4e1674]: Customer demo

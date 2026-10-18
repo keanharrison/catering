@@ -95,7 +95,8 @@ export function customerReply(order: Order, text: string, at: string): Result {
 /** Staff change the proposal. The customer must approve before it can be accepted. */
 export function revise(order: Order, lines: OrderLine[], at: string): Result {
   if (!OPEN_STATUSES.includes(order.status)) return fail('This request is closed.')
-  const revised: Order = { ...order, lines, revision: 'pending' }
+  const flags = detectExceptions({ intent: order.intent, lines, now: at }, defaultCatalog)
+  const revised: Order = { ...order, lines, flags, revision: 'pending' }
   const withNote = addMessage(revised, 'system', 'Staff revised the proposal. Customer approval is needed.', at)
   return ok(
     order.status === 'awaiting_customer_approval'

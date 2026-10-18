@@ -1,0 +1,106 @@
+- generic [ref=f4e3]:
+  - link "Skip to main content" [ref=f4e199] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f4e228]:
+    - link "Pearl Island2GO home" [ref=f4e231] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f4e232]
+      - generic [ref=f4e233]: Pearl Island2GO
+    - separator [ref=f4e234]
+    - generic [ref=f4e236]:
+      - generic [ref=f4e237]: Navigation
+      - list [ref=f4e239]:
+        - listitem [ref=f4e301]:
+          - link "New request" [ref=f4e302] [cursor=pointer]:
+            - /url: /customer
+    - generic [ref=f4e259]:
+      - separator [ref=f4e260]
+      - generic [ref=f4e261]:
+        - button "Settings (coming soon)" [ref=f4e262]
+        - button "Guest account menu" [ref=f4e305]:
+          - generic [ref=f4e270]: Guest
+    - button "Toggle Sidebar" [ref=f4e273]
+  - main [ref=f4e5]:
+    - generic [ref=f4e6]:
+      - button "Toggle navigation" [ref=f4e200]:
+        - generic [ref=f4e8]: Toggle Sidebar
+      - separator [ref=f4e274]
+      - navigation "breadcrumb" [ref=f4e275]:
+        - list [ref=f4e276]:
+          - listitem [ref=f4e277]:
+            - link "New request" [ref=f4e306] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f4e307]
+          - listitem [ref=f4e310]:
+            - link "Supplies" [disabled] [ref=f4e579]
+      - generic [ref=f4e12]:
+        - separator [ref=f4e13]
+        - button "Switch to dark mode" [ref=f4e203]
+        - separator [ref=f4e15]
+    - navigation "Request progress" [ref=f4e314]:
+      - list [ref=f4e315]:
+        - listitem [ref=f4e316]:
+          - button "Event" [ref=f4e317]:
+            - generic [aria-hidden] [ref=f4e318]: "1"
+        - listitem [ref=f4e320]:
+          - button "Menu" [ref=f4e321]:
+            - generic [aria-hidden] [ref=f4e322]: "2"
+        - listitem [ref=f4e324]:
+          - button "Supplies" [ref=f4e325]:
+            - generic [aria-hidden] [ref=f4e326]: "3"
+        - listitem [ref=f4e328]:
+          - button "Details" [ref=f4e329]:
+            - generic [aria-hidden] [ref=f4e330]: "4"
+        - listitem [ref=f4e332]:
+          - button "Review" [disabled] [ref=f4e333]:
+            - generic [aria-hidden] [ref=f4e334]: "5"
+      - generic [ref=f4e336]:
+        - progressbar "Request progress" [ref=f4e337]: x
+        - generic [ref=f4e340]: Step 3 of 5
+    - generic [ref=f4e582]:
+      - generic [ref=f4e583]:
+        - generic [ref=f4e584]:
+          - generic [ref=f4e585]: Catering supplies
+          - generic [ref=f4e586]: Next, choose whether your event needs disposable catering supplies.
+        - group [ref=f4e588]:
+          - radiogroup "Do you need catering supplies? (required)" [ref=f4e590]:
+            - group [ref=f4e591]:
+              - radio "I need supplies" [ref=f4e592]
+              - radio [aria-hidden] [ref=f4e593]
+              - generic [ref=f4e594]: I need supplies
+            - group [ref=f4e595]:
+              - radio "No supplies needed" [checked] [ref=f4e596]
+              - radio [checked] [aria-hidden] [ref=f4e599]
+              - generic [ref=f4e600]: No supplies needed
+          - paragraph [ref=f4e601]: No supply charges will be added to your estimate.
+        - generic [ref=f4e602]:
+          - button "Back to menu" [ref=f4e603]
+          - button "Continue to details" [ref=f4e605]
+      - complementary "Order summary" [ref=f4e606]:
+        - generic [ref=f4e607]:
+          - generic [ref=f4e608]: Your order
+          - generic [ref=f4e610]:
+            - region "Entrees" [ref=f4e612]:
+              - heading "Entrees" [level=3] [ref=f4e613]
+              - list [ref=f4e614]:
+                - listitem [ref=f4e615]:
+                  - generic [ref=f4e616]:
+                    - text: Slow Roasted Pork
+                    - generic [ref=f4e617]: 1 serving
+                  - generic [ref=f4e618]: $6.25
+            - separator [ref=f4e619]
+            - generic [ref=f4e620]:
+              - generic [ref=f4e621]: Estimated total
+              - generic [ref=f4e622]: $6.25
+            - generic [ref=f4e623]:
+              - generic [ref=f4e624]: Guests
+              - generic [ref=f4e625]: "40"
+            - generic [ref=f4e626]:
+              - generic [ref=f4e627]: Per guest
+              - generic [ref=f4e628]: $0.16
+            - generic [ref=f4e629]:
+              - paragraph [ref=f4e630]:
+                - text: "Entree servings:"
+                - strong [ref=f4e631]: "1"
+                - text: of 40 guests
+              - paragraph [ref=f4e632]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.

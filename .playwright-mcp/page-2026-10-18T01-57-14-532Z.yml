@@ -1,0 +1,153 @@
+- generic [ref=f54e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f54e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f54e191]:
+    - link "Pearl Island2GO home" [ref=f54e194] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f54e195]
+      - generic [ref=f54e196]: Pearl Island2GO
+    - separator [ref=f54e197]
+    - generic [ref=f54e199]:
+      - generic [ref=f54e200]: Navigation
+      - list [ref=f54e202]:
+        - listitem [ref=f54e203]:
+          - link "New request" [ref=f54e204] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f54e207]:
+          - link "Current orders" [ref=f54e208] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f54e215]:
+          - link "Past orders" [ref=f54e216] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f54e222]:
+          - link "Messages" [ref=f54e223] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f54e227]:
+          - link "Account settings" [ref=f54e228] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f54e233]:
+      - separator [ref=f54e234]
+      - generic [ref=f54e235]:
+        - button "Settings (coming soon)" [ref=f54e236]
+        - button "Customer demo account menu" [ref=f54e240]:
+          - generic [ref=f54e244]: Customer demo
+    - button "Toggle Sidebar" [ref=f54e247]
+  - main [ref=f54e5]:
+    - generic [ref=f54e6]:
+      - button "Toggle navigation" [ref=f54e7]:
+        - generic [ref=f54e8]: Toggle Sidebar
+      - separator [ref=f54e248]
+      - navigation "breadcrumb" [ref=f54e249]:
+        - list [ref=f54e250]:
+          - listitem [ref=f54e251]:
+            - link "New request" [ref=f54e252] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f54e253]
+          - listitem [ref=f54e256]:
+            - link "Supplies" [disabled] [ref=f54e366]
+      - generic [ref=f54e12]:
+        - separator [ref=f54e13]
+        - button "Switch to dark mode" [ref=f54e14]
+        - separator [ref=f54e15]
+    - navigation "Request progress" [ref=f54e19]:
+      - list [ref=f54e20]:
+        - listitem [ref=f54e21]:
+          - button "Event" [ref=f54e22]:
+            - generic [aria-hidden] [ref=f54e258]: "1"
+        - listitem [ref=f54e24]:
+          - button "Menu" [ref=f54e25]:
+            - generic [aria-hidden] [ref=f54e259]: "2"
+        - listitem [ref=f54e27]:
+          - button "Supplies" [ref=f54e28]:
+            - generic [aria-hidden] [ref=f54e260]: "3"
+        - listitem [ref=f54e30]:
+          - button "Details" [ref=f54e31]:
+            - generic [aria-hidden] [ref=f54e261]: "4"
+        - listitem [ref=f54e33]:
+          - button "Review" [ref=f54e34]:
+            - generic [aria-hidden] [ref=f54e262]: "5"
+      - generic [ref=f54e36]:
+        - progressbar "Request progress" [ref=f54e37]: x
+        - generic [ref=f54e40]: Step 3 of 5
+    - generic [ref=f54e369]:
+      - generic [ref=f54e370]:
+        - generic [ref=f54e371]:
+          - generic [ref=f54e372]: Catering supplies
+          - generic [ref=f54e373]: Next, choose whether your event needs disposable catering supplies.
+        - group [ref=f54e375]:
+          - radiogroup "Do you need catering supplies? (required)" [ref=f54e377]:
+            - group [ref=f54e378]:
+              - radio "I need supplies" [ref=f54e379]
+              - radio [aria-hidden] [ref=f54e380]
+              - generic [ref=f54e381]: I need supplies
+            - group [ref=f54e382]:
+              - radio "No supplies needed" [checked] [active] [ref=f54e383]
+              - radio [checked] [aria-hidden] [ref=f54e384]
+              - generic [ref=f54e385]: No supplies needed
+          - paragraph [ref=f54e386]: No supply charges will be added to your estimate.
+        - generic [ref=f54e387]:
+          - button "Back to menu" [ref=f54e388]
+          - button "Continue to details" [ref=f54e448]
+      - complementary "Order summary" [ref=f54e391]:
+        - generic [ref=f54e392]:
+          - generic [ref=f54e393]: Your order
+          - generic [ref=f54e395]:
+            - generic [ref=f54e396]:
+              - region "Entrees" [ref=f54e397]:
+                - heading "Entrees" [level=3] [ref=f54e398]
+                - list [ref=f54e399]:
+                  - listitem [ref=f54e400]:
+                    - generic [ref=f54e401]:
+                      - text: Sous Poulet Chicken
+                      - generic [ref=f54e402]: 20 servings
+                    - generic [ref=f54e403]: $100
+                  - listitem [ref=f54e404]:
+                    - generic [ref=f54e405]:
+                      - text: Curry Chicken
+                      - generic [ref=f54e406]: 20 servings
+                    - generic [ref=f54e407]: $100
+              - region "Sides" [ref=f54e408]:
+                - separator [ref=f54e409]
+                - heading "Sides" [level=3] [ref=f54e410]
+                - list [ref=f54e411]:
+                  - listitem [ref=f54e412]:
+                    - generic [ref=f54e413]:
+                      - text: Rice w/ Pigeon Peas
+                      - generic [ref=f54e414]: 40 servings
+                    - generic [ref=f54e415]: $110.40
+                  - listitem [ref=f54e416]:
+                    - generic [ref=f54e417]:
+                      - text: Amarillos
+                      - generic [ref=f54e418]: 40 servings
+                    - generic [ref=f54e419]: $110
+                  - listitem [ref=f54e420]:
+                    - generic [ref=f54e421]:
+                      - text: Pikliz
+                      - generic [ref=f54e422]: 40 servings
+                    - generic [ref=f54e423]: $40
+              - region "Salads" [ref=f54e424]:
+                - separator [ref=f54e425]
+                - heading "Salads" [level=3] [ref=f54e426]
+                - list [ref=f54e427]:
+                  - listitem [ref=f54e428]:
+                    - generic [ref=f54e429]:
+                      - text: Kale Salad
+                      - generic [ref=f54e430]: 40 servings
+                    - generic [ref=f54e431]: $150
+            - separator [ref=f54e432]
+            - generic [ref=f54e433]:
+              - generic [ref=f54e434]: Estimated total
+              - generic [ref=f54e435]: $610.40
+            - generic [ref=f54e436]:
+              - generic [ref=f54e437]: Guests
+              - generic [ref=f54e438]: "40"
+            - generic [ref=f54e439]:
+              - generic [ref=f54e440]: Per guest
+              - generic [ref=f54e441]: $15.26
+            - generic [ref=f54e442]:
+              - paragraph [ref=f54e443]:
+                - text: "Entree servings:"
+                - strong [ref=f54e444]: "40"
+                - text: of 40 guests
+              - paragraph [ref=f54e445]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.

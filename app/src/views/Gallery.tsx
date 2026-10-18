@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Band } from '../components/Band'
 import { Button } from '../components/Button'
 import { Eyebrow } from '../components/Eyebrow'
-import { Field, inputClass } from '../components/Field'
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '../components/ui/field'
+import { Input } from '../components/ui/input'
 import { Panel } from '../components/Panel'
 import { Pill } from '../components/Pill'
 import { StatLine } from '../components/StatLine'
@@ -42,7 +43,7 @@ export function Gallery() {
     <>
       <Band>
         <Eyebrow marker>Component gallery</Eyebrow>
-        <h1 className="mt-6 text-4xl md:text-7xl">Design system.</h1>
+        <h1 className="mt-6 text-3xl md:text-5xl">Design system.</h1>
         <p className="mt-8 max-w-xl text-muted">
           Shared components for every screen, built from PRD section 8 and the Fin references.
           Internal reference only.
@@ -55,7 +56,7 @@ export function Gallery() {
 
       <Band tone="white">
         <Eyebrow>Stage tabs</Eyebrow>
-        <h2 className="mt-4 text-4xl">Segmented stage control.</h2>
+        <h2 className="mt-4 text-2xl md:text-3xl">Segmented stage control.</h2>
         <div className="mt-8">
           <StepTabs label="Stages" items={stages} activeId={stage} onChange={setStage} />
         </div>
@@ -63,7 +64,7 @@ export function Gallery() {
 
       <Band>
         <Eyebrow>Product panel</Eyebrow>
-        <h2 className="mt-4 text-4xl">Status list with orange progress.</h2>
+        <h2 className="mt-4 text-2xl md:text-3xl">Status list with orange progress.</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Panel tone="deep" className="p-0">
             <StepTabs label="Statuses" variant="list" items={statuses} activeId={status} onChange={setStatus} />
@@ -110,16 +111,25 @@ export function Gallery() {
 
       <Band>
         <Eyebrow>Form fields</Eyebrow>
-        <h2 className="mt-4 text-4xl">Guided form.</h2>
+        <h2 className="mt-4 text-2xl md:text-3xl">Guided form.</h2>
         <Panel className="mt-8 max-w-xl p-6">
-          <div className="grid gap-5">
-            <Field label="Guests" htmlFor="g-guests" hint="Headcount sets portion sizes.">
-              <input id="g-guests" type="number" className={inputClass} placeholder="40" />
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="g-guests">Guests</FieldLabel>
+              <Input id="g-guests" type="number" placeholder="40" aria-describedby="g-guests-hint" />
+              <FieldDescription id="g-guests-hint">Headcount sets portion sizes.</FieldDescription>
             </Field>
-            <Field label="Event date" htmlFor="g-date" error="Choose a date after the lead time.">
-              <input id="g-date" type="date" className={inputClass} />
+            <Field data-invalid>
+              <FieldLabel htmlFor="g-date">Event date</FieldLabel>
+              <Input
+                id="g-date"
+                type="date"
+                aria-invalid="true"
+                aria-describedby="g-date-error"
+              />
+              <FieldError id="g-date-error">Choose a date after the lead time.</FieldError>
             </Field>
-          </div>
+          </FieldGroup>
         </Panel>
       </Band>
     </>

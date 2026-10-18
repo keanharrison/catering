@@ -1,46 +1,27 @@
-import { NavLink } from 'react-router-dom'
-import { cx } from '../lib/cx'
-import { routes } from '../routes'
 import { catalog } from '../data'
 import { useDemoStore } from '../state/store'
-import { Button } from './Button'
+import { Button } from './ui/button'
 
-const roles = [
-  { to: routes.customer, label: 'Customer' },
-  { to: routes.staff, label: 'Staff' },
-]
-
-// Sits above every view: role switch, scenario loader, reset.
+// Scenario and reset controls stay available to presenters; account changes live in the profile menu.
 export function DemoBar() {
   const scenarioId = useDemoStore((state) => state.scenarioId)
   const loadScenario = useDemoStore((state) => state.loadScenario)
   const reset = useDemoStore((state) => state.reset)
   return (
-    <div className="border-b border-line bg-ivory-deep">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-6 py-2">
-        <div className="ml-auto flex flex-wrap items-center gap-3">
-          <div role="group" aria-label="View as" className="flex border border-control-line bg-panel">
-            {roles.map((role) => (
-              <NavLink
-                key={role.to}
-                to={role.to}
-                className={({ isActive }) =>
-                  cx(
-                    'px-3 py-1 font-mono text-[11px] uppercase tracking-eyebrow',
-                    isActive ? 'bg-action text-on-action' : 'text-charcoal hover:bg-ivory-deep',
-                  )
-                }
-              >
-                {role.label}
-              </NavLink>
-            ))}
-          </div>
-          <label className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-eyebrow">
+    <section aria-label="Demo controls" className="border-b border-border bg-muted">
+      <details className="group mx-auto max-w-6xl px-6">
+        <summary className="flex min-h-11 cursor-pointer items-center gap-3 py-2 text-xs font-medium text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+          <span>Demo controls</span>
+          <span className="ml-auto text-xs font-normal text-muted-foreground group-open:hidden">Show</span>
+          <span className="ml-auto hidden text-xs font-normal text-muted-foreground group-open:inline">Hide</span>
+        </summary>
+        <div className="flex flex-wrap items-center gap-3 border-t border-border py-3">
+          <label className="flex min-h-11 items-center gap-2 text-sm font-medium text-foreground">
             Scenario
             <select
               value={scenarioId}
               onChange={(event) => loadScenario(event.target.value)}
-              className="rounded-sm border border-line bg-panel px-2 py-1 font-sans text-sm normal-case tracking-normal"
+              className="min-h-11 rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {catalog.scenarios.map((item) => (
                 <option key={item.id} value={item.id}>
@@ -49,11 +30,11 @@ export function DemoBar() {
               ))}
             </select>
           </label>
-          <Button size="sm" variant="secondary" onClick={reset}>
+          <Button size="sm" variant="secondary" className="min-h-11 px-4 py-2" onClick={reset}>
             Reset
           </Button>
         </div>
-      </div>
-    </div>
+      </details>
+    </section>
   )
 }

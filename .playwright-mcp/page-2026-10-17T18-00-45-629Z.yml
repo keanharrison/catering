@@ -1,0 +1,218 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - link "Pearl Island2GO home" [ref=e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=e11]
+      - generic [ref=e12]: Pearl Island2GO
+    - separator [ref=e13]
+    - generic [ref=e15]:
+      - generic [ref=e16]: Navigation
+      - list [ref=e18]:
+        - listitem [ref=e19]:
+          - link "New request" [ref=e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=e23]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - separator [ref=e28]
+      - navigation "breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "New request" [ref=e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=e33]
+          - listitem [ref=e36]:
+            - link "Menu" [disabled] [ref=e254]
+      - generic [ref=e38]:
+        - separator [ref=e39]
+        - button "Switch to dark mode" [ref=e40]
+        - separator [ref=e41]
+      - button "Guest account menu" [ref=e42]:
+        - generic [ref=e43]: Guest
+    - navigation "Request progress" [ref=e46]:
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - button "Event" [ref=e49]:
+            - generic [aria-hidden] [ref=e50]: "1"
+        - listitem [ref=e52]:
+          - button "Menu" [ref=e53]:
+            - generic [aria-hidden] [ref=e54]: "2"
+        - listitem [ref=e56]:
+          - button "Supplies" [disabled] [ref=e57]:
+            - generic [aria-hidden] [ref=e58]: "3"
+        - listitem [ref=e60]:
+          - button "Details" [disabled] [ref=e61]:
+            - generic [aria-hidden] [ref=e62]: "4"
+        - listitem [ref=e64]:
+          - button "Review" [disabled] [ref=e65]:
+            - generic [aria-hidden] [ref=e66]: "5"
+      - generic [ref=e68]:
+        - progressbar "Request progress" [ref=e69]: x
+        - generic [ref=e72]: Step 2 of 5
+    - generic [ref=e256]:
+      - generic [ref=e257]:
+        - heading "Build your menu" [level=1] [ref=e258]
+        - paragraph [ref=e259]: Choose entrées, sides, and salads for your event.
+      - generic [ref=e260]:
+        - generic [ref=e261]:
+          - generic [ref=e262]:
+            - generic [ref=e263]:
+              - generic [ref=e264]: Menu selections
+              - generic [ref=e265]: Browse Pearl Island’s menu and choose quantities for your guests.
+            - generic "Menu categories" [ref=e267]:
+              - tablist [ref=e268]:
+                - tab "Entrees" [selected] [ref=e269]
+                - tab "Sides" [ref=e270]
+                - tab "Salads" [ref=e271]
+              - generic [ref=e272]:
+                - heading "Filter by dietary preference" [level=3] [ref=e273]
+                - group "Filter menu by dietary preference" [ref=e274]:
+                  - button "Vegetarian" [ref=e275]
+                  - button "Vegan" [ref=e276]
+                  - button "Gluten-free" [ref=e277]
+                  - button "Dairy-free" [ref=e278]
+                - paragraph [ref=e279]: Dietary labels are guides and don’t confirm allergy or nutrition requirements.
+              - tabpanel "Entrees" [ref=e280]:
+                - list [ref=e281]:
+                  - listitem [ref=e282]:
+                    - generic [ref=e283]:
+                      - generic [ref=e284]:
+                        - generic [ref=e285]: Slow Roasted Pork
+                        - paragraph [ref=e286]:
+                          - text: $6.25
+                          - generic [ref=e287]: per serving
+                          - generic [ref=e288]: · 6oz serving
+                        - generic "Dietary labels" [ref=e289]:
+                          - generic [ref=e290]: Gluten-free
+                          - generic [ref=e291]: Dairy-free
+                      - group "Slow Roasted Pork quantity" [ref=e293]:
+                        - button "Decrease quantity of Slow Roasted Pork" [disabled]
+                        - spinbutton "Quantity of Slow Roasted Pork" [ref=e294]: "0"
+                        - button "Increase quantity of Slow Roasted Pork" [ref=e295]
+                      - heading [level=3] [ref=e298]:
+                        - button "About this item" [ref=e299]
+                  - listitem [ref=e300]:
+                    - generic [ref=e301]:
+                      - generic [ref=e302]:
+                        - generic [ref=e303]: Sous Poulet Chicken
+                        - paragraph [ref=e304]:
+                          - text: $5
+                          - generic [ref=e305]: per serving
+                          - generic [ref=e306]: · 6oz serving
+                        - generic "Dietary labels" [ref=e307]:
+                          - generic [ref=e308]: Gluten-free
+                          - generic [ref=e309]: Dairy-free
+                      - group "Sous Poulet Chicken quantity" [ref=e311]:
+                        - button "Decrease quantity of Sous Poulet Chicken" [disabled]
+                        - spinbutton "Quantity of Sous Poulet Chicken" [ref=e312]: "0"
+                        - button "Increase quantity of Sous Poulet Chicken" [ref=e313]
+                  - listitem [ref=e314]:
+                    - generic [ref=e315]:
+                      - generic [ref=e316]:
+                        - generic [ref=e317]: Curry Chicken
+                        - paragraph [ref=e318]:
+                          - text: $5
+                          - generic [ref=e319]: per serving
+                          - generic [ref=e320]: · 6oz serving
+                        - generic "Dietary labels" [ref=e321]:
+                          - generic [ref=e322]: Gluten-free
+                          - generic [ref=e323]: Dairy-free
+                      - group "Curry Chicken quantity" [ref=e325]:
+                        - button "Decrease quantity of Curry Chicken" [disabled]
+                        - spinbutton "Quantity of Curry Chicken" [ref=e326]: "0"
+                        - button "Increase quantity of Curry Chicken" [ref=e327]
+                  - listitem [ref=e328]:
+                    - generic [ref=e329]:
+                      - generic [ref=e330]:
+                        - generic [ref=e331]: Jerk Chicken
+                        - paragraph [ref=e332]:
+                          - text: $5
+                          - generic [ref=e333]: per serving
+                          - generic [ref=e334]: · 6oz serving
+                        - generic "Dietary labels" [ref=e335]:
+                          - generic [ref=e336]: Gluten-free
+                          - generic [ref=e337]: Dairy-free
+                      - group "Jerk Chicken quantity" [ref=e339]:
+                        - button "Decrease quantity of Jerk Chicken" [disabled]
+                        - spinbutton "Quantity of Jerk Chicken" [ref=e340]: "0"
+                        - button "Increase quantity of Jerk Chicken" [ref=e341]
+                  - listitem [ref=e342]:
+                    - generic [ref=e343]:
+                      - generic [ref=e344]:
+                        - generic [ref=e345]: Curry Tofu
+                        - paragraph [ref=e346]:
+                          - text: $5.25
+                          - generic [ref=e347]: per serving
+                          - generic [ref=e348]: · 6oz serving
+                        - generic "Dietary labels" [ref=e349]:
+                          - generic [ref=e350]: Vegan
+                          - generic [ref=e351]: Gluten-free
+                      - group "Curry Tofu quantity" [ref=e353]:
+                        - button "Decrease quantity of Curry Tofu" [disabled]
+                        - spinbutton "Quantity of Curry Tofu" [ref=e354]: "0"
+                        - button "Increase quantity of Curry Tofu" [ref=e355]
+                  - listitem [ref=e356]:
+                    - generic [ref=e357]:
+                      - generic [ref=e358]:
+                        - generic [ref=e359]: Creole Beans
+                        - paragraph [ref=e360]:
+                          - text: $5.25
+                          - generic [ref=e361]: per serving
+                          - generic [ref=e362]: · 6oz serving
+                        - generic "Dietary labels" [ref=e363]:
+                          - generic [ref=e364]: Vegan
+                          - generic [ref=e365]: Gluten-free
+                      - group "Creole Beans quantity" [ref=e367]:
+                        - button "Decrease quantity of Creole Beans" [disabled]
+                        - spinbutton "Quantity of Creole Beans" [ref=e368]: "0"
+                        - button "Increase quantity of Creole Beans" [ref=e369]
+                  - listitem [ref=e370]:
+                    - generic [ref=e371]:
+                      - generic [ref=e372]:
+                        - generic [ref=e373]: Jerk Tofu
+                        - paragraph [ref=e374]:
+                          - text: $5.25
+                          - generic [ref=e375]: per serving
+                          - generic [ref=e376]: · 6oz serving
+                        - generic "Dietary labels" [ref=e377]:
+                          - generic [ref=e378]: Vegetarian
+                          - generic [ref=e379]: Gluten-free
+                      - group "Jerk Tofu quantity" [ref=e381]:
+                        - button "Decrease quantity of Jerk Tofu" [disabled]
+                        - spinbutton "Quantity of Jerk Tofu" [ref=e382]: "0"
+                        - button "Increase quantity of Jerk Tofu" [ref=e383]
+          - generic [ref=e384]:
+            - generic [ref=e385]:
+              - generic [ref=e386]: Help me choose
+              - generic [ref=e387]: Get a starting point based on your guest count and dietary preferences. Review quantities before continuing.
+            - button "Suggest" [ref=e389]
+        - complementary "Order summary" [ref=e390]:
+          - generic [ref=e391]:
+            - generic [ref=e392]: Your order
+            - generic [ref=e394]:
+              - paragraph [ref=e395]: Nothing chosen yet. Select menu items to build your order.
+              - separator [ref=e396]
+              - generic [ref=e397]:
+                - generic [ref=e398]: Estimated total
+                - generic [ref=e399]: $0
+              - generic [ref=e400]:
+                - generic [ref=e401]: Guests
+                - generic [ref=e402]: "40"
+              - generic [ref=e403]:
+                - generic [ref=e404]: Per guest
+                - generic [ref=e405]: $0
+              - generic [ref=e406]:
+                - paragraph [ref=e407]:
+                  - text: "Entree servings:"
+                  - strong [ref=e408]: "0"
+                  - text: of 40 guests
+                - paragraph [ref=e409]: For this demo, coverage counts one entree serving per guest. Side quantities are separate.
+            - generic [ref=e410]:
+              - generic [ref=e411]:
+                - button "Back" [ref=e412]
+                - button "Choose supplies" [disabled]
+              - paragraph [ref=e413]: Choose at least one menu item to continue.

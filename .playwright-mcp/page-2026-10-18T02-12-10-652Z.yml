@@ -1,0 +1,87 @@
+- generic [ref=f5e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f5e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f5e7]:
+    - link "Pearl Island2GO home" [ref=f5e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f5e11]
+      - generic [ref=f5e12]: Pearl Island2GO
+    - separator [ref=f5e13]
+    - generic [ref=f5e15]:
+      - generic [ref=f5e16]: Navigation
+      - list [ref=f5e18]:
+        - listitem [ref=f5e19]:
+          - link "New request" [ref=f5e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f5e23]:
+          - link "Current orders" [ref=f5e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f5e31]:
+          - link "Past orders" [ref=f5e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f5e38]:
+          - link "Messages" [ref=f5e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f5e43]:
+          - link "Account settings" [ref=f5e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f5e49]:
+      - separator [ref=f5e50]
+      - generic [ref=f5e51]:
+        - button "Settings (coming soon)" [ref=f5e52]
+        - button "Customer demo account menu" [ref=f5e56]:
+          - generic [ref=f5e60]: Customer demo
+    - button "Toggle Sidebar" [ref=f5e63]
+  - main [ref=f5e64]:
+    - generic [ref=f5e65]:
+      - button "Toggle navigation" [ref=f5e66]:
+        - generic [ref=f5e67]: Toggle Sidebar
+      - separator [ref=f5e68]
+      - navigation "breadcrumb" [ref=f5e69]:
+        - list [ref=f5e70]:
+          - listitem [ref=f5e71]:
+            - link "New request" [ref=f5e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f5e73]
+          - listitem [ref=f5e76]:
+            - link "Orders" [disabled] [ref=f5e77]
+      - generic [ref=f5e78]:
+        - separator [ref=f5e79]
+        - button "Switch to dark mode" [ref=f5e80]
+        - separator [ref=f5e81]
+    - generic [ref=f5e83]:
+      - generic [ref=f5e84]:
+        - generic [ref=f5e85]:
+          - heading "Current orders" [level=1] [ref=f5e86]
+          - paragraph [ref=f5e87]: Track your catering requests and respond when the Pearl Island team needs you.
+        - button "New catering request" [ref=f5e88] [cursor=pointer]
+      - tablist [ref=f5e90]:
+        - tab "All active 1" [selected] [ref=f5e91]:
+          - text: All active
+          - generic [ref=f5e92]: "1"
+        - tab "Needs your action 0" [ref=f5e93]:
+          - text: Needs your action
+          - generic [ref=f5e94]: "0"
+        - tab "Confirmed 1" [ref=f5e95]:
+          - text: Confirmed
+          - generic [ref=f5e96]: "1"
+      - generic [ref=f5e98]:
+        - generic [ref=f5e100]:
+          - generic [ref=f5e101]:
+            - generic [ref=f5e102]: Request order-routine
+            - generic [ref=f5e103]: Monday, October 19, 2026 at 12:00 PM
+          - generic [ref=f5e104]: Accepted
+        - generic [ref=f5e105]:
+          - generic [ref=f5e106]:
+            - generic [ref=f5e107]:
+              - term [ref=f5e108]: Guests
+              - definition [ref=f5e109]: "40"
+            - generic [ref=f5e110]:
+              - term [ref=f5e111]: Pickup or delivery
+              - definition [ref=f5e112]: pickup
+          - generic [ref=f5e113]:
+            - generic [ref=f5e114]:
+              - paragraph [ref=f5e115]: Estimated total
+              - paragraph [ref=f5e116]: $615.40
+            - button "View order" [ref=f5e117]

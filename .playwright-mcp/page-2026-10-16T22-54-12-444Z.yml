@@ -1,0 +1,50 @@
+- generic [ref=f19e1]:
+  - generic [ref=f19e3]:
+    - link [ref=f19e175] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f19e25]:
+      - generic [ref=f19e169]:
+        - button [ref=f19e176]:
+          - generic [ref=f19e171]: Toggle Sidebar
+        - link [ref=f19e177] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f19e179]: Pearl Island2GO
+        - button [ref=f19e180]:
+          - generic [ref=f19e181]: Team
+      - region [ref=f19e182]:
+        - group [ref=f19e42]:
+          - generic [ref=f19e183] [cursor=pointer]:
+            - generic [ref=f19e44]: Demo controls
+            - generic [ref=f19e45]: Show
+      - generic [ref=f19e166]:
+        - heading [level=1] [ref=f19e184]: Requests
+        - paragraph [ref=f19e168]: The Pearl Island team account is selected. This workspace will be built as its own page after the event request flow.
+  - dialog "Sidebar" [ref=f19e188]:
+    - generic [ref=f19e189]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f19e190]:
+      - generic [ref=f19e192]:
+        - link "Pearl Island2GO home" [active] [ref=f19e193] [cursor=pointer]:
+          - /url: /staff
+          - img "Pearl Island" [ref=f19e194]
+          - generic [ref=f19e195]: Pearl Island2GO
+        - button "Close navigation" [ref=f19e196]
+      - separator [ref=f19e200]
+      - generic [ref=f19e202]:
+        - generic [ref=f19e203]: Navigation
+        - list [ref=f19e205]:
+          - listitem [ref=f19e206]:
+            - link "Requests" [ref=f19e207] [cursor=pointer]:
+              - /url: /staff
+          - listitem [ref=f19e212]:
+            - button "Handoff" [ref=f19e213]
+            - generic: Later
+          - listitem [ref=f19e220]:
+            - button "Messages" [ref=f19e221]
+            - generic: Later
+          - listitem [ref=f19e225]:
+            - button "Settings" [ref=f19e226]
+            - generic: Later
+      - generic [ref=f19e231]: Pearl Island team account

@@ -1,0 +1,54 @@
+- generic [ref=e3]:
+  - link "Skip to main content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - link "Pearl Island2GO home" [ref=e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=e11]
+      - generic [ref=e12]: Pearl Island2GO
+    - separator [ref=e13]
+    - generic [ref=e15]:
+      - generic [ref=e16]: Navigation
+      - list [ref=e18]:
+        - listitem [ref=e19]:
+          - link "New request" [ref=e20] [cursor=pointer]:
+            - /url: /customer
+    - button "Toggle Sidebar" [ref=e23]
+  - main [ref=e24]:
+    - generic [ref=e25]:
+      - button "Toggle navigation" [ref=e26]:
+        - generic [ref=e27]: Toggle Sidebar
+      - separator [ref=e28]
+      - navigation "breadcrumb" [ref=e29]:
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - link "New request" [ref=e32] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=e33]
+          - listitem [ref=e36]:
+            - link "Menu" [disabled] [ref=e37]
+      - button "Guest account menu" [ref=e38]:
+        - generic [ref=e39]: Guest
+    - navigation "Request progress" [ref=e42]:
+      - list [ref=e43]:
+        - listitem [ref=e44]:
+          - button "Event" [ref=e45]:
+            - generic [aria-hidden] [ref=e46]: "1"
+        - listitem [ref=e48]:
+          - button "Menu" [ref=e49]:
+            - generic [aria-hidden] [ref=e50]: "2"
+        - listitem [ref=e52]:
+          - button "Supplies" [disabled] [ref=e53]:
+            - generic [aria-hidden] [ref=e54]: "3"
+        - listitem [ref=e56]:
+          - button "Details" [disabled] [ref=e57]:
+            - generic [aria-hidden] [ref=e58]: "4"
+        - listitem [ref=e60]:
+          - button "Review" [disabled] [ref=e61]:
+            - generic [aria-hidden] [ref=e62]: "5"
+      - generic [ref=e64]:
+        - progressbar "Request progress" [ref=e65]: x
+        - generic [ref=e68]: Step 2 of 5
+    - generic [ref=e70]:
+      - heading "Menu" [level=1] [ref=e71]
+      - paragraph [ref=e72]: Your event details are saved in this demo. The menu page is the next step to build.

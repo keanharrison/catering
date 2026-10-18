@@ -20,6 +20,6 @@ export const statusTone: Record<OrderStatus, 'neutral' | 'confirmed' | 'review' 
 
 export function formatEventTime(eventAt: string): string {
   const date = new Date(eventAt)
-  if (Number.isNaN(date.getTime())) return eventAt
+  if (Number.isNaN(date.getTime())) return 'Not provided'
   return date.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })
 }

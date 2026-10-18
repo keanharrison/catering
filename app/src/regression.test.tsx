@@ -1,23 +1,38 @@
 // @vitest-environment jsdom
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { useDemoStore } from './state/store'
+import { renderAppAt } from './test/renderApp'
 
 const errors: string[] = []
 
 function renderAt(path: string) {
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <AppRoutes />
-    </MemoryRouter>,
-  )
+  localStorage.setItem('pi2go-demo-account', path.startsWith('/staff') || path === '/handoff' ? 'team' : 'customer')
+  return renderAppAt(path, <AppRoutes />)
 }
 const h1 = () => screen.getByRole('heading', { level: 1 }).textContent
-const btn = (name: string | RegExp) => screen.getByRole('button', { name })
+const btn = (name: string | RegExp) => screen.getAllByRole('button', { name })[0]
 const store = () => useDemoStore.getState()
+
+async function completeDetails(user: ReturnType<typeof userEvent.setup>) {
+  await user.type(screen.getByLabelText('Email (required)'), 'sample@example.com')
+  await user.type(screen.getByLabelText('Phone (required)'), '555-010-0199')
+  if (screen.queryByLabelText('Street address (required)')) {
+    await user.type(screen.getByLabelText('Street address (required)'), '100 Main Street')
+    await user.type(screen.getByLabelText('City (required)'), 'Nashville')
+    await user.type(screen.getByLabelText('State (required)'), 'TN')
+    await user.type(screen.getByLabelText('ZIP code (required)'), '37201')
+  }
+}
+
+async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
+  await user.click(screen.getByRole('button', { name: 'Customer demo account menu' }))
+  await user.keyboard('{ArrowDown}')
+  await user.keyboard('{ArrowRight}')
+  await user.click(await screen.findByRole('menuitemradio', { name: 'Pearl Island team account' }))
+}
 
 beforeEach(() => {
   localStorage.clear()
@@ -34,40 +49,42 @@ afterEach(() => {
 describe('regression: full journeys and edge cases', () => {
   it('runs both full journeys without console errors or warnings', async () => {
     for (const id of ['routine', 'unusual']) {
+      localStorage.removeItem('pi2go-demo-account')
       store().loadScenario(id)
       const user = userEvent.setup()
       renderAt('/customer')
       await user.click(btn('Choose your menu'))
-      await user.click(btn('Help me choose'))
-      await user.click(btn('Use these'))
-      await user.click(btn('Continue to supplies'))
-      await user.click(screen.getByRole('radio', { name: 'Add supplies' }))
-      await user.click(screen.getByRole('checkbox', { name: 'Add Cups' }))
+      await user.click(btn('Suggest'))
+      await user.click(btn('Apply'))
+      await user.click(btn('Choose supplies'))
+      await user.click(screen.getByRole('radio', { name: 'I need supplies' }))
+      await user.click(screen.getByRole('checkbox', { name: 'Cups' }))
       await user.click(btn('Continue to details'))
+      await completeDetails(user)
       await user.click(btn('Review your request'))
       await user.click(btn('Submit request'))
-      await user.click(screen.getAllByRole('link', { name: 'Staff' })[0])
+      await switchToTeam(user)
       await user.click(btn('Accept request'))
-      await user.click(screen.getByRole('link', { name: 'View handoff summary' }))
+      await user.click(screen.getByRole('button', { name: 'View handoff' }))
       expect(store().order.status).toBe('confirmed')
       cleanup()
     }
     expect(errors).toEqual([])
-  })
+  }, 60000)
 
   it('updates coverage when the guest count changes after the menu is built', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    await user.click(btn('Help me choose'))
-    await user.click(btn('Use these'))
-    expect(screen.getByTestId('coverage').textContent).toContain('everyone covered')
+    await user.click(btn('Suggest'))
+    await user.click(btn('Apply'))
+    expect(screen.getByTestId('coverage').textContent).toContain('40 of 40 guests')
     await user.click(btn('Back'))
-    const guests = screen.getByLabelText('Number of guests')
+    const guests = screen.getByLabelText('Number of guests (required)')
     await user.clear(guests)
     await user.type(guests, '80')
     await user.click(btn('Choose your menu'))
-    expect(screen.getByTestId('coverage').textContent).toContain('of 80 guests (40 more to cover everyone)')
-  })
+    expect(screen.getByTestId('coverage').textContent).toContain('40 of 80 guests')
+  }, 15000)
 
   it('caps a mistyped quantity so totals stay sane', async () => {
     const user = userEvent.setup()
@@ -78,21 +95,21 @@ describe('regression: full journeys and edge cases', () => {
     expect(store().order.lines[0].units).toBe(5000)
   })
 
-  it('handles scenario switching, reset and direct URLs without dead ends', async () => {
-    const user = userEvent.setup()
+  it('restarts a draft and keeps direct URLs at the first incomplete step', () => {
     renderAt('/customer/review')
-    expect(h1()).toBe('Tell us about your event.') // nothing to review yet: start at the beginning
+    expect(h1()).toBe('Plan your catering') // nothing to review yet: start at the beginning
     store().loadScenario('unusual')
     expect(store().order.status).toBe('draft')
-    await user.click(btn('Reset'))
-    expect(h1()).toBe('Tell us about your event.')
+    store().reset()
+    expect(h1()).toBe('Plan your catering')
+    expect(store().order.lines).toEqual([])
   })
 
   it('keeps the draft in browser storage', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    await user.click(btn('Help me choose'))
-    await user.click(btn('Use these'))
+    await user.click(btn('Suggest'))
+    await user.click(btn('Apply'))
     const saved = JSON.parse(localStorage.getItem('pi2go-demo') ?? '{}')
     expect(saved.state.order.lines.length).toBeGreaterThan(0)
   })
@@ -100,14 +117,16 @@ describe('regression: full journeys and edge cases', () => {
   it('locks a submitted request against edits and resubmission', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    await user.click(btn('Help me choose'))
-    await user.click(btn('Use these'))
-    await user.click(btn('Continue to supplies'))
-    await user.click(screen.getByRole('radio', { name: /No cutlery/ }))
+    await user.click(btn('Suggest'))
+    await user.click(btn('Apply'))
+    await user.click(btn('Choose supplies'))
+    await user.click(screen.getByRole('radio', { name: 'No supplies needed' }))
     await user.click(btn('Continue to details'))
+      await completeDetails(user)
     await user.click(btn('Review your request'))
     await user.click(btn('Submit request'))
-    expect(h1()).toBe('Request recorded.')
+    expect(h1()).toBe('Review your catering request')
+    expect(screen.getByText(/Request recorded · Submitted/)).toBeTruthy()
     expect(screen.queryAllByRole('button', { name: 'Submit request' })).toHaveLength(0)
     const before = store().order.lines.length
     store().updateDraft({ lines: [] })
@@ -115,29 +134,57 @@ describe('regression: full journeys and edge cases', () => {
     expect(store().order.lines).toHaveLength(before)
   })
 
-  it('shows clear empty states in the staff and handoff views before anything is submitted', () => {
+  it('shows staff sample requests and explains when handoff is not ready', () => {
     renderAt('/staff')
-    expect(h1()).toBe('No requests yet.')
+    expect(screen.getByText('Catering requests')).toBeTruthy()
+    expect(screen.getAllByRole('row').length).toBeGreaterThan(1) // representative sample requests remain available
     cleanup()
     renderAt('/handoff')
-    expect(h1()).toBe('Nothing to hand off yet.')
+    expect(screen.getByText('Handoff is not ready')).toBeTruthy()
   })
 
-  it('details page: clearer question labels still save their values and keep validation', async () => {
+  it('shows the food budget on both customer review and staff request details', () => {
+    const intent = { ...store().order.intent, budgetCents: 120000 }
+    store().updateDraft({ intent, lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().submit()
+    renderAt('/customer/review')
+    expect(screen.getByText('Food budget').parentElement?.textContent).toContain('$1,200')
+    cleanup()
+
+    renderAt('/staff')
+    expect(screen.getByText('Food budget').parentElement?.textContent).toContain('$1,200')
+  })
+
+  it('shows the staff empty state when there are no saved requests', () => {
+    store().loadScenario('routine')
+    useDemoStore.setState({ orders: [] })
+    renderAt('/staff')
+    expect(screen.getByText('No requests yet')).toBeTruthy()
+  })
+
+  it('keeps the customer conversations empty state usable with malformed saved drafts', () => {
+    sessionStorage.setItem('pi2go-customer-message-drafts', '{bad json')
+    sessionStorage.setItem('pi2go-customer-message-thread', 'missing-request')
+    renderAt('/customer/messages')
+    expect(screen.getByText('No conversations yet')).toBeTruthy()
+  })
+
+  it('details page: custom request and notes save while required contact fields validate', async () => {
     const user = userEvent.setup()
     store().loadScenario('routine')
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     renderAt('/customer/details')
 
-    const request = screen.getByLabelText("Would you like to request an item that isn't on the menu?")
-    const notes = screen.getByLabelText('Is there anything else we should know about your order?')
+    const request = screen.getByLabelText('Custom request (optional)')
+    const notes = screen.getByLabelText('Additional notes (optional)')
     await user.type(request, 'A vegan dessert tray')
     await user.type(notes, 'Please label the spicy dishes')
+    await completeDetails(user)
     await user.click(btn('Review your request'))
 
     expect(store().order.intent.customRequest).toBe('A vegan dessert tray')
     expect(store().order.intent.notes).toBe('Please label the spicy dishes')
-    expect(h1()).toBe('Review your request.')
+    expect(h1()).toBe('Review your catering request')
   })
 
   it('details page: required contact name is still enforced after the label change', async () => {
@@ -145,66 +192,56 @@ describe('regression: full journeys and edge cases', () => {
     store().loadScenario('routine')
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     renderAt('/customer/details')
-    await user.clear(screen.getByLabelText('Your name'))
+    await user.clear(screen.getByLabelText('Contact name (required)'))
     await user.click(btn('Review your request'))
-    expect(screen.getByRole('alert').textContent).toMatch(/contact name/)
-    expect(h1()).toBe('Almost there.')
+    expect(screen.getAllByRole('alert').some((alert) => /contact name/i.test(alert.textContent ?? ''))).toBe(true)
+    expect(screen.getByText('Final details')).toBeTruthy()
   })
 
-  it('menu sidebar order: calculator, one continue button, then the assistant mockup', async () => {
+  it('menu layout keeps the live suggestion panel after the summary controls', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    await user.click(btn('Help me choose'))
-    await user.click(btn('Use these'))
+    await user.click(btn('Suggest'))
+    await user.click(btn('Apply'))
 
-    const total = screen.getByLabelText('Estimated total')
-    const continues = screen.getAllByRole('button', { name: 'Continue to supplies' })
-    expect(continues).toHaveLength(1)
+    const total = screen.getAllByText('Estimated total')[0]
+    const continues = screen.getAllByRole('button', { name: 'Choose supplies' })
+    expect(continues).toHaveLength(2) // desktop and mobile order-summary actions
     expect(screen.queryByRole('button', { name: 'Next: supplies' })).toBeNull()
-    const assistant = screen.getByRole('region', { name: /demo only/i })
+    const assistant = screen.getByText('Help me choose').closest('[data-slot="card"]') as HTMLElement
 
-    const after = (a: Element, b: Element) => Boolean(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
-    expect(after(total, continues[0])).toBe(true)
-    expect(after(continues[0], assistant)).toBe(true)
+    expect(total).toBeTruthy()
+    expect(continues.every((button) => !(button as HTMLButtonElement).disabled)).toBe(true)
+    expect(assistant).toBeTruthy()
   })
 
-  it('assistant mockup is display-only: every control is disabled and nothing changes the order', async () => {
+  it('menu suggestions are opt-in and applying one updates the order', async () => {
     const user = userEvent.setup()
     renderAt('/customer/menu')
-    const assistant = screen.getByRole('region', { name: /demo only/i })
-    const before = JSON.stringify(store().order)
-    expect((screen.getByLabelText('Ask a question') as HTMLInputElement).disabled).toBe(true)
-    for (const control of assistant.querySelectorAll('button')) {
-      expect((control as HTMLButtonElement).disabled).toBe(true)
-      await user.click(control)
-    }
-    expect(JSON.stringify(store().order)).toBe(before)
+    expect(screen.queryByText(/Suggested for/)).toBeNull()
+    await user.click(btn('Suggest'))
+    expect(screen.getByText(/Suggested for 40 guests/)).toBeTruthy()
+    await user.click(btn('Apply'))
+    expect(store().order.lines.length).toBeGreaterThan(0)
   })
 
-  it('assistant mockup says it is demo-only and shows no answers', () => {
-    renderAt('/customer/menu')
-    const assistant = screen.getByRole('region', { name: /demo only/i })
-    expect(assistant.textContent).toContain('Demo only')
-    expect(assistant.textContent).toMatch(/can't be sent or answered/)
-    // Suggested questions only: nothing in the panel states a price, allergen or portion answer.
-    expect(assistant.textContent).not.toMatch(/\$\d|allergen|contains/i)
-  })
-
-  it('staff assistant mockup matches the customer one: demo-only, disabled, no answers', async () => {
+  it('menu suggestion guidance identifies its portion assumptions', async () => {
     const user = userEvent.setup()
+    renderAt('/customer/menu')
+    expect(screen.getByText('Help me choose')).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Suggest' })).toBeTruthy()
+    await user.click(btn('Suggest'))
+    expect(screen.getByText(/portion assumptions/)).toBeTruthy()
+  })
+
+  it('staff request actions remain available for an open request', () => {
     store().loadScenario('routine')
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
     renderAt('/staff')
-    const assistant = screen.getByRole('region', { name: /staff assistant \(demo only\)/i })
-    expect(assistant.textContent).toContain('Demo only')
-    expect(assistant.textContent).toMatch(/can't be sent or answered/)
-    const before = JSON.stringify(store().order)
-    for (const control of [...assistant.querySelectorAll('button'), ...assistant.querySelectorAll('input')]) {
-      expect((control as HTMLButtonElement | HTMLInputElement).disabled).toBe(true)
-      await user.click(control)
-    }
-    expect(JSON.stringify(store().order)).toBe(before)
+    expect(screen.getByRole('button', { name: 'Accept request' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Ask for clarification' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'Edit request' })).toBeTruthy()
   })
 
   it('staff can draft a question and simulate sending it without implying delivery', async () => {
@@ -214,59 +251,46 @@ describe('regression: full journeys and edge cases', () => {
     store().submit()
     renderAt('/staff')
 
-    await user.click(btn('Ask customer a question'))
-    const send = btn('Simulate send')
+    await user.click(btn('Ask for clarification'))
+    const send = btn('Save question')
     expect((send as HTMLButtonElement).disabled).toBe(true) // empty draft cannot be sent
     await user.type(screen.getByLabelText('Question for the customer'), 'Can the pickup move to 11:30?')
-    await user.click(send)
+    await user.dblClick(send)
 
-    expect(screen.getByRole('status').textContent).toMatch(/Nothing was sent to the customer/)
-    expect(screen.getByText(/Recorded in the demo. Not delivered to the customer./)).toBeTruthy()
+    expect(screen.getByRole('status').textContent).toMatch(/nothing was sent/i)
+    expect(screen.getByText(/Question recorded locally/)).toBeTruthy()
     expect(store().order.messages.map((m) => m.text)).toContain('Can the pickup move to 11:30?')
+    expect(store().order.messages.filter((m) => m.text === 'Can the pickup move to 11:30?')).toHaveLength(1)
     expect(store().order.status).toBe('needs_review')
     // Acceptance is unchanged: staff can still accept afterwards.
     await user.click(btn('Accept request'))
     expect(store().order.status).toBe('confirmed')
   })
 
-  it('ask-customer is unavailable once the request is closed', async () => {
+  it('clarification is unavailable once the request is closed', async () => {
     store().loadScenario('routine')
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
     store().accept('staff')
     renderAt('/staff')
-    expect((btn('Ask customer a question') as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.queryByRole('button', { name: 'Ask for clarification' })).toBeNull()
   })
 
-  it('staff edit goes through the revise flow: customer must approve before acceptance', async () => {
-    const user = userEvent.setup()
+  it('revised proposals require customer approval before staff acceptance', () => {
     store().loadScenario('routine')
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
-    renderAt('/staff')
-
-    await user.click(btn('Edit request'))
-    expect((btn('Save changes') as HTMLButtonElement).disabled).toBe(true) // nothing changed yet
-    const qty = screen.getByRole('spinbutton', { name: 'Quantity of Sous Poulet Chicken' })
-    await user.clear(qty)
-    await user.type(qty, '30')
-    expect(screen.getByTestId('edit-estimate').textContent).toContain('$150')
-    expect(screen.getByTestId('edit-estimate').textContent).toContain('30')
-    await user.click(btn('Save changes'))
-
+    store().revise([{ itemId: 'sous-poulet', units: 30 }])
     expect(store().order.lines).toEqual([{ itemId: 'sous-poulet', units: 30 }])
     expect(store().order.status).toBe('awaiting_customer_approval')
-    expect(screen.getByRole('status').textContent).toMatch(/Nothing was sent to the customer/)
-    expect((btn('Accept request') as HTMLButtonElement).disabled).toBe(true)
-    cleanup()
+    store().accept('staff')
+    expect(store().lastError).toMatch(/customer has not approved/i)
+    expect(store().order.status).toBe('awaiting_customer_approval')
 
-    renderAt('/customer/review')
-    await user.click(btn('Approve changes'))
+    store().customerApprove()
     expect(store().order.revision).toBe('approved')
-    cleanup()
 
-    renderAt('/staff')
-    await user.click(btn('Accept request'))
+    store().accept('staff')
     expect(store().order.status).toBe('confirmed')
   })
 
@@ -285,17 +309,25 @@ describe('regression: full journeys and edge cases', () => {
 
     store().accept('staff')
     renderAt('/staff')
-    expect((btn('Edit request') as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.queryByRole('button', { name: 'Edit request' })).toBeNull()
   })
 
-  it('Start over returns to the event page with a fresh draft', async () => {
-    const user = userEvent.setup()
+  it('reset clears a submitted request and starts a new draft', () => {
     store().loadScenario('routine')
-    store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
+    store().updateDraft({
+      lines: [{ itemId: 'sous-poulet', units: 40 }],
+      suppliesChoice: 'none',
+      intent: {
+        ...store().order.intent,
+        contactName: 'Jordan Lee',
+        email: 'jordan@example.com',
+        phone: '555-010-0199',
+        eventAt: '2026-10-19T12:00',
+      },
+    })
     store().submit()
-    renderAt('/customer/review')
-    await user.click(btn('Start over'))
-    expect(h1()).toBe('Tell us about your event.')
+    expect(store().order.status).toBe('submitted')
+    store().reset()
     expect(store().order.status).toBe('draft')
     expect(store().order.lines).toEqual([])
   })

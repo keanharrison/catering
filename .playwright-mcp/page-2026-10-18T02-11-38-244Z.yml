@@ -1,0 +1,159 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e3]:
+    - region "Notifications alt+T"
+    - link [aria-hidden] [ref=f3e500] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [aria-hidden] [ref=f3e64]:
+      - generic [ref=f3e65]:
+        - button [ref=f3e501]:
+          - generic [ref=f3e67]: Toggle Sidebar
+        - link [ref=f3e502] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f3e480]: Pearl Island2GO
+        - generic [ref=f3e78]:
+          - separator [ref=f3e79]
+          - button [ref=f3e504]
+          - separator [ref=f3e81]
+      - generic [ref=f3e368]:
+        - generic [ref=f3e369]:
+          - generic [ref=f3e370]:
+            - generic [ref=f3e371]:
+              - heading [level=1] [ref=f3e505]: Staff handoff
+              - paragraph [ref=f3e373]: Accepted order · Request order-routine
+            - generic [ref=f3e374]: Accepted
+          - generic [ref=f3e375]:
+            - generic [ref=f3e376]:
+              - generic [ref=f3e377]:
+                - generic [ref=f3e378]: Event and fulfillment
+                - generic [ref=f3e379]: Corporate lunch
+              - generic [ref=f3e381]:
+                - generic [ref=f3e382]:
+                  - term [ref=f3e383]: Event date and time
+                  - definition [ref=f3e384]: Monday, October 19, 2026 at 12:00 PM
+                - generic [ref=f3e385]:
+                  - term [ref=f3e386]: Guest count
+                  - definition [ref=f3e387]: "40"
+                - generic [ref=f3e388]:
+                  - term [ref=f3e389]: Fulfillment
+                  - definition [ref=f3e390]: pickup
+            - generic [ref=f3e391]:
+              - generic [ref=f3e392]: Customer contact
+              - generic [ref=f3e395]:
+                - generic [ref=f3e396]:
+                  - term [ref=f3e397]: Name
+                  - definition [ref=f3e398]: Workflow Customer
+                - generic [ref=f3e399]:
+                  - term [ref=f3e400]: Organization
+                  - definition [ref=f3e401]: Workflow QA
+                - generic [ref=f3e402]:
+                  - term [ref=f3e403]: Email
+                  - definition [ref=f3e404]: workflow@example.com
+                - generic [ref=f3e405]:
+                  - term [ref=f3e406]: Phone
+                  - definition [ref=f3e407]: 555-0134
+            - generic [ref=f3e408]:
+              - generic [ref=f3e409]:
+                - generic [ref=f3e410]: Food and supplies
+                - generic [ref=f3e411]: Accepted quantities and estimated prices
+              - generic [ref=f3e412]:
+                - region [ref=f3e506]:
+                  - heading [level=3] [ref=f3e507]: Food
+                  - table [ref=f3e417]:
+                    - rowgroup [ref=f3e418]:
+                      - row [ref=f3e508]:
+                        - columnheader [ref=f3e509]: Item
+                        - columnheader [ref=f3e510]: Quantity
+                        - columnheader [ref=f3e511]: Line total
+                    - rowgroup [ref=f3e424]:
+                      - row [ref=f3e512]:
+                        - cell [ref=f3e513]:
+                          - text: Sous Poulet Chicken
+                          - generic [ref=f3e484]: $5 / serving
+                        - cell [ref=f3e514]: 20 servings
+                        - cell [ref=f3e515]: $100
+                      - row [ref=f3e516]:
+                        - cell [ref=f3e517]:
+                          - text: Curry Chicken
+                          - generic [ref=f3e487]: $5 / serving
+                        - cell [ref=f3e518]: 21 servings
+                        - cell [ref=f3e519]: $105
+                      - row [ref=f3e520]:
+                        - cell [ref=f3e521]:
+                          - text: Rice w/ Pigeon Peas
+                          - generic [ref=f3e490]: $2.76 / serving
+                        - cell [ref=f3e522]: 40 servings
+                        - cell [ref=f3e523]: $110.40
+                      - row [ref=f3e524]:
+                        - cell [ref=f3e525]:
+                          - text: Amarillos
+                          - generic [ref=f3e493]: $2.75 / serving
+                        - cell [ref=f3e526]: 40 servings
+                        - cell [ref=f3e527]: $110
+                      - row [ref=f3e528]:
+                        - cell [ref=f3e529]:
+                          - text: Pikliz
+                          - generic [ref=f3e496]: $1 / serving
+                        - cell [ref=f3e530]: 40 servings
+                        - cell [ref=f3e531]: $40
+                      - row [ref=f3e532]:
+                        - cell [ref=f3e533]:
+                          - text: Kale Salad
+                          - generic [ref=f3e499]: $3.75 / serving
+                        - cell [ref=f3e534]: 40 servings
+                        - cell [ref=f3e535]: $150
+                - separator [ref=f3e455]
+                - region [ref=f3e536]:
+                  - heading [level=3] [ref=f3e537]: Supplies
+                  - paragraph [ref=f3e458]: No supplies recorded.
+            - generic [ref=f3e459]:
+              - generic [ref=f3e460]:
+                - generic [ref=f3e461]: Cost summary
+                - generic [ref=f3e462]: Estimate based on the accepted selections
+              - generic [ref=f3e464]:
+                - generic [ref=f3e465]:
+                  - term [ref=f3e466]: Food subtotal
+                  - definition [ref=f3e467]: $615.40
+                - generic [ref=f3e468]:
+                  - term [ref=f3e469]: Supplies subtotal
+                  - definition [ref=f3e470]: $0
+                - separator [ref=f3e471]
+                - generic [ref=f3e472]:
+                  - term [ref=f3e473]: Estimated total
+                  - definition [ref=f3e474]: $615.40
+        - generic [ref=f3e475]:
+          - button [ref=f3e538] [cursor=pointer]: Back to requests
+          - button [ref=f3e539]: Print handoff
+  - dialog "Sidebar" [ref=f3e543]:
+    - generic [ref=f3e544]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f3e545]:
+      - generic [ref=f3e547]:
+        - link "Pearl Island2GO home" [active] [ref=f3e548] [cursor=pointer]:
+          - /url: /staff
+          - img "Pearl Island" [ref=f3e549]
+          - generic [ref=f3e550]: Pearl Island2GO
+        - button "Close navigation" [ref=f3e551]
+      - separator [ref=f3e555]
+      - generic [ref=f3e557]:
+        - generic [ref=f3e558]: Navigation
+        - list [ref=f3e560]:
+          - listitem [ref=f3e561]:
+            - link "Requests" [ref=f3e562] [cursor=pointer]:
+              - /url: /staff
+          - listitem [ref=f3e567]:
+            - link "Handoff" [ref=f3e568] [cursor=pointer]:
+              - /url: /handoff
+          - listitem [ref=f3e575]:
+            - link "Messages" [ref=f3e576] [cursor=pointer]:
+              - /url: /staff/messages
+          - listitem [ref=f3e580]:
+            - link "Menu and rules" [ref=f3e581] [cursor=pointer]:
+              - /url: /settings
+      - generic [ref=f3e586]:
+        - separator [ref=f3e587]
+        - generic [ref=f3e588]:
+          - button "Settings (coming soon)" [ref=f3e589]
+          - button "Pearl Island team account menu" [ref=f3e593]:
+            - generic [ref=f3e597]: Pearl Island team

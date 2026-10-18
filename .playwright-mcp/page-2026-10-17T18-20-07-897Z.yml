@@ -1,0 +1,49 @@
+- generic [ref=f2e1]:
+  - generic [ref=f2e3]:
+    - link [ref=f2e220] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f2e58]:
+      - generic [ref=f2e59]:
+        - button [ref=f2e221]:
+          - generic [ref=f2e61]: Toggle Sidebar
+        - link [ref=f2e222] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f2e219]: Pearl Island2GO
+        - generic [ref=f2e72]:
+          - separator [ref=f2e73]
+          - button [ref=f2e224]
+          - separator [ref=f2e75]
+      - generic [ref=f2e214]:
+        - heading [level=1] [ref=f2e225]: Requests
+        - paragraph [ref=f2e216]: The Pearl Island team account is selected. This workspace will be built as its own page after the event request flow.
+  - dialog "Sidebar" [ref=f2e229]:
+    - generic [ref=f2e230]:
+      - heading "Sidebar" [level=2]
+      - paragraph: Displays the mobile sidebar.
+    - generic [ref=f2e231]:
+      - generic [ref=f2e233]:
+        - link "Pearl Island2GO home" [active] [ref=f2e234] [cursor=pointer]:
+          - /url: /staff
+          - img "Pearl Island" [ref=f2e235]
+          - generic [ref=f2e236]: Pearl Island2GO
+        - button "Close navigation" [ref=f2e237]
+      - separator [ref=f2e241]
+      - generic [ref=f2e243]:
+        - generic [ref=f2e244]: Navigation
+        - list [ref=f2e246]:
+          - listitem [ref=f2e247]:
+            - link "Requests" [ref=f2e248] [cursor=pointer]:
+              - /url: /staff
+          - listitem [ref=f2e253]:
+            - button "Handoff" [ref=f2e254]
+            - generic: Later
+          - listitem [ref=f2e261]:
+            - button "Messages" [ref=f2e262]
+            - generic: Later
+      - generic [ref=f2e266]:
+        - separator [ref=f2e267]
+        - generic [ref=f2e268]:
+          - button "Settings (coming soon)" [ref=f2e269]
+          - button "Pearl Island team account menu" [ref=f2e273]:
+            - generic [ref=f2e277]: Pearl Island team

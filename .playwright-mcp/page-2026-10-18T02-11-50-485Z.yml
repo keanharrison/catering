@@ -1,0 +1,125 @@
+- generic [ref=f4e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f4e4] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f4e5]:
+    - generic [ref=f4e6]:
+      - button "Toggle navigation" [ref=f4e7]:
+        - generic [ref=f4e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f4e9] [cursor=pointer]:
+        - /url: /staff
+        - img "Pearl Island" [ref=f4e10]
+        - generic [ref=f4e11]: Pearl Island2GO
+      - generic [ref=f4e12]:
+        - separator [ref=f4e13]
+        - button "Switch to dark mode" [ref=f4e14]
+        - separator [ref=f4e15]
+    - generic [ref=f4e17]:
+      - generic [ref=f4e18]:
+        - generic [ref=f4e19]:
+          - generic [ref=f4e20]:
+            - heading "Staff handoff" [level=1] [ref=f4e21]
+            - paragraph [ref=f4e22]: Accepted order · Request order-routine
+          - generic [ref=f4e23]: Accepted
+        - generic [ref=f4e24]:
+          - generic [ref=f4e25]:
+            - generic [ref=f4e26]:
+              - generic [ref=f4e27]: Event and fulfillment
+              - generic [ref=f4e28]: Corporate lunch
+            - generic [ref=f4e30]:
+              - generic [ref=f4e31]:
+                - term [ref=f4e32]: Event date and time
+                - definition [ref=f4e33]: Monday, October 19, 2026 at 12:00 PM
+              - generic [ref=f4e34]:
+                - term [ref=f4e35]: Guest count
+                - definition [ref=f4e36]: "40"
+              - generic [ref=f4e37]:
+                - term [ref=f4e38]: Fulfillment
+                - definition [ref=f4e39]: pickup
+          - generic [ref=f4e40]:
+            - generic [ref=f4e41]: Customer contact
+            - generic [ref=f4e44]:
+              - generic [ref=f4e45]:
+                - term [ref=f4e46]: Name
+                - definition [ref=f4e47]: Workflow Customer
+              - generic [ref=f4e48]:
+                - term [ref=f4e49]: Organization
+                - definition [ref=f4e50]: Workflow QA
+              - generic [ref=f4e51]:
+                - term [ref=f4e52]: Email
+                - definition [ref=f4e53]: workflow@example.com
+              - generic [ref=f4e54]:
+                - term [ref=f4e55]: Phone
+                - definition [ref=f4e56]: 555-0134
+          - generic [ref=f4e57]:
+            - generic [ref=f4e58]:
+              - generic [ref=f4e59]: Food and supplies
+              - generic [ref=f4e60]: Accepted quantities and estimated prices
+            - generic [ref=f4e61]:
+              - region "Food" [ref=f4e62]:
+                - heading "Food" [level=3] [ref=f4e63]
+                - table [ref=f4e66]:
+                  - rowgroup [ref=f4e67]:
+                    - row [ref=f4e68]:
+                      - columnheader "Item" [ref=f4e69]
+                      - columnheader "Quantity" [ref=f4e70]
+                      - columnheader "Line total" [ref=f4e71]
+                  - rowgroup [ref=f4e72]:
+                    - row [ref=f4e73]:
+                      - cell "Sous Poulet Chicken $5 / serving" [ref=f4e74]:
+                        - text: Sous Poulet Chicken
+                        - generic [ref=f4e75]: $5 / serving
+                      - cell "20 servings" [ref=f4e76]
+                      - cell "$100" [ref=f4e77]
+                    - row [ref=f4e78]:
+                      - cell "Curry Chicken $5 / serving" [ref=f4e79]:
+                        - text: Curry Chicken
+                        - generic [ref=f4e80]: $5 / serving
+                      - cell "21 servings" [ref=f4e81]
+                      - cell "$105" [ref=f4e82]
+                    - row [ref=f4e83]:
+                      - cell "Rice w/ Pigeon Peas $2.76 / serving" [ref=f4e84]:
+                        - text: Rice w/ Pigeon Peas
+                        - generic [ref=f4e85]: $2.76 / serving
+                      - cell "40 servings" [ref=f4e86]
+                      - cell "$110.40" [ref=f4e87]
+                    - row [ref=f4e88]:
+                      - cell "Amarillos $2.75 / serving" [ref=f4e89]:
+                        - text: Amarillos
+                        - generic [ref=f4e90]: $2.75 / serving
+                      - cell "40 servings" [ref=f4e91]
+                      - cell "$110" [ref=f4e92]
+                    - row [ref=f4e93]:
+                      - cell "Pikliz $1 / serving" [ref=f4e94]:
+                        - text: Pikliz
+                        - generic [ref=f4e95]: $1 / serving
+                      - cell "40 servings" [ref=f4e96]
+                      - cell "$40" [ref=f4e97]
+                    - row [ref=f4e98]:
+                      - cell "Kale Salad $3.75 / serving" [ref=f4e99]:
+                        - text: Kale Salad
+                        - generic [ref=f4e100]: $3.75 / serving
+                      - cell "40 servings" [ref=f4e101]
+                      - cell "$150" [ref=f4e102]
+              - separator [ref=f4e103]
+              - region "Supplies" [ref=f4e104]:
+                - heading "Supplies" [level=3] [ref=f4e105]
+                - paragraph [ref=f4e106]: No supplies recorded.
+          - generic [ref=f4e107]:
+            - generic [ref=f4e108]:
+              - generic [ref=f4e109]: Cost summary
+              - generic [ref=f4e110]: Estimate based on the accepted selections
+            - generic [ref=f4e112]:
+              - generic [ref=f4e113]:
+                - term [ref=f4e114]: Food subtotal
+                - definition [ref=f4e115]: $615.40
+              - generic [ref=f4e116]:
+                - term [ref=f4e117]: Supplies subtotal
+                - definition [ref=f4e118]: $0
+              - separator [ref=f4e119]
+              - generic [ref=f4e120]:
+                - term [ref=f4e121]: Estimated total
+                - definition [ref=f4e122]: $615.40
+      - generic [ref=f4e123]:
+        - button "Back to requests" [ref=f4e124] [cursor=pointer]
+        - button "Print handoff" [ref=f4e125]

@@ -1,0 +1,102 @@
+- generic [ref=f3e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f3e7]:
+    - link "Pearl Island2GO home" [ref=f3e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f3e11]
+      - generic [ref=f3e12]: Pearl Island2GO
+    - separator [ref=f3e13]
+    - generic [ref=f3e15]:
+      - generic [ref=f3e16]: Navigation
+      - list [ref=f3e18]:
+        - listitem [ref=f3e19]:
+          - link "New request" [ref=f3e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f3e23]:
+          - link "Current orders" [ref=f3e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f3e31]:
+          - link "Past orders" [ref=f3e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f3e38]:
+          - link "Messages" [ref=f3e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f3e43]:
+          - link "Account settings" [ref=f3e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f3e49]:
+      - separator [ref=f3e50]
+      - generic [ref=f3e51]:
+        - button "Settings (coming soon)" [ref=f3e52]
+        - button "Customer demo account menu" [expanded] [ref=f3e56]:
+          - generic [ref=f3e60]: Customer demo
+        - generic:
+          - generic:
+            - menu "Customer demo account menu":
+              - group "Customer demo account":
+                - generic [aria-hidden]: Customer demo account
+              - separator
+              - menuitem "Switch demo account" [expanded] [active] [ref=f3e126]
+              - separator
+              - menuitem "Sign-in and permissions are not connected in this demo." [disabled]
+            - generic:
+              - menu "Switch demo account" [ref=f3e131]:
+                - group [ref=f3e132]:
+                  - menuitemradio "Customer demo account" [checked] [ref=f3e133]
+                  - menuitemradio "Pearl Island team account" [ref=f3e134]
+              - group
+    - button "Toggle Sidebar" [ref=f3e63]
+  - main [ref=f3e64]:
+    - generic [ref=f3e65]:
+      - button "Toggle navigation" [ref=f3e66]:
+        - generic [ref=f3e67]: Toggle Sidebar
+      - separator [ref=f3e68]
+      - navigation "breadcrumb" [ref=f3e69]:
+        - list [ref=f3e70]:
+          - listitem [ref=f3e71]:
+            - link "New request" [ref=f3e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f3e73]
+          - listitem [ref=f3e76]:
+            - link "Orders" [disabled] [ref=f3e77]
+      - generic [ref=f3e78]:
+        - separator [ref=f3e79]
+        - button "Switch to dark mode" [ref=f3e80]
+        - separator [ref=f3e81]
+    - generic [ref=f3e83]:
+      - generic [ref=f3e84]:
+        - generic [ref=f3e85]:
+          - heading "Current orders" [level=1] [ref=f3e86]
+          - paragraph [ref=f3e87]: Track your catering requests and respond when the Pearl Island team needs you.
+        - button "New catering request" [ref=f3e88] [cursor=pointer]
+      - tablist [ref=f3e90]:
+        - tab "All active 1" [selected] [ref=f3e91]:
+          - text: All active
+          - generic [ref=f3e92]: "1"
+        - tab "Needs your action 0" [ref=f3e93]:
+          - text: Needs your action
+          - generic [ref=f3e94]: "0"
+        - tab "Confirmed 0" [ref=f3e95]:
+          - text: Confirmed
+          - generic [ref=f3e96]: "0"
+      - generic [ref=f3e98]:
+        - generic [ref=f3e100]:
+          - generic [ref=f3e101]:
+            - generic [ref=f3e102]: Request order-routine
+            - generic [ref=f3e103]: Monday, October 19, 2026 at 12:00 PM
+          - generic [ref=f3e104]: Awaiting approval
+        - generic [ref=f3e105]:
+          - generic [ref=f3e106]:
+            - generic [ref=f3e107]:
+              - term [ref=f3e108]: Guests
+              - definition [ref=f3e109]: "40"
+            - generic [ref=f3e110]:
+              - term [ref=f3e111]: Pickup or delivery
+              - definition [ref=f3e112]: pickup
+          - generic [ref=f3e113]:
+            - generic [ref=f3e114]:
+              - paragraph [ref=f3e115]: Estimated total
+              - paragraph [ref=f3e116]: $615.40
+            - button "View order" [ref=f3e117]

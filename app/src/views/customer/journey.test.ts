@@ -43,7 +43,13 @@ describe('customer journey stages', () => {
 
   it('opens review once everything before it is finished', () => {
     const lines = recommend(routine.intent).lines.map(({ itemId, units }) => ({ itemId, units }))
-    const order = must(updateDraft(createOrder(routine), { lines, suppliesChoice: 'none' }))
+    let order = must(updateDraft(createOrder(routine), { lines, suppliesChoice: 'none' }))
+    expect(completedStages(order, routine.now).details).toBe(false)
+    expect(canEnter('review', order, routine.now)).toBe(false)
+    order = must(updateDraft(order, {
+      intent: { ...order.intent, email: 'jordan@example.com', phone: '555-010-0199' },
+    }))
+    expect(completedStages(order, routine.now).details).toBe(true)
     expect(canEnter('review', order, routine.now)).toBe(true)
     expect(firstIncompleteStage(order, routine.now)).toBe('review')
   })

@@ -1,0 +1,52 @@
+- generic [ref=f2e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f2e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f2e7]:
+    - link "Pearl Island2GO home" [ref=f2e10] [cursor=pointer]:
+      - /url: /customer
+      - img "Pearl Island" [ref=f2e11]
+      - generic [ref=f2e12]: Pearl Island2GO
+    - separator [ref=f2e13]
+    - generic [ref=f2e15]:
+      - generic [ref=f2e16]: Navigation
+      - list [ref=f2e18]:
+        - listitem [ref=f2e19]:
+          - link "New request" [ref=f2e20] [cursor=pointer]:
+            - /url: /customer
+        - listitem [ref=f2e23]:
+          - link "Current orders" [ref=f2e24] [cursor=pointer]:
+            - /url: /customer/orders
+        - listitem [ref=f2e31]:
+          - link "Past orders" [ref=f2e32] [cursor=pointer]:
+            - /url: /customer/orders/past
+        - listitem [ref=f2e38]:
+          - link "Messages" [ref=f2e39] [cursor=pointer]:
+            - /url: /customer/messages
+        - listitem [ref=f2e43]:
+          - link "Account settings" [ref=f2e44] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f2e49]:
+      - separator [ref=f2e50]
+      - generic [ref=f2e51]:
+        - button "Settings (coming soon)" [ref=f2e52]
+        - button "Customer demo account menu" [ref=f2e56]:
+          - generic [ref=f2e60]: Customer demo
+    - button "Toggle Sidebar" [ref=f2e63]
+  - main [ref=f2e64]:
+    - generic [ref=f2e65]:
+      - button "Toggle navigation" [ref=f2e66]:
+        - generic [ref=f2e67]: Toggle Sidebar
+      - separator [ref=f2e68]
+      - navigation "breadcrumb" [ref=f2e69]:
+        - list [ref=f2e70]:
+          - listitem [ref=f2e71]:
+            - link "New request" [ref=f2e72] [cursor=pointer]:
+              - /url: /customer
+          - listitem [aria-hidden] [ref=f2e73]
+          - listitem [ref=f2e76]:
+            - link "New request" [disabled] [ref=f2e77]
+      - generic [ref=f2e78]:
+        - separator [ref=f2e79]
+        - button "Switch to dark mode" [ref=f2e80]
+        - separator [ref=f2e81]

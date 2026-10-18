@@ -1,0 +1,21 @@
+[      63ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5176/node_modules/.vite/deps/react-dom_client.js?v=477fd478:15804
+[  218946ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5176/node_modules/.vite/deps/react-dom_client.js?v=477fd478:15804
+[  281002ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:5176/?token=E-Van94_m2b7' failed: Error during WebSocket handshake: net::ERR_CONNECTION_RESET @ http://127.0.0.1:5176/@vite/client:947
+[  281002ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/src/components/ui/field.tsx?t=1792188529264:0
+[  281002ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/src/components/Button.tsx:0
+[  281003ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/src/components/ui/input.tsx?t=1792188138085:0
+[  281003ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/src/state/store.ts:0
+[  281005ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/branding/pearl-island-logo.png:0
+[  281014ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:5176/?token=E-Van94_m2b7' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:5176/@vite/client:957
+[  281015ms] [ERROR] [vite] failed to connect to websocket.
+your current setup:
+  (browser) 127.0.0.1:5176/ <--[HTTP]--> 127.0.0.1:5176/ (server)
+  (browser) 127.0.0.1:5176/ <--[WebSocket (failing)]--> 127.0.0.1:5176/ (server)
+Check out your Vite / network configuration and https://vite.dev/config/server-options.html#server-hmr . @ http://127.0.0.1:5176/@vite/client:356
+[  281016ms] [ERROR] Failed to send error to Vite server: TypeError: Cannot read properties of undefined (reading 'send')
+    at Object.send (http://127.0.0.1:5176/@vite/client:251:7)
+    at Object.send (http://127.0.0.1:5176/@vite/client:983:16)
+    at Object.send (http://127.0.0.1:5176/@vite/client:110:21)
+    at Object.send (http://127.0.0.1:5176/@vite/client:190:30)
+    at sendError (http://127.0.0.1:5176/@vite/client:318:19)
+    at sendLog (http://127.0.0.1:5176/@vite/client:346:11) @ http://127.0.0.1:5176/@vite/client:347

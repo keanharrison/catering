@@ -1,0 +1,291 @@
+- generic [ref=f2e1]:
+  - generic [ref=f2e3]:
+    - region "Notifications alt+T"
+    - link [aria-hidden] [ref=f2e122] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - generic [ref=f2e7]:
+      - link [ref=f2e123] [cursor=pointer]:
+        - /url: /customer
+        - generic [ref=f2e12]: Pearl Island2GO
+      - separator [ref=f2e13]
+      - generic [ref=f2e15]:
+        - generic [ref=f2e16]: Navigation
+        - list [ref=f2e18]:
+          - listitem [ref=f2e19]:
+            - link [ref=f2e125] [cursor=pointer]:
+              - /url: /customer
+              - generic [ref=f2e22]: New request
+          - listitem [ref=f2e23]:
+            - link [ref=f2e126] [cursor=pointer]:
+              - /url: /customer/orders
+              - generic [ref=f2e30]: Current orders
+          - listitem [ref=f2e31]:
+            - link [ref=f2e127] [cursor=pointer]:
+              - /url: /customer/orders/past
+              - generic [ref=f2e37]: Past orders
+          - listitem [ref=f2e38]:
+            - link [ref=f2e128] [cursor=pointer]:
+              - /url: /customer/messages
+              - generic [ref=f2e42]: Messages
+          - listitem [ref=f2e43]:
+            - link [ref=f2e129] [cursor=pointer]:
+              - /url: /settings
+              - generic [ref=f2e48]: Account settings
+      - generic [ref=f2e49]:
+        - separator [ref=f2e50]
+        - generic [ref=f2e51]:
+          - button [ref=f2e130]
+          - button [ref=f2e131]:
+            - generic [ref=f2e60]: Customer demo
+      - button [ref=f2e132]
+    - main [aria-hidden] [ref=f2e64]:
+      - generic [ref=f2e65]:
+        - button [ref=f2e133]:
+          - generic [ref=f2e67]: Toggle Sidebar
+        - separator [ref=f2e68]
+        - navigation [ref=f2e134]:
+          - list [ref=f2e70]:
+            - listitem [ref=f2e71]:
+              - link [ref=f2e135] [cursor=pointer]:
+                - /url: /customer
+                - text: New request
+            - listitem [aria-hidden] [ref=f2e73]
+            - listitem [ref=f2e76]:
+              - link [disabled] [ref=f2e136]: Orders
+        - generic [ref=f2e78]:
+          - separator [ref=f2e79]
+          - button [ref=f2e137]
+          - separator [ref=f2e81]
+      - generic [ref=f2e83]:
+        - generic [ref=f2e84]:
+          - generic [ref=f2e85]:
+            - heading [level=1] [ref=f2e138]: Current orders
+            - paragraph [ref=f2e87]: Track your catering requests and respond when the Pearl Island team needs you.
+          - button [ref=f2e139] [cursor=pointer]: New catering request
+        - tablist [ref=f2e90]:
+          - tab [selected] [ref=f2e140]:
+            - text: All active
+            - generic [ref=f2e92]: "1"
+          - tab [ref=f2e141]:
+            - text: Needs your action
+            - generic [ref=f2e94]: "1"
+          - tab [ref=f2e142]:
+            - text: Confirmed
+            - generic [ref=f2e96]: "0"
+        - generic [ref=f2e98]:
+          - generic [ref=f2e100]:
+            - generic [ref=f2e101]:
+              - generic [ref=f2e102]: Request order-routine
+              - generic [ref=f2e103]: Monday, October 19, 2026 at 12:00 PM
+            - generic [ref=f2e104]: Awaiting approval
+          - generic [ref=f2e105]:
+            - generic [ref=f2e106]: Revised proposal needs your approval
+            - generic [ref=f2e110]:
+              - generic [ref=f2e111]:
+                - term [ref=f2e112]: Guests
+                - definition [ref=f2e113]: "40"
+              - generic [ref=f2e114]:
+                - term [ref=f2e115]: Pickup or delivery
+                - definition [ref=f2e116]: pickup
+            - generic [ref=f2e117]:
+              - generic [ref=f2e118]:
+                - paragraph [ref=f2e119]: Estimated total
+                - paragraph [ref=f2e120]: $615.40
+              - button [ref=f2e143]: View order
+  - dialog [ref=f2e277]:
+    - generic [ref=f2e149]:
+      - generic [ref=f2e150]:
+        - heading [level=2] [ref=f2e278]: Request order-routine
+        - paragraph [ref=f2e152]: Monday, October 19, 2026 at 12:00 PM
+      - generic [ref=f2e153]: Awaiting approval
+    - generic [ref=f2e154]:
+      - alert [ref=f2e155]:
+        - generic [ref=f2e158]: Review the revised proposal
+        - generic [ref=f2e159]:
+          - generic [ref=f2e160]: Staff revised the proposal. Customer approval is needed. Approval is saved in this demo and does not notify the team.
+          - button [ref=f2e279]: Review proposal
+      - region [ref=f2e280]:
+        - heading [level=3] [ref=f2e281]: Event and fulfillment
+        - generic [ref=f2e167]:
+          - generic [ref=f2e168]:
+            - term [ref=f2e169]: Event type
+            - definition [ref=f2e170]: Corporate lunch
+          - generic [ref=f2e171]:
+            - term [ref=f2e172]: Date and time
+            - definition [ref=f2e173]: Monday, October 19, 2026 at 12:00 PM
+          - generic [ref=f2e174]:
+            - term [ref=f2e175]: Guest count
+            - definition [ref=f2e176]: "40"
+          - generic [ref=f2e177]:
+            - term [ref=f2e178]: Pickup or delivery
+            - definition [ref=f2e179]: pickup
+      - separator [ref=f2e180]
+      - region [ref=f2e282]:
+        - heading [level=3] [ref=f2e283]: Contact
+        - generic [ref=f2e183]:
+          - generic [ref=f2e184]:
+            - term [ref=f2e185]: Name
+            - definition [ref=f2e186]: Workflow Customer
+          - generic [ref=f2e187]:
+            - term [ref=f2e188]: Organization
+            - definition [ref=f2e189]: Workflow QA
+          - generic [ref=f2e190]:
+            - term [ref=f2e191]: Email
+            - definition [ref=f2e192]: workflow@example.com
+          - generic [ref=f2e193]:
+            - term [ref=f2e194]: Phone
+            - definition [ref=f2e195]: 555-0134
+      - separator [ref=f2e196]
+      - region [ref=f2e284]:
+        - heading [level=3] [ref=f2e285]: Food and supplies
+        - region [ref=f2e286]:
+          - heading [level=3] [ref=f2e287]: Food
+          - table [ref=f2e207]:
+            - rowgroup [ref=f2e208]:
+              - row [ref=f2e288]:
+                - columnheader [ref=f2e289]: Item
+                - columnheader [ref=f2e290]: Quantity
+                - columnheader [ref=f2e291]: Unit price
+                - columnheader [ref=f2e292]: Line total
+            - rowgroup [ref=f2e214]:
+              - row [ref=f2e293]:
+                - cell [ref=f2e294]: Sous Poulet Chicken
+                - cell [ref=f2e295]: 20 servings
+                - cell [ref=f2e296]: $5 / serving
+                - cell [ref=f2e297]: $100
+              - row [ref=f2e298]:
+                - cell [ref=f2e299]: Curry Chicken
+                - cell [ref=f2e300]: 21 servings
+                - cell [ref=f2e301]: $5 / serving
+                - cell [ref=f2e302]: $105
+              - row [ref=f2e303]:
+                - cell [ref=f2e304]: Rice w/ Pigeon Peas
+                - cell [ref=f2e305]: 40 servings
+                - cell [ref=f2e306]: $2.76 / serving
+                - cell [ref=f2e307]: $110.40
+              - row [ref=f2e308]:
+                - cell [ref=f2e309]: Amarillos
+                - cell [ref=f2e310]: 40 servings
+                - cell [ref=f2e311]: $2.75 / serving
+                - cell [ref=f2e312]: $110
+              - row [ref=f2e313]:
+                - cell [ref=f2e314]: Pikliz
+                - cell [ref=f2e315]: 40 servings
+                - cell [ref=f2e316]: $1 / serving
+                - cell [ref=f2e317]: $40
+              - row [ref=f2e318]:
+                - cell [ref=f2e319]: Kale Salad
+                - cell [ref=f2e320]: 40 servings
+                - cell [ref=f2e321]: $3.75 / serving
+                - cell [ref=f2e322]: $150
+        - region [ref=f2e323]:
+          - heading [level=3] [ref=f2e324]: Supplies
+          - paragraph [ref=f2e247]: No supplies recorded.
+      - region [ref=f2e325]:
+        - heading [level=3] [ref=f2e326]: Estimated total
+        - generic [ref=f2e250]:
+          - generic [ref=f2e251]: Food subtotal
+          - generic [ref=f2e252]: $615.40
+        - generic [ref=f2e253]:
+          - generic [ref=f2e254]: Supplies subtotal
+          - generic [ref=f2e255]: $0
+        - separator [ref=f2e256]
+        - generic [ref=f2e257]:
+          - generic [ref=f2e258]: Estimated total
+          - generic [ref=f2e259]: $615.40
+        - paragraph [ref=f2e260]: Estimate only; final charges may differ.
+      - region [ref=f2e327]:
+        - heading [level=3] [ref=f2e328]: Notes and updates
+        - generic [ref=f2e263]:
+          - generic [ref=f2e264]:
+            - paragraph [ref=f2e265]: Pearl Island team
+            - paragraph [ref=f2e266]: Can you confirm the 20/20 entree split works for your guests?
+          - generic [ref=f2e267]:
+            - paragraph [ref=f2e268]: You
+            - paragraph [ref=f2e269]: Yes, the split works for our group of 40.
+          - generic [ref=f2e270]:
+            - paragraph [ref=f2e271]: Request update
+            - paragraph [ref=f2e272]: Staff revised the proposal. Customer approval is needed.
+          - paragraph [ref=f2e273]: Demo updates stay in this browser; they are not delivered.
+    - button [ref=f2e329]:
+      - generic [ref=f2e275]: Close
+  - dialog [ref=f2e333]:
+    - generic [ref=f2e334]:
+      - heading "Approve revised proposal?" [level=2] [ref=f2e335]
+      - paragraph [ref=f2e336]: Review the proposed selections and updated estimate. Approval is saved in this browser demo; it does not notify Pearl Island.
+    - generic [ref=f2e337]:
+      - generic [ref=f2e338]:
+        - generic [ref=f2e339]: Request order-routine
+        - generic [ref=f2e340]: Proposed by Pearl Island
+      - generic [ref=f2e341]:
+        - region "Entrees" [ref=f2e342]:
+          - heading "Entrees" [level=3] [ref=f2e343]
+          - table [ref=f2e346]:
+            - rowgroup [ref=f2e347]:
+              - row [ref=f2e348]:
+                - columnheader "Item" [ref=f2e349]
+                - columnheader "Quantity" [ref=f2e350]
+                - columnheader "Unit price" [ref=f2e351]
+                - columnheader "Line total" [ref=f2e352]
+            - rowgroup [ref=f2e353]:
+              - row [ref=f2e354]:
+                - cell "Sous Poulet Chicken" [ref=f2e355]
+                - cell "20 servings" [ref=f2e356]
+                - cell "$5 / serving" [ref=f2e357]
+                - cell "$100" [ref=f2e358]
+              - row [ref=f2e359]:
+                - cell "Curry Chicken" [ref=f2e360]
+                - cell "21 servings" [ref=f2e361]
+                - cell "$5 / serving" [ref=f2e362]
+                - cell "$105" [ref=f2e363]
+        - region "Sides" [ref=f2e364]:
+          - heading "Sides" [level=3] [ref=f2e365]
+          - table [ref=f2e368]:
+            - rowgroup [ref=f2e369]:
+              - row [ref=f2e370]:
+                - columnheader "Item" [ref=f2e371]
+                - columnheader "Quantity" [ref=f2e372]
+                - columnheader "Unit price" [ref=f2e373]
+                - columnheader "Line total" [ref=f2e374]
+            - rowgroup [ref=f2e375]:
+              - row [ref=f2e376]:
+                - cell "Rice w/ Pigeon Peas" [ref=f2e377]
+                - cell "40 servings" [ref=f2e378]
+                - cell "$2.76 / serving" [ref=f2e379]
+                - cell "$110.40" [ref=f2e380]
+              - row [ref=f2e381]:
+                - cell "Amarillos" [ref=f2e382]
+                - cell "40 servings" [ref=f2e383]
+                - cell "$2.75 / serving" [ref=f2e384]
+                - cell "$110" [ref=f2e385]
+              - row [ref=f2e386]:
+                - cell "Pikliz" [ref=f2e387]
+                - cell "40 servings" [ref=f2e388]
+                - cell "$1 / serving" [ref=f2e389]
+                - cell "$40" [ref=f2e390]
+        - region "Salads" [ref=f2e391]:
+          - heading "Salads" [level=3] [ref=f2e392]
+          - table [ref=f2e395]:
+            - rowgroup [ref=f2e396]:
+              - row [ref=f2e397]:
+                - columnheader "Item" [ref=f2e398]
+                - columnheader "Quantity" [ref=f2e399]
+                - columnheader "Unit price" [ref=f2e400]
+                - columnheader "Line total" [ref=f2e401]
+            - rowgroup [ref=f2e402]:
+              - row [ref=f2e403]:
+                - cell "Kale Salad" [ref=f2e404]
+                - cell "40 servings" [ref=f2e405]
+                - cell "$3.75 / serving" [ref=f2e406]
+                - cell "$150" [ref=f2e407]
+        - region "Supplies" [ref=f2e408]:
+          - heading "Supplies" [level=3] [ref=f2e409]
+          - paragraph [ref=f2e410]: No supplies recorded.
+      - generic [ref=f2e411]:
+        - generic [ref=f2e412]: Updated estimated total
+        - generic [ref=f2e413]: $615.40
+    - generic [ref=f2e414]:
+      - button "Cancel" [active] [ref=f2e415]
+      - button "Approve proposal" [ref=f2e416]
+    - button "Close" [ref=f2e417]

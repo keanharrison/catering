@@ -1,0 +1,155 @@
+- generic [ref=f4e3]:
+  - link "Skip to main content" [ref=f4e199] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f4e228]:
+    - link "Pearl Island2GO home" [ref=f4e231] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f4e232]
+      - generic [ref=f4e233]: Pearl Island2GO
+    - separator [ref=f4e234]
+    - generic [ref=f4e236]:
+      - generic [ref=f4e237]: Navigation
+      - list [ref=f4e239]:
+        - listitem [ref=f4e846]:
+          - link "Requests" [ref=f4e847] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f4e852]:
+          - button "Handoff" [ref=f4e853]
+          - generic: Later
+        - listitem [ref=f4e860]:
+          - button "Messages" [ref=f4e861]
+          - generic: Later
+    - generic [ref=f4e259]:
+      - separator [ref=f4e260]
+      - generic [ref=f4e261]:
+        - button "Settings (coming soon)" [ref=f4e262]
+        - button "Pearl Island team account menu" [ref=f4e865]:
+          - generic [ref=f4e270]: Pearl Island team
+    - button "Toggle Sidebar" [ref=f4e273]
+  - main [ref=f4e5]:
+    - generic [ref=f4e6]:
+      - button "Toggle navigation" [ref=f4e200]:
+        - generic [ref=f4e8]: Toggle Sidebar
+      - separator [ref=f4e274]
+      - navigation "breadcrumb" [ref=f4e275]:
+        - list [ref=f4e276]:
+          - listitem [ref=f4e277]:
+            - link "Requests" [disabled] [ref=f4e866]
+      - generic [ref=f4e12]:
+        - separator [ref=f4e13]
+        - button "Switch to dark mode" [ref=f4e203]
+        - separator [ref=f4e15]
+    - generic [ref=f4e867]:
+      - generic [ref=f4e868]:
+        - heading "Catering requests" [level=1] [ref=f4e869]
+        - paragraph [ref=f4e870]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f4e871]:
+        - tablist [ref=f4e872]:
+          - tab "All 1" [selected] [ref=f4e873]:
+            - text: All
+            - generic [ref=f4e874]: "1"
+          - tab "Needs review 1" [ref=f4e875]:
+            - text: Needs review
+            - generic [ref=f4e876]: "1"
+          - tab "Awaiting customer 0" [ref=f4e877]:
+            - text: Awaiting customer
+            - generic [ref=f4e878]: "0"
+          - tab "Confirmed 0" [ref=f4e879]:
+            - text: Confirmed
+            - generic [ref=f4e880]: "0"
+        - tabpanel "All 1" [ref=f4e995]:
+          - generic [ref=f4e996]:
+            - generic [ref=f4e997]:
+              - generic [ref=f4e998]:
+                - generic [ref=f4e999]: Request list
+                - generic [ref=f4e1000]: Select a request to review its details and actions.
+              - table [ref=f4e1004]:
+                - rowgroup [ref=f4e1005]:
+                  - row [ref=f4e1006]:
+                    - columnheader "Customer" [ref=f4e1007]
+                    - columnheader "Event date" [ref=f4e1008]
+                    - columnheader "Guests" [ref=f4e1009]
+                    - columnheader "Fulfillment" [ref=f4e1010]
+                    - columnheader "Status" [ref=f4e1011]
+                - rowgroup [ref=f4e1012]:
+                  - row "Jordan Lee, Oct 19, 2026, 40 guests, pickup, Submitted" [selected] [ref=f4e1013] [cursor=pointer]:
+                    - cell "Jordan Lee" [ref=f4e1014]
+                    - cell "Oct 19, 2026" [ref=f4e1015]
+                    - cell "40" [ref=f4e1016]
+                    - cell "pickup" [ref=f4e1017]
+                    - cell "Submitted" [ref=f4e1018]
+            - generic [ref=f4e1022]:
+              - generic [ref=f4e1024]:
+                - generic [ref=f4e1025]:
+                  - generic [ref=f4e1026]: Corporate lunch
+                  - generic [ref=f4e1027]: Jordan Lee · Sample Co.
+                - generic [ref=f4e1028]: Submitted
+              - generic [ref=f4e1029]:
+                - region [ref=f4e1030]:
+                  - heading "Event" [level=3] [ref=f4e1031]
+                  - generic [ref=f4e1032]:
+                    - generic [ref=f4e1033]:
+                      - term [ref=f4e1034]: Date and time
+                      - definition [ref=f4e1035]: Monday, October 19, 2026 at 12:00 PM
+                    - generic [ref=f4e1036]:
+                      - term [ref=f4e1037]: Guests
+                      - definition [ref=f4e1038]: "40"
+                    - generic [ref=f4e1039]:
+                      - term [ref=f4e1040]: Fulfillment
+                      - definition [ref=f4e1041]: pickup
+                - separator [ref=f4e1042]
+                - region [ref=f4e1043]:
+                  - generic [ref=f4e1044]:
+                    - heading "Food and supplies" [level=3] [ref=f4e1045]
+                    - generic [ref=f4e1046]: Estimate only
+                  - generic [ref=f4e1048]:
+                    - heading "Entrees" [level=4] [ref=f4e1049]
+                    - list [ref=f4e1050]:
+                      - listitem [ref=f4e1051]:
+                        - generic [ref=f4e1052]:
+                          - text: Slow Roasted Pork
+                          - generic [ref=f4e1053]: (1 serving)
+                        - generic [ref=f4e1054]: $6.25
+                  - generic [ref=f4e1056]:
+                    - generic [ref=f4e1057]: Food subtotal
+                    - generic [ref=f4e1058]: $6.25
+                  - paragraph [ref=f4e1059]: No supplies needed.
+                  - generic [ref=f4e1060]:
+                    - generic [ref=f4e1061]:
+                      - generic [ref=f4e1062]: Supplies subtotal
+                      - generic [ref=f4e1063]: $0
+                    - generic [ref=f4e1064]:
+                      - generic [ref=f4e1065]: Estimated total
+                      - generic [ref=f4e1066]: $6.25
+                  - paragraph [ref=f4e1067]: "Entree coverage: 1 serving for 40 guests · 39 not yet covered."
+                - separator [ref=f4e1068]
+                - region [ref=f4e1069]:
+                  - heading "Contact and instructions" [level=3] [ref=f4e1070]
+                  - generic [ref=f4e1071]:
+                    - generic [ref=f4e1072]:
+                      - term [ref=f4e1073]: Name
+                      - definition [ref=f4e1074]: Jordan Lee
+                    - generic [ref=f4e1075]:
+                      - term [ref=f4e1076]: Organization
+                      - definition [ref=f4e1077]: Sample Co.
+                    - generic [ref=f4e1078]:
+                      - term [ref=f4e1079]: Email
+                      - definition [ref=f4e1080]: demo@example.com
+                    - generic [ref=f4e1081]:
+                      - term [ref=f4e1082]: Phone
+                      - definition [ref=f4e1083]: 555-0100
+                    - generic [ref=f4e1084]:
+                      - term [ref=f4e1085]: Dietary needs
+                      - definition [ref=f4e1086]: None noted
+                  - generic [ref=f4e1087]:
+                    - generic [ref=f4e1088]:
+                      - term [ref=f4e1089]: Custom request
+                      - definition [ref=f4e1090]: None provided
+                    - generic [ref=f4e1091]:
+                      - term [ref=f4e1092]: Additional notes
+                      - definition [ref=f4e1093]: None provided
+                - paragraph [ref=f4e1094]: Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
+              - generic [ref=f4e1095]:
+                - button "Accept request" [ref=f4e1096]
+                - button "Ask for clarification" [ref=f4e1097]
+                - button "Edit request" [ref=f4e1098]

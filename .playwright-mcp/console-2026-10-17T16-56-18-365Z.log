@@ -1,0 +1,151 @@
+[      87ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:15804
+[  132730ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  132769ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  132779ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Cannot read properties of null (reading 'useEffect')
+    at exports.useEffect (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=23750159:737:30)
+    at AccordionRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_accordion.js?v=795fdf3f:39:15)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9148:92)
+    at workLoopSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9044:37)
+    at renderRootSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9028:6) The above error occurred in the <AccordionRoot> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://127.0.0.1:5178/@vite/client:356
+[  132782ms] [ERROR] Screen failed to render TypeError: Cannot read properties of null (reading 'useEffect')
+    at exports.useEffect (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=23750159:737:30)
+    at AccordionRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_accordion.js?v=795fdf3f:39:15)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9148:92)
+    at workLoopSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9044:37)
+    at renderRootSync (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=269ec8a0:9028:6) 
+    at AccordionRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_accordion.js?v=795fdf3f:37:10)
+    at Accordion (http://127.0.0.1:5178/src/components/ui/accordion.tsx:6:22)
+    at div (<anonymous>)
+    at Item (http://127.0.0.1:5178/src/components/ui/item.tsx:54:17)
+    at li (<anonymous>)
+    at ul (<anonymous>)
+    at div (<anonymous>)
+    at TabsPanel (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tabs.js?v=269ec8a0:727:10)
+    at TabsContent (http://127.0.0.1:5178/src/components/ui/tabs.tsx:51:24)
+    at div (<anonymous>)
+    at CompositeList (http://127.0.0.1:5178/node_modules/.vite/deps/isElementDisabled-_fH9Jsjf.js?v=269ec8a0:15:10)
+    at TabsRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tabs.js?v=269ec8a0:58:10)
+    at Tabs (http://127.0.0.1:5178/src/components/ui/tabs.tsx:6:17)
+    at div (<anonymous>)
+    at CardContent (http://127.0.0.1:5178/src/components/ui/card.tsx:66:24)
+    at div (<anonymous>)
+    at Card (http://127.0.0.1:5178/src/components/ui/card.tsx:5:17)
+    at section (<anonymous>)
+    at div (<anonymous>)
+    at StageGate (http://127.0.0.1:5178/src/components/StageGate.tsx:11:29)
+    at MenuPageShell (http://127.0.0.1:5178/src/views/customer/MenuPageShell.tsx?t=1792256309861:60:19)
+    at RenderedRoute (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=269ec8a0:4204:26)
+    at Routes (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=269ec8a0:4886:19)
+    at AppRoutes (http://127.0.0.1:5178/src/App.tsx?t=1792256170925:50:22)
+    at div (<anonymous>)
+    at main (<anonymous>)
+    at SidebarInset (http://127.0.0.1:5178/src/components/ui/sidebar.tsx:288:25)
+    at div (<anonymous>)
+    at SidebarProvider (http://127.0.0.1:5178/src/components/ui/sidebar.tsx:35:28)
+    at FloatingDelayGroup (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=269ec8a0:47:10)
+    at TooltipProvider (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=269ec8a0:895:10)
+    at TooltipProvider (http://127.0.0.1:5178/src/components/ui/tooltip.tsx:6:28)
+    at AppShell (http://127.0.0.1:5178/src/components/AppShell.tsx:14:28)
+    at DemoAccountProvider (http://127.0.0.1:5178/src/state/demoAccount.tsx:15:39)
+    at Router (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=269ec8a0:4838:29)
+    at BrowserRouter (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=269ec8a0:7287:26)
+    at ThemeProvider (http://127.0.0.1:5178/src/components/ThemeProvider.tsx:11:33)
+    at App (<anonymous>)
+    at ErrorBoundary (http://127.0.0.1:5178/src/components/ErrorBoundary.tsx:7:8) @ http://127.0.0.1:5178/@vite/client:356
+[  133061ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:15804
+[  554057ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  554193ms] [ERROR] Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+1. You might have mismatching versions of React and the renderer (such as React DOM)
+2. You might be breaking the Rules of Hooks
+3. You might have more than one copy of React in the same app
+See https://react.dev/link/invalid-hook-call for tips about how to debug and fix this problem. @ http://127.0.0.1:5178/@vite/client:356
+[  554227ms] [ERROR] %o
+
+%s
+
+%s
+ TypeError: Cannot read properties of null (reading 'useRef')
+    at exports.useRef (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=9784e705:766:30)
+    at useRefWithInit (http://127.0.0.1:5178/node_modules/.vite/deps/useRenderElement-B2B6l6W5.js?v=9784e705:15:27)
+    at useStableCallback (http://127.0.0.1:5178/node_modules/.vite/deps/useStableCallback-CdLNVrPQ.js?v=9784e705:17:17)
+    at CollapsibleRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_collapsible.js?v=66c575a7:27:23)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:9148:92) The above error occurred in the <CollapsibleRoot> component. React will try to recreate this component tree from scratch using the error boundary you provided, ErrorBoundary. @ http://127.0.0.1:5178/@vite/client:356
+[  554234ms] [ERROR] Screen failed to render TypeError: Cannot read properties of null (reading 'useRef')
+    at exports.useRef (http://127.0.0.1:5178/node_modules/.vite/deps/react.js?v=9784e705:766:30)
+    at useRefWithInit (http://127.0.0.1:5178/node_modules/.vite/deps/useRenderElement-B2B6l6W5.js?v=9784e705:15:27)
+    at useStableCallback (http://127.0.0.1:5178/node_modules/.vite/deps/useStableCallback-CdLNVrPQ.js?v=9784e705:17:17)
+    at CollapsibleRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_collapsible.js?v=66c575a7:27:23)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:14142:12)
+    at renderWithHooks (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:4400:19)
+    at updateForwardRef (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:5597:16)
+    at beginWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:6455:21)
+    at runWithFiberInDEV (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:944:66)
+    at performUnitOfWork (http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=23750159:9148:92) 
+    at CollapsibleRoot (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_collapsible.js?v=66c575a7:26:10)
+    at Collapsible (http://127.0.0.1:5178/src/components/ui/collapsible.tsx:4:22)
+    at MenuOrderSummary (http://127.0.0.1:5178/src/views/customer/MenuOrderSummary.tsx:179:36)
+    at div (<anonymous>)
+    at div (<anonymous>)
+    at StageGate (http://127.0.0.1:5178/src/components/StageGate.tsx:11:29)
+    at MenuPageShell (http://127.0.0.1:5178/src/views/customer/MenuPageShell.tsx?t=1792256731618:63:19)
+    at RenderedRoute (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=23750159:4204:26)
+    at Routes (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=23750159:4886:19)
+    at AppRoutes (http://127.0.0.1:5178/src/App.tsx?t=1792256309861:50:22)
+    at div (<anonymous>)
+    at main (<anonymous>)
+    at SidebarInset (http://127.0.0.1:5178/src/components/ui/sidebar.tsx?t=1792256300084:288:25)
+    at div (<anonymous>)
+    at SidebarProvider (http://127.0.0.1:5178/src/components/ui/sidebar.tsx?t=1792256300084:35:28)
+    at FloatingDelayGroup (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=23750159:48:10)
+    at TooltipProvider (http://127.0.0.1:5178/node_modules/.vite/deps/@base-ui_react_tooltip.js?v=23750159:896:10)
+    at TooltipProvider (http://127.0.0.1:5178/src/components/ui/tooltip.tsx:6:28)
+    at AppShell (http://127.0.0.1:5178/src/components/AppShell.tsx?t=1792256300084:14:28)
+    at DemoAccountProvider (http://127.0.0.1:5178/src/state/demoAccount.tsx:15:39)
+    at Router (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=23750159:4838:29)
+    at BrowserRouter (http://127.0.0.1:5178/node_modules/.vite/deps/react-router-dom.js?v=23750159:7287:26)
+    at ThemeProvider (http://127.0.0.1:5178/src/components/ThemeProvider.tsx:11:33)
+    at App (<anonymous>)
+    at ErrorBoundary (http://127.0.0.1:5178/src/components/ErrorBoundary.tsx:7:8) @ http://127.0.0.1:5178/@vite/client:356
+[  554730ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  861615ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5178/@vite/client:1082
+[  862109ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[  878864ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5178/@vite/client:1082
+[  879067ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[ 1780868ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[ 1954844ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[ 2001663ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[ 2171224ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804
+[ 2766199ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5178/@vite/client:1082
+[ 2766868ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5178/node_modules/.vite/deps/react-dom_client.js?v=9784e705:15804

@@ -1,0 +1,131 @@
+- generic [ref=f4e1]:
+  - generic [ref=f4e3]:
+    - link [ref=f4e1106] [cursor=pointer]:
+      - /url: "#main"
+      - text: Skip to main content
+    - main [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - button [ref=f4e1107]:
+          - generic [ref=f4e8]: Toggle Sidebar
+        - link [ref=f4e1108] [cursor=pointer]:
+          - /url: /staff
+          - generic [ref=f4e11]: Pearl Island2GO
+        - generic [ref=f4e12]:
+          - separator [ref=f4e13]
+          - button [ref=f4e1110]
+          - separator [ref=f4e15]
+      - generic [ref=f4e867]:
+        - generic [ref=f4e868]:
+          - heading [level=1] [ref=f4e1111]: Catering requests
+          - paragraph [ref=f4e870]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+        - generic [ref=f4e871]:
+          - tablist [ref=f4e872]:
+            - tab [selected] [ref=f4e1112]:
+              - text: All
+              - generic [ref=f4e874]: "1"
+            - tab [ref=f4e1113]:
+              - text: Needs review
+              - generic [ref=f4e876]: "0"
+            - tab [ref=f4e1114]:
+              - text: Awaiting customer
+              - generic [ref=f4e878]: "1"
+            - tab [ref=f4e1115]:
+              - text: Confirmed
+              - generic [ref=f4e880]: "0"
+          - tabpanel [ref=f4e1116]:
+            - generic [ref=f4e997]:
+              - generic [ref=f4e998]:
+                - generic [ref=f4e999]: Request list
+                - generic [ref=f4e1000]: Select a request to review its details and actions.
+              - list [ref=f4e1117]:
+                - listitem [ref=f4e1100]:
+                  - button [pressed] [ref=f4e1118]:
+                    - generic [ref=f4e1102]:
+                      - generic [ref=f4e1103]: Jordan Lee
+                      - generic [ref=f4e1104]: Oct 19, 2026 · 40 guests · pickup
+                    - generic [ref=f4e1105]: Awaiting approval
+  - dialog [active] [ref=f4e1122]:
+    - generic [ref=f4e1123]:
+      - heading "Request details" [level=2] [ref=f4e1124]
+      - paragraph [ref=f4e1125]: Review the event and record a staff action.
+    - generic [ref=f4e1127]:
+      - generic [ref=f4e1129]:
+        - generic [ref=f4e1130]:
+          - generic [ref=f4e1131]: Corporate lunch
+          - generic [ref=f4e1132]: Jordan Lee · Sample Co.
+        - generic [ref=f4e1133]: Awaiting approval
+      - generic [ref=f4e1134]:
+        - region "Event" [ref=f4e1135]:
+          - heading "Event" [level=3] [ref=f4e1136]
+          - generic [ref=f4e1137]:
+            - generic [ref=f4e1138]:
+              - term [ref=f4e1139]: Date and time
+              - definition [ref=f4e1140]: Monday, October 19, 2026 at 12:00 PM
+            - generic [ref=f4e1141]:
+              - term [ref=f4e1142]: Guests
+              - definition [ref=f4e1143]: "40"
+            - generic [ref=f4e1144]:
+              - term [ref=f4e1145]: Fulfillment
+              - definition [ref=f4e1146]: pickup
+        - separator [ref=f4e1147]
+        - region "Food and supplies" [ref=f4e1148]:
+          - generic [ref=f4e1149]:
+            - heading "Food and supplies" [level=3] [ref=f4e1150]
+            - generic [ref=f4e1151]: Estimate only
+          - generic [ref=f4e1153]:
+            - heading "Entrees" [level=4] [ref=f4e1154]
+            - list [ref=f4e1155]:
+              - listitem [ref=f4e1156]:
+                - generic [ref=f4e1157]:
+                  - text: Slow Roasted Pork
+                  - generic [ref=f4e1158]: (2 servings)
+                - generic [ref=f4e1159]: $12.50
+          - generic [ref=f4e1161]:
+            - generic [ref=f4e1162]: Food subtotal
+            - generic [ref=f4e1163]: $12.50
+          - paragraph [ref=f4e1164]: No supplies needed.
+          - generic [ref=f4e1165]:
+            - generic [ref=f4e1166]:
+              - generic [ref=f4e1167]: Supplies subtotal
+              - generic [ref=f4e1168]: $0
+            - generic [ref=f4e1169]:
+              - generic [ref=f4e1170]: Estimated total
+              - generic [ref=f4e1171]: $12.50
+          - paragraph [ref=f4e1172]: "Entree coverage: 2 servings for 40 guests · 38 not yet covered."
+        - separator [ref=f4e1173]
+        - region "Contact and instructions" [ref=f4e1174]:
+          - heading "Contact and instructions" [level=3] [ref=f4e1175]
+          - generic [ref=f4e1176]:
+            - generic [ref=f4e1177]:
+              - term [ref=f4e1178]: Name
+              - definition [ref=f4e1179]: Jordan Lee
+            - generic [ref=f4e1180]:
+              - term [ref=f4e1181]: Organization
+              - definition [ref=f4e1182]: Sample Co.
+            - generic [ref=f4e1183]:
+              - term [ref=f4e1184]: Email
+              - definition [ref=f4e1185]: demo@example.com
+            - generic [ref=f4e1186]:
+              - term [ref=f4e1187]: Phone
+              - definition [ref=f4e1188]: 555-0100
+            - generic [ref=f4e1189]:
+              - term [ref=f4e1190]: Dietary needs
+              - definition [ref=f4e1191]: None noted
+          - generic [ref=f4e1192]:
+            - generic [ref=f4e1193]:
+              - term [ref=f4e1194]: Custom request
+              - definition [ref=f4e1195]: None provided
+            - generic [ref=f4e1196]:
+              - term [ref=f4e1197]: Additional notes
+              - definition [ref=f4e1198]: None provided
+        - alert [ref=f4e1255]:
+          - generic [ref=f4e1258]: Acceptance unavailable
+          - generic [ref=f4e1259]: The customer has not approved the revised proposal.
+        - status [ref=f4e1260]: Proposal saved locally. The customer must approve the changes before acceptance; nothing was sent.
+        - paragraph [ref=f4e1199]: Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
+      - generic [ref=f4e1200]:
+        - button "Accept request" [disabled]
+        - button "Ask for clarification" [disabled]
+        - button "Edit request" [ref=f4e1203]
+      - paragraph [ref=f4e1261]: The customer has not approved the revised proposal.
+    - button "Close" [ref=f4e1204]

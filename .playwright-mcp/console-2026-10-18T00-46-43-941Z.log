@@ -1,0 +1,19 @@
+[     165ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[    6005ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1290792ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1291368ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1291934ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1292501ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1292865ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1311720ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1338411ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1338728ms] [ERROR] Base UI: A component that acts as a button expected a native <button> because the `nativeButton` prop is true. Rendering a non-<button> removes native button semantics, which can impact forms and accessibility. Use a real <button> in the `render` prop, or set `nativeButton` to `false`.
+    at Button (http://localhost:5179/src/components/ui/button.tsx:33:25)
+    at HandoffPage (http://localhost:5179/src/views/handoff/HandoffPage.tsx:501:34)
+    at AppRoutes (http://localhost:5179/src/App.tsx?t=1792284509654:195:50)
+    at App (http://localhost:5179/src/App.tsx?t=1792284509654:253:230) @ http://localhost:5179/@vite/client:356
+[ 1338863ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1808946ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5179/src/views/handoff/HandoffPage.tsx?t=1792286212748:0
+[ 1808953ms] [ERROR] [vite] Failed to reload /src/views/handoff/HandoffPage.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5179/@vite/client:356
+[ 1823180ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804
+[ 1826824ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5179/node_modules/.vite/deps/react-dom_client.js?v=cc58418c:15804

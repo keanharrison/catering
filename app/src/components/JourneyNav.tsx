@@ -2,46 +2,59 @@ import { useNavigate } from 'react-router-dom'
 import { cx } from '../lib/cx'
 import { useDemoStore } from '../state/store'
 import { canEnter, stagePath, stages, type Stage } from '../views/customer/journey'
-import { ProgressBar } from './ProgressBar'
+import { Progress } from './ui/progress'
 
-// Progress across the customer journey. Wide screens show every stage; phones show the current
-// stage and a progress bar (Fin collapses its tab list on mobile). Later stages cannot be skipped to.
+// Keep the complete journey visible at every size; future steps stay locked until ready.
 export function JourneyNav({ active }: { active: Stage }) {
   const navigate = useNavigate()
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
-  const index = stages.findIndex((s) => s.id === active)
+  const index = stages.findIndex((stage) => stage.id === active)
+  const progress = ((index + 1) / stages.length) * 100
   const draft = order.status === 'draft'
 
   return (
-    <nav aria-label="Your request">
-      <ol className="hidden border border-line bg-panel md:flex">
-        {stages.map((stage) => {
+    <nav aria-label="Request progress" className="space-y-3">
+      <ol className="grid grid-cols-5 gap-1 sm:gap-2">
+        {stages.map((stage, stageIndex) => {
           const isActive = stage.id === active
           const enabled = draft ? canEnter(stage.id, order, clock) : stage.id === 'review'
+
           return (
-            <li key={stage.id} className="flex-1 border-r border-line last:border-r-0">
+            <li key={stage.id} className="min-w-0">
               <button
                 type="button"
                 aria-current={isActive ? 'step' : undefined}
                 disabled={!enabled && !isActive}
                 onClick={() => navigate(stagePath(stage.id))}
                 className={cx(
-                  'relative min-h-11 w-full px-6 py-4 text-left transition-colors disabled:cursor-not-allowed disabled:text-muted',
-                  isActive ? 'bg-ivory-deep' : 'hover:bg-ivory-deep/60 disabled:hover:bg-transparent',
+                  'flex min-h-10 w-full items-center justify-center rounded-md px-1 text-center text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:justify-start sm:px-2',
+                  isActive ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:bg-muted',
+                  !enabled && !isActive && 'cursor-not-allowed opacity-55',
                 )}
               >
-                {isActive && <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-accent" />}
-                <span className="font-mono text-xs uppercase tracking-eyebrow">{stage.label}</span>
+                <span
+                  aria-hidden="true"
+                  className={cx(
+                    'mr-1.5 hidden size-5 shrink-0 items-center justify-center rounded-full text-[11px] sm:inline-flex',
+                    isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground',
+                  )}
+                >
+                  {stageIndex + 1}
+                </span>
+                <span className="truncate">{stage.label}</span>
               </button>
             </li>
           )
         })}
       </ol>
-      <p className="font-mono text-xs uppercase tracking-eyebrow md:hidden">{stages[index].label}</p>
-      <div className="mt-3 flex items-center gap-4">
-        <ProgressBar value={index + 1} max={stages.length} label="Request progress" />
-        <span className="shrink-0 font-mono text-xs uppercase tracking-eyebrow text-muted">
+      <div className="flex items-center gap-3">
+        <Progress
+          value={progress}
+          aria-label="Request progress"
+          className="w-full gap-0 [&_[data-slot=progress-track]]:h-1 [&_[data-slot=progress-track]]:bg-muted [&_[data-slot=progress-indicator]]:bg-primary"
+        />
+        <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
           Step {index + 1} of {stages.length}
         </span>
       </div>

@@ -1,0 +1,211 @@
+- generic [ref=f16e3]:
+  - region "Notifications alt+T"
+  - link "Skip to main content" [ref=f16e4] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=f16e7]:
+    - link "Pearl Island2GO home" [ref=f16e10] [cursor=pointer]:
+      - /url: /staff
+      - img "Pearl Island" [ref=f16e11]
+      - generic [ref=f16e12]: Pearl Island2GO
+    - separator [ref=f16e13]
+    - generic [ref=f16e15]:
+      - generic [ref=f16e16]: Navigation
+      - list [ref=f16e18]:
+        - listitem [ref=f16e19]:
+          - link "Requests" [ref=f16e20] [cursor=pointer]:
+            - /url: /staff
+        - listitem [ref=f16e25]:
+          - link "Handoff" [ref=f16e26] [cursor=pointer]:
+            - /url: /handoff
+        - listitem [ref=f16e33]:
+          - link "Messages" [ref=f16e34] [cursor=pointer]:
+            - /url: /staff/messages
+        - listitem [ref=f16e38]:
+          - link "Menu and rules" [ref=f16e39] [cursor=pointer]:
+            - /url: /settings
+    - generic [ref=f16e44]:
+      - separator [ref=f16e45]
+      - generic [ref=f16e46]:
+        - button "Settings (coming soon)" [ref=f16e47]
+        - button "Pearl Island team account menu" [ref=f16e51]:
+          - generic [ref=f16e55]: Pearl Island team
+    - button "Toggle Sidebar" [ref=f16e58]
+  - main [ref=f16e59]:
+    - generic [ref=f16e60]:
+      - button "Toggle navigation" [ref=f16e61]:
+        - generic [ref=f16e62]: Toggle Sidebar
+      - separator [ref=f16e63]
+      - navigation "breadcrumb" [ref=f16e64]:
+        - list [ref=f16e65]:
+          - listitem [ref=f16e66]:
+            - link "Requests" [disabled] [ref=f16e67]
+      - generic [ref=f16e68]:
+        - separator [ref=f16e69]
+        - button "Switch to dark mode" [ref=f16e70]
+        - separator [ref=f16e71]
+    - generic [ref=f16e73]:
+      - generic [ref=f16e74]:
+        - heading "Catering requests" [level=1] [ref=f16e75]
+        - paragraph [ref=f16e76]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f16e77]:
+        - tablist [ref=f16e78]:
+          - tab "All 5" [selected] [ref=f16e79]:
+            - text: All
+            - generic [ref=f16e80]: "5"
+          - tab "Needs review 2" [ref=f16e81]:
+            - text: Needs review
+            - generic [ref=f16e82]: "2"
+          - tab "Awaiting customer 1" [ref=f16e83]:
+            - text: Awaiting customer
+            - generic [ref=f16e84]: "1"
+          - tab "Confirmed 1" [ref=f16e85]:
+            - text: Confirmed
+            - generic [ref=f16e86]: "1"
+        - tabpanel "All 5" [ref=f16e87]:
+          - generic [ref=f16e88]:
+            - generic [ref=f16e89]:
+              - generic [ref=f16e90]:
+                - generic [ref=f16e91]: Request list
+                - generic [ref=f16e92]: Select a request to review its details and actions.
+              - table [ref=f16e96]:
+                - rowgroup [ref=f16e97]:
+                  - row [ref=f16e98]:
+                    - columnheader "Customer" [ref=f16e99]
+                    - columnheader "Event date" [ref=f16e100]
+                    - columnheader "Guests" [ref=f16e101]
+                    - columnheader "Fulfillment" [ref=f16e102]
+                    - columnheader "Status" [ref=f16e103]
+                - rowgroup [ref=f16e104]:
+                  - row "Jordan Lee, Oct 19, 2026, 40 guests, pickup, Submitted" [selected] [ref=f16e105] [cursor=pointer]:
+                    - cell "Jordan Lee Sample" [ref=f16e106]:
+                      - text: Jordan Lee
+                      - generic [ref=f16e107]: Sample
+                    - cell "Oct 19, 2026" [ref=f16e108]
+                    - cell "40" [ref=f16e109]
+                    - cell "pickup" [ref=f16e110]
+                    - cell "Submitted" [ref=f16e111]
+                  - row "Sam Rivera, Oct 15, 2026, 150 guests, delivery, Needs review" [ref=f16e113] [cursor=pointer]:
+                    - cell "Sam Rivera Sample" [ref=f16e114]:
+                      - text: Sam Rivera
+                      - generic [ref=f16e115]: Sample
+                    - cell "Oct 15, 2026" [ref=f16e116]
+                    - cell "150" [ref=f16e117]
+                    - cell "delivery" [ref=f16e118]
+                    - cell "Needs review" [ref=f16e119]
+                  - row "Morgan Chen, Oct 22, 2026, 40 guests, pickup, Awaiting approval" [ref=f16e121] [cursor=pointer]:
+                    - cell "Morgan Chen Sample" [ref=f16e122]:
+                      - text: Morgan Chen
+                      - generic [ref=f16e123]: Sample
+                    - cell "Oct 22, 2026" [ref=f16e124]
+                    - cell "40" [ref=f16e125]
+                    - cell "pickup" [ref=f16e126]
+                    - cell "Awaiting approval" [ref=f16e127]
+                  - row "Taylor Brooks, Sep 22, 2026, 40 guests, pickup, Accepted" [ref=f16e129] [cursor=pointer]:
+                    - cell "Taylor Brooks Sample" [ref=f16e130]:
+                      - text: Taylor Brooks
+                      - generic [ref=f16e131]: Sample
+                    - cell "Sep 22, 2026" [ref=f16e132]
+                    - cell "40" [ref=f16e133]
+                    - cell "pickup" [ref=f16e134]
+                    - cell "Accepted" [ref=f16e135]
+                  - row "Avery James, Oct 16, 2026, 150 guests, delivery, Declined" [ref=f16e137] [cursor=pointer]:
+                    - cell "Avery James Sample" [ref=f16e138]:
+                      - text: Avery James
+                      - generic [ref=f16e139]: Sample
+                    - cell "Oct 16, 2026" [ref=f16e140]
+                    - cell "150" [ref=f16e141]
+                    - cell "delivery" [ref=f16e142]
+                    - cell "Declined" [ref=f16e143]
+            - generic [ref=f16e147]:
+              - generic [ref=f16e149]:
+                - generic [ref=f16e150]:
+                  - generic [ref=f16e151]: Corporate lunch
+                  - generic [ref=f16e152]: Jordan Lee · Sample Co.
+                - generic [ref=f16e153]: Sample
+                - generic [ref=f16e154]: Submitted
+              - generic [ref=f16e155]:
+                - region [ref=f16e156]:
+                  - heading "Event" [level=3] [ref=f16e157]
+                  - generic [ref=f16e158]:
+                    - generic [ref=f16e159]:
+                      - term [ref=f16e160]: Date and time
+                      - definition [ref=f16e161]: Monday, October 19, 2026 at 12:00 PM
+                    - generic [ref=f16e162]:
+                      - term [ref=f16e163]: Guests
+                      - definition [ref=f16e164]: "40"
+                    - generic [ref=f16e165]:
+                      - term [ref=f16e166]: Fulfillment
+                      - definition [ref=f16e167]: pickup
+                - separator [ref=f16e168]
+                - region [ref=f16e169]:
+                  - generic [ref=f16e170]:
+                    - heading "Food and supplies" [level=3] [ref=f16e171]
+                    - generic [ref=f16e172]: Estimate only
+                  - generic [ref=f16e173]:
+                    - generic [ref=f16e174]:
+                      - heading "Entrees" [level=4] [ref=f16e175]
+                      - list [ref=f16e176]:
+                        - listitem [ref=f16e177]:
+                          - generic [ref=f16e178]:
+                            - text: Slow Roasted Pork
+                            - generic [ref=f16e179]: (40 servings)
+                          - generic [ref=f16e180]: $250
+                    - generic [ref=f16e181]:
+                      - heading "Sides" [level=4] [ref=f16e182]
+                      - list [ref=f16e183]:
+                        - listitem [ref=f16e184]:
+                          - generic [ref=f16e185]:
+                            - text: Rice w/ Pigeon Peas
+                            - generic [ref=f16e186]: (40 servings)
+                          - generic [ref=f16e187]: $110.40
+                    - generic [ref=f16e188]:
+                      - heading "Salads" [level=4] [ref=f16e189]
+                      - list [ref=f16e190]:
+                        - listitem [ref=f16e191]:
+                          - generic [ref=f16e192]:
+                            - text: Kale Salad
+                            - generic [ref=f16e193]: (40 servings)
+                          - generic [ref=f16e194]: $150
+                  - generic [ref=f16e196]:
+                    - generic [ref=f16e197]: Food subtotal
+                    - generic [ref=f16e198]: $510.40
+                  - paragraph [ref=f16e199]: No supplies needed.
+                  - generic [ref=f16e200]:
+                    - generic [ref=f16e201]:
+                      - generic [ref=f16e202]: Supplies subtotal
+                      - generic [ref=f16e203]: $0
+                    - generic [ref=f16e204]:
+                      - generic [ref=f16e205]: Estimated total
+                      - generic [ref=f16e206]: $510.40
+                  - paragraph [ref=f16e207]: "Entree coverage: 40 servings for 40 guests · everyone covered."
+                - separator [ref=f16e208]
+                - region [ref=f16e209]:
+                  - heading "Contact and instructions" [level=3] [ref=f16e210]
+                  - generic [ref=f16e211]:
+                    - generic [ref=f16e212]:
+                      - term [ref=f16e213]: Name
+                      - definition [ref=f16e214]: Jordan Lee
+                    - generic [ref=f16e215]:
+                      - term [ref=f16e216]: Organization
+                      - definition [ref=f16e217]: Sample Co.
+                    - generic [ref=f16e218]:
+                      - term [ref=f16e219]: Email
+                      - definition [ref=f16e220]: Not provided
+                    - generic [ref=f16e221]:
+                      - term [ref=f16e222]: Phone
+                      - definition [ref=f16e223]: Not provided
+                    - generic [ref=f16e224]:
+                      - term [ref=f16e225]: Dietary needs
+                      - definition [ref=f16e226]: vegetarian
+                  - generic [ref=f16e227]:
+                    - generic [ref=f16e228]:
+                      - term [ref=f16e229]: Custom request
+                      - definition [ref=f16e230]: None provided
+                    - generic [ref=f16e231]:
+                      - term [ref=f16e232]: Additional notes
+                      - definition [ref=f16e233]: None provided
+                - paragraph [ref=f16e234]: Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
+              - generic [ref=f16e235]:
+                - button "Accept request" [ref=f16e236]
+                - button "Ask for clarification" [ref=f16e237]
+                - button "Edit request" [ref=f16e238]

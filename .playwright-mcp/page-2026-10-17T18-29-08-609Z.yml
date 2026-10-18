@@ -1,0 +1,45 @@
+- generic [ref=f4e3]:
+  - link "Skip to main content" [ref=f4e1700] [cursor=pointer]:
+    - /url: "#main"
+  - main [ref=f4e5]:
+    - generic [ref=f4e6]:
+      - button "Toggle navigation" [ref=f4e1701]:
+        - generic [ref=f4e8]: Toggle Sidebar
+      - link "Pearl Island2GO home" [ref=f4e1702] [cursor=pointer]:
+        - /url: /staff
+        - img "Pearl Island" [ref=f4e1703]
+        - generic [ref=f4e11]: Pearl Island2GO
+      - generic [ref=f4e12]:
+        - separator [ref=f4e13]
+        - button "Switch to dark mode" [ref=f4e1704]
+        - separator [ref=f4e15]
+    - generic [ref=f4e1705]:
+      - generic [ref=f4e1706]:
+        - heading "Catering requests" [level=1] [ref=f4e1707]
+        - paragraph [ref=f4e1708]: Review submitted event details, follow up on exceptions, and record a decision for the demo.
+      - generic [ref=f4e1709]:
+        - tablist [ref=f4e1710]:
+          - tab "All 1" [selected] [ref=f4e1711]:
+            - text: All
+            - generic [ref=f4e1712]: "1"
+          - tab "Needs review 0" [ref=f4e1713]:
+            - text: Needs review
+            - generic [ref=f4e1714]: "0"
+          - tab "Awaiting customer 1" [ref=f4e1715]:
+            - text: Awaiting customer
+            - generic [ref=f4e1716]: "1"
+          - tab "Confirmed 0" [ref=f4e1717]:
+            - text: Confirmed
+            - generic [ref=f4e1718]: "0"
+        - tabpanel "All 1" [ref=f4e1719]:
+          - generic [ref=f4e1721]:
+            - generic [ref=f4e1722]:
+              - generic [ref=f4e1723]: Request list
+              - generic [ref=f4e1724]: Select a request to review its details and actions.
+            - list "Catering requests" [ref=f4e1726]:
+              - listitem [ref=f4e1727]:
+                - button "Jordan Lee Oct 19, 2026 · 40 guests · pickup Awaiting approval" [pressed] [ref=f4e1728]:
+                  - generic [ref=f4e1729]:
+                    - generic [ref=f4e1730]: Jordan Lee
+                    - generic [ref=f4e1731]: Oct 19, 2026 · 40 guests · pickup
+                  - generic [ref=f4e1732]: Awaiting approval
