@@ -73,3 +73,20 @@ main#content:focus {
     display: none !important;
   }
 }
+
+/* Staff Requests */
+button.staff-filter:focus-visible,
+.staff-offcanvas :focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: 2px; }
+.staff-offcanvas { --tblr-offcanvas-height: min(88svh, 52rem); }
+.staff-offcanvas .offcanvas-title:focus { outline: none; }
+.staff-stepper { width: 9.5rem; flex-wrap: nowrap; }
+.staff-stepper .form-control { min-width: 0; }
+.list-group-item.active-row { background: var(--tblr-active-bg, var(--tblr-bg-surface-secondary)); }
+.staff-detail [tabindex='-1']:focus { outline: none; }
+@media (max-width: 991.98px) {
+  .staff-stepper .btn, .staff-stepper .form-control, .list-group-item-action, .btn-close { min-height: 44px; min-width: 44px; }
+}
+.staff-row-link { line-height: inherit; min-height: 0; }
+@media (max-width: 991.98px) { .staff-row-link { min-height: 44px; } }
+.staff-detail .alert { --tblr-alert-color: var(--tblr-body-color); color: var(--tblr-body-color); }
+.staff-detail .alert .alert-heading { color: inherit; }

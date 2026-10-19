@@ -13,16 +13,9 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from 'lucide-react'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
+import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
 
-type RequestFilter = 'all' | 'review' | 'awaiting' | 'confirmed'
 type ActionPanel = 'ask' | 'edit' | null
-
-const filterLabel: Record<RequestFilter, string> = {
-  all: 'All',
-  review: 'Needs review',
-  awaiting: 'Awaiting customer',
-  confirmed: 'Confirmed',
-}
 
 const filterIcon: Record<RequestFilter, typeof ListChecks> = {
   all: ListChecks,
@@ -36,24 +29,6 @@ const filterIconStyle: Record<RequestFilter, string> = {
   review: 'bg-amber-500 text-white',
   awaiting: 'bg-orange-500 text-white',
   confirmed: 'bg-green-600 text-white',
-}
-
-function matchesFilter(order: Order, filter: RequestFilter) {
-  if (filter === 'all') return true
-  if (filter === 'review') return order.status === 'submitted' || order.status === 'needs_review'
-  if (filter === 'awaiting') return order.status === 'awaiting_customer_approval'
-  return order.status === 'confirmed'
-}
-
-function dateOnly(value: string) {
-  const date = new Date(value)
-  return Number.isNaN(date.getTime())
-    ? value
-    : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-}
-
-function shortRequestId(id: string) {
-  return `…${id.slice(-6).toUpperCase()}`
 }
 
 function RequestStatus({ status }: { status: Order['status'] }) {

@@ -3,7 +3,9 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { IconPlus } from '@tabler/icons-react'
 import { demoAccountLabels, useDemoAccount } from '../state/demoAccount'
 import { accountHome, findDestination } from './navigation'
+import { routes } from '../routes'
 import { PreviewContent } from './PreviewContent'
+import { StaffRequests } from './staff/StaffRequests'
 import { Sidebar } from './Sidebar'
 
 function Page() {
@@ -23,6 +25,9 @@ function Page() {
 
   if (!destination) return <Navigate to={accountHome[account]} replace />
 
+  // Staff Requests is the first migrated product page; every other destination still shows the Phase 1 examples.
+  const isStaffRequests = pathname === routes.staff
+  const title = isStaffRequests ? 'Catering requests' : destination.label
   const primary = account === 'team' ? { label: 'Open requests', href: '/staff' } : { label: 'New request', href: '/customer' }
 
   return (
@@ -32,20 +37,24 @@ function Page() {
           <div className="row g-2 align-items-center">
             <div className="col">
               <div className="page-pretitle">{demoAccountLabels[account]}</div>
-              <h1 className="page-title">{destination.label}</h1>
+              <h1 className="page-title">{title}</h1>
             </div>
             <div className="col-auto ms-auto d-print-none">
               <div className="btn-list">
                 <a className="btn d-none d-sm-inline-flex" href={destination.href}>
                   Open current screen
                 </a>
-                <a className="btn btn-primary d-none d-sm-inline-flex" href={primary.href}>
-                  <IconPlus className="icon" aria-hidden="true" />
-                  {primary.label}
-                </a>
-                <a className="btn btn-primary d-sm-none btn-icon" href={primary.href} aria-label={primary.label}>
-                  <IconPlus className="icon" aria-hidden="true" />
-                </a>
+                {!isStaffRequests && (
+                  <>
+                    <a className="btn btn-primary d-none d-sm-inline-flex" href={primary.href}>
+                      <IconPlus className="icon" aria-hidden="true" />
+                      {primary.label}
+                    </a>
+                    <a className="btn btn-primary d-sm-none btn-icon" href={primary.href} aria-label={primary.label}>
+                      <IconPlus className="icon" aria-hidden="true" />
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -53,7 +62,7 @@ function Page() {
       </div>
       <main id="content" tabIndex={-1} className="page-body">
         <div className="container-xl">
-          <PreviewContent />
+          {isStaffRequests ? <StaffRequests /> : <PreviewContent />}
         </div>
       </main>
     </div>

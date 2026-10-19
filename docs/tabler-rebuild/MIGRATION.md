@@ -49,7 +49,8 @@ For every page:
 - [ ] Keep the existing tests green; port the page's assertions if markup roles change.
 
 Page notes:
-- [ ] Staff Requests: promote the preview's stat cards and table; add real filters, row selection, detail pane and mobile sheet.
+- [x] Staff Requests (migrated in the preview at `#/staff`, `app/src/tabler/staff/`): status filter cards, request table (list on mobile), detail pane (offcanvas below 1200px), clarification, revision and accept, all through the existing store actions. Shared filter rules live in `views/staff/requestFilters.ts`. Tests: `StaffRequests.test.tsx`. Screenshots: `docs/tabler-rebuild/staff/`.
+  - Open items: the old and new pages each keep their own state logic (extract one hook when the old page is retired); the detail pane is not sticky; no search box or pagination.
 - [ ] Event, Details: Tabler form controls, validation states, step progress (`ui/_steps.scss`).
 - [ ] Menu, Supplies: item rows, dietary badges, quantity controls, sticky estimate card.
 - [ ] Review: card header/body/footer; submitted-state banner; keep the StageGate fix intact.
