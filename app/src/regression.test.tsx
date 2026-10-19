@@ -3,6 +3,7 @@ import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
+import { sampleOrders } from './data/sampleOrders'
 import { useDemoStore } from './state/store'
 import { renderAppAt } from './test/renderApp'
 
@@ -40,6 +41,8 @@ beforeEach(() => {
   vi.spyOn(console, 'error').mockImplementation((...args) => void errors.push(args.join(' ')))
   vi.spyOn(console, 'warn').mockImplementation((...args) => void errors.push(args.join(' ')))
   store().loadScenario('routine')
+  // loadScenario keeps saved requests by design; start each test from the sample queue so tests don't leak into each other.
+  useDemoStore.setState({ orders: sampleOrders })
 })
 afterEach(() => {
   cleanup()

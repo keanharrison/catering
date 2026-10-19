@@ -11,8 +11,11 @@ export function StageGate({ stage, children }: { stage: Stage; children: ReactNo
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
 
-  if (order.status !== 'draft' && stage !== 'review') {
-    return <Navigate to={stagePath('review')} replace />
+  if (order.status !== 'draft') {
+    // A submitted request is a record: Review always shows it, even if its details would fail today's
+    // validation (for example saved before a field was required). Re-checking earlier stages here would
+    // bounce between Review and Details forever.
+    return stage === 'review' ? <>{children}</> : <Navigate to={stagePath('review')} replace />
   }
   if (!canEnter(stage, order, clock)) {
     // Opening Review with nothing chosen (for example right after "Start over") means starting again.

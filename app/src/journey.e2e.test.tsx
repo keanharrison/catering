@@ -33,7 +33,7 @@ async function completeDetails(user: ReturnType<typeof userEvent.setup>) {
 
 async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('button', { name: 'Customer demo account menu' }))
-  await user.keyboard('{ArrowDown}{ArrowRight}')
+  await user.keyboard('{ArrowDown}'); await user.keyboard('{ArrowRight}')
   await user.click(screen.getByRole('menuitemradio', { name: 'Pearl Island team account' }))
 }
 
