@@ -1,0 +1,75 @@
+/* Tabler 1.6.1 compiled CSS (MIT, see third_party/tabler). Only this page loads it; the app's Tailwind/shadcn
+   stylesheet is never imported from src/tabler. */
+@import '@tabler/core/dist/css/tabler.css';
+
+/* Pearl Island mark in Tabler's brand slot (official markup uses an inline SVG at the same size). */
+.navbar-brand .brand-mark {
+  height: 2rem;
+  width: auto;
+  flex: none;
+}
+
+/* The page body is a programmatic focus target after navigation, not a control: no ring on it. */
+main#content:focus {
+  outline: none;
+}
+
+/* Account menu: long demo notes wrap instead of widening the menu. */
+.navbar-footer .dropdown-item {
+  white-space: normal;
+}
+/* Desktop: stay within the sidebar width (the reference menu does). */
+@media (min-width: 992px) {
+  .navbar-footer .dropdown-menu {
+    width: 100%;
+    min-width: 0;
+  }
+}
+/* Mobile: the trigger is just the avatar in the top bar, so the menu needs its own width. */
+@media (max-width: 991.98px) {
+  .navbar-footer .dropdown-menu {
+    width: 17rem;
+    max-width: calc(100vw - 1rem);
+  }
+}
+
+/* Absolutely positioned helpers inside the table (visually-hidden headers) must be clipped by the scroller,
+   not by the card, or they widen the whole page on narrow screens. */
+.table-responsive {
+  position: relative;
+}
+
+/* Touch targets: Tabler's default controls are 32-40px. Keep them at 44px where the layout collapses. */
+@media (max-width: 991.98px) {
+  .navbar-toggler,
+  .navbar-vertical .navbar-footer .nav-link,
+  .navbar-vertical .nav-link,
+  .btn,
+  .btn-icon,
+  .form-control-sm,
+  .dropdown-item {
+    min-height: 2.75rem;
+  }
+  .navbar-toggler,
+  .btn-icon,
+  .navbar-vertical .navbar-footer .nav-link {
+    min-width: 2.75rem;
+  }
+  .visually-hidden-focusable.btn {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+  .navbar-vertical .navbar-brand > a {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    justify-content: center;
+  }
+}
+
+/* Collapsed rail: show the Pearl Island mark, and bring the fold toggle back on hover or keyboard focus.
+   (The display utility on the toggle would otherwise keep it visible and squeeze the mark out of the 64px rail.) */
+@media (min-width: 992px) {
+  html[data-bs-sidebar='folded-hover'] .navbar-vertical:not(:hover):not(:has(:focus-visible)) [data-bs-toggle='sidebar-folded'] {
+    display: none !important;
+  }
+}
