@@ -9,14 +9,14 @@ type PanelProps = {
   className?: string
 }
 
-// Hairline-bordered, low-radius panel. Product UI sits inside panels.
+// Shared low-contrast card surface for the customer flow and its order summaries.
 export function Panel({ children, corners = false, tone = 'white', className }: PanelProps) {
   return (
     <div
       className={cx(
-        'relative rounded-sm border border-line',
+        'relative rounded-[8px] border border-line shadow-xs',
         tone === 'white' ? 'bg-panel' : 'bg-ivory-deep',
-        corners && 'p-8',
+        corners && 'p-5',
         className,
       )}
     >

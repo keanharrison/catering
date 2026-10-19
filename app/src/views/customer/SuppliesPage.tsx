@@ -55,10 +55,10 @@ export function SuppliesPage() {
           <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
           <Card className="min-w-0">
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              <CardTitle>
                 Catering supplies
               </CardTitle>
-              <CardDescription className="text-sm leading-6 sm:text-base">
+              <CardDescription className="text-sm leading-5">
                 Next, choose whether your event needs disposable catering supplies.
               </CardDescription>
             </CardHeader>

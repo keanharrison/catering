@@ -143,6 +143,38 @@ describe('regression: full journeys and edge cases', () => {
     expect(screen.getByText('Handoff is not ready')).toBeTruthy()
   })
 
+  it('filters the staff queue by status and supports keyboard row selection', async () => {
+    const user = userEvent.setup()
+    renderAt('/staff')
+
+    const [allTab, reviewTab, awaitingTab, confirmedTab] = screen.getAllByRole('tab')
+    expect([allTab.textContent, reviewTab.textContent, awaitingTab.textContent, confirmedTab.textContent]).toEqual([
+      '5All',
+      '2Needs review',
+      '1Awaiting customer',
+      '1Confirmed',
+    ])
+    expect(screen.getAllByRole('row')).toHaveLength(6)
+
+    reviewTab.focus()
+    await user.keyboard('{Enter}')
+    expect(reviewTab.getAttribute('aria-selected')).toBe('true')
+    expect(screen.getAllByRole('row')).toHaveLength(3)
+
+    const selectedRow = screen.getByRole('row', { name: /Sam Rivera/ })
+    selectedRow.focus()
+    await user.keyboard('{Enter}')
+    expect(screen.getByText('Rivera Wedding')).toBeTruthy()
+
+    await user.click(awaitingTab)
+    expect(screen.getAllByRole('row')).toHaveLength(2)
+    expect(screen.getByRole('row', { name: /Morgan Chen/ })).toBeTruthy()
+
+    await user.click(confirmedTab)
+    expect(screen.getAllByRole('row')).toHaveLength(2)
+    expect(screen.getByRole('row', { name: /Taylor Brooks/ })).toBeTruthy()
+  })
+
   it('shows the food budget on both customer review and staff request details', () => {
     const intent = { ...store().order.intent, budgetCents: 120000 }
     store().updateDraft({ intent, lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
@@ -217,12 +249,55 @@ describe('regression: full journeys and edge cases', () => {
 
   it('menu suggestions are opt-in and applying one updates the order', async () => {
     const user = userEvent.setup()
+    const startingLines = [{ itemId: 'kale-salad', units: 3 }]
+    store().updateDraft({ lines: startingLines })
     renderAt('/customer/menu')
     expect(screen.queryByText(/Suggested for/)).toBeNull()
     await user.click(btn('Suggest'))
     expect(screen.getByText(/Suggested for 40 guests/)).toBeTruthy()
     await user.click(btn('Apply'))
     expect(store().order.lines.length).toBeGreaterThan(0)
+    expect(store().order.lines).not.toEqual(startingLines)
+    await user.click(btn('Undo'))
+    expect(store().order.lines).toEqual(startingLines)
+  })
+
+  it('menu summary separates food and supply estimates and marks chosen rows', () => {
+    store().updateDraft({
+      lines: [
+        { itemId: 'sous-poulet', units: 10 },
+        { itemId: 'supplies-cups', units: 1 },
+      ],
+    })
+    renderAt('/customer/menu')
+
+    expect(screen.getByText('Food subtotal').parentElement?.textContent).toContain('$50')
+    expect(screen.getByText('Supplies subtotal').parentElement?.textContent).toContain('$20')
+    expect(screen.getByText('$70')).toBeTruthy()
+    expect(screen.getAllByRole('listitem', { name: 'Sous Poulet Chicken, selected' })).toHaveLength(1)
+  })
+
+  it('menu filters show a clear empty state when dietary tags have no intersection', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer/menu')
+    expect(screen.getByText(/Nothing chosen yet/)).toBeTruthy()
+    expect((screen.getAllByRole('button', { name: 'Choose supplies' })[0] as HTMLButtonElement).disabled).toBe(true)
+
+    await user.click(screen.getByRole('button', { name: 'Vegan' }))
+    await user.click(screen.getByRole('button', { name: 'Dairy-free' }))
+
+    expect(screen.getByText('No menu items match')).toBeTruthy()
+    expect(screen.getByText('Try removing a dietary filter or choose another menu category.')).toBeTruthy()
+  })
+
+  it('continues from the selected menu into supplies', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer/menu')
+    await user.click(screen.getByRole('button', { name: 'Increase quantity of Sous Poulet Chicken' }))
+    await user.click(screen.getAllByRole('button', { name: 'Choose supplies' })[0])
+
+    expect(screen.getByText('Catering supplies')).toBeTruthy()
+    expect(screen.getByRole('radio', { name: 'No supplies needed' })).toBeTruthy()
   })
 
   it('menu suggestion guidance identifies its portion assumptions', async () => {

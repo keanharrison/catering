@@ -33,8 +33,8 @@ export function SiteHeader() {
   const darkMode = theme === 'dark' || (theme === 'system' && prefersDark)
 
   return (
-    <header data-slot="site-header" className="sticky top-0 z-40 flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-background px-3 sm:px-5">
-      <SidebarTrigger aria-label="Toggle navigation" className="-ml-1 size-11 md:size-9" />
+    <header data-slot="site-header" className="sticky top-0 z-40 flex h-14 w-full shrink-0 items-center gap-2.5 border-b border-border bg-card px-3 sm:gap-3 sm:px-5">
+      <SidebarTrigger aria-label="Toggle navigation" className="-ml-1 size-11 md:size-10" />
       <Link to={homeRoute} aria-label="Pearl Island2GO home" className="flex min-w-0 flex-1 items-center gap-2 md:hidden">
         <img
           src="/branding/pearl-island-logo.png"
@@ -72,7 +72,7 @@ export function SiteHeader() {
           type="button"
           variant="ghost"
           size="icon"
-          className="size-11 sm:size-9"
+          className="size-11 sm:size-10"
           aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
           title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
           onClick={() => setTheme(darkMode ? 'light' : 'dark')}

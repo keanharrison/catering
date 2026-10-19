@@ -162,8 +162,8 @@ function CustomerMessagesPage() {
 
   return <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6">
-      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Messages</h1>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Conversations stay with their catering requests. Messages in this demo are saved on this device and are not delivered.</p>
+      <h1 className="type-page-title">Messages</h1>
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">Conversations stay with their catering requests. Messages in this demo are saved on this device and are not delivered.</p>
     </header>
 
     {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">

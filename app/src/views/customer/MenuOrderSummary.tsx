@@ -14,21 +14,30 @@ type MenuOrderSummaryProps = {
 }
 
 function SummaryDetails({ summary }: { summary: OrderSummary }) {
+  const foodSubtotal = summary.groups
+    .filter((group) => group.category !== 'supply')
+    .flatMap((group) => group.rows)
+    .reduce((total, row) => total + row.costCents, 0)
+  const suppliesSubtotal = summary.groups
+    .filter((group) => group.category === 'supply')
+    .flatMap((group) => group.rows)
+    .reduce((total, row) => total + row.costCents, 0)
+
   return (
     <>
       {summary.groups.length === 0 ? (
         <p className="text-sm text-muted-foreground">Nothing chosen yet. Select menu items to build your order.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {summary.groups.map((group, index) => (
-            <section key={group.category} aria-label={group.title}>
-              {index > 0 && <Separator className="mb-4" />}
-              <h3 className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">{group.title}</h3>
+            <section key={group.category} aria-label={group.title} className={index > 0 ? 'border-t border-border pt-3' : ''}>
+              <h3 className="type-small-label mb-2 uppercase text-muted-foreground">{group.title}</h3>
               <ul className="space-y-2">
                 {group.rows.map((row) => (
-                  <li key={row.itemId} className="flex justify-between gap-3 text-sm">
-                    <span className="min-w-0">{row.name}<span className="block text-xs text-muted-foreground">{row.quantityLabel}</span></span>
-                    <span className="shrink-0 tabular-nums">{formatMoney(row.costCents)}</span>
+                  <li key={row.itemId} className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 text-sm">
+                    <span className="min-w-0 break-words font-medium leading-5">{row.name}</span>
+                    <span className="shrink-0 text-right font-medium tabular-nums">{formatMoney(row.costCents)}</span>
+                    <span className="col-start-1 row-start-2 text-xs leading-4 text-muted-foreground">{row.quantityLabel}</span>
                   </li>
                 ))}
               </ul>
@@ -38,9 +47,20 @@ function SummaryDetails({ summary }: { summary: OrderSummary }) {
       )}
 
       <Separator className="my-4" />
+      <div className="space-y-1.5 text-sm">
+        <div className="flex justify-between gap-3">
+          <span className="text-muted-foreground">Food subtotal</span>
+          <span className="tabular-nums">{formatMoney(foodSubtotal)}</span>
+        </div>
+        <div className="flex justify-between gap-3">
+          <span className="text-muted-foreground">Supplies subtotal</span>
+          <span className="tabular-nums">{formatMoney(suppliesSubtotal)}</span>
+        </div>
+      </div>
+      <Separator className="my-4" />
       <div className="flex items-baseline justify-between gap-3">
         <span className="font-medium">Estimated total</span>
-        <span className="text-xl font-semibold tabular-nums">{formatMoney(summary.estimate.subtotalCents)}</span>
+        <span className="text-2xl font-semibold leading-8 tabular-nums">{formatMoney(summary.estimate.subtotalCents)}</span>
       </div>
       <div className="mt-2 flex justify-between gap-3 text-sm text-muted-foreground">
         <span>Guests</span><span>{summary.guestCount ?? '—'}</span>
@@ -66,7 +86,7 @@ export function MenuOrderSummary({ summary, onBack, onContinue, mobile = false }
   const showNavigation = Boolean(onBack && onContinue)
   const card = (
     <Card>
-      <CardHeader className={mobile ? 'pb-1' : undefined}>
+      <CardHeader>
         <CardTitle>{mobile ? 'Order details' : 'Your order'}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -75,7 +95,7 @@ export function MenuOrderSummary({ summary, onBack, onContinue, mobile = false }
       {!mobile && showNavigation && (
         <CardFooter className="flex-col items-stretch gap-2">
           <div className="flex gap-2">
-            <Button type="button" variant="secondary" className="min-h-11 px-4" onClick={onBack}>Back</Button>
+            <Button type="button" variant="outline" className="min-h-11 px-4" onClick={onBack}>Back</Button>
             <Button
               className="min-h-11 flex-1"
               disabled={!summary.hasFood}
@@ -110,7 +130,7 @@ export function MenuOrderSummary({ summary, onBack, onContinue, mobile = false }
       {showNavigation && (
         <>
           <div className="flex gap-2 py-2">
-            <Button type="button" variant="secondary" className="min-h-11 flex-1" onClick={onBack}>Back</Button>
+            <Button type="button" variant="outline" className="min-h-11 flex-1" onClick={onBack}>Back</Button>
             <Button
               className="min-h-11 flex-1"
               disabled={!summary.hasFood}

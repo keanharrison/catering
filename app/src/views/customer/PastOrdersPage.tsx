@@ -34,7 +34,7 @@ function quantityLabel(line: OrderLine) {
 
 function HistoryTable({ title, rows }: { title: string; rows: OrderLine[] }) {
   return <section aria-label={title}>
-    <h3 className="mb-2 text-sm font-semibold">{title}</h3>
+    <h3 className="type-section-title mb-2">{title}</h3>
     {rows.length ? <div className="overflow-x-auto rounded-md border">
       <Table className="w-full min-w-0 sm:min-w-[28rem]">
         <TableHeader><TableRow><TableHead>Item</TableHead><TableHead>Quantity</TableHead><TableHead className="hidden text-right sm:table-cell">Unit price</TableHead><TableHead className="hidden text-right sm:table-cell">Line total</TableHead></TableRow></TableHeader>
@@ -59,40 +59,40 @@ function HistoricalOrderDetails({ order }: { order: Order }) {
 
   return <div className="grid gap-5 px-4 pb-6">
     <section aria-labelledby={`history-event-${order.id}`}>
-      <div className="flex items-center gap-2"><CalendarDays className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`history-event-${order.id}`} className="text-sm font-semibold">Event and fulfillment</h3></div>
+      <div className="flex items-center gap-2"><CalendarDays className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`history-event-${order.id}`} className="type-section-title">Event and fulfillment</h3></div>
       <dl className="mt-3 grid gap-x-5 gap-y-4 sm:grid-cols-2">
-        <div><dt className="text-xs font-medium text-muted-foreground">Event type</dt><dd className="mt-1 text-sm">{eventTypeLabel(order)}</dd></div>
-        <div><dt className="text-xs font-medium text-muted-foreground">Date and time</dt><dd className="mt-1 text-sm">{formatEventTime(order.intent.eventAt)}</dd></div>
-        <div><dt className="text-xs font-medium text-muted-foreground">Guest count</dt><dd className="mt-1 text-sm">{order.intent.guestCount ?? 'Not provided'}</dd></div>
-        <div><dt className="text-xs font-medium text-muted-foreground">Pickup or delivery</dt><dd className="mt-1 capitalize text-sm">{order.intent.fulfillment}</dd></div>
-        {order.intent.fulfillment === 'delivery' && <div className="sm:col-span-2"><dt className="text-xs font-medium text-muted-foreground">Delivery address</dt><dd className="mt-1 flex items-start gap-1 break-words text-sm"><MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />{address || 'Not provided'}</dd></div>}
+        <div><dt className="type-small-label text-muted-foreground">Event type</dt><dd className="mt-1 text-sm">{eventTypeLabel(order)}</dd></div>
+        <div><dt className="type-small-label text-muted-foreground">Date and time</dt><dd className="mt-1 text-sm">{formatEventTime(order.intent.eventAt)}</dd></div>
+        <div><dt className="type-small-label text-muted-foreground">Guest count</dt><dd className="mt-1 text-sm">{order.intent.guestCount ?? 'Not provided'}</dd></div>
+        <div><dt className="type-small-label text-muted-foreground">Pickup or delivery</dt><dd className="mt-1 capitalize text-sm">{order.intent.fulfillment}</dd></div>
+        {order.intent.fulfillment === 'delivery' && <div className="sm:col-span-2"><dt className="type-small-label text-muted-foreground">Delivery address</dt><dd className="mt-1 flex items-start gap-1 break-words text-sm"><MapPin className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />{address || 'Not provided'}</dd></div>}
       </dl>
     </section>
 
     <Separator />
 
     <section aria-labelledby={`history-contact-${order.id}`}>
-      <h3 id={`history-contact-${order.id}`} className="text-sm font-semibold">Contact</h3>
+      <h3 id={`history-contact-${order.id}`} className="type-section-title">Contact</h3>
       <dl className="mt-3 grid gap-x-5 gap-y-4 sm:grid-cols-2">
-        {([['Name', order.intent.contactName], ['Organization', order.intent.organization], ['Email', order.intent.email], ['Phone', order.intent.phone]] as const).map(([label, value]) => <div key={label}><dt className="text-xs font-medium text-muted-foreground">{label}</dt><dd className="mt-1 break-words text-sm">{value || 'Not provided'}</dd></div>)}
+        {([['Name', order.intent.contactName], ['Organization', order.intent.organization], ['Email', order.intent.email], ['Phone', order.intent.phone]] as const).map(([label, value]) => <div key={label}><dt className="type-small-label text-muted-foreground">{label}</dt><dd className="mt-1 break-words text-sm">{value || 'Not provided'}</dd></div>)}
       </dl>
     </section>
 
     <Separator />
 
     <section className="grid gap-5" aria-label="Historical selections">
-      <div className="flex items-center gap-2"><Utensils className="size-4 text-muted-foreground" aria-hidden="true" /><h3 className="text-sm font-semibold">Food and supplies</h3></div>
+      <div className="flex items-center gap-2"><Utensils className="size-4 text-muted-foreground" aria-hidden="true" /><h3 className="type-section-title">Food and supplies</h3></div>
       <HistoryTable title="Food" rows={food} />
       <HistoryTable title="Supplies" rows={supplies} />
     </section>
 
     <section className="grid gap-2 rounded-lg bg-muted/50 p-4" aria-label="Recorded total">
-      <h3 className="text-sm font-semibold">Recorded total</h3>
+      <h3 className="type-section-title">Recorded total</h3>
       <p className="text-sm text-muted-foreground">Not recorded. This demo does not save order prices, so current menu prices are not used to recreate a historical total.</p>
     </section>
 
     {(order.intent.dietary.length > 0 || order.intent.customRequest || order.intent.notes || order.messages.length > 0) && <section className="grid gap-3" aria-label="Notes and updates">
-      <h3 className="text-sm font-semibold">Notes and updates</h3>
+      <h3 className="type-section-title">Notes and updates</h3>
       {order.intent.dietary.length > 0 && <p className="text-sm"><span className="font-medium">Dietary preferences:</span> {order.intent.dietary.join(', ')}. These are preferences, not allergy or nutrition guarantees.</p>}
       {order.intent.customRequest && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Custom request:</span> {order.intent.customRequest}</p>}
       {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
@@ -136,7 +136,7 @@ export function PastOrdersPage() {
 
   return <section className="mx-auto w-full max-w-5xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div><h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Past orders</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Review historical requests and their recorded details.</p></div>
+      <div><h1 className="type-page-title">Past orders</h1><p className="mt-2 max-w-2xl text-sm text-muted-foreground">Review historical requests and their recorded details.</p></div>
       {newRequestButton}
     </header>
 
@@ -155,7 +155,7 @@ export function PastOrdersPage() {
       <EmptyContent><Button variant="outline" onClick={() => setQuery('')}>Clear search</Button></EmptyContent>
     </Empty></CardContent></Card> : <div className="grid gap-3 md:grid-cols-2">
       {visible.map((order) => <Card key={order.id} className="min-w-0">
-        <CardHeader className="pb-3"><div className="flex flex-wrap items-start justify-between gap-3">
+        <CardHeader><div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0"><CardTitle className="text-base">Request {order.id}</CardTitle><CardDescription className="mt-1">{formatEventTime(order.intent.eventAt)}</CardDescription></div>
           <StaffStatusBadge status={order.status} />
         </div></CardHeader>
@@ -163,8 +163,8 @@ export function PastOrdersPage() {
           <p className="text-sm text-muted-foreground">{eventTypeLabel(order)}</p>
           {order.status === 'confirmed' && <Badge variant="outline" className="w-fit">Event completion not recorded</Badge>}
           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-            <div><dt className="text-xs font-medium text-muted-foreground">Guests</dt><dd className="mt-1">{order.intent.guestCount ?? 'Not provided'}</dd></div>
-            <div><dt className="text-xs font-medium text-muted-foreground">Pickup or delivery</dt><dd className="mt-1 capitalize">{order.intent.fulfillment}</dd></div>
+            <div><dt className="type-small-label text-muted-foreground">Guests</dt><dd className="mt-1">{order.intent.guestCount ?? 'Not provided'}</dd></div>
+            <div><dt className="type-small-label text-muted-foreground">Pickup or delivery</dt><dd className="mt-1 capitalize">{order.intent.fulfillment}</dd></div>
           </dl>
           <div className="flex items-center justify-between gap-3 border-t pt-3">
             <div><p className="text-xs text-muted-foreground">Recorded total</p><p className="mt-0.5 text-sm font-medium">Not recorded</p></div>

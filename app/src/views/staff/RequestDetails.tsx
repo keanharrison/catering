@@ -40,7 +40,7 @@ type RequestDetailsProps = {
 function Value({ label, children, className = '' }: { label: string; children: ReactNode; className?: string }) {
   return (
     <div className={`min-w-0 ${className}`}>
-      <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
+      <dt className="type-small-label text-muted-foreground">{label}</dt>
       <dd className="mt-1 break-words text-sm">{children}</dd>
     </div>
   )
@@ -79,10 +79,10 @@ export function RequestDetails({
   return (
     <div className="grid min-w-0 gap-4">
       <Card className="min-w-0">
-        <CardHeader className="pb-4">
+        <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <CardTitle className="break-words text-lg leading-6">{eventTypeLabel(order.intent.eventType)}</CardTitle>
+              <CardTitle className="break-words">{eventTypeLabel(order.intent.eventType)}</CardTitle>
               <CardDescription className="mt-1 break-words">{order.intent.contactName || 'Customer'}{order.intent.organization ? ` · ${order.intent.organization}` : ''}</CardDescription>
             </div>
             {order.demoSample && <Badge variant="outline">Sample</Badge>}
@@ -91,7 +91,7 @@ export function RequestDetails({
         </CardHeader>
         <CardContent className="grid gap-4">
           <section aria-labelledby="request-event-heading">
-            <h3 id="request-event-heading" className="text-sm font-semibold">Event</h3>
+            <h3 id="request-event-heading" className="type-section-title">Event</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
               <Value label="Date and time" className="col-span-2">{formatEventTime(order.intent.eventAt)}</Value>
               <Value label="Guests">{order.intent.guestCount ?? 'Not provided'}</Value>
@@ -105,14 +105,14 @@ export function RequestDetails({
 
           <section aria-labelledby="request-food-heading">
             <div className="flex items-center justify-between gap-3">
-              <h3 id="request-food-heading" className="text-sm font-semibold">Food and supplies</h3>
+              <h3 id="request-food-heading" className="type-section-title">Food and supplies</h3>
               <span className="text-xs text-muted-foreground">Estimate only</span>
             </div>
             {foodGroups.length > 0 ? (
               <div className="mt-3 grid gap-3">
                     {foodGroups.map((group) => (
                   <div key={group.category}>
-                    <h4 className="text-xs font-medium text-muted-foreground">{group.title}</h4>
+                    <h4 className="type-small-label uppercase text-muted-foreground">{group.title}</h4>
                     <ul className="mt-1 grid gap-1.5">
                       {group.rows.map((row) => (
                         <li key={row.itemId} className="flex min-w-0 justify-between gap-3 text-sm">
@@ -132,7 +132,7 @@ export function RequestDetails({
               <div className="mt-3 grid gap-2">
                 {supplyGroups.map((group) => (
                   <div key={group.category}>
-                    <h4 className="text-xs font-medium text-muted-foreground">{group.title}</h4>
+                    <h4 className="type-small-label uppercase text-muted-foreground">{group.title}</h4>
                     <ul className="mt-1 grid gap-1.5">
                       {group.rows.map((row) => (
                         <li key={row.itemId} className="flex min-w-0 justify-between gap-3 text-sm">
@@ -164,7 +164,7 @@ export function RequestDetails({
           <Separator />
 
           <section aria-labelledby="request-contact-heading">
-            <h3 id="request-contact-heading" className="text-sm font-semibold">Contact and instructions</h3>
+            <h3 id="request-contact-heading" className="type-section-title">Contact and instructions</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
               <Value label="Name">{order.intent.contactName || 'Not provided'}</Value>
               <Value label="Organization">{order.intent.organization || 'Not provided'}</Value>
@@ -183,7 +183,7 @@ export function RequestDetails({
               <Separator />
               <section aria-labelledby="request-messages-heading">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 id="request-messages-heading" className="text-sm font-semibold">Request messages</h3>
+                  <h3 id="request-messages-heading" className="type-section-title">Request messages</h3>
                   <span className="text-xs text-muted-foreground">Demo only · not delivered</span>
                 </div>
                 <ol className="mt-3 grid gap-3">

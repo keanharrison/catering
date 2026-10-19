@@ -151,8 +151,8 @@ function ReviewView() {
     <div className="w-full px-4 py-8 pb-12 text-foreground sm:px-8 sm:py-10">
       <section className="mx-auto w-full max-w-7xl">
         <header className="mb-6 max-w-3xl">
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Review your catering request</h1>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground sm:text-base">
+          <h1 className="type-page-title">Review your catering request</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
             {submitted
               ? 'Your request is recorded in this demo. The restaurant has not received it.'
               : 'Check your event, selections, and contact details before asking Pearl Island to review your request.'}
@@ -207,7 +207,7 @@ function ReviewView() {
             <CardContent className="space-y-6">
               <section aria-labelledby="review-event-heading">
                 <div className="mb-3 flex items-center justify-between gap-4">
-                  <h2 id="review-event-heading" className="font-medium">Event</h2>
+                  <h2 id="review-event-heading" className="type-section-title">Event</h2>
                   {!submitted && <EditLink stage="event" onClick={goToStage} />}
                 </div>
                 <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
@@ -224,7 +224,7 @@ function ReviewView() {
 
               <section aria-labelledby="review-food-heading">
                 <div className="mb-2 flex items-center justify-between gap-4">
-                  <h2 id="review-food-heading" className="font-medium">Food selections</h2>
+                  <h2 id="review-food-heading" className="type-section-title">Food selections</h2>
                   {!submitted && <EditLink stage="menu" onClick={goToStage} />}
                 </div>
                 <SelectionTable caption="Selected food and quantities" rows={foodRows} />
@@ -234,7 +234,7 @@ function ReviewView() {
 
               <section aria-labelledby="review-supplies-heading">
                 <div className="mb-2 flex items-center justify-between gap-4">
-                  <h2 id="review-supplies-heading" className="font-medium">Supplies</h2>
+                  <h2 id="review-supplies-heading" className="type-section-title">Supplies</h2>
                   {!submitted && <EditLink stage="supplies" onClick={goToStage} />}
                 </div>
                 {supplyGroup
@@ -246,7 +246,7 @@ function ReviewView() {
 
               <section aria-labelledby="review-contact-heading">
                 <div className="mb-3 flex items-center justify-between gap-4">
-                  <h2 id="review-contact-heading" className="font-medium">Contact and instructions</h2>
+                  <h2 id="review-contact-heading" className="type-section-title">Contact and instructions</h2>
                   {!submitted && <EditLink stage="details" onClick={goToStage} />}
                 </div>
                 <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">

@@ -108,7 +108,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon" variant="sidebar">
-      <SidebarHeader className="px-4 py-4">
+      <SidebarHeader className="px-4 py-4 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-3">
         <div className="flex min-h-11 items-center justify-between gap-2">
           <Link
             to={account === 'team' ? routes.staff : routes.customer}
@@ -120,7 +120,7 @@ export function AppSidebar() {
               alt="Pearl Island"
               width={320}
               height={311}
-              className="size-10 shrink-0"
+              className="size-10 shrink-0 group-data-[collapsible=icon]:size-8"
             />
             <span className="truncate text-sm font-semibold tracking-tight text-sidebar-foreground group-data-[collapsible=icon]:hidden">
               Pearl Island2GO
@@ -131,7 +131,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarSeparator />
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className="px-3 py-3 group-data-[collapsible=icon]:px-2">
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -178,15 +178,15 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-3">
+      <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2">
         <SidebarSeparator />
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1">
           <SidebarMenuButton
             disabled
             size="lg"
             tooltip="Settings (coming soon)"
             aria-label="Settings (coming soon)"
-            className="size-11 w-11 shrink-0 justify-center p-0"
+            className="size-11 w-11 shrink-0 justify-center p-0 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:w-8!"
           >
             <Settings2 aria-hidden="true" />
           </SidebarMenuButton>
@@ -196,7 +196,7 @@ export function AppSidebar() {
               render={
                 <SidebarMenuButton
                   size="lg"
-                  className="min-w-0 flex-1"
+                  className="min-w-0 flex-1 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:w-8! group-data-[collapsible=icon]:flex-none"
                 >
                   <UserRound aria-hidden="true" />
                   <span className="min-w-0 flex-1 truncate text-left group-data-[collapsible=icon]:hidden">

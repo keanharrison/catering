@@ -43,7 +43,7 @@ export function Gallery() {
     <>
       <Band>
         <Eyebrow marker>Component gallery</Eyebrow>
-        <h1 className="mt-6 text-3xl md:text-5xl">Design system.</h1>
+        <h1 className="type-page-title mt-6">Design system.</h1>
         <p className="mt-8 max-w-xl text-muted">
           Shared components for every screen, built from PRD section 8 and the Fin references.
           Internal reference only.
@@ -56,7 +56,7 @@ export function Gallery() {
 
       <Band tone="white">
         <Eyebrow>Stage tabs</Eyebrow>
-        <h2 className="mt-4 text-2xl md:text-3xl">Segmented stage control.</h2>
+        <h2 className="type-section-title mt-4">Segmented stage control.</h2>
         <div className="mt-8">
           <StepTabs label="Stages" items={stages} activeId={stage} onChange={setStage} />
         </div>
@@ -64,7 +64,7 @@ export function Gallery() {
 
       <Band>
         <Eyebrow>Product panel</Eyebrow>
-        <h2 className="mt-4 text-2xl md:text-3xl">Status list with orange progress.</h2>
+        <h2 className="type-section-title mt-4">Status list with orange progress.</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <Panel tone="deep" className="p-0">
             <StepTabs label="Statuses" variant="list" items={statuses} activeId={status} onChange={setStatus} />
@@ -72,7 +72,7 @@ export function Gallery() {
           <Panel className="p-6 md:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h3 className="font-sans text-xl">Wedding drop-off, 150 guests</h3>
+                <h3 className="type-section-title">Wedding drop-off, 150 guests</h3>
                 <div className="mt-2">
                   <StatLine
                     items={[
@@ -111,7 +111,7 @@ export function Gallery() {
 
       <Band>
         <Eyebrow>Form fields</Eyebrow>
-        <h2 className="mt-4 text-2xl md:text-3xl">Guided form.</h2>
+        <h2 className="type-section-title mt-4">Guided form.</h2>
         <Panel className="mt-8 max-w-xl p-6">
           <FieldGroup>
             <Field>

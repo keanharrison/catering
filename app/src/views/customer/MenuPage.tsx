@@ -78,8 +78,8 @@ function MenuView() {
   return (
     <Band>
       <Eyebrow marker>Your Pearl Island menu</Eyebrow>
-      <h1 className="mt-6 text-3xl md:text-5xl">Build your menu.</h1>
-      <p className="mt-4 max-w-2xl font-sans text-base text-muted md:text-lg">
+      <h1 className="type-page-title mt-6">Build your menu.</h1>
+      <p className="mt-4 max-w-2xl font-sans text-sm leading-5 text-muted">
         Choose entrées, sides, and salads for your gathering. Your selections and estimated total update as you choose.
       </p>
       <div className="mt-10">
@@ -97,7 +97,7 @@ function MenuView() {
           />
 
           <div role="group" aria-label="Show only" className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-xs uppercase tracking-eyebrow text-muted">Show only</span>
+            <span className="type-small-label uppercase text-muted">Show only</span>
             {filterTags.map(({ tag, label }) => (
               <button
                 key={tag}
@@ -121,7 +121,7 @@ function MenuView() {
           <Panel className="p-0">
             <div
               aria-hidden="true"
-              className="hidden border-b border-line bg-ivory-deep px-6 py-3 font-mono text-[10px] uppercase tracking-eyebrow text-muted xl:grid xl:grid-cols-[minmax(0,1fr)_7rem_8rem_11.5rem] xl:items-center xl:gap-4"
+              className="type-small-label hidden border-b border-line bg-ivory-deep px-6 py-3 uppercase text-muted xl:grid xl:grid-cols-[minmax(0,1fr)_7rem_8rem_11.5rem] xl:items-center xl:gap-4"
             >
               <span>Item</span>
               <span>Price</span>
@@ -142,7 +142,7 @@ function MenuView() {
                   >
                     <div className="grid gap-4 px-6 py-4 xl:grid-cols-[minmax(0,1fr)_7rem_8rem_11.5rem] xl:items-center xl:gap-4">
                       <div className="min-w-0">
-                        <p className="font-sans text-lg">{item.name}</p>
+                        <p className="font-sans text-base font-medium leading-6">{item.name}</p>
                         {item.dietaryTags.length > 0 && (
                           <div className="mt-2 flex flex-wrap gap-1">
                             {item.dietaryTags.map((tag) => (
@@ -153,9 +153,9 @@ function MenuView() {
                           </div>
                         )}
                         <dl className="mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 font-sans text-sm xl:hidden">
-                          <dt className="font-mono text-[10px] uppercase tracking-eyebrow text-muted">Price</dt>
+                          <dt className="type-small-label uppercase text-muted">Price</dt>
                           <dd className="tabular-nums">{formatMoney(item.priceCents)} per {item.unit}</dd>
-                          <dt className="font-mono text-[10px] uppercase tracking-eyebrow text-muted">Portion</dt>
+                          <dt className="type-small-label uppercase text-muted">Portion</dt>
                           <dd className="text-muted">{item.servingNote ?? 'Not listed'}</dd>
                         </dl>
                       </div>
@@ -189,7 +189,7 @@ function MenuView() {
           </Panel>
 
           {suggestion && (
-            <Panel tone="deep" className="p-6">
+            <Panel tone="deep" className="p-5">
               <Eyebrow>Suggested for {summary.guestCount} guests</Eyebrow>
               {suggestion.recommendation.lines.length === 0 ? (
                 <p className="mt-3 text-sm">{suggestion.recommendation.notes.join(' ')}</p>

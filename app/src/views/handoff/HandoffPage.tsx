@@ -17,7 +17,7 @@ import { buildOrderSummary } from '../customer/orderSummary'
 function LabeledValue({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="min-w-0">
-      <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
+      <dt className="type-small-label text-muted-foreground">{label}</dt>
       <dd className="mt-1 break-words text-sm">{children}</dd>
     </div>
   )
@@ -26,7 +26,7 @@ function LabeledValue({ label, children }: { label: string; children: ReactNode 
 function HandoffTable({ title, rows }: { title: string; rows: ReturnType<typeof buildOrderSummary>['groups'][number]['rows'] }) {
   return (
     <section className="handoff-keep-together" aria-label={title}>
-      <h3 className="mb-2 text-sm font-semibold">{title}</h3>
+      <h3 className="type-section-title mb-2">{title}</h3>
       {rows.length ? (
         <div className="overflow-x-auto rounded-md border">
           <Table className="min-w-[21rem] sm:min-w-0">
@@ -102,7 +102,7 @@ export function HandoffPage() {
       <div className="handoff-print-content">
         <header className="mb-6 flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Staff handoff</h1>
+            <h1 className="type-page-title">Staff handoff</h1>
             <p className="mt-2 text-sm text-muted-foreground">Accepted order · Request {order.id}</p>
           </div>
           <Badge variant="secondary" className="shrink-0">Accepted</Badge>
@@ -176,8 +176,8 @@ export function HandoffPage() {
             <Card className="handoff-keep-together">
               <CardHeader><CardTitle>Customer notes</CardTitle></CardHeader>
               <CardContent className="grid gap-4">
-                {intent.customRequest && <div><h3 className="text-sm font-medium">Custom request</h3><p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{intent.customRequest}</p></div>}
-                {intent.notes && <div><h3 className="text-sm font-medium">{intent.fulfillment === 'delivery' ? 'Delivery instructions and notes' : 'Pickup instructions and notes'}</h3><p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{intent.notes}</p></div>}
+                {intent.customRequest && <div><h3 className="type-section-title">Custom request</h3><p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{intent.customRequest}</p></div>}
+                {intent.notes && <div><h3 className="type-section-title">{intent.fulfillment === 'delivery' ? 'Delivery instructions and notes' : 'Pickup instructions and notes'}</h3><p className="mt-1 whitespace-pre-wrap text-sm text-muted-foreground">{intent.notes}</p></div>}
               </CardContent>
             </Card>
           ) : null}

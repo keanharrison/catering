@@ -139,10 +139,10 @@ export function EventPage() {
     <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
       <section className="mx-auto w-full max-w-3xl">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+          <h1 className="type-page-title text-foreground">
             Plan your catering
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             Tell us about your event to start building a catering request.
           </p>
         </div>

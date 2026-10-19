@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CheckCircle2Icon, InfoIcon, SearchIcon } from 'lucide-react'
+import { Check, CheckCircle2Icon, InfoIcon, SearchIcon } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -21,13 +21,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from '@/components/ui/item'
 import { QuantityStepper } from '../../components/QuantityStepper'
 import { catalog, type DietaryTag, type MenuCategory, type OrderLine } from '../../data'
 import { recommend, setQuantity, type Recommendation } from '../../engine'
@@ -108,29 +101,60 @@ export function MenuPageShell() {
     }
 
     return (
-      <ul role="list" className="flex flex-col gap-3">
-        {entries.map(({ item, quantity }) => (
-          <li key={item.id}>
-            <Item
-              variant="outline"
-              className={`gap-4 p-4 sm:p-5 ${quantity > 0 ? 'border-primary/40 bg-primary/[0.03]' : ''}`}
+      <div className="overflow-hidden rounded-md border border-border">
+        <div
+          aria-hidden="true"
+          className="type-small-label hidden grid-cols-[minmax(0,1fr)_7rem_7.5rem] items-center gap-4 border-b border-border bg-muted/50 px-5 py-3 uppercase text-muted-foreground lg:grid"
+        >
+          <span>Menu item</span>
+          <span className="text-right">Price</span>
+          <span className="text-right">Quantity</span>
+        </div>
+        <ul role="list" className="divide-y divide-border">
+          {entries.map(({ item, quantity }) => (
+            <li
+              key={item.id}
+              aria-label={quantity > 0 ? `${item.name}, selected` : item.name}
+              className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-3 px-4 py-4 transition-colors duration-150 motion-reduce:transition-none lg:grid-cols-[minmax(0,1fr)_7rem_7.5rem] lg:gap-4 lg:px-5 ${
+                quantity > 0 ? 'bg-primary/[0.06]' : 'bg-card hover:bg-muted/40'
+              }`}
             >
-              <ItemContent className="min-w-0 gap-1.5">
-                <ItemTitle className="line-clamp-none text-base sm:text-lg">{item.name}</ItemTitle>
-                <ItemDescription className="line-clamp-none">
-                  <span className="font-medium text-foreground">{formatMoney(item.priceCents)}</span>
-                  <span> per {item.unit}</span>
-                  {item.servingNote && <span> · {item.servingNote}</span>}
-                </ItemDescription>
+              <div className="min-w-0">
+                <div className="flex min-w-0 items-start gap-2">
+                  {quantity > 0 && (
+                    <span className="mt-1 inline-flex size-4 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground" aria-hidden="true">
+                      <Check className="size-3" strokeWidth={2.5} />
+                    </span>
+                  )}
+                  <p className="min-w-0 break-words text-sm font-medium leading-5 sm:text-base sm:leading-6">{item.name}</p>
+                </div>
+                <p className="mt-1 break-words text-sm leading-5 text-muted-foreground">
+                  {item.servingNote ?? `Priced per ${item.unit}`}
+                  <span className="lg:hidden"> · <strong className="font-medium text-foreground">{formatMoney(item.priceCents)}</strong> per {item.unit}</span>
+                </p>
                 {item.dietaryTags.length > 0 && (
-                  <div className="mt-1 flex flex-wrap gap-1.5" aria-label="Dietary labels">
+                  <div className="mt-2 flex flex-wrap gap-1.5" aria-label="Dietary labels">
                     {item.dietaryTags.map((tag) => (
-                      <Badge key={tag} variant="outline">{dietaryLabels[tag]}</Badge>
+                      <Badge key={tag} variant="outline" className="bg-background/70">{dietaryLabels[tag]}</Badge>
                     ))}
                   </div>
                 )}
-              </ItemContent>
-              <ItemActions className="ml-auto max-sm:w-full max-sm:justify-end">
+                {item.description && (
+                  <Accordion className="mt-1" defaultValue={[]}>
+                    <AccordionItem value={`description-${item.id}`} className="border-0">
+                      <AccordionTrigger className="min-h-9 py-1.5 text-sm">About this item</AccordionTrigger>
+                      <AccordionContent className="break-words text-muted-foreground">
+                        {item.description}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )}
+              </div>
+              <p className="hidden text-right text-sm tabular-nums lg:block">
+                <span className="block font-medium text-foreground">{formatMoney(item.priceCents)}</span>
+                <span className="mt-1 block text-xs text-muted-foreground">per {item.unit}</span>
+              </p>
+              <div className="col-start-2 row-start-1 lg:col-auto lg:row-auto">
                 <QuantityStepper
                   label={item.name}
                   value={quantity}
@@ -139,21 +163,11 @@ export function MenuPageShell() {
                     updateDraft({ lines: setQuantity(order.lines, item.id, value) })
                   }}
                 />
-              </ItemActions>
-              {item.description && (
-                <Accordion className="basis-full border-t pt-2" defaultValue={[]}>
-                  <AccordionItem value={`description-${item.id}`} className="border-0">
-                    <AccordionTrigger className="py-2 text-sm">About this item</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      {item.description}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              )}
-            </Item>
-          </li>
-        ))}
-      </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 
@@ -162,10 +176,10 @@ export function MenuPageShell() {
       <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
         <section className="mx-auto w-full max-w-7xl">
           <header className="mb-6">
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h1 className="type-page-title">
               Build your menu
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
               Choose entrées, sides, and salads for your event.
             </p>
           </header>
@@ -181,22 +195,22 @@ export function MenuPageShell() {
             </CardHeader>
             <CardContent className="pt-0">
               <Tabs defaultValue="entree" aria-label="Menu categories" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 group-data-horizontal/tabs:h-11 p-0">
+              <TabsList className="grid w-full grid-cols-3 gap-1 rounded-md p-1 group-data-horizontal/tabs:h-12">
                   {categories.map((category) => (
-                    <TabsTrigger key={category.value} value={category.value} className="h-full min-h-11">
+                    <TabsTrigger key={category.value} value={category.value} className="h-full min-h-10">
                       {category.label}
                     </TabsTrigger>
                   ))}
                 </TabsList>
                 <div className="mt-5 space-y-2">
-                  <h3 className="text-sm font-medium">Filter by dietary preference</h3>
+                  <h3 className="type-section-title">Filter by dietary preference</h3>
                   <ToggleGroup
                     variant="outline"
                     multiple
                     value={filters}
                     onValueChange={(values) => setFilters(values as DietaryTag[])}
                     aria-label="Filter menu by dietary preference"
-                    className="w-full flex-wrap"
+                    className="w-full flex-wrap gap-2"
                   >
                     {dietaryFilters.map((filter) => (
                       <ToggleGroupItem
@@ -232,7 +246,7 @@ export function MenuPageShell() {
               {suggestion && (
                 suggestion.recommendation.lines.length > 0 ? (
                   <div className="space-y-3">
-                    <h3 className="text-sm font-medium">Suggested for {summary.guestCount ?? 'your'} guests</h3>
+                    <h3 className="type-section-title">Suggested for {summary.guestCount ?? 'your'} guests</h3>
                     <ul className="space-y-2 text-sm">
                       {suggestion.recommendation.lines.map((line) => {
                         const item = catalog.menu.find((candidate) => candidate.id === line.itemId)

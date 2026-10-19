@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { failed: boole
     if (!this.state.failed) return this.props.children
     return (
       <main className="mx-auto max-w-xl px-6 py-24">
-        <h1 className="text-4xl">Something went wrong.</h1>
+        <h1 className="type-page-title">Something went wrong.</h1>
         <p className="mt-6 text-muted">
           This page could not load. Clearing the saved request and starting over usually fixes it.
         </p>

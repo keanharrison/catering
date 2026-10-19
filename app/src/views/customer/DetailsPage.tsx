@@ -72,13 +72,13 @@ function DetailsView() {
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
           <Card className="min-w-0">
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold tracking-tight sm:text-3xl">Final details</CardTitle>
-              <CardDescription className="text-sm leading-6 sm:text-base">
+              <CardTitle>Final details</CardTitle>
+              <CardDescription className="text-sm leading-5">
                 Add your contact information and any details our catering team needs to prepare your request.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <form ref={formRef} onSubmit={onSubmit} noValidate>
+            <form ref={formRef} onSubmit={onSubmit} noValidate>
+              <CardContent>
                 <FieldGroup>
                   <Field data-invalid={Boolean(errors.eventTime) || undefined}>
                     <FieldLabel htmlFor="eventTime">{form.fulfillment === 'delivery' ? 'Delivery time (required)' : 'Pickup time (required)'}</FieldLabel>
@@ -164,12 +164,12 @@ function DetailsView() {
                   </Field>
                 </FieldGroup>
 
-                <CardFooter className="mt-7 flex-col items-stretch gap-3 px-0 pb-0 sm:flex-row sm:items-center sm:justify-between">
-                  <Button type="button" variant="outline" className="min-h-11" onClick={() => navigate(stagePath('supplies'))}>Back to supplies</Button>
-                  <Button type="submit" className="min-h-11">Review your request</Button>
-                </CardFooter>
-              </form>
-            </CardContent>
+              </CardContent>
+              <CardFooter className="flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <Button type="button" variant="outline" className="min-h-11" onClick={() => navigate(stagePath('supplies'))}>Back to supplies</Button>
+                <Button type="submit" className="min-h-11">Review your request</Button>
+              </CardFooter>
+            </form>
           </Card>
           <aside className="hidden lg:sticky lg:top-6 lg:block" aria-label="Order summary">
             <MenuOrderSummary summary={summary} />

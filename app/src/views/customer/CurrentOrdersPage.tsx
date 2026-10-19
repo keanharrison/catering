@@ -40,13 +40,13 @@ function isActive(order: Order, clock: string) {
 }
 
 function InfoValue({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div className="min-w-0"><dt className="text-xs font-medium text-muted-foreground">{label}</dt><dd className="mt-1 break-words text-sm">{children}</dd></div>
+  return <div className="min-w-0"><dt className="type-small-label text-muted-foreground">{label}</dt><dd className="mt-1 break-words text-sm">{children}</dd></div>
 }
 
 function SelectionTable({ title, rows }: { title: string; rows: ReturnType<typeof buildOrderSummary>['groups'][number]['rows'] }) {
   return (
     <section aria-label={title}>
-      <h3 className="mb-2 text-sm font-semibold">{title}</h3>
+      <h3 className="type-section-title mb-2">{title}</h3>
       {rows.length ? (
         <div className="overflow-x-auto rounded-md border">
           <Table className="min-w-[22rem] sm:min-w-0">
@@ -118,7 +118,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
       </Alert>}
 
       <section aria-labelledby={`event-heading-${order.id}`}>
-        <div className="flex items-center gap-2"><CalendarDays className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`event-heading-${order.id}`} className="text-sm font-semibold">Event and fulfillment</h3></div>
+        <div className="flex items-center gap-2"><CalendarDays className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`event-heading-${order.id}`} className="type-section-title">Event and fulfillment</h3></div>
         <dl className="mt-3 grid gap-x-5 gap-y-4 sm:grid-cols-2">
           <InfoValue label="Event type">{eventType}</InfoValue>
           <InfoValue label="Date and time">{formatEventTime(order.intent.eventAt)}</InfoValue>
@@ -131,7 +131,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
       <Separator />
 
       <section aria-labelledby={`contact-heading-${order.id}`}>
-        <h3 id={`contact-heading-${order.id}`} className="text-sm font-semibold">Contact</h3>
+        <h3 id={`contact-heading-${order.id}`} className="type-section-title">Contact</h3>
         <dl className="mt-3 grid gap-x-5 gap-y-4 sm:grid-cols-2">
           <InfoValue label="Name">{order.intent.contactName || 'Not provided'}</InfoValue>
           <InfoValue label="Organization">{order.intent.organization || 'Not provided'}</InfoValue>
@@ -143,13 +143,13 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
       <Separator />
 
       <section className="grid gap-5" aria-labelledby={`selections-heading-${order.id}`}>
-        <div className="flex items-center gap-2"><Utensils className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`selections-heading-${order.id}`} className="text-sm font-semibold">Food and supplies</h3></div>
+        <div className="flex items-center gap-2"><Utensils className="size-4 text-muted-foreground" aria-hidden="true" /><h3 id={`selections-heading-${order.id}`} className="type-section-title">Food and supplies</h3></div>
         <SelectionTable title="Food" rows={food} />
         <SelectionTable title="Supplies" rows={supplies} />
       </section>
 
       <section className="grid gap-2 rounded-lg bg-muted/50 p-4" aria-label="Estimated cost summary">
-        <h3 className="text-sm font-semibold">Estimated total</h3>
+        <h3 className="type-section-title">Estimated total</h3>
         <div className="flex justify-between gap-4 text-sm"><span className="text-muted-foreground">Food subtotal</span><span className="tabular-nums">{formatMoney(foodSubtotal)}</span></div>
         <div className="flex justify-between gap-4 text-sm"><span className="text-muted-foreground">Supplies subtotal</span><span className="tabular-nums">{formatMoney(supplySubtotal)}</span></div>
         <Separator className="my-1" />
@@ -158,7 +158,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
       </section>
 
       {(order.intent.dietary.length > 0 || order.intent.customRequest || order.intent.notes || order.messages.length > 0) && <section className="grid gap-3" aria-labelledby={`notes-heading-${order.id}`}>
-        <h3 id={`notes-heading-${order.id}`} className="text-sm font-semibold">Notes and updates</h3>
+        <h3 id={`notes-heading-${order.id}`} className="type-section-title">Notes and updates</h3>
         {order.intent.dietary.length > 0 && <p className="text-sm"><span className="font-medium">Dietary preferences:</span> {order.intent.dietary.join(', ')}. These are preferences, not allergy or nutrition guarantees.</p>}
         {order.intent.customRequest && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Custom request:</span> {order.intent.customRequest}</p>}
         {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
@@ -260,7 +260,7 @@ export function CurrentOrdersPage() {
   return (
     <section className="mx-auto w-full max-w-5xl px-5 py-6 sm:px-8 sm:py-8">
       <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div><h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Current orders</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Track your catering requests and respond when the Pearl Island team needs you.</p></div>
+        <div><h1 className="type-page-title">Current orders</h1><p className="mt-2 max-w-2xl text-sm text-muted-foreground">Track your catering requests and respond when the Pearl Island team needs you.</p></div>
         {newRequestButton}
       </header>
 
@@ -292,7 +292,7 @@ export function CurrentOrdersPage() {
             const orderSummary = buildOrderSummary(item, clock)
             const action = needsCustomerAction(item)
             return <Card key={item.id} className="min-w-0">
-              <CardHeader className="pb-3">
+              <CardHeader>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0"><CardTitle className="text-base">Request {item.id}</CardTitle><CardDescription className="mt-1">{formatEventTime(item.intent.eventAt)}</CardDescription></div>
                   <StaffStatusBadge status={item.status} />

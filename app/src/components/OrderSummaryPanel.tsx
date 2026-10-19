@@ -22,7 +22,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, showFlags = t
   const { estimate, coverage, flags, groups, guestCount } = summary
   return (
     <div className="grid gap-6">
-      <Panel className="p-6 md:p-8">
+      <Panel className="p-5">
         <Eyebrow>Your order</Eyebrow>
         {groups.length === 0 ? (
           <p className="mt-4 text-sm text-muted">Nothing chosen yet. Pick items from the menu to build your order.</p>
@@ -30,7 +30,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, showFlags = t
           <div className="mt-4 grid gap-4">
             {groups.map((group) => (
               <div key={group.category}>
-                <p className="font-mono text-[11px] uppercase tracking-eyebrow text-muted">{group.title}</p>
+                <p className="type-small-label uppercase text-muted">{group.title}</p>
                 <ul className="mt-1 grid gap-1">
                   {group.rows.map((row) => (
                     <li key={row.itemId} className="flex justify-between gap-3 font-sans text-sm">
@@ -47,7 +47,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, showFlags = t
         )}
 
         <div className="mt-6 border-t border-line pt-4">
-          <p className="font-sans text-5xl tracking-tight" aria-label="Estimated total">
+          <p className="font-sans text-2xl font-semibold leading-8 tabular-nums" aria-label="Estimated total">
             {formatMoney(estimate.subtotalCents)}
           </p>
           <div className="mt-2">
@@ -81,7 +81,7 @@ export function OrderSummaryPanel({ summary, showCoverage = false, showFlags = t
       {footer}
 
       {showFlags && flags.length > 0 && (
-        <Panel tone="deep" className="p-6">
+        <Panel tone="deep" className="p-5">
           <div className="flex items-center justify-between gap-3">
             <Eyebrow>Our team will check</Eyebrow>
             <Pill tone="review">Needs review</Pill>

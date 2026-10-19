@@ -26,7 +26,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
 }
 
 function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
-  return <th data-slot="table-head" className={cn('h-10 px-3 text-left align-middle font-medium whitespace-nowrap text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-px', className)} {...props} />
+  return <th data-slot="table-head" className={cn('type-small-label h-10 px-3 text-left align-middle uppercase whitespace-nowrap text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-px', className)} {...props} />
 }
 
 function TableCell({ className, ...props }: React.ComponentProps<'td'>) {

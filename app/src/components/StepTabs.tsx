@@ -65,12 +65,12 @@ export function StepTabs({ items, activeId, onChange, variant = 'row', label, pa
           >
             {active && <span aria-hidden className="absolute inset-x-0 top-0 h-0.5 bg-accent" />}
             {isRow ? (
-              <span className="font-mono text-xs uppercase tracking-eyebrow">{item.label}</span>
+              <span className="type-small-label uppercase">{item.label}</span>
             ) : (
               <span className="flex gap-4">
                 <span aria-hidden className="mt-2 size-2 shrink-0 bg-accent" />
                 <span className={cx(!active && 'text-muted')}>
-                  <span className="block font-sans text-xl">{item.label}</span>
+                  <span className="type-section-title block">{item.label}</span>
                   {item.description && <span className="mt-2 block">{item.description}</span>}
                 </span>
               </span>

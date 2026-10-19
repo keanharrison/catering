@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDemoStore } from '../../state/store'
-import { statusLabel } from '../../lib/status'
+import { statusLabel, statusTone } from '../../lib/status'
 import { canAccept } from '../../state/orderMachine'
 import { buildOrderSummary } from '../customer/orderSummary'
 import { Button } from '../../components/ui/button'
@@ -10,9 +10,8 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
-import { Inbox } from 'lucide-react'
+import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from 'lucide-react'
 import { RequestDetails } from './RequestDetails'
-import { StaffStatusBadge } from './StaffStatusBadge'
 import type { Order } from '../../data'
 
 type RequestFilter = 'all' | 'review' | 'awaiting' | 'confirmed'
@@ -23,6 +22,20 @@ const filterLabel: Record<RequestFilter, string> = {
   review: 'Needs review',
   awaiting: 'Awaiting customer',
   confirmed: 'Confirmed',
+}
+
+const filterIcon: Record<RequestFilter, typeof ListChecks> = {
+  all: ListChecks,
+  review: TriangleAlert,
+  awaiting: Clock3,
+  confirmed: BadgeCheck,
+}
+
+const filterIconStyle: Record<RequestFilter, string> = {
+  all: 'bg-blue-600 text-white',
+  review: 'bg-amber-500 text-white',
+  awaiting: 'bg-orange-500 text-white',
+  confirmed: 'bg-green-600 text-white',
 }
 
 function matchesFilter(order: Order, filter: RequestFilter) {
@@ -37,6 +50,26 @@ function dateOnly(value: string) {
   return Number.isNaN(date.getTime())
     ? value
     : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+function shortRequestId(id: string) {
+  return `…${id.slice(-6).toUpperCase()}`
+}
+
+function RequestStatus({ status }: { status: Order['status'] }) {
+  const tone = {
+    neutral: 'bg-slate-400',
+    review: 'bg-amber-500',
+    confirmed: 'bg-green-600',
+    blocked: 'bg-red-600',
+  }[statusTone[status]]
+
+  return (
+    <span className="inline-flex items-center gap-2 whitespace-nowrap text-sm" aria-label={statusLabel[status]}>
+      <span aria-hidden="true" className={`size-2 rounded-full ${tone}`} />
+      {statusLabel[status]}
+    </span>
+  )
 }
 
 export function StaffPage() {
@@ -161,19 +194,27 @@ export function StaffPage() {
   return (
     <section className="staff-requests-container mx-auto w-full max-w-[1600px] px-5 py-6 sm:px-8 sm:py-8">
       <header className="mb-6 sm:mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Catering requests</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+        <h1 className="type-page-title text-foreground">Catering requests</h1>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           Review submitted event details, follow up on exceptions, and record a decision for the demo.
         </p>
       </header>
 
       <Tabs value={filter} onValueChange={changeFilter} className="gap-4">
-        <TabsList className="grid h-auto w-full grid-cols-2 sm:w-fit sm:grid-cols-4">
+        <TabsList aria-label="Filter requests by status" className="grid !h-auto w-full grid-cols-2 gap-3 bg-transparent p-0 sm:grid-cols-4">
           {(Object.keys(filterLabel) as RequestFilter[]).map((key) => (
-            <TabsTrigger key={key} value={key} className="min-h-9 gap-2 px-3">
-              {filterLabel[key]}
-              <span className="rounded-full bg-muted px-1.5 py-0.5 text-[11px] tabular-nums text-muted-foreground">
-                {counts[key]}
+            <TabsTrigger
+              key={key}
+              value={key}
+              className="group/status-card h-auto min-h-[5.5rem] justify-start gap-3 rounded-lg border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
+            >
+              {(() => {
+                const Icon = filterIcon[key]
+                return <span aria-hidden="true" className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon className="size-5" /></span>
+              })()}
+              <span className="flex min-w-0 flex-col items-start gap-0.5">
+                <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>
+                <span className="truncate text-[13px] font-normal leading-5 text-muted-foreground">{filterLabel[key]}</span>
               </span>
             </TabsTrigger>
           ))}
@@ -214,15 +255,16 @@ export function StaffPage() {
           ) : (
             <div className="staff-requests-layout grid min-w-0 items-start gap-5">
               <Card className="min-w-0">
-                <CardHeader className="pb-3">
+                <CardHeader>
                   <CardTitle>Request list</CardTitle>
                   <CardDescription>Select a request to review its details and actions.</CardDescription>
                 </CardHeader>
                 <CardContent className="px-0 pb-0">
                   <div className="hidden md:block">
-                    <Table>
-                      <TableHeader>
+                    <Table className="min-w-[700px] staff-request-table">
+                      <TableHeader className="bg-muted/50">
                         <TableRow className="hover:bg-transparent">
+                          <TableHead>Request ID</TableHead>
                           <TableHead>Customer</TableHead>
                           <TableHead>Event date</TableHead>
                           <TableHead className="text-right">Guests</TableHead>
@@ -238,7 +280,7 @@ export function StaffPage() {
                             aria-label={`${request.intent.contactName || 'Customer'}, ${dateOnly(request.intent.eventAt)}, ${request.intent.guestCount ?? 'Guest count not provided'} guests, ${request.intent.fulfillment}, ${statusLabel[request.status]}`}
                             aria-selected={selectedId === request.id}
                             data-state={selectedId === request.id ? 'selected' : undefined}
-                            className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                            className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring data-[state=selected]:bg-accent/70 hover:bg-muted/60"
                             onClick={() => selectRequest(request)}
                             onKeyDown={(event) => {
                               if (event.key === 'Enter' || event.key === ' ') {
@@ -247,11 +289,12 @@ export function StaffPage() {
                               }
                             }}
                           >
-                            <TableCell className="max-w-48 break-words font-medium">{request.intent.contactName || 'Customer'} {request.demoSample && <Badge variant="outline" className="ml-1">Sample</Badge>}</TableCell>
+                            <TableCell className="font-mono text-xs text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</TableCell>
+                            <TableCell className="max-w-48 whitespace-normal break-words font-medium">{request.intent.contactName || 'Customer'}</TableCell>
                             <TableCell>{dateOnly(request.intent.eventAt)}</TableCell>
                             <TableCell className="text-right tabular-nums">{request.intent.guestCount ?? '—'}</TableCell>
                             <TableCell className="capitalize">{request.intent.fulfillment}</TableCell>
-                            <TableCell><StaffStatusBadge status={request.status} /></TableCell>
+                            <TableCell><RequestStatus status={request.status} /></TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -268,11 +311,12 @@ export function StaffPage() {
                         >
                           <span className="min-w-0">
                             <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} {request.demoSample && <Badge variant="outline" className="ml-1">Sample</Badge>}</span>
-                            <span className="mt-1 block text-xs text-muted-foreground">
+                            <span className="mt-1 block truncate font-mono text-[11px] text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
+                            <span className="mt-0.5 block text-xs text-muted-foreground">
                               {dateOnly(request.intent.eventAt)} · {request.intent.guestCount ?? '—'} guests · {request.intent.fulfillment}
                             </span>
                           </span>
-                          <StaffStatusBadge status={request.status} />
+                          <RequestStatus status={request.status} />
                         </button>
                       </li>
                     ))}

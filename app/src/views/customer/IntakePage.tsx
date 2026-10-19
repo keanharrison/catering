@@ -91,13 +91,13 @@ function IntakeFormView() {
   return (
     <Band>
       <Eyebrow marker>Event details</Eyebrow>
-      <h1 className="mt-6 text-3xl md:text-5xl">Tell us about your event.</h1>
+      <h1 className="type-page-title mt-6">Tell us about your event.</h1>
       <div className="mt-10">
         <JourneyNav active="event" />
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <Panel className="p-6 md:p-8">
+        <Panel className="p-5">
           <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-6">
             <FieldGroup>
               <Field data-invalid={Boolean(errors.eventType) || undefined}>
@@ -205,7 +205,7 @@ function IntakeFormView() {
           </form>
         </Panel>
 
-        <Panel tone="deep" className="self-start p-6">
+        <Panel tone="deep" className="self-start p-5">
           <Eyebrow>Why we ask</Eyebrow>
           <p className="mt-4 text-sm">
             Guest count shows how much food your event needs, and the date tells us how much notice the kitchen
