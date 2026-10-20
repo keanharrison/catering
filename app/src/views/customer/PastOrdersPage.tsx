@@ -88,7 +88,7 @@ function HistoricalOrderDetails({ order }: { order: Order }) {
 
     <section className="grid gap-2 rounded-lg bg-muted/50 p-4" aria-label="Recorded total">
       <h3 className="type-section-title">Recorded total</h3>
-      <p className="text-sm text-muted-foreground">Not recorded. This demo does not save order prices, so current menu prices are not used to recreate a historical total.</p>
+      <p className="text-sm text-muted-foreground">Total not recorded.</p>
     </section>
 
     {(order.intent.dietary.length > 0 || order.intent.customRequest || order.intent.notes || order.messages.length > 0) && <section className="grid gap-3" aria-label="Notes and updates">
@@ -98,7 +98,6 @@ function HistoricalOrderDetails({ order }: { order: Order }) {
       {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
       {order.messages.length > 0 && <div className="grid gap-2 border-t pt-3">
         {order.messages.map((message) => <div key={message.id} className="rounded-md bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
-        <p className="text-xs text-muted-foreground">Demo updates stay in this browser; they are not delivered.</p>
       </div>}
     </section>}
   </div>
@@ -136,11 +135,10 @@ export function PastOrdersPage() {
 
   return <section className="mx-auto w-full max-w-5xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div><h1 className="type-page-title">Past orders</h1><p className="mt-2 max-w-2xl text-sm text-muted-foreground">Review historical requests and their recorded details.</p></div>
+      <div><h1 className="type-page-title">Past orders</h1></div>
       {newRequestButton}
     </header>
 
-    <p className="mb-5 text-xs leading-5 text-muted-foreground">This demo does not record event completion or historical prices. Past confirmed events remain marked Confirmed, and unavailable totals are not recalculated from today’s menu.</p>
 
     <div className="mb-4 max-w-sm">
       <label htmlFor="past-order-search" className="sr-only">Search by request ID or event type</label>
@@ -148,7 +146,7 @@ export function PastOrdersPage() {
     </div>
 
     {customerHistory.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
-      <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed. Sample records for other customers are not shown.</EmptyDescription></EmptyHeader>
+      <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed.</EmptyDescription></EmptyHeader>
       <EmptyContent>{newRequestButton}</EmptyContent>
     </Empty></CardContent></Card> : visible.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-64">
       <EmptyHeader><EmptyMedia variant="icon"><Search /></EmptyMedia><EmptyTitle>No matching orders</EmptyTitle><EmptyDescription>Try another request ID or event type.</EmptyDescription></EmptyHeader>

@@ -103,7 +103,7 @@ export const INTAKE_LIMITS = {
 export const DEFAULT_TIME = '12:00'
 
 export function intentToForm(intent: OrderIntent): IntakeForm {
-  const [eventDate = '', eventTime = DEFAULT_TIME] = intent.eventAt.split('T')
+  const [eventDate = '', eventTime = intent.eventAt ? DEFAULT_TIME : ''] = intent.eventAt.split('T')
   return {
     contactName: intent.contactName,
     email: intent.email,

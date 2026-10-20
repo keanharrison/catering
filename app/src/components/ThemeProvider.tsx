@@ -47,6 +47,7 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
     root.classList.add(resolvedTheme)
     root.dataset.colorTheme = paletteName
     root.style.colorScheme = resolvedTheme
+    root.style.removeProperty('background') // the pre-paint script's stand-in; tokens take over
     for (const [key, value] of Object.entries(palette.tokens)) root.style.setProperty(key, value)
     return () => {
       for (const key of Object.keys(palette.tokens)) root.style.removeProperty(key)
@@ -54,6 +55,15 @@ export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 
       delete root.dataset.colorTheme
     }
   }, [palette, paletteName, resolvedTheme])
+
+  // Keep every open tab and the login page on the same theme.
+  useEffect(() => {
+    const sync = (event: StorageEvent) => {
+      if (event.key === storageKey && validTheme(event.newValue)) setThemeState(event.newValue)
+    }
+    window.addEventListener('storage', sync)
+    return () => window.removeEventListener('storage', sync)
+  }, [storageKey])
 
   function setTheme(next: Theme) {
     try { localStorage.setItem(storageKey, next) } catch { /* Keep theme switching usable without storage. */ }

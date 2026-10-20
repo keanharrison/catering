@@ -179,9 +179,6 @@ export function MenuPageShell() {
             <h1 className="type-page-title">
               Build your menu
             </h1>
-            <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-              Choose entrées, sides, and salads for your event.
-            </p>
           </header>
 
           <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
@@ -265,7 +262,7 @@ export function MenuPageShell() {
                     <details className="text-sm">
                       <summary className="cursor-pointer font-medium">How was this chosen?</summary>
                       <p className="mt-2 text-muted-foreground">
-                        Suggestions use this demo’s portion assumptions. Review and adjust quantities to fit your event.
+                        Suggestions use standard portion assumptions. Review and adjust quantities to fit your event.
                       </p>
                     </details>
                   </div>

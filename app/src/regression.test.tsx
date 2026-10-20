@@ -31,7 +31,7 @@ async function completeDetails(user: ReturnType<typeof userEvent.setup>) {
 }
 
 async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole('button', { name: 'Customer demo account menu' }))
+  await user.click(screen.getByRole('button', { name: 'Customer account menu' }))
   await user.keyboard('{ArrowDown}')
   await user.keyboard('{ArrowRight}')
   await user.click(await screen.findByRole('menuitemradio', { name: 'Pearl Island team account' }))
@@ -465,6 +465,6 @@ describe('regression: full journeys and edge cases', () => {
     const declined = store().orders.find((o) => o.id === id)
     expect(declined?.status).toBe('rejected')
     expect(declined?.messages.at(-1)?.text).toBe('We cannot cover that date.')
-    expect(screen.getByText(/Declined in the demo/)).toBeTruthy()
+    expect(screen.getByText(/Request declined/)).toBeTruthy()
   })
 })

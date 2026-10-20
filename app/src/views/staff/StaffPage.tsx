@@ -4,7 +4,6 @@ import { statusLabel, statusTone } from '../../lib/status'
 import { canAccept } from '../../state/orderMachine'
 import { buildOrderSummary } from '../customer/orderSummary'
 import { Button } from '../../components/ui/button'
-import { Badge } from '../../components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '../../components/ui/empty'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
@@ -112,7 +111,7 @@ export function StaffPage() {
     accept('staff')
     const state = useDemoStore.getState()
     if (state.lastError) return
-    setNotice('Accepted in the demo. No real order was created.')
+    setNotice('Request accepted.')
     setPanel(null)
     if (filter !== 'all') setFilter('confirmed')
     setSelectedId(state.order.id)
@@ -146,7 +145,7 @@ export function StaffPage() {
     const state = useDemoStore.getState()
     if (state.lastError) return
     setPanel(null)
-    setNotice('Declined in the demo. The customer was not notified.')
+    setNotice('Request declined.')
     // Declined requests only show under All.
     if (filter !== 'all') setFilter('all')
     setSelectedId(state.order.id)
@@ -184,9 +183,6 @@ export function StaffPage() {
     <section className="staff-requests-container mx-auto w-full max-w-[1600px] px-5 py-6 sm:px-8 sm:py-8">
       <header className="mb-6 sm:mb-8">
         <h1 className="type-page-title text-foreground">Catering requests</h1>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-          Review submitted event details, follow up on exceptions, and record a decision for the demo.
-        </p>
       </header>
 
       <Tabs value={filter} onValueChange={changeFilter} className="gap-4">
@@ -299,7 +295,7 @@ export function StaffPage() {
                           className="flex min-h-20 w-full items-center justify-between gap-3 px-4 py-3 text-left hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring aria-pressed:bg-muted/70"
                         >
                           <span className="min-w-0">
-                            <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} {request.demoSample && <Badge variant="outline" className="ml-1">Sample</Badge>}</span>
+                            <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} </span>
                             <span className="mt-1 block truncate text-[11px] tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
                             <span className="mt-0.5 block text-xs text-muted-foreground">
                               {dateOnly(request.intent.eventAt)} · {request.intent.guestCount ?? '—'} guests · {request.intent.fulfillment}

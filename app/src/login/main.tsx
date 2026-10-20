@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { ThemeProvider } from '../components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount, type DemoAccount } from '../state/demoAccount'
 import '@fontsource-variable/inter'
 import './login.css'
@@ -25,12 +26,11 @@ function LoginPage() {
             Continue as restaurant staff
           </button>
         </div>
-        <p className="login-caption">Demo access. No password required.</p>
       </section>
     </main>
   )
 }
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode><DemoAccountProvider><LoginPage /></DemoAccountProvider></StrictMode>,
+  <StrictMode><ThemeProvider><DemoAccountProvider><LoginPage /></DemoAccountProvider></ThemeProvider></StrictMode>,
 )

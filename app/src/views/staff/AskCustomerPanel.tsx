@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Field, FieldDescription, FieldLabel } from '../../components/ui/field'
 import { Textarea } from '../../components/ui/textarea'
 import { Button } from '../../components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
 import { MAX_MESSAGE_LENGTH } from '../../data'
 
 
@@ -23,7 +23,7 @@ export function AskCustomerPanel({ onSimulateSend, onCancel, error }: AskCustome
     <Card>
       <CardHeader>
         <CardTitle>Ask for clarification</CardTitle>
-        <CardDescription>Draft a question about this request. This demo records it locally; it does not send a message.</CardDescription>
+        
       </CardHeader>
       <CardContent>
         <Field>

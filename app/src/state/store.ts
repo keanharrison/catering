@@ -4,7 +4,6 @@ import { catalog, type Actor, type Order, type OrderIntent, type OrderLine, type
 import { addMinutes } from '../engine'
 import * as machine from './orderMachine'
 import { isValidDemoState } from './validate'
-import { sampleOrders } from '../data/sampleOrders'
 import { prefillMissingContact } from './customerProfile'
 
 /**
@@ -73,7 +72,7 @@ function freshState(id: string, previousSession = 0) {
     clock: scenario.now,
     order,
     draftOrder: order,
-    orders: sampleOrders,
+    orders: [] as Order[], // staff see only requests made in this walkthrough
     lastError: null,
   }
 }
@@ -151,7 +150,7 @@ export const useDemoStore = create<DemoState>()(
           const state = persisted as { orders?: Order[]; order?: Order; draftOrder?: Order }
           state.draftOrder ??= state.order?.status === 'draft' ? state.order : undefined
           const savedOrders = state.orders ?? (state.order && state.order.status !== 'draft' ? [state.order] : [])
-          state.orders = [...sampleOrders, ...savedOrders.filter((order) => !sampleOrders.some((sample) => sample.id === order.id))]
+          state.orders = savedOrders.filter((order) => !order.demoSample)
         }
         return persisted as DemoState
       },
@@ -159,11 +158,14 @@ export const useDemoStore = create<DemoState>()(
       merge: (persisted, current) => {
         if (!isValidDemoState(persisted)) return current
         const saved = persisted as Partial<DemoState>
+        const draftOrder = saved.draftOrder ?? (saved.order?.status === 'draft' ? saved.order : current.draftOrder)
         return {
           ...current,
           ...saved,
-          draftOrder: saved.draftOrder ?? (saved.order?.status === 'draft' ? saved.order : current.draftOrder),
-          orders: saved.orders?.length ? saved.orders : current.orders,
+          draftOrder,
+          // Sample requests saved by older versions are dropped; only this walkthrough's requests remain.
+          order: saved.order?.demoSample ? draftOrder : saved.order ?? current.order,
+          orders: (saved.orders ?? []).filter((order) => !order.demoSample),
         }
       },
     },
