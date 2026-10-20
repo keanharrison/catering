@@ -283,3 +283,10 @@ button:hover > svg, a:hover > svg, [role='menuitem']:focus > svg { --icon-color:
   }
 }
 
+
+/* Placeholder and "Please select" text must read as a hint, clearly lighter than a typed value. */
+:root { --placeholder-color: color-mix(in oklab, var(--foreground) 42%, var(--background)); }
+input::placeholder,
+textarea::placeholder,
+[data-slot='select-trigger'][data-placeholder],
+[data-slot='select-value'][data-placeholder] { color: var(--placeholder-color); opacity: 1; }
