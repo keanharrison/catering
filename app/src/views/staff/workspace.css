@@ -14,3 +14,5 @@
   .workspace-page-embedded { padding: 0; }
   .workspace-row { gap: 12px; flex-wrap: wrap; }
 }
+
+@media (max-width: 767px) { .workspace-row a { display: inline-flex; align-items: center; min-height: 44px; } }

@@ -275,3 +275,11 @@
 :is([data-slot='button'][data-variant='default'], [data-slot='sidebar-menu-button'][data-active], [data-slot='alert'], [data-slot='badge'], [data-sonner-toast], [data-slot='checkbox'], .btn-primary, .alert, .badge, .avatar, .stat-icon, [aria-current='step'], [data-selected='true'], [data-icon-surface]):not(:disabled) { --icon-color: currentColor; }
 button:hover > svg, a:hover > svg, [role='menuitem']:focus > svg { --icon-color: var(--foreground); }
 
+/* Phones: every tappable control is at least 44px tall (WCAG 2.5.8 target size, with room to spare).
+   Desktop keeps Linear's compact density. Checkboxes, radios, switches and calendar days keep their own sizes. */
+@media (max-width: 767px) {
+  :is(button, a[data-slot='button'], [role='tab'], [role='menuitem'], select, textarea, input:not([type='checkbox'], [type='radio'], [type='hidden'], [type='range']), [data-slot='select-trigger']):not([role='checkbox'], [role='radio'], [role='switch'], [data-slot='calendar'] *) {
+    min-height: 44px;
+  }
+}
+
