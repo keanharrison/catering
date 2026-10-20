@@ -17,16 +17,21 @@
 
 @theme {
   /* Body text matches the sidebar: Inter at 13px. */
+  --font-weight-normal: 450;
   --text-sm: 0.8125rem;
   --text-sm--line-height: 1.25rem;
   --font-sans: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer components {
+  /* Linear's title style: 24px Inter, weight 500, 1.3 line height, -0.02em tracking, strongest text color. */
   .type-page-title {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    font-weight: 600;
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--palette-sidebar-strong, var(--foreground));
   }
 
   .type-card-title,
@@ -34,6 +39,7 @@
     font-size: 1rem;
     line-height: 1.5rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
   }
 
   .type-small-label {
@@ -61,6 +67,7 @@
     color: var(--foreground);
     font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 13px;
+    font-weight: 450;
     line-height: 20px;
     -webkit-font-smoothing: antialiased;
     @apply bg-background text-foreground;

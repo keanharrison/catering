@@ -264,7 +264,7 @@ export function StaffPage() {
                               }
                             }}
                           >
-                            <TableCell className="font-mono text-xs text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</TableCell>
+                            <TableCell className="text-xs tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</TableCell>
                             <TableCell className="max-w-48 whitespace-normal break-words font-medium">{request.intent.contactName || 'Customer'}</TableCell>
                             <TableCell>{dateOnly(request.intent.eventAt)}</TableCell>
                             <TableCell className="text-right tabular-nums">{request.intent.guestCount ?? '—'}</TableCell>
@@ -286,7 +286,7 @@ export function StaffPage() {
                         >
                           <span className="min-w-0">
                             <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} {request.demoSample && <Badge variant="outline" className="ml-1">Sample</Badge>}</span>
-                            <span className="mt-1 block truncate font-mono text-[11px] text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
+                            <span className="mt-1 block truncate text-[11px] tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
                             <span className="mt-0.5 block text-xs text-muted-foreground">
                               {dateOnly(request.intent.eventAt)} · {request.intent.guestCount ?? '—'} guests · {request.intent.fulfillment}
                             </span>

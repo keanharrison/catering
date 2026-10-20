@@ -1,5 +1,5 @@
 import './linear-sidebar.css'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import {
   ChevronDown,
@@ -31,9 +31,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -110,40 +108,23 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar" className="linear-sidebar">
+    <Sidebar collapsible="icon" variant="inset" className="linear-sidebar">
       <SidebarHeader className="linear-sidebar-header">
         <div className="linear-workspace-row">
-          <Link to="/pearl-login.html" reloadDocument aria-label="Pearl Island 2 GO login" className="linear-workspace-brand">
-            <img src="/branding/pearl-island-logo.png" alt="Pearl Island" width={24} height={24} />
-            <span>Pearl Island 2 GO</span>
-          </Link>
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
             <DropdownMenuTrigger
               aria-label={`${demoAccountLabels[account]} account menu`}
-              render={
-                <SidebarMenuButton
-                  size="lg"
-                  className="linear-account-trigger"
-                >
-                  <ChevronDown aria-hidden="true" />
-                  <span className="sr-only">
-                    {demoAccountLabels[account]}
-                  </span>
-
-                </SidebarMenuButton>
-              }
-            />
-            <DropdownMenuContent side="bottom" align="start" className="w-64">
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>
-                  {account === 'customer' ? 'Customer demo account' : 'Pearl Island team account'}
-                </DropdownMenuLabel>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              render={<button type="button" className="linear-workspace-brand" />}
+            >
+              <img src="/branding/pearl-island-logo.png" alt="" width={24} height={24} />
+              <span>Pearl Island 2 GO</span>
+              <ChevronDown aria-hidden="true" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="bottom" align="start" className="linear-menu w-60">
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Switch demo account</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
+                  <DropdownMenuSubContent className="linear-menu">
                     <DropdownMenuRadioGroup value={account} onValueChange={chooseAccount}>
                       <DropdownMenuRadioItem value="customer">Customer demo account</DropdownMenuRadioItem>
                       <DropdownMenuRadioItem value="team">Pearl Island team account</DropdownMenuRadioItem>
@@ -151,8 +132,16 @@ export function AppSidebar() {
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate(account === 'team' ? routes.staffSettings : routes.settings)
+                  if (isMobile) setOpenMobile(false)
+                }}
+              >
+                Account settings
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem disabled>Sign-in and permissions are not connected in this demo.</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => window.location.assign('/pearl-login.html')}>Log out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <MobileSidebarClose />

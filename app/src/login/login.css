@@ -1,20 +1,20 @@
 /* Reconstructed from observed login geometry; no Linear code, logo, or remote scripts. */
 :root {
   color-scheme: light;
-  font-family: Inter, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   background: #f9f9fa;
   color: #242529;
   --login-ink: #242529;
   --login-muted: #666970;
-  --login-blue: #1575ae;
+  --login-accent: #00A1CA;
 }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 280px; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
-::selection { background: #217bb75c; color: #fff; }
+::selection { background: #00A1CA5c; }
 .login-page {
   min-height: 100svh;
   display: grid;
@@ -42,8 +42,8 @@ h1 { margin: 0; font-size: 18px; font-weight: 500; line-height: 24px; letter-spa
   cursor: pointer;
   transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
-.login-button-primary { background: var(--login-blue); color: #fff; box-shadow: 0 1px 2px #00000014, inset 0 1px 0 #ffffff1a; }
-.login-button-primary:hover { background: #1b82bd; }
+.login-button-primary { background: var(--login-accent); color: #04222B; box-shadow: 0 1px 2px #00000014, inset 0 1px 0 #ffffff1a; }
+.login-button-primary:hover { background: #0093B8; }
 .login-button-primary:active { background: #126797; }
 .login-button-secondary { background: #fff; color: var(--login-ink); border-color: #dedee2; box-shadow: 0 1px 2px #00000008; }
 .login-button-secondary:hover { background: #f0f0f2; border-color: #cfcfd5; }

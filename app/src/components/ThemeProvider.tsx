@@ -3,7 +3,7 @@ import palettes from './themePalettes.json'
 
 export type Theme = keyof typeof palettes | 'system'
 export const themeOptions = [
-  { value: 'system', label: 'System preference' },
+  { value: 'system', label: 'System' },
   ...Object.entries(palettes).map(([value, palette]) => ({ value: value as Theme, label: palette.label })),
 ]
 

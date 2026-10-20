@@ -24,6 +24,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     lastPath.current = pathname
     // Start each page at the top, then focus it without letting the browser scroll past the header.
     document.documentElement.scrollTop = 0
+    const panel = document.querySelector('[data-slot="sidebar-inset"]')
+    if (panel) panel.scrollTop = 0
     document.getElementById('main')?.focus({ preventScroll: true })
   }, [pathname])
 
@@ -38,7 +40,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
         <AppSidebar />
-        <SidebarInset className="min-h-svh min-w-0">
+        <SidebarInset className="min-h-svh min-w-0 md:h-[calc(100svh-1rem)] md:min-h-0 md:overflow-y-auto md:border md:border-border">
           <SiteHeader />
           {showJourney && (
             <div className="border-b border-border bg-background px-5 py-4 sm:px-8">
@@ -47,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </div>
             </div>
           )}
-          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-3.5rem)] min-w-0 outline-none">
+          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-3.5rem)] min-w-0 outline-none md:min-h-[calc(100svh-4.5rem)]">
             {children}
           </div>
         </SidebarInset>
