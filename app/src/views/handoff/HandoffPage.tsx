@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Printer, TriangleAlert } from 'lucide-react'
+import { Printer, TriangleAlert } from '../../components/icons'
 import type { ReactNode } from 'react'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
 import { Badge } from '../../components/ui/badge'

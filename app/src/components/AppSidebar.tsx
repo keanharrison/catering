@@ -1,4 +1,5 @@
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import './linear-sidebar.css'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import {
   ChevronDown,
@@ -10,10 +11,11 @@ import {
   Settings2,
   Truck,
   X,
-  UserRound,
-} from 'lucide-react'
+  Plug,
+  Bot,
+  SlidersHorizontal,
+} from './icons'
 import {
-  SidebarFooter,
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -21,19 +23,15 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarSeparator,
   useSidebar,
 } from '@/components/ui/sidebar'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -68,6 +66,9 @@ const teamNavigation: Destination[] = [
   { label: 'Handoff', icon: Truck, href: routes.handoff },
   { label: 'Messages', icon: MessageSquare, href: routes.staffMessages },
   { label: 'Menu and rules', icon: Settings2, href: routes.settings },
+  { label: 'Integrations', icon: Plug, href: routes.integrations },
+  { label: 'AI & agents', icon: Bot, href: routes.agents },
+  { label: 'Settings', icon: SlidersHorizontal, href: routes.staffSettings },
 ]
 
 function navigationFor(account: DemoAccount) {
@@ -107,116 +108,23 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar">
-      <SidebarHeader className="px-4 py-4 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-3">
-        <div className="flex min-h-11 items-center justify-between gap-2">
-          <Link
-            to={account === 'team' ? routes.staff : routes.customer}
-            aria-label="Pearl Island2GO home"
-            className="flex min-w-0 items-center gap-3 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
-          >
-            <img
-              src="/branding/pearl-island-logo.png"
-              alt="Pearl Island"
-              width={320}
-              height={311}
-              className="size-10 shrink-0 group-data-[collapsible=icon]:size-8"
-            />
-            <span className="truncate text-sm font-semibold tracking-tight text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-              Pearl Island2GO
-            </span>
-          </Link>
-          <MobileSidebarClose />
-        </div>
-      </SidebarHeader>
-      <SidebarSeparator />
-      <SidebarContent>
-        <SidebarGroup className="px-3 py-3 group-data-[collapsible=icon]:px-2">
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => {
-                const Icon = item.icon
-                const active = item.href === routes.customer
-                  ? pathname === routes.customer || pathname.startsWith(`${routes.customer}/`) && !pathname.startsWith(routes.currentOrders) && !pathname.startsWith(routes.customerMessages)
-                  : item.href === routes.currentOrders
-                    ? pathname === routes.currentOrders
-                    : item.href === routes.pastOrders
-                      ? pathname === routes.pastOrders
-                      : item.href === routes.customerMessages || item.href === routes.staffMessages
-                        ? pathname === item.href
-                        : item.href === routes.settings
-                          ? pathname === routes.settings
-                          : pathname === item.href
-
-                return (
-                  <SidebarMenuItem key={item.label}>
-                    {item.href ? (
-                      <SidebarMenuButton
-                        render={<NavLink to={item.href} onClick={() => {
-                          if (item.href === routes.customer) useDemoStore.getState().activateDraft()
-                          if (isMobile) setOpenMobile(false)
-                        }} />}
-                        isActive={active}
-                        size="lg"
-                        tooltip={item.label}
-                      >
-                        <Icon aria-hidden="true" />
-                        <span>{item.label}</span>
-                      </SidebarMenuButton>
-                    ) : (
-                      <SidebarMenuButton disabled size="lg" tooltip={item.label}>
-                        <Icon aria-hidden="true" />
-                        <span>{item.label}</span>
-                      </SidebarMenuButton>
-                    )}
-                    {item.disabled && <SidebarMenuBadge>Later</SidebarMenuBadge>}
-                  </SidebarMenuItem>
-                )
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2">
-        <SidebarSeparator />
-        <div className="flex items-center gap-2 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1">
-          <SidebarMenuButton
-            disabled
-            size="lg"
-            tooltip="Settings (coming soon)"
-            aria-label="Settings (coming soon)"
-            className="size-11 w-11 shrink-0 justify-center p-0 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:w-8!"
-          >
-            <Settings2 aria-hidden="true" />
-          </SidebarMenuButton>
+    <Sidebar collapsible="icon" variant="inset" className="linear-sidebar">
+      <SidebarHeader className="linear-sidebar-header">
+        <div className="linear-workspace-row">
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
             <DropdownMenuTrigger
               aria-label={`${demoAccountLabels[account]} account menu`}
-              render={
-                <SidebarMenuButton
-                  size="lg"
-                  className="min-w-0 flex-1 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:w-8! group-data-[collapsible=icon]:flex-none"
-                >
-                  <UserRound aria-hidden="true" />
-                  <span className="min-w-0 flex-1 truncate text-left group-data-[collapsible=icon]:hidden">
-                    {demoAccountLabels[account]}
-                  </span>
-                  <ChevronDown aria-hidden="true" className="size-4 shrink-0 group-data-[collapsible=icon]:hidden" />
-                </SidebarMenuButton>
-              }
-            />
-            <DropdownMenuContent side="top" align="end" className="w-64">
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>
-                  {account === 'customer' ? 'Customer demo account' : 'Pearl Island team account'}
-                </DropdownMenuLabel>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
+              render={<button type="button" className="linear-workspace-brand" />}
+            >
+              <img src="/branding/pearl-island-logo.png" alt="" width={24} height={24} />
+              <span>Pearl Island 2 GO</span>
+              <ChevronDown aria-hidden="true" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="bottom" align="start" className="linear-menu w-60">
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>Switch demo account</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
+                  <DropdownMenuSubContent className="linear-menu">
                     <DropdownMenuRadioGroup value={account} onValueChange={chooseAccount}>
                       <DropdownMenuRadioItem value="customer">Customer demo account</DropdownMenuRadioItem>
                       <DropdownMenuRadioItem value="team">Pearl Island team account</DropdownMenuRadioItem>
@@ -224,12 +132,44 @@ export function AppSidebar() {
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
+              <DropdownMenuItem
+                onClick={() => {
+                  navigate(account === 'team' ? routes.staffSettings : routes.settings)
+                  if (isMobile) setOpenMobile(false)
+                }}
+              >
+                Account settings
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem disabled>Sign-in and permissions are not connected in this demo.</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => window.location.assign('/pearl-login.html')}>Log out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <MobileSidebarClose />
         </div>
-      </SidebarFooter>
+      </SidebarHeader>
+      <SidebarContent className="linear-sidebar-content">
+        {[items.slice(0, 3), items.slice(3)].map((section, index) => (
+          <SidebarGroup key={index} className="linear-nav-group">
+            <SidebarGroupLabel>{index === 0 ? account === 'team' ? 'Operations' : 'Catering' : account === 'team' ? 'Workspace' : 'Account'}</SidebarGroupLabel>
+            <SidebarGroupContent><SidebarMenu>
+              {section.map((item) => {
+                const Icon = item.icon
+                const active = item.href === routes.customer
+                  ? pathname === routes.customer || pathname.startsWith(`${routes.customer}/`) && !pathname.startsWith(routes.currentOrders) && !pathname.startsWith(routes.customerMessages)
+                  : pathname === item.href
+                return <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {
+                    if (item.href === routes.customer) useDemoStore.getState().activateDraft()
+                    if (isMobile) setOpenMobile(false)
+                  }} />} isActive={active} tooltip={item.label}>
+                    <Icon aria-hidden="true" /><span>{item.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              })}
+            </SidebarMenu></SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
       <SidebarRail />
     </Sidebar>
   )

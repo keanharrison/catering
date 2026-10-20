@@ -10,19 +10,12 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
-import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from 'lucide-react'
+import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from '../../components/icons'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
+import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
 
-type RequestFilter = 'all' | 'review' | 'awaiting' | 'confirmed'
 type ActionPanel = 'ask' | 'edit' | null
-
-const filterLabel: Record<RequestFilter, string> = {
-  all: 'All',
-  review: 'Needs review',
-  awaiting: 'Awaiting customer',
-  confirmed: 'Confirmed',
-}
 
 const filterIcon: Record<RequestFilter, typeof ListChecks> = {
   all: ListChecks,
@@ -36,24 +29,6 @@ const filterIconStyle: Record<RequestFilter, string> = {
   review: 'bg-amber-500 text-white',
   awaiting: 'bg-orange-500 text-white',
   confirmed: 'bg-green-600 text-white',
-}
-
-function matchesFilter(order: Order, filter: RequestFilter) {
-  if (filter === 'all') return true
-  if (filter === 'review') return order.status === 'submitted' || order.status === 'needs_review'
-  if (filter === 'awaiting') return order.status === 'awaiting_customer_approval'
-  return order.status === 'confirmed'
-}
-
-function dateOnly(value: string) {
-  const date = new Date(value)
-  return Number.isNaN(date.getTime())
-    ? value
-    : date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-}
-
-function shortRequestId(id: string) {
-  return `…${id.slice(-6).toUpperCase()}`
 }
 
 function RequestStatus({ status }: { status: Order['status'] }) {
@@ -210,7 +185,7 @@ export function StaffPage() {
             >
               {(() => {
                 const Icon = filterIcon[key]
-                return <span aria-hidden="true" className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon className="size-5" /></span>
+                return <span aria-hidden="true" data-icon-surface className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon /></span>
               })()}
               <span className="flex min-w-0 flex-col items-start gap-0.5">
                 <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>
@@ -289,7 +264,7 @@ export function StaffPage() {
                               }
                             }}
                           >
-                            <TableCell className="font-mono text-xs text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</TableCell>
+                            <TableCell className="text-xs tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</TableCell>
                             <TableCell className="max-w-48 whitespace-normal break-words font-medium">{request.intent.contactName || 'Customer'}</TableCell>
                             <TableCell>{dateOnly(request.intent.eventAt)}</TableCell>
                             <TableCell className="text-right tabular-nums">{request.intent.guestCount ?? '—'}</TableCell>
@@ -311,7 +286,7 @@ export function StaffPage() {
                         >
                           <span className="min-w-0">
                             <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} {request.demoSample && <Badge variant="outline" className="ml-1">Sample</Badge>}</span>
-                            <span className="mt-1 block truncate font-mono text-[11px] text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
+                            <span className="mt-1 block truncate text-[11px] tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
                             <span className="mt-0.5 block text-xs text-muted-foreground">
                               {dateOnly(request.intent.eventAt)} · {request.intent.guestCount ?? '—'} guests · {request.intent.fulfillment}
                             </span>

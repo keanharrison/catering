@@ -1,0 +1,306 @@
+{
+  "ChevronDown": {
+    "icon": "chevron-down",
+    "component": "ChevronDown"
+  },
+  "ClipboardList": {
+    "icon": "clipboard",
+    "component": "Clipboard"
+  },
+  "History": {
+    "icon": "clock-rewind",
+    "component": "ClockRewind"
+  },
+  "MessageSquare": {
+    "icon": "message-square-01",
+    "component": "MessageSquare01"
+  },
+  "PackageCheck": {
+    "icon": "package-check",
+    "component": "PackageCheck"
+  },
+  "Plus": {
+    "icon": "plus",
+    "component": "Plus"
+  },
+  "Settings2": {
+    "icon": "settings-01",
+    "component": "Settings01"
+  },
+  "Truck": {
+    "icon": "truck-01",
+    "component": "Truck01"
+  },
+  "X": {
+    "icon": "x-close",
+    "component": "XClose"
+  },
+  "Plug": {
+    "icon": "link-02",
+    "component": "Link02"
+  },
+  "Bot": {
+    "icon": "cpu-chip-01",
+    "component": "CpuChip01"
+  },
+  "SlidersHorizontal": {
+    "icon": "sliders-01",
+    "component": "Sliders01"
+  },
+  "Minus": {
+    "icon": "minus",
+    "component": "Minus"
+  },
+  "Moon": {
+    "icon": "moon-01",
+    "component": "Moon01"
+  },
+  "Sun": {
+    "icon": "sun",
+    "component": "Sun"
+  },
+  "Send": {
+    "icon": "send-01",
+    "component": "Send01"
+  },
+  "ArrowLeft": {
+    "icon": "arrow-left",
+    "component": "ArrowLeft"
+  },
+  "Printer": {
+    "icon": "printer",
+    "component": "Printer"
+  },
+  "TriangleAlert": {
+    "icon": "alert-triangle",
+    "component": "AlertTriangle"
+  },
+  "BadgeCheck": {
+    "icon": "check-verified-01",
+    "component": "CheckVerified01"
+  },
+  "Clock3": {
+    "icon": "clock",
+    "component": "Clock"
+  },
+  "Inbox": {
+    "icon": "inbox-01",
+    "component": "Inbox01"
+  },
+  "ListChecks": {
+    "icon": "clipboard-check",
+    "component": "ClipboardCheck"
+  },
+  "ChevronsUpDown": {
+    "icon": "chevron-selector-vertical",
+    "component": "ChevronSelectorVertical"
+  },
+  "CalendarDays": {
+    "icon": "calendar-date",
+    "component": "CalendarDate"
+  },
+  "CheckCircle2": {
+    "icon": "check-circle",
+    "component": "CheckCircle"
+  },
+  "ChevronRight": {
+    "icon": "chevron-right",
+    "component": "ChevronRight"
+  },
+  "CircleAlert": {
+    "icon": "alert-circle",
+    "component": "AlertCircle"
+  },
+  "MapPin": {
+    "icon": "marker-pin-01",
+    "component": "MarkerPin01"
+  },
+  "MessageSquareText": {
+    "icon": "message-text-square-01",
+    "component": "MessageTextSquare01"
+  },
+  "Package": {
+    "icon": "package",
+    "component": "Package"
+  },
+  "Utensils": {
+    "icon": "book-open-01",
+    "component": "BookOpen01"
+  },
+  "Search": {
+    "icon": "search-md",
+    "component": "SearchMd"
+  },
+  "Check": {
+    "icon": "check",
+    "component": "Check"
+  },
+  "XIcon": {
+    "icon": "x-close",
+    "component": "XClose"
+  },
+  "CircleCheckIcon": {
+    "icon": "check-circle",
+    "component": "CheckCircle"
+  },
+  "InfoIcon": {
+    "icon": "info-circle",
+    "component": "InfoCircle"
+  },
+  "TriangleAlertIcon": {
+    "icon": "alert-triangle",
+    "component": "AlertTriangle"
+  },
+  "OctagonXIcon": {
+    "icon": "alert-octagon",
+    "component": "AlertOctagon"
+  },
+  "Loader2Icon": {
+    "icon": "loading-01",
+    "component": "Loading01"
+  },
+  "ChevronDownIcon": {
+    "icon": "chevron-down",
+    "component": "ChevronDown"
+  },
+  "ChevronUpIcon": {
+    "icon": "chevron-up",
+    "component": "ChevronUp"
+  },
+  "ChevronLeftIcon": {
+    "icon": "chevron-left",
+    "component": "ChevronLeft"
+  },
+  "ChevronRightIcon": {
+    "icon": "chevron-right",
+    "component": "ChevronRight"
+  },
+  "MoreHorizontalIcon": {
+    "icon": "dots-horizontal",
+    "component": "DotsHorizontal"
+  },
+  "PanelLeftIcon": {
+    "icon": "layout-left",
+    "component": "LayoutLeft"
+  },
+  "CheckIcon": {
+    "icon": "check",
+    "component": "Check"
+  },
+  "CheckCircle2Icon": {
+    "icon": "check-circle",
+    "component": "CheckCircle"
+  },
+  "SearchIcon": {
+    "icon": "search-md",
+    "component": "SearchMd"
+  },
+  "IconPlus": {
+    "icon": "plus",
+    "component": "Plus"
+  },
+  "IconChecks": {
+    "icon": "check-done-01",
+    "component": "CheckDone01"
+  },
+  "IconClipboardList": {
+    "icon": "clipboard",
+    "component": "Clipboard"
+  },
+  "IconEye": {
+    "icon": "eye",
+    "component": "Eye"
+  },
+  "IconMessageQuestion": {
+    "icon": "message-question-square",
+    "component": "MessageQuestionSquare"
+  },
+  "IconSearch": {
+    "icon": "search-md",
+    "component": "SearchMd"
+  },
+  "IconCheck": {
+    "icon": "check",
+    "component": "Check"
+  },
+  "IconChevronDown": {
+    "icon": "chevron-down",
+    "component": "ChevronDown"
+  },
+  "IconChefHat": {
+    "icon": "user-02",
+    "component": "User02"
+  },
+  "IconMoon": {
+    "icon": "moon-01",
+    "component": "Moon01"
+  },
+  "IconPin": {
+    "icon": "pin-01",
+    "component": "Pin01"
+  },
+  "IconSun": {
+    "icon": "sun",
+    "component": "Sun"
+  },
+  "IconUser": {
+    "icon": "user-01",
+    "component": "User01"
+  },
+  "IconAlertTriangle": {
+    "icon": "alert-triangle",
+    "component": "AlertTriangle"
+  },
+  "IconInbox": {
+    "icon": "inbox-01",
+    "component": "Inbox01"
+  },
+  "IconMinus": {
+    "icon": "minus",
+    "component": "Minus"
+  },
+  "IconPlug": {
+    "icon": "link-02",
+    "component": "Link02"
+  },
+  "IconRobot": {
+    "icon": "cpu-chip-01",
+    "component": "CpuChip01"
+  },
+  "IconAdjustments": {
+    "icon": "sliders-01",
+    "component": "Sliders01"
+  },
+  "IconHistory": {
+    "icon": "clock-rewind",
+    "component": "ClockRewind"
+  },
+  "IconMessage": {
+    "icon": "message-square-01",
+    "component": "MessageSquare01"
+  },
+  "IconPackage": {
+    "icon": "package",
+    "component": "Package"
+  },
+  "IconSettings": {
+    "icon": "settings-01",
+    "component": "Settings01"
+  },
+  "IconToolsKitchen2": {
+    "icon": "book-open-01",
+    "component": "BookOpen01"
+  },
+  "IconTruckDelivery": {
+    "icon": "truck-01",
+    "component": "Truck01"
+  },
+  "IconMenu": {
+    "icon": "menu-01",
+    "component": "Menu01"
+  },
+  "IconClose": {
+    "icon": "x-close",
+    "component": "XClose"
+  }
+}

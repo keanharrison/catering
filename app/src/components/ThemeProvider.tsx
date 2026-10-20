@@ -1,64 +1,66 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import palettes from './themePalettes.json'
 
-type Theme = 'dark' | 'light' | 'system'
+export type Theme = keyof typeof palettes | 'system'
+export const themeOptions = [
+  { value: 'system', label: 'System' },
+  ...Object.entries(palettes).map(([value, palette]) => ({ value: value as Theme, label: palette.label })),
+]
 
-type ThemeProviderProps = {
+function validTheme(value: string | null): value is Theme {
+  return value === 'system' || Boolean(value && Object.hasOwn(palettes, value))
+}
+
+const ThemeProviderContext = createContext<{
+  theme: Theme
+  resolvedTheme: 'light' | 'dark'
+  setTheme: (theme: Theme) => void
+}>({ theme: 'system', resolvedTheme: 'light', setTheme: () => null })
+
+export function ThemeProvider({ children, defaultTheme = 'system', storageKey = 'vite-ui-theme' }: {
   children: ReactNode
   defaultTheme?: Theme
   storageKey?: string
-}
-
-type ThemeProviderState = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
-
-const initialState: ThemeProviderState = {
-  theme: 'system',
-  setTheme: () => null,
-}
-
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
-
-export function ThemeProvider({
-  children,
-  defaultTheme = 'system',
-  storageKey = 'vite-ui-theme',
-}: ThemeProviderProps) {
+}) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    const storedTheme = localStorage.getItem(storageKey)
-    return storedTheme === 'dark' || storedTheme === 'light' || storedTheme === 'system'
-      ? storedTheme
-      : defaultTheme
+    try {
+      const stored = localStorage.getItem(storageKey)
+      return validTheme(stored) ? stored : defaultTheme
+    } catch { return defaultTheme }
   })
+  const [systemDark, setSystemDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches)
+  const paletteName = theme === 'system' ? systemDark ? 'dark' : 'light' : theme
+  const palette = palettes[paletteName]
+  const resolvedTheme = palette.dark ? 'dark' : 'light'
 
   useEffect(() => {
-    const root = window.document.documentElement
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const change = () => setSystemDark(media.matches)
+    change()
+    media.addEventListener('change', change)
+    return () => media.removeEventListener('change', change)
+  }, [])
+
+  useEffect(() => {
+    const root = document.documentElement
     root.classList.remove('light', 'dark')
-
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-      root.classList.add(systemTheme)
-      return
+    root.classList.add(resolvedTheme)
+    root.dataset.colorTheme = paletteName
+    root.style.colorScheme = resolvedTheme
+    for (const [key, value] of Object.entries(palette.tokens)) root.style.setProperty(key, value)
+    return () => {
+      for (const key of Object.keys(palette.tokens)) root.style.removeProperty(key)
+      root.style.removeProperty('color-scheme')
+      delete root.dataset.colorTheme
     }
+  }, [palette, paletteName, resolvedTheme])
 
-    root.classList.add(theme)
-  }, [theme])
-
-  function setTheme(nextTheme: Theme) {
-    localStorage.setItem(storageKey, nextTheme)
-    setThemeState(nextTheme)
+  function setTheme(next: Theme) {
+    try { localStorage.setItem(storageKey, next) } catch { /* Keep theme switching usable without storage. */ }
+    setThemeState(next)
   }
 
-  return (
-    <ThemeProviderContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeProviderContext.Provider>
-  )
+  return <ThemeProviderContext.Provider value={{ theme, resolvedTheme, setTheme }}>{children}</ThemeProviderContext.Provider>
 }
 
-export function useTheme() {
-  return useContext(ThemeProviderContext)
-}
+export function useTheme() { return useContext(ThemeProviderContext) }

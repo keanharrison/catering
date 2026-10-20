@@ -8,6 +8,9 @@ export const routes = {
   customerMessages: '/customer/messages',
   staffMessages: '/staff/messages',
   settings: '/settings',
+  integrations: '/staff/integrations',
+  agents: '/staff/agents',
+  staffSettings: '/staff/settings',
 } as const
 
 export type Area = keyof typeof routes

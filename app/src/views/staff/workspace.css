@@ -1,0 +1,16 @@
+.workspace-page { width: min(100%, 900px); margin: 0 auto; padding: 36px 28px; color: var(--foreground); }
+.workspace-page-embedded { padding: 0; }
+.workspace-page header { margin-bottom: 28px; }
+.workspace-page h1 { margin: 0 0 8px; font-size: 22px; font-weight: 600; line-height: 30px; }
+.workspace-page p { margin: 6px 0 0; color: var(--muted-foreground); font-size: 14px; line-height: 22px; max-width: 68ch; }
+.workspace-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--border); }
+.workspace-row h2 { margin: 0; color: var(--foreground); font-size: 14px; font-weight: 600; line-height: 22px; }
+.workspace-status { flex: none; padding: 3px 8px; border-radius: 5px; background: var(--muted); color: var(--muted-foreground); font-size: 12px; line-height: 20px; }
+.workspace-page .workspace-notice { padding: 12px 14px; margin-bottom: 8px; border-radius: 6px; background: var(--muted); }
+.workspace-row a { color: var(--link); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.workspace-row a:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .workspace-page { padding: 24px 16px; }
+  .workspace-page-embedded { padding: 0; }
+  .workspace-row { gap: 12px; flex-wrap: wrap; }
+}

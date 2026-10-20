@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Check, CheckCircle2Icon, InfoIcon, SearchIcon } from 'lucide-react'
+import { Check, CheckCircle2Icon, InfoIcon, SearchIcon } from '../../components/icons'
 import {
   Card,
   CardContent,

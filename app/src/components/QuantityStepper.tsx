@@ -1,4 +1,4 @@
-import { Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from './icons'
 import { Button } from './ui/button'
 import { ButtonGroup } from './ui/button-group'
 import { Input } from './ui/input'

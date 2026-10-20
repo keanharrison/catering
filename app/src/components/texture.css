@@ -1,0 +1,57 @@
+/* Texture options for review. Switch with ?texture=shadow | watermark | grain | dots (combine with +). */
+
+/* A: layered, Linear-style card shadows and a soft inset on fields */
+[data-texture~='shadow'] [data-slot='card'] {
+  box-shadow: 0 0 0 0.5px var(--border), 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.05);
+}
+[data-texture~='shadow'] :is(input, textarea, [data-slot='select-trigger'], [data-slot='native-select']) {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.06);
+}
+[data-texture~='shadow'] #main { background-image: linear-gradient(180deg, transparent 0, color-mix(in lch, var(--foreground) 3%, transparent) 100%); }
+
+/* B: large faint logo behind the top of the page, fading out (like the Linear mark on the chat screen) */
+[data-texture~='watermark'] #main { position: relative; isolation: isolate; overflow-x: clip; }
+[data-texture~='watermark'] #main::before {
+  content: '';
+  position: absolute;
+  top: 120px;
+  right: -140px;
+  width: 520px;
+  height: 520px;
+  z-index: -1;
+  background: url('/branding/pearl-island-logo.png') center / contain no-repeat;
+  opacity: 0.09;
+  filter: grayscale(1);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 85%);
+  mask-image: linear-gradient(180deg, #000 30%, transparent 85%);
+  pointer-events: none;
+}
+.dark[data-texture~='watermark'] #main::before, [data-texture~='watermark'].dark #main::before { filter: grayscale(1) invert(1); opacity: 0.06; }
+
+/* C: fine paper grain over the whole app */
+[data-texture~='grain'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark[data-texture~='grain'] body::after, [data-texture~='grain'].dark body::after { opacity: 0.09; mix-blend-mode: screen; }
+
+/* D: dot grid that fades out toward the bottom of the first screen */
+[data-texture~='dots'] #main { position: relative; isolation: isolate; }
+[data-texture~='dots'] #main::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 760px;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(color-mix(in lch, var(--foreground) 16%, transparent) 1px, transparent 1.2px);
+  background-size: 20px 20px;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 220px, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0, #000 220px, transparent 100%);
+}
+@media print { [data-texture] body::after, [data-texture] #main::before, [data-texture] #main::after { display: none !important; } }

@@ -33,7 +33,7 @@ async function completeDetails(user: ReturnType<typeof userEvent.setup>) {
 
 async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('button', { name: 'Customer demo account menu' }))
-  await user.keyboard('{ArrowDown}{ArrowRight}')
+  await user.keyboard('{ArrowDown}'); await user.keyboard('{ArrowRight}')
   await user.click(screen.getByRole('menuitemradio', { name: 'Pearl Island team account' }))
 }
 
@@ -50,7 +50,7 @@ describe('customer journey end to end', () => {
 
     // Event basics are prefilled from the scenario.
     expect(pageTitle('Plan your catering')).toBeTruthy()
-    await click(user, 'Choose your menu')
+    await click(user, 'Continue')
 
     // Menu starts empty; the customer chooses.
     expect(pageTitle('Build your menu')).toBeTruthy()
@@ -161,8 +161,8 @@ describe('customer journey end to end', () => {
     useDemoStore.getState().loadScenario('routine')
     const user = userEvent.setup()
     renderAt('/customer')
-    await user.clear(screen.getByLabelText('Number of guests (required)'))
-    await click(user, 'Choose your menu')
+    await user.clear(screen.getByLabelText('Guests'))
+    await click(user, 'Continue')
     expect(screen.getByRole('alert').textContent).toMatch(/whole number of guests/)
     expect(pageTitle('Plan your catering')).toBeTruthy()
   })

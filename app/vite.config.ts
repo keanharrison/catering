@@ -6,6 +6,15 @@ import { defineConfig } from 'vitest/config'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  build: {
+    rollupOptions: {
+      // The login page is a second HTML entry; the app stays at index.html.
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        'pearl-login': fileURLToPath(new URL('./pearl-login.html', import.meta.url)),
+      },
+    },
+  },
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   test: {
     environment: 'node',

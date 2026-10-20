@@ -3,6 +3,7 @@ import { cleanup, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
+import { sampleOrders } from './data/sampleOrders'
 import { useDemoStore } from './state/store'
 import { renderAppAt } from './test/renderApp'
 
@@ -40,6 +41,8 @@ beforeEach(() => {
   vi.spyOn(console, 'error').mockImplementation((...args) => void errors.push(args.join(' ')))
   vi.spyOn(console, 'warn').mockImplementation((...args) => void errors.push(args.join(' ')))
   store().loadScenario('routine')
+  // loadScenario keeps saved requests by design; start each test from the sample queue so tests don't leak into each other.
+  useDemoStore.setState({ orders: sampleOrders })
 })
 afterEach(() => {
   cleanup()
@@ -53,7 +56,7 @@ describe('regression: full journeys and edge cases', () => {
       store().loadScenario(id)
       const user = userEvent.setup()
       renderAt('/customer')
-      await user.click(btn('Choose your menu'))
+      await user.click(btn('Continue'))
       await user.click(btn('Suggest'))
       await user.click(btn('Apply'))
       await user.click(btn('Choose supplies'))
@@ -79,10 +82,10 @@ describe('regression: full journeys and edge cases', () => {
     await user.click(btn('Apply'))
     expect(screen.getByTestId('coverage').textContent).toContain('40 of 40 guests')
     await user.click(btn('Back'))
-    const guests = screen.getByLabelText('Number of guests (required)')
+    const guests = screen.getByLabelText('Guests')
     await user.clear(guests)
     await user.type(guests, '80')
-    await user.click(btn('Choose your menu'))
+    await user.click(btn('Continue'))
     expect(screen.getByTestId('coverage').textContent).toContain('40 of 80 guests')
   }, 15000)
 
