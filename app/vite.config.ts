@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         'tabler-preview': fileURLToPath(new URL('./tabler-preview.html', import.meta.url)),
+        'pearl-login': fileURLToPath(new URL('./pearl-login.html', import.meta.url)),
       },
     },
   },
