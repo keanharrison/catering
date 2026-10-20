@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { sampleOrders } from './data/sampleOrders'
 import { useDemoStore } from './state/store'
+import { fillEventBasics } from './test/fillEventBasics'
 import { renderAppAt } from './test/renderApp'
 
 const errors: string[] = []
@@ -38,6 +39,7 @@ async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
 beforeEach(() => {
   localStorage.clear()
   errors.length = 0
+  vi.setSystemTime(new Date('2026-10-13T09:00')) // the first page defaults its date to today
   vi.spyOn(console, 'error').mockImplementation((...args) => void errors.push(args.join(' ')))
   vi.spyOn(console, 'warn').mockImplementation((...args) => void errors.push(args.join(' ')))
   store().loadScenario('routine')
@@ -47,6 +49,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  vi.useRealTimers()
 })
 
 describe('regression: full journeys and edge cases', () => {
@@ -56,6 +59,7 @@ describe('regression: full journeys and edge cases', () => {
       store().loadScenario(id)
       const user = userEvent.setup()
       renderAt('/customer')
+      await fillEventBasics(user, id)
       await user.click(btn('Continue'))
       await user.click(btn('Suggest'))
       await user.click(btn('Apply'))
@@ -77,7 +81,9 @@ describe('regression: full journeys and edge cases', () => {
 
   it('updates coverage when the guest count changes after the menu is built', async () => {
     const user = userEvent.setup()
-    renderAt('/customer/menu')
+    renderAt('/customer')
+    await fillEventBasics(user)
+    await user.click(btn('Continue'))
     await user.click(btn('Suggest'))
     await user.click(btn('Apply'))
     expect(screen.getByTestId('coverage').textContent).toContain('40 of 40 guests')

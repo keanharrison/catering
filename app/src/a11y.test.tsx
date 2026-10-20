@@ -1,9 +1,10 @@
 // @vitest-environment jsdom
 import { cleanup, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { useDemoStore } from './state/store'
+import { fillEventBasics } from './test/fillEventBasics'
 import { renderAppAt } from './test/renderApp'
 
 function renderAt(path: string) {
@@ -13,8 +14,12 @@ function renderAt(path: string) {
 beforeEach(() => {
   localStorage.clear()
   useDemoStore.getState().loadScenario('routine')
+  vi.setSystemTime(new Date('2026-10-13T09:00')) // the first page defaults its date to today
 })
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  vi.useRealTimers()
+})
 
 describe('keyboard and structure', () => {
   it('offers a skip link to the main content', () => {
@@ -34,6 +39,7 @@ describe('keyboard and structure', () => {
   it('moves focus to the page after navigating', async () => {
     const user = userEvent.setup()
     renderAt('/customer')
+    await fillEventBasics(user)
     await user.click(screen.getByRole('button', { name: 'Continue' }))
     expect(document.activeElement?.id).toBe('main')
   })
@@ -76,6 +82,7 @@ describe('keyboard and structure', () => {
   it('supports completing the event form with the keyboard alone', async () => {
     const user = userEvent.setup()
     renderAt('/customer')
+    await fillEventBasics(user)
     const guests = screen.getByLabelText('Guests')
     guests.focus()
     await user.keyboard('{Control>}a{/Control}45{Tab}')

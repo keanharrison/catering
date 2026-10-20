@@ -14,7 +14,8 @@ export type IntakeForm = {
   guestCount: string
   eventDate: string
   eventTime: string
-  fulfillment: Fulfillment
+  /** Empty until the customer chooses on the first page. */
+  fulfillment: Fulfillment | ''
   dietary: DietaryTag[]
   budget: string
   notes: string
@@ -37,7 +38,7 @@ function isIntakeForm(value: unknown): value is IntakeForm {
   ]
   return (
     textFields.every((field) => typeof form[field] === 'string') &&
-    (form.fulfillment === 'pickup' || form.fulfillment === 'delivery') &&
+    (form.fulfillment === '' || form.fulfillment === 'pickup' || form.fulfillment === 'delivery') &&
     Array.isArray(form.dietary) && form.dietary.every((tag) => ['vegetarian', 'vegan', 'gluten-free', 'dairy-free', 'spicy'].includes(tag))
   )
 }
@@ -148,7 +149,7 @@ export function formToIntent(form: IntakeForm): OrderIntent {
     eventType: form.eventType,
     guestCount: parseGuests(form.guestCount),
     eventAt: `${form.eventDate}T${form.eventTime || DEFAULT_TIME}`,
-    fulfillment: form.fulfillment,
+    fulfillment: form.fulfillment || 'pickup',
     dietary: form.dietary,
     budgetCents: parseBudgetCents(form.budget),
     notes: form.notes.trim(),
@@ -178,6 +179,10 @@ export function validateForm(form: IntakeForm, now: string, catalog: Catalog): I
 
   if (!catalog.eventTypes.some((e) => e.id === form.eventType)) {
     errors.eventType = 'Choose an event type.'
+  }
+
+  if (form.fulfillment !== 'pickup' && form.fulfillment !== 'delivery') {
+    errors.fulfillment = 'Choose pickup or delivery.'
   }
 
   const guests = parseGuests(form.guestCount)
