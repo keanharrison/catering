@@ -30,8 +30,8 @@ export function DemoAccountProvider({ children }: { children: ReactNode }) {
   const [account, updateAccount] = useState<DemoAccount>(readAccount)
 
   function setAccount(next: DemoAccount) {
-    // Staff select sample requests as the active order; a customer must never inherit one.
-    if (next === 'customer') useDemoStore.getState().activateDraft()
+    // A customer starts from an empty request, never a sample one or staff's selection.
+    if (next === 'customer') useDemoStore.getState().startBlankDraft()
     updateAccount(next)
     try {
       window.localStorage.setItem(STORAGE_KEY, next)

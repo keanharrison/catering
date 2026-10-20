@@ -24,7 +24,7 @@ function isValidIntent(x: unknown): boolean {
     isText(x.eventType) &&
     isNumberOrNull(x.guestCount) &&
     isText(x.eventAt) &&
-    !Number.isNaN(Date.parse(x.eventAt)) &&
+    (x.eventAt === '' || !Number.isNaN(Date.parse(x.eventAt))) && // a new request has no date yet
     (x.fulfillment === 'pickup' || x.fulfillment === 'delivery') &&
     Array.isArray(x.dietary) &&
     x.dietary.every(isText) &&

@@ -36,6 +36,8 @@ type DemoState = {
   loadScenario: (id: string) => void
   activateOrder: (id: string) => void
   activateDraft: () => void
+  /** Logging in as a customer: replace the sample draft with an empty one and drop any half-typed form. */
+  startBlankDraft: () => void
   reset: () => void
   updateDraft: (patch: {
     intent?: OrderIntent
@@ -49,6 +51,17 @@ type DemoState = {
   customerApprove: () => void
   accept: (actor: Actor) => void
   reject: (reason: string) => void
+}
+
+/** A customer's new request starts with no answers; only their saved account profile fills the contact fields. */
+function blankDraft(scenario: Scenario) {
+  const intent = prefillMissingContact({
+    contactName: '', email: '', phone: '', organization: '',
+    deliveryAddress: '', deliveryCity: '', deliveryState: '', deliveryZip: '',
+    eventType: '', guestCount: null, eventAt: '', fulfillment: 'pickup' as const,
+    dietary: [], budgetCents: null, notes: '', customRequest: '',
+  })
+  return machine.createOrder({ ...scenario, intent })
 }
 
 function freshState(id: string, previousSession = 0) {
@@ -103,6 +116,10 @@ export const useDemoStore = create<DemoState>()(
           if (order) set({ order, lastError: null })
         },
         activateDraft: () => set({ order: get().draftOrder, lastError: null }),
+        startBlankDraft: () => {
+          const draft = blankDraft(findScenario(get().scenarioId))
+          set({ order: draft, draftOrder: draft, session: get().session + 1, lastError: null })
+        },
         reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders }),
         updateDraft: (patch) => run((order) => machine.updateDraft(order, patch)),
         submit: () => run((order, at) => machine.submit(order, at)),

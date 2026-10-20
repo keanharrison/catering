@@ -30,6 +30,7 @@ describe('saved state validation', () => {
     expect(isValidDemoState({ ...good(), order: { ...order, lines: [{ itemId: 'sous-poulet', units: -1 }] } })).toBe(false)
     expect(isValidDemoState({ ...good(), order: { ...order, intent: { ...order.intent, guestCount: '40' } } })).toBe(false)
     expect(isValidDemoState({ ...good(), order: { ...order, intent: { ...order.intent, eventAt: 'soon' } } })).toBe(false)
+    expect(isValidDemoState({ ...good(), order: { ...order, intent: { ...order.intent, eventAt: '' } } })).toBe(true) // a new request has no date yet
   })
 
   it('rejects an unknown scenario or a bad clock', () => {

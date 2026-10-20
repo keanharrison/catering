@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { sampleOrders } from './data/sampleOrders'
 import { useDemoStore } from './state/store'
+import { intentToForm } from './views/customer/intake'
 import { fillEventBasics } from './test/fillEventBasics'
 import { renderAppAt } from './test/renderApp'
 
@@ -78,6 +79,14 @@ describe('regression: full journeys and edge cases', () => {
     }
     expect(errors).toEqual([])
   }, 60000)
+
+  it('starts a customer login with an empty request and drops a half-typed form', async () => {
+    sessionStorage.setItem('pi2go-customer-form-draft', JSON.stringify({ session: store().session, form: { ...intentToForm(store().order.intent), guestCount: '77' } }))
+    store().startBlankDraft()
+    renderAt('/customer')
+    expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('')
+    expect(store().order.intent).toMatchObject({ eventType: '', guestCount: null, contactName: '', organization: '', budgetCents: null, dietary: [] })
+  })
 
   it('updates coverage when the guest count changes after the menu is built', async () => {
     const user = userEvent.setup()
