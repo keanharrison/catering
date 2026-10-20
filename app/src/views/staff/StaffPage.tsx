@@ -15,7 +15,7 @@ import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
 import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
 
-type ActionPanel = 'ask' | 'edit' | null
+type ActionPanel = 'ask' | 'edit' | 'decline' | null
 
 const filterIcon: Record<RequestFilter, typeof ListChecks> = {
   all: ListChecks,
@@ -57,6 +57,7 @@ export function StaffPage() {
   const accept = useDemoStore((state) => state.accept)
   const requestClarification = useDemoStore((state) => state.requestClarification)
   const revise = useDemoStore((state) => state.revise)
+  const reject = useDemoStore((state) => state.reject)
   const [filter, setFilter] = useState<RequestFilter>('all')
   const [panel, setPanel] = useState<ActionPanel>(null)
   const [notice, setNotice] = useState<string | null>(null)
@@ -140,6 +141,17 @@ export function StaffPage() {
     setSelectedId(state.order.id)
   }
 
+  function declineRequest(reason: string) {
+    reject(reason)
+    const state = useDemoStore.getState()
+    if (state.lastError) return
+    setPanel(null)
+    setNotice('Declined in the demo. The customer was not notified.')
+    // Declined requests only show under All.
+    if (filter !== 'all') setFilter('all')
+    setSelectedId(state.order.id)
+  }
+
   function clearFilters() {
     setFilter('all')
     setSelectedId(requests[0]?.id ?? null)
@@ -159,9 +171,11 @@ export function StaffPage() {
       onAccept={acceptRequest}
       onAsk={() => { savingQuestionRef.current = false; setNotice(null); clearError(); setPanel('ask') }}
       onEdit={() => { setNotice(null); clearError(); setPanel('edit') }}
+      onDecline={() => { setNotice(null); clearError(); setPanel('decline') }}
       panel={panel}
       onSaveQuestion={saveQuestion}
       onSaveProposal={saveProposal}
+      onSaveDecline={declineRequest}
       onCancelPanel={() => { clearError(); setPanel(null) }}
     />
   ) : null

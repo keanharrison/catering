@@ -155,7 +155,7 @@ describe('regression: full journeys and edge cases', () => {
       '5All',
       '2Needs review',
       '1Awaiting customer',
-      '1Confirmed',
+      '1Accepted',
     ])
     expect(screen.getAllByRole('row')).toHaveLength(6)
 
@@ -437,5 +437,19 @@ describe('regression: full journeys and edge cases', () => {
     store().activateOrder('sample-needs-review')
     renderAt('/handoff')
     expect(h1()).toBe('Staff handoff')
+  })
+  it('lets staff decline an open request with a reason and shows it as declined', async () => {
+    const user = userEvent.setup()
+    renderAt('/staff')
+    const id = store().order.id
+    expect(store().orders.find((o) => o.id === id)?.status).not.toBe('rejected')
+    await user.click(btn('Decline'))
+    expect(screen.getByRole('button', { name: 'Decline request' }).hasAttribute('disabled')).toBe(true) // a reason is required
+    await user.type(screen.getByLabelText('Reason'), 'We cannot cover that date.')
+    await user.click(screen.getByRole('button', { name: 'Decline request' }))
+    const declined = store().orders.find((o) => o.id === id)
+    expect(declined?.status).toBe('rejected')
+    expect(declined?.messages.at(-1)?.text).toBe('We cannot cover that date.')
+    expect(screen.getByText(/Declined in the demo/)).toBeTruthy()
   })
 })
