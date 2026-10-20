@@ -18,7 +18,6 @@ function pageLabel(pathname: string) {
   if (pathname === routes.agents) return 'AI & agents'
   if (pathname === routes.staffSettings) return 'Settings'
   if (pathname === routes.handoff) return 'Handoff'
-  if (pathname === routes.gallery) return 'Gallery'
   const segment = pathname.split('/').filter(Boolean).at(-1)
   return segment ? segment.replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'New request'
 }

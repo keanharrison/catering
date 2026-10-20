@@ -50,7 +50,6 @@ export function AppRoutes() {
       ))}
       <Route path={routes.settings} element={<SettingsPage />} />
       <Route path={routes.handoff} element={account === 'team' ? <HandoffPage /> : <Navigate to={routes.customer} replace />} />
-      <Route path={routes.gallery} element={<Navigate to={routes.customer} replace />} />
       <Route path="*" element={<Navigate to={routes.customer} replace />} />
     </Routes>
   )
