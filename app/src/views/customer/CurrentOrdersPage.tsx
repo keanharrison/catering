@@ -95,7 +95,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         <CircleAlert aria-hidden="true" />
         <AlertTitle>Review the revised proposal</AlertTitle>
         <AlertDescription className="mt-2 grid justify-items-start gap-3">
-          <span>{last?.text || 'Pearl Island proposed changes to your selections. Review them before approving.'} Approval is saved in this demo and does not notify the team.</span>
+          <span>{last?.text || 'Pearl Island proposed changes to your selections. Review them before approving.'}</span>
           <Button size="sm" onClick={onReviewProposal}>Review proposal</Button>
         </AlertDescription>
       </Alert>}
@@ -109,7 +109,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
             <Field data-invalid={Boolean(replyError)}>
               <FieldLabel htmlFor={`order-reply-${order.id}`}>Your response</FieldLabel>
               <Textarea id={`order-reply-${order.id}`} value={replyText} onChange={(event) => onReplyText(event.target.value)} aria-invalid={Boolean(replyError)} aria-describedby={`order-reply-hint-${order.id}${replyError ? ` order-reply-error-${order.id}` : ''}`} placeholder="Type your response" rows={3} />
-              <FieldDescription id={`order-reply-hint-${order.id}`}>Required. Saved only in this browser demo; no message will be delivered.</FieldDescription>
+              <FieldDescription id={`order-reply-hint-${order.id}`}>Required.</FieldDescription>
               {replyError && <FieldError id={`order-reply-error-${order.id}`}>{replyError}</FieldError>}
             </Field>
             <Button type="submit" size="sm" className="justify-self-start">Save response</Button>
@@ -164,7 +164,6 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
         {order.messages.length > 0 && <div className="grid gap-2 border-t pt-3">
           {order.messages.map((message) => <div key={message.id} className="rounded-md bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
-          <p className="text-xs text-muted-foreground">Demo updates stay in this browser; they are not delivered.</p>
         </div>}
       </section>}
     </div>
@@ -260,7 +259,7 @@ export function CurrentOrdersPage() {
   return (
     <section className="mx-auto w-full max-w-5xl px-5 py-6 sm:px-8 sm:py-8">
       <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-        <div><h1 className="type-page-title">Current orders</h1><p className="mt-2 max-w-2xl text-sm text-muted-foreground">Track your catering requests and respond when the Pearl Island team needs you.</p></div>
+        <div><h1 className="type-page-title">Current orders</h1></div>
         {newRequestButton}
       </header>
 
@@ -275,7 +274,7 @@ export function CurrentOrdersPage() {
       {currentOrders.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-72">
-            <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit in this customer demo will appear here with their current status. Sample records for other customers stay out of your account.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
             <EmptyContent>{newRequestButton}</EmptyContent>
           </Empty>
         </CardContent></Card>
@@ -332,7 +331,7 @@ export function CurrentOrdersPage() {
 
       <Dialog open={approvalOpen} onOpenChange={setApprovalOpen}>
         <DialogContent className="sm:max-w-2xl">
-          <DialogHeader><DialogTitle>Approve revised proposal?</DialogTitle><DialogDescription>Review the proposed selections and updated estimate. Approval is saved in this browser demo; it does not notify Pearl Island.</DialogDescription></DialogHeader>
+          <DialogHeader><DialogTitle>Approve revised proposal?</DialogTitle><DialogDescription>Review the proposed selections and updated estimate.</DialogDescription></DialogHeader>
           {summary && <div className="max-h-[55vh] overflow-y-auto px-1">
             <div className="mb-4 flex items-center justify-between gap-3"><span className="text-sm text-muted-foreground">Request {selected?.id}</span><Badge variant="outline">Proposed by Pearl Island</Badge></div>
             <div className="grid gap-5">{summary.groups.filter((group) => group.category !== 'supply').map((group) => <SelectionTable key={group.category} title={group.title} rows={group.rows} />)}<SelectionTable title="Supplies" rows={summary.groups.filter((group) => group.category === 'supply').flatMap((group) => group.rows)} /></div>

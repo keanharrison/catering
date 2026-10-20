@@ -8,7 +8,6 @@ import { formatEventTime } from '../../lib/status'
 import { formatMoney } from '../../lib/format'
 import { routes } from '../../routes'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
-import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
 import { Separator } from '../../components/ui/separator'
@@ -90,7 +89,7 @@ export function RequestDetails({
               <CardTitle className="break-words">{eventTypeLabel(order.intent.eventType)}</CardTitle>
               <CardDescription className="mt-1 break-words">{order.intent.contactName || 'Customer'}{order.intent.organization ? ` · ${order.intent.organization}` : ''}</CardDescription>
             </div>
-            {order.demoSample && <Badge variant="outline">Sample</Badge>}
+            
               <StaffStatusBadge status={order.status} />
           </div>
         </CardHeader>
@@ -189,7 +188,6 @@ export function RequestDetails({
               <section aria-labelledby="request-messages-heading">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 id="request-messages-heading" className="type-section-title">Request messages</h3>
-                  <span className="text-xs text-muted-foreground">Demo only · not delivered</span>
                 </div>
                 <ol className="mt-3 grid gap-3">
                   {order.messages.map((message) => (
@@ -216,11 +214,6 @@ export function RequestDetails({
           )}
           {notice && <p role="status" className="rounded-md bg-teal-50 px-3 py-2 text-sm text-teal-950 dark:bg-teal-950/40 dark:text-teal-100">{notice}</p>}
           {error && panel === null && <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
-          {!closed && (
-            <p className="text-xs leading-5 text-muted-foreground">
-              Staff actions are simulated and saved in this browser. This demo does not deliver messages or create a real order.
-            </p>
-          )}
         </CardContent>
         <CardFooter className="flex flex-wrap items-start gap-2">
           {order.status === 'confirmed' ? (

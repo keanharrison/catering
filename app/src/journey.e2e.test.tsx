@@ -33,7 +33,7 @@ async function completeDetails(user: ReturnType<typeof userEvent.setup>) {
 }
 
 async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole('button', { name: 'Customer demo account menu' }))
+  await user.click(screen.getByRole('button', { name: 'Customer account menu' }))
   await user.keyboard('{ArrowDown}'); await user.keyboard('{ArrowRight}')
   await user.click(screen.getByRole('menuitemradio', { name: 'Pearl Island team account' }))
 }
@@ -87,7 +87,7 @@ describe('customer journey end to end', () => {
 
     expect(pageTitle('Review your catering request')).toBeTruthy()
     expect(screen.getByText(/Request recorded · Submitted/)).toBeTruthy()
-    expect(screen.getByText(/Nothing was sent to Pearl Island, and no payment was taken/)).toBeTruthy()
+    expect(screen.getByText(/The Pearl Island team will review/)).toBeTruthy()
     expect(useDemoStore.getState().order.status).toBe('submitted')
 
     // Minimal simulated staff view accepts it.
@@ -127,7 +127,7 @@ describe('customer journey end to end', () => {
     expect(useDemoStore.getState().order.flags.length).toBeGreaterThan(0)
     expect(screen.getByText(/Request recorded · Needs review/)).toBeTruthy()
 
-    expect(screen.getByText(/Your request is recorded in this demo/)).toBeTruthy()
+    expect(screen.getByText(/The Pearl Island team will review/)).toBeTruthy()
 
     // The review flags are still shown on the staff side, without the extra explanatory heading.
     await switchToTeam(user)

@@ -7,6 +7,17 @@
     <meta name="theme-color" content="#0c0d0d" />
     <link rel="icon" type="image/png" href="/branding/pearl-island-logo.png" />
     <title>Log in · Pearl Island 2 GO</title>
+    <script>
+      // Apply the saved color theme before first paint so there is no light flash.
+      try {
+        var t = localStorage.getItem('vite-ui-theme');
+        var dark = t === 'dark' || t === 'classic-dark' || ((!t || t === 'system') && matchMedia('(prefers-color-scheme: dark)').matches);
+        var r = document.documentElement;
+        r.classList.add(dark ? 'dark' : 'light');
+        r.style.colorScheme = dark ? 'dark' : 'light';
+        r.style.background = t === 'classic-dark' ? 'lch(12.236% 2.213 272.695)' : dark ? 'lch(5.52% 0.4 272)' : 'lch(97.94% 0.5 282)';
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -122,11 +122,11 @@ export function AppSidebar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent side="bottom" align="start" className="linear-menu w-60">
               <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Switch demo account</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger>Switch account</DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent className="linear-menu">
                     <DropdownMenuRadioGroup value={account} onValueChange={chooseAccount}>
-                      <DropdownMenuRadioItem value="customer">Customer demo account</DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem value="customer">Customer account</DropdownMenuRadioItem>
                       <DropdownMenuRadioItem value="team">Pearl Island team account</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>

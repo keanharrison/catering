@@ -72,7 +72,7 @@ function SummaryDetails({ summary }: { summary: OrderSummary }) {
         <div className="mt-3 rounded-md bg-muted/50 p-3 text-sm" data-testid="coverage">
           <p>Entree servings: <strong>{summary.coverage.servings}</strong> of {summary.guestCount} guests</p>
           <p className="mt-1 text-xs text-muted-foreground">
-            For this demo, coverage counts one entree serving per guest. Side quantities are separate.
+            Coverage counts one entree serving per guest. Side quantities are separate.
           </p>
         </div>
       )}

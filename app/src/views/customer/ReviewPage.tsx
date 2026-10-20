@@ -152,11 +152,6 @@ function ReviewView() {
       <section className="mx-auto w-full max-w-7xl">
         <header className="mb-6 max-w-3xl">
           <h1 className="type-page-title">Review your catering request</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {submitted
-              ? 'Your request is recorded in this demo. The restaurant has not received it.'
-              : 'Check your event, selections, and contact details before asking Pearl Island to review your request.'}
-          </p>
         </header>
 
         {submitted && (
@@ -164,12 +159,11 @@ function ReviewView() {
             <CheckCircle2 />
             <AlertTitle>Request recorded · {statusLabel[order.status]}</AlertTitle>
             <AlertDescription>
-              <p>Nothing was sent to Pearl Island, and no payment was taken.</p>
-              <p className="mt-2">
-                {order.status === 'submitted' && 'Next step in this demo: switch to the Pearl Island team account to review the request.'}
-                {order.status === 'needs_review' && 'Next step in this demo: the Pearl Island team account can review the flagged items.'}
-                {order.status === 'confirmed' && 'The team accepted this request in the demo. No real order exists.'}
-                {order.status === 'rejected' && 'The team declined this request in the demo.'}
+              <p>
+                {order.status === 'submitted' && 'The Pearl Island team will review your request.'}
+                {order.status === 'needs_review' && 'The Pearl Island team will review the flagged items.'}
+                {order.status === 'confirmed' && 'The team accepted this request.'}
+                {order.status === 'rejected' && 'The team declined this request.'}
                 {order.status === 'awaiting_customer_approval' && 'The team proposed changes. Review the updated selections below and approve them if they work for you.'}
               </p>
               {order.status === 'awaiting_customer_approval' && order.revision === 'pending' && (
@@ -298,7 +292,6 @@ function ReviewView() {
                 <Button type="button" className="min-h-11" disabled={submitting} onClick={submitRequest}>
                   {submitting ? 'Submitting…' : 'Submit request'}
                 </Button>
-                <p className="max-w-md text-sm text-muted-foreground sm:text-right">Submitting records this request in the demo on this device. Nothing is sent, and no payment is taken.</p>
                 {lastError && (
                   <Alert variant="destructive" className="mt-1 max-w-md">
                     <CircleAlert />

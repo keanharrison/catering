@@ -157,13 +157,12 @@ function CustomerMessagesPage() {
     setDrafts((current) => ({ ...current, [selected.id]: '' }))
     setReplyError('')
     setSaveError('')
-    setNotice('Reply saved on this device. It was not sent to Pearl Island.')
+    setNotice('Reply saved.')
   }
 
   return <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6">
       <h1 className="type-page-title">Messages</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">Conversations stay with their catering requests. Messages in this demo are saved on this device and are not delivered.</p>
     </header>
 
     {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
@@ -222,7 +221,7 @@ function CustomerMessagesPage() {
               <Field data-invalid={Boolean(replyError)}>
                 <FieldLabel htmlFor={`customer-reply-${selected.id}`}>Your reply</FieldLabel>
                 <Textarea id={`customer-reply-${selected.id}`} value={reply} onChange={(event) => updateReply(event.target.value)} placeholder="Write a reply…" rows={3} maxLength={MAX_MESSAGE_LENGTH} aria-invalid={Boolean(replyError)} aria-describedby={`reply-hint-${selected.id} reply-count-${selected.id}${replyError ? ` reply-error-${selected.id}` : ''}`} disabled={!canReply || saving} />
-                <FieldDescription id={`reply-hint-${selected.id}`}>{canReply ? 'Saved to this device only; it will not be sent outside the demo.' : 'This request is closed, so replies are disabled.'}</FieldDescription>
+                <FieldDescription id={`reply-hint-${selected.id}`}>{canReply ? '' : 'This request is closed, so replies are disabled.'}</FieldDescription>
                 <p id={`reply-count-${selected.id}`} className="text-xs text-muted-foreground" aria-live="polite">{reply.length}/{MAX_MESSAGE_LENGTH} characters</p>
                 {replyError && <FieldError id={`reply-error-${selected.id}`}>{replyError}</FieldError>}
               </Field>
