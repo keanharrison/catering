@@ -268,7 +268,7 @@ export function CurrentOrdersPage() {
         <TabsList className="grid h-auto w-full grid-cols-3 sm:max-w-lg">
           <TabsTrigger value="all" className="min-h-9">All active <span className="text-xs text-muted-foreground">{counts.all}</span></TabsTrigger>
           <TabsTrigger value="action" className="min-h-9">Needs your action <span className="text-xs text-muted-foreground">{counts.action}</span></TabsTrigger>
-          <TabsTrigger value="confirmed" className="min-h-9">Confirmed <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
+          <TabsTrigger value="confirmed" className="min-h-9">Accepted <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
         </TabsList>
       </Tabs>
 
