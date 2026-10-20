@@ -1,5 +1,6 @@
 @import '@fontsource-variable/inter';
 @import 'tailwindcss';
+@import './components/menu.css';
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 

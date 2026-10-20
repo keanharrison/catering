@@ -4,6 +4,7 @@ import { catalog, type OrderLine } from '../../data'
 import { estimate, MAX_QUANTITY } from '../../engine'
 import { formatMoney } from '../../lib/format'
 import { Button } from '../../components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
 
 type EditRequestPanelProps = {
@@ -75,19 +76,20 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel, error }:
         <label htmlFor="add-item" className="sr-only">
           Add an item
         </label>
-        <select
-          id="add-item"
-          className="min-h-9 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm md:w-auto"
-          value=""
-          onChange={(event) => event.target.value && setDraft([...draft, { itemId: event.target.value, units: 1 }])}
+        <Select
+          items={addable.map((item) => ({ label: item.name, value: item.id }))}
+          value={null}
+          onValueChange={(value) => value && setDraft([...draft, { itemId: String(value), units: 1 }])}
         >
-          <option value="">Add an item...</option>
-          {addable.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger id="add-item" className="min-h-9 w-full md:w-72">
+            <SelectValue placeholder="Add an item…" />
+          </SelectTrigger>
+          <SelectContent>
+            {addable.map((item) => (
+              <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <p className="mt-4 font-sans text-sm" data-testid="edit-estimate">
