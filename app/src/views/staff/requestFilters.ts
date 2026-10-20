@@ -1,6 +1,6 @@
 import type { Order } from '../../data'
 
-// Filter rules and display helpers shared by the original Staff page and the Tabler Staff page.
+// Filter rules and display helpers used by the Staff page.
 export type RequestFilter = 'all' | 'review' | 'awaiting' | 'confirmed'
 
 export const filterLabel: Record<RequestFilter, string> = {

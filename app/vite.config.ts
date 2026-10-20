@@ -8,10 +8,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
-      // The Tabler shell preview is a second HTML entry; the existing app stays at index.html.
+      // The login page is a second HTML entry; the app stays at index.html.
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
-        'tabler-preview': fileURLToPath(new URL('./tabler-preview.html', import.meta.url)),
         'pearl-login': fileURLToPath(new URL('./pearl-login.html', import.meta.url)),
       },
     },

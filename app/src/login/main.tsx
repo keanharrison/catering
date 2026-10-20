@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { DemoAccountProvider, useDemoAccount, type DemoAccount } from '../state/demoAccount'
+import '@fontsource-variable/inter'
 import './login.css'
 
 function LoginPage() {
@@ -8,7 +9,7 @@ function LoginPage() {
 
   function enter(account: DemoAccount) {
     setAccount(account)
-    window.location.assign(account === 'team' ? '/tabler-preview.html#/staff' : '/customer')
+    window.location.assign(account === 'team' ? '/staff' : '/customer')
   }
 
   return (
