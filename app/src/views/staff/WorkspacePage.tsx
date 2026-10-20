@@ -19,7 +19,7 @@ const sections = {
     title: 'AI & agents',
     description: 'A place for assisted catering workflows, with staff approval kept in control.',
     items: [
-      ['Menu recommendations', 'Rule-based demo', 'The current “Help me choose” feature uses the existing menu, guest count, dietary selections, and budget rules. It does not call an AI service.'],
+      ['Menu recommendations', 'Rule-based demo', 'The menu page’s Suggest button uses the existing menu, guest count, and dietary selections. It does not call an AI service.'],
       ['Request review assistant', 'Planned', 'Summarize dietary and operational exceptions for staff review before a request is accepted.'],
       ['Customer follow-up', 'Planned', 'Draft clarification questions for staff to review. No messages are sent automatically.'],
     ],
@@ -34,7 +34,7 @@ export function WorkspacePage({ area, embedded = false }: { area: WorkspaceArea;
     {settings ? <>
       <div className="workspace-row"><div><h2>Appearance</h2><p>Choose a color theme for customer and staff views on this device.</p></div><ThemePicker /></div>
       <div className="workspace-row"><div><h2>Menu and rules</h2><p>Review the existing menu and catering rules preview.</p></div><Link to={routes.settings}>Open menu and rules</Link></div>
-      <div className="workspace-row"><div><h2>Account access</h2><p>Use the workspace menu beside the logo to switch between the customer and restaurant staff demo accounts.</p></div><span className="workspace-status">Local demo</span></div>
+      <div className="workspace-row"><div><h2>Account access</h2><p>Use the workspace menu at the top of the sidebar to switch between the customer and restaurant staff demo accounts.</p></div><span className="workspace-status">Local demo</span></div>
     </> : <>
       <p className="workspace-notice">{area === 'integrations' ? 'These connections are not configured. This page outlines the proposed setup; it does not connect external services.' : 'Only menu recommendations are available in the current demo. The other assistants are planned.'}</p>
       {section!.items.map(([title, status, description]) => <div className="workspace-row" key={title}><div><h2>{title}</h2><p>{description}</p></div><span className="workspace-status">{status}</span></div>)}

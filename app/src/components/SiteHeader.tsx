@@ -18,7 +18,6 @@ function pageLabel(pathname: string) {
   if (pathname === routes.agents) return 'AI & agents'
   if (pathname === routes.staffSettings) return 'Settings'
   if (pathname === routes.handoff) return 'Handoff'
-  if (pathname === routes.gallery) return 'Gallery'
   const segment = pathname.split('/').filter(Boolean).at(-1)
   return segment ? segment.replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()) : 'New request'
 }
@@ -30,7 +29,7 @@ export function SiteHeader() {
   return (
     <header data-slot="site-header" className="sticky top-0 z-40 flex h-14 w-full shrink-0 items-center gap-2.5 border-b border-border bg-card px-3 sm:gap-3 sm:px-5">
       <SidebarTrigger aria-label="Toggle navigation" className="-ml-1 size-11 md:hidden" />
-      <Link to="/pearl-login.html" reloadDocument aria-label="Pearl Island 2 GO login" className="flex min-w-0 flex-1 items-center gap-2 md:hidden">
+      <Link to="/pearl-login.html" reloadDocument aria-label="Pearl Island 2 GO login" className="flex min-h-11 min-w-0 flex-1 items-center gap-2 md:hidden">
         <img
           src="/branding/pearl-island-logo.png"
           alt="Pearl Island"

@@ -5,6 +5,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { sampleOrders } from './data/sampleOrders'
 import { useDemoStore } from './state/store'
+import { intentToForm } from './views/customer/intake'
+import { fillEventBasics } from './test/fillEventBasics'
 import { renderAppAt } from './test/renderApp'
 
 const errors: string[] = []
@@ -38,6 +40,7 @@ async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
 beforeEach(() => {
   localStorage.clear()
   errors.length = 0
+  vi.setSystemTime(new Date('2026-10-13T09:00')) // the first page defaults its date to today
   vi.spyOn(console, 'error').mockImplementation((...args) => void errors.push(args.join(' ')))
   vi.spyOn(console, 'warn').mockImplementation((...args) => void errors.push(args.join(' ')))
   store().loadScenario('routine')
@@ -47,6 +50,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup()
   vi.restoreAllMocks()
+  vi.useRealTimers()
 })
 
 describe('regression: full journeys and edge cases', () => {
@@ -56,6 +60,7 @@ describe('regression: full journeys and edge cases', () => {
       store().loadScenario(id)
       const user = userEvent.setup()
       renderAt('/customer')
+      await fillEventBasics(user, id)
       await user.click(btn('Continue'))
       await user.click(btn('Suggest'))
       await user.click(btn('Apply'))
@@ -75,9 +80,19 @@ describe('regression: full journeys and edge cases', () => {
     expect(errors).toEqual([])
   }, 60000)
 
+  it('starts a customer login with an empty request and drops a half-typed form', async () => {
+    sessionStorage.setItem('pi2go-customer-form-draft', JSON.stringify({ session: store().session, form: { ...intentToForm(store().order.intent), guestCount: '77' } }))
+    store().startBlankDraft()
+    renderAt('/customer')
+    expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('')
+    expect(store().order.intent).toMatchObject({ eventType: '', guestCount: null, contactName: '', organization: '', budgetCents: null, dietary: [] })
+  })
+
   it('updates coverage when the guest count changes after the menu is built', async () => {
     const user = userEvent.setup()
-    renderAt('/customer/menu')
+    renderAt('/customer')
+    await fillEventBasics(user)
+    await user.click(btn('Continue'))
     await user.click(btn('Suggest'))
     await user.click(btn('Apply'))
     expect(screen.getByTestId('coverage').textContent).toContain('40 of 40 guests')
@@ -137,13 +152,13 @@ describe('regression: full journeys and edge cases', () => {
     expect(store().order.lines).toHaveLength(before)
   })
 
-  it('shows staff sample requests and explains when handoff is not ready', () => {
+  it('shows staff sample requests and explains when no request is accepted yet', () => {
     renderAt('/staff')
     expect(screen.getByText('Catering requests')).toBeTruthy()
     expect(screen.getAllByRole('row').length).toBeGreaterThan(1) // representative sample requests remain available
     cleanup()
     renderAt('/handoff')
-    expect(screen.getByText('Handoff is not ready')).toBeTruthy()
+    expect(screen.getByText('No accepted request yet')).toBeTruthy()
   })
 
   it('filters the staff queue by status and supports keyboard row selection', async () => {
@@ -155,7 +170,7 @@ describe('regression: full journeys and edge cases', () => {
       '5All',
       '2Needs review',
       '1Awaiting customer',
-      '1Confirmed',
+      '1Accepted',
     ])
     expect(screen.getAllByRole('row')).toHaveLength(6)
 
@@ -408,5 +423,48 @@ describe('regression: full journeys and edge cases', () => {
     store().reset()
     expect(store().order.status).toBe('draft')
     expect(store().order.lines).toEqual([])
+  })
+  it('never lets a customer inherit a sample request that staff selected', () => {
+    store().activateOrder('sample-needs-review')
+    expect(store().order.demoSample).toBe(true)
+    renderAt('/customer/review')
+    expect(store().order.status).toBe('draft')
+    expect(store().order.demoSample).toBeUndefined()
+    expect(h1()).toBe('Plan your catering')
+  })
+
+  it('opens a fresh draft when New request is visited while a submitted request is active', () => {
+    store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store().submit()
+    expect(store().order.status).not.toBe('draft')
+    renderAt('/customer')
+    expect(store().order.status).toBe('draft')
+    expect(h1()).toBe('Plan your catering')
+    expect(screen.getByLabelText('Guests')).toBeTruthy()
+    expect(store().lastError).toBeNull()
+  })
+
+  it('shows the latest request staff accepted on the handoff page even after another request is selected', () => {
+    store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store().submit()
+    store().accept('staff')
+    expect(store().order.status).toBe('confirmed')
+    store().activateOrder('sample-needs-review')
+    renderAt('/handoff')
+    expect(h1()).toBe('Staff handoff')
+  })
+  it('lets staff decline an open request with a reason and shows it as declined', async () => {
+    const user = userEvent.setup()
+    renderAt('/staff')
+    const id = store().order.id
+    expect(store().orders.find((o) => o.id === id)?.status).not.toBe('rejected')
+    await user.click(btn('Decline'))
+    expect(screen.getByRole('button', { name: 'Decline request' }).hasAttribute('disabled')).toBe(true) // a reason is required
+    await user.type(screen.getByLabelText('Reason'), 'We cannot cover that date.')
+    await user.click(screen.getByRole('button', { name: 'Decline request' }))
+    const declined = store().orders.find((o) => o.id === id)
+    expect(declined?.status).toBe('rejected')
+    expect(declined?.messages.at(-1)?.text).toBe('We cannot cover that date.')
+    expect(screen.getByText(/Declined in the demo/)).toBeTruthy()
   })
 })

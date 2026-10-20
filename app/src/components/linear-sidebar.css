@@ -75,30 +75,3 @@
 [data-slot='sidebar-wrapper']:has([data-variant='inset']) { background: var(--palette-sidebar-bg, var(--sidebar)); }
 [data-slot='sidebar-inset'] { box-shadow: 0 0 0 0.5px var(--border), 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.05); }
 @media (min-width: 768px) { [data-slot='sidebar-inset'] { border-radius: 12px; } }
-
-/* Workspace menu: popover container and rows, after Linear's menu (rows inset from the edges, 8px radius). */
-[data-slot='dropdown-menu-content'].linear-menu {
-  padding: 6px;
-  border: 0;
-  border-radius: 10px;
-  background: var(--popover);
-  box-shadow: 0 0 0 0.5px var(--border), 0 9px 48px rgb(0 0 0 / 0.08), 0 6px 24px rgb(0 0 0 / 0.1), 0 1px 1px rgb(0 0 0 / 0.04);
-  --tw-ring-shadow: 0 0 #0000;
-}
-.linear-menu [data-slot='dropdown-menu-item'],
-.linear-menu [data-slot='dropdown-menu-sub-trigger'],
-.linear-menu [data-slot='dropdown-menu-radio-item'] { min-height: 32px; padding: 0 8px; border-radius: 8px; font-size: 13px; font-weight: 450; }
-.linear-menu [data-slot='dropdown-menu-label'] { padding: 6px 8px 4px; font-size: 12px; font-weight: 500; color: var(--muted-foreground); }
-.linear-menu [data-slot='dropdown-menu-separator'] { margin: 6px -6px; }
-[data-slot='dropdown-menu-content'].linear-menu { min-width: 15rem; }
-.linear-menu [data-slot='dropdown-menu-radio-item'] { padding-right: 32px; }
-.linear-menu [data-slot='dropdown-menu-radio-item-indicator'] { right: 10px; }
-/* Submenu arrow: a small filled triangle, like Linear's, instead of an open chevron. */
-.linear-menu [data-slot='dropdown-menu-sub-trigger'] > svg { display: none; }
-.linear-menu [data-slot='dropdown-menu-sub-trigger']::after { content: ''; margin-left: auto; border-left: 6px solid var(--muted-foreground); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
-
-/* Sidebar content sits a little closer to the left edge on desktop (phones keep the wider gutter). */
-@media (min-width: 768px) {
-  .linear-sidebar-header { padding-inline: 4px; }
-  .linear-sidebar-content { padding-inline: 4px; }
-}

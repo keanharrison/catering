@@ -7,7 +7,7 @@ export const filterLabel: Record<RequestFilter, string> = {
   all: 'All',
   review: 'Needs review',
   awaiting: 'Awaiting customer',
-  confirmed: 'Confirmed',
+  confirmed: 'Accepted',
 }
 
 export function matchesFilter(order: Order, filter: RequestFilter) {

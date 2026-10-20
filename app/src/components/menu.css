@@ -1,0 +1,25 @@
+/* One menu look for every dropdown, after Linear's: the workspace menu, selects, and the date popover.
+   Rows sit inset from the card edges with an 8px radius; the selected check lives in its own right-hand column. */
+:is([data-slot='dropdown-menu-content'], [data-slot='select-content'], [data-slot='popover-content']) {
+  border: 0;
+  border-radius: 10px;
+  background: var(--popover);
+  box-shadow: 0 0 0 0.5px var(--border), 0 9px 48px rgb(0 0 0 / 0.08), 0 6px 24px rgb(0 0 0 / 0.1), 0 1px 1px rgb(0 0 0 / 0.04);
+}
+:is([data-slot='dropdown-menu-content'], [data-slot='select-content']) { padding: 6px; min-width: 9rem; }
+[data-slot='dropdown-menu-content'].linear-menu { min-width: 15rem; }
+[data-slot='select-group'] { padding: 0; }
+:is([data-slot='dropdown-menu-item'], [data-slot='dropdown-menu-sub-trigger'], [data-slot='dropdown-menu-radio-item'], [data-slot='select-item']) {
+  min-height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 450;
+}
+:is([data-slot='dropdown-menu-radio-item'], [data-slot='select-item']) { padding-right: 32px; }
+:is([data-slot='dropdown-menu-radio-item-indicator'], [data-slot='select-item'] > [class*='absolute']) { right: 10px; }
+[data-slot='dropdown-menu-label'], [data-slot='select-label'] { padding: 6px 8px 4px; font-size: 12px; font-weight: 500; color: var(--muted-foreground); }
+:is([data-slot='dropdown-menu-separator'], [data-slot='select-separator']) { margin: 6px -6px; }
+/* Submenu arrow: a small filled triangle, like Linear's, instead of an open chevron. */
+[data-slot='dropdown-menu-sub-trigger'] > svg { display: none; }
+[data-slot='dropdown-menu-sub-trigger']::after { content: ''; margin-left: auto; border-left: 6px solid var(--muted-foreground); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }

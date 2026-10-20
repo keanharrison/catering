@@ -2,9 +2,10 @@
 import { cleanup, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useLocation } from 'react-router-dom'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
 import { useDemoStore } from './state/store'
+import { fillEventBasics } from './test/fillEventBasics'
 import { renderAppAt } from './test/renderApp'
 
 function RouteProbe() {
@@ -39,8 +40,12 @@ async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
 
 beforeEach(() => {
   localStorage.clear()
+  vi.setSystemTime(new Date('2026-10-13T09:00')) // the first page defaults its date to today
 })
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  vi.useRealTimers()
+})
 
 describe('customer journey end to end', () => {
   it('routine: customer builds the menu without any suggestion and submits a simulated request', async () => {
@@ -48,8 +53,9 @@ describe('customer journey end to end', () => {
     const user = userEvent.setup()
     renderAt('/customer')
 
-    // Event basics are prefilled from the scenario.
+    // The first page opens empty; the customer answers it.
     expect(pageTitle('Plan your catering')).toBeTruthy()
+    await fillEventBasics(user)
     await click(user, 'Continue')
 
     // Menu starts empty; the customer chooses.
@@ -161,7 +167,7 @@ describe('customer journey end to end', () => {
     useDemoStore.getState().loadScenario('routine')
     const user = userEvent.setup()
     renderAt('/customer')
-    await user.clear(screen.getByLabelText('Guests'))
+    await fillEventBasics(user, 'routine', { guests: false })
     await click(user, 'Continue')
     expect(screen.getByRole('alert').textContent).toMatch(/whole number of guests/)
     expect(pageTitle('Plan your catering')).toBeTruthy()

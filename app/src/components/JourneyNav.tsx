@@ -29,8 +29,7 @@ export function JourneyNav({ active }: { active: Stage }) {
                 onClick={() => navigate(stagePath(stage.id))}
                 className={cx(
                   'flex min-h-10 w-full items-center justify-center rounded-md px-1 text-center text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:justify-start sm:px-2',
-                  isActive ? 'bg-secondary text-secondary-foreground' : 'text-muted-foreground hover:bg-muted',
-                  !enabled && !isActive && 'cursor-not-allowed opacity-55',
+                  isActive ? 'bg-secondary text-secondary-foreground' : enabled ? 'text-foreground hover:bg-muted' : 'cursor-not-allowed text-muted-foreground',
                 )}
               >
                 <span

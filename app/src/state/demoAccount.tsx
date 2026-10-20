@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { useDemoStore } from './store'
 
 export type DemoAccount = 'customer' | 'team'
 
@@ -29,6 +30,8 @@ export function DemoAccountProvider({ children }: { children: ReactNode }) {
   const [account, updateAccount] = useState<DemoAccount>(readAccount)
 
   function setAccount(next: DemoAccount) {
+    // A customer starts from an empty request, never a sample one or staff's selection.
+    if (next === 'customer') useDemoStore.getState().startBlankDraft()
     updateAccount(next)
     try {
       window.localStorage.setItem(STORAGE_KEY, next)

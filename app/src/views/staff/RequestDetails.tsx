@@ -13,10 +13,11 @@ import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
 import { Separator } from '../../components/ui/separator'
 import { AskCustomerPanel } from './AskCustomerPanel'
+import { DeclineRequestPanel } from './DeclineRequestPanel'
 import { EditRequestPanel } from './EditRequestPanel'
 import { StaffStatusBadge } from './StaffStatusBadge'
 
-type Panel = 'ask' | 'edit' | null
+type Panel = 'ask' | 'edit' | 'decline' | null
 
 type RequestDetailsProps = {
   order: Order
@@ -31,9 +32,11 @@ type RequestDetailsProps = {
   onAccept: () => void
   onAsk: () => void
   onEdit: () => void
+  onDecline: () => void
   panel: Panel
   onSaveQuestion: (text: string) => void
   onSaveProposal: (lines: Order['lines']) => void
+  onSaveDecline: (reason: string) => void
   onCancelPanel: () => void
 }
 
@@ -63,9 +66,11 @@ export function RequestDetails({
   onAccept,
   onAsk,
   onEdit,
+  onDecline,
   panel,
   onSaveQuestion,
   onSaveProposal,
+  onSaveDecline,
   onCancelPanel,
 }: RequestDetailsProps) {
   const foodGroups = summary.groups.filter((group) => group.category !== 'supply')
@@ -231,6 +236,7 @@ export function RequestDetails({
               </Button>
               <Button variant="outline" disabled={!canAsk} onClick={onAsk}>Ask for clarification</Button>
               <Button variant="outline" disabled={!canEdit} onClick={onEdit}>Edit request</Button>
+              <Button variant="outline" disabled={!canEdit} onClick={onDecline}>Decline</Button>
             </>
           ) : <span className="text-sm text-muted-foreground">This request is closed.</span>}
         </CardFooter>
@@ -241,6 +247,9 @@ export function RequestDetails({
 
       {panel === 'ask' && (
         <AskCustomerPanel onSimulateSend={onSaveQuestion} onCancel={onCancelPanel} error={error} />
+      )}
+      {panel === 'decline' && (
+        <DeclineRequestPanel onDecline={onSaveDecline} onCancel={onCancelPanel} error={error} />
       )}
       {panel === 'edit' && (
         <EditRequestPanel

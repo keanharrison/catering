@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
@@ -22,7 +22,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Select,
   SelectContent,
@@ -58,26 +57,61 @@ const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
   value: id,
 }))
 
+const fulfillmentItems: Array<{ label: string; value: Fulfillment }> = [
+  { label: 'Pickup', value: 'pickup' },
+  { label: 'Delivery', value: 'delivery' },
+]
+
+/** The first page opens empty (today's date aside); the sample order's answers are not shown. */
+function blankBasics(): Pick<IntakeForm, 'eventType' | 'guestCount' | 'eventDate' | 'fulfillment' | 'dietary' | 'budget'> {
+  return { eventType: '', guestCount: '', eventDate: format(new Date(), 'yyyy-MM-dd'), fulfillment: '', dietary: [], budget: '' }
+}
+
+/** Replays a short ring and lift on the button so a silent autosave is noticeable. */
+function flash(element: HTMLElement | null) {
+  if (!element?.animate || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+  element.animate(
+    [
+      { boxShadow: '0 0 0 0 color-mix(in srgb, var(--primary) 55%, transparent)', transform: 'scale(1)' },
+      { boxShadow: '0 0 0 5px color-mix(in srgb, var(--primary) 22%, transparent)', transform: 'scale(1.03)', offset: 0.35 },
+      { boxShadow: '0 0 0 9px transparent', transform: 'scale(1)' },
+    ],
+    { duration: 700, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+  )
+}
+
 const errorFieldLabels: Partial<Record<IntakeField, string>> = {
   eventType: 'Event type',
   guestCount: 'Guests',
   eventDate: 'Date',
+  fulfillment: 'Pickup or delivery',
   budget: 'Budget',
 }
 
+/** Opening New request while a submitted request is active starts a fresh draft, so edits are never silently dropped. */
 export function EventPage() {
+  const status = useDemoStore((state) => state.order.status)
+  const activateDraft = useDemoStore((state) => state.activateDraft)
+  useEffect(() => {
+    if (status !== 'draft') activateDraft()
+  }, [status, activateDraft])
+  return status === 'draft' ? <EventForm /> : null
+}
+
+function EventForm() {
   const navigate = useNavigate()
   const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
   const updateDraft = useDemoStore((state) => state.updateDraft)
   const [form, setForm] = useState<IntakeForm>(() =>
-    loadIntakeFormDraft(session, { ...intentToForm(order.intent), dietary: [] }),
+    loadIntakeFormDraft(session, { ...intentToForm(order.intent), ...blankBasics() }),
   )
   const [errors, setErrors] = useState<IntakeErrors>({})
   const [draftSaved, setDraftSaved] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const draftButtonRef = useRef<HTMLButtonElement>(null)
   const selectedDate = form.eventDate ? parseISO(form.eventDate) : undefined
   const earliestDate = parseISO(clock.slice(0, 10))
 
@@ -85,11 +119,13 @@ export function EventPage() {
     const next = { ...form, [field]: value }
     setForm(next)
     setDraftSaved(saveIntakeFormDraft(session, next))
+    flash(draftButtonRef.current)
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
   }
 
   function saveDraft() {
     setDraftSaved(saveIntakeFormDraft(session, form))
+    flash(draftButtonRef.current)
   }
 
   function toggleDietary(tag: DietaryTag) {
@@ -113,6 +149,7 @@ export function EventPage() {
       return
     }
 
+    saveIntakeFormDraft(session, form)
     updateDraft({
       intent: {
         ...order.intent,
@@ -179,7 +216,7 @@ export function EventPage() {
                       aria-invalid={Boolean(errors.eventType)}
                       aria-describedby={errors.eventType ? 'eventType-error' : undefined}
                     >
-                      <SelectValue placeholder="Choose one" />
+                      <SelectValue placeholder="Please select" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -228,7 +265,7 @@ export function EventPage() {
                           aria-describedby={errors.eventDate ? 'eventDate-error' : undefined}
                           className="h-11 w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
                         >
-                          {selectedDate ? format(selectedDate, 'PPP') : <span>Pick a date</span>}
+                          {selectedDate ? format(selectedDate, 'PPP') : <span>Please select</span>}
                           <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
                         </Button>
                       }
@@ -252,24 +289,36 @@ export function EventPage() {
               </FieldGroup>
             </FieldSet>
 
-            <FieldSet>
-              <FieldLegend variant="label">Pickup or delivery</FieldLegend>
-              <RadioGroup
+            <Field data-invalid={Boolean(errors.fulfillment) || undefined}>
+              <FieldLabel htmlFor="fulfillment">Pickup or delivery</FieldLabel>
+              <Select
+                items={fulfillmentItems}
+                value={form.fulfillment || null}
+                onValueChange={(value) => set('fulfillment', (value ?? '') as Fulfillment | '')}
                 name="fulfillment"
-                className="gap-0"
-                value={form.fulfillment}
-                onValueChange={(value) => set('fulfillment', value as Fulfillment)}
+                required
               >
-                <Field orientation="horizontal" className="min-h-9">
-                  <RadioGroupItem id="pickup" value="pickup" className="after:-inset-x-4 after:-inset-y-4" />
-                  <FieldLabel htmlFor="pickup">Pickup</FieldLabel>
-                </Field>
-                <Field orientation="horizontal" className="min-h-9">
-                  <RadioGroupItem id="delivery" value="delivery" className="after:-inset-x-4 after:-inset-y-4" />
-                  <FieldLabel htmlFor="delivery">Delivery</FieldLabel>
-                </Field>
-              </RadioGroup>
-            </FieldSet>
+                <SelectTrigger
+                  id="fulfillment"
+                  className="w-full data-[size=default]:h-11"
+                  aria-required="true"
+                  aria-invalid={Boolean(errors.fulfillment)}
+                  aria-describedby={errors.fulfillment ? 'fulfillment-error' : undefined}
+                >
+                  <SelectValue placeholder="Please select" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {fulfillmentItems.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              {errors.fulfillment && <FieldError id="fulfillment-error">{errors.fulfillment}</FieldError>}
+            </Field>
 
             <FieldSet>
               <FieldLegend variant="label">Dietary needs (optional)</FieldLegend>
@@ -298,7 +347,7 @@ export function EventPage() {
                   id="budget"
                   name="budget"
                   inputMode="decimal"
-                  placeholder="1,200"
+                  placeholder="800"
                   value={form.budget}
                   aria-invalid={Boolean(errors.budget)}
                   aria-describedby={errors.budget ? 'budget-error' : undefined}
@@ -313,6 +362,7 @@ export function EventPage() {
             <CardFooter className="justify-end gap-2">
               <span role="status" aria-live="polite">
                 <Button
+                  ref={draftButtonRef}
                   type="button"
                   variant="secondary"
                   className="min-h-11 px-4"
