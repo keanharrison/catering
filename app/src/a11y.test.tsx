@@ -34,7 +34,7 @@ describe('keyboard and structure', () => {
   it('moves focus to the page after navigating', async () => {
     const user = userEvent.setup()
     renderAt('/customer')
-    await user.click(screen.getByRole('button', { name: 'Choose your menu' }))
+    await user.click(screen.getByRole('button', { name: 'Continue' }))
     expect(document.activeElement?.id).toBe('main')
   })
 
@@ -76,12 +76,12 @@ describe('keyboard and structure', () => {
   it('supports completing the event form with the keyboard alone', async () => {
     const user = userEvent.setup()
     renderAt('/customer')
-    const guests = screen.getByLabelText('Number of guests (required)')
+    const guests = screen.getByLabelText('Guests')
     guests.focus()
     await user.keyboard('{Control>}a{/Control}45{Tab}')
-    expect(document.activeElement).toBe(screen.getByLabelText('Event date (required)'))
+    expect(document.activeElement).toBe(screen.getByLabelText('Date'))
     expect(useDemoStore.getState().order.intent.guestCount).toBe(40) // nothing saved until the form is submitted
-    const chooseMenu = screen.getByRole('button', { name: 'Choose your menu' })
+    const chooseMenu = screen.getByRole('button', { name: 'Continue' })
     let tabCount = 0
     while (document.activeElement !== chooseMenu && tabCount < 12) {
       await user.tab()

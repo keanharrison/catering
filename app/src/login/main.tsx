@@ -15,7 +15,7 @@ function LoginPage() {
     <main className="login-page">
       <section className="login-panel" aria-labelledby="login-title">
         <img className="login-mark" src="/branding/pearl-island-logo.png" alt="Pearl Island" width="52" height="52" />
-        <h1 id="login-title">Log in to Pearl Island</h1>
+        <h1 id="login-title">Log in to Pearl Island 2 GO</h1>
         <div className="login-actions">
           <button className="login-button login-button-primary" type="button" onClick={() => enter('customer')}>
             Continue as a customer
@@ -25,7 +25,6 @@ function LoginPage() {
           </button>
         </div>
         <p className="login-caption">Demo access. No password required.</p>
-        <p className="login-footer">New here? <a href="/customer" onClick={(event) => { event.preventDefault(); enter('customer') }}>Plan your catering</a></p>
       </section>
     </main>
   )

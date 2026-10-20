@@ -90,3 +90,6 @@ button.staff-filter:focus-visible,
 @media (max-width: 991.98px) { .staff-row-link { min-height: 44px; } }
 .staff-detail .alert { --tblr-alert-color: var(--tblr-body-color); color: var(--tblr-body-color); }
 .staff-detail .alert .alert-heading { color: inherit; }
+
+/* Close controls use the same Untitled UI line icon as the rest of the product. */
+.btn-close { background-image: none; display: inline-flex; align-items: center; justify-content: center; color: var(--tblr-body-color); }

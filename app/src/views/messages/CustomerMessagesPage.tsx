@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, MessageSquare, Send } from 'lucide-react'
+import { ArrowLeft, MessageSquare, Send } from '../../components/icons'
 import { MAX_MESSAGE_LENGTH, type Message, type Order } from '../../data'
 import { catalog } from '../../data'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'

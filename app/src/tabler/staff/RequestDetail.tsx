@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { IconAlertTriangle } from '@tabler/icons-react'
+import { IconAlertTriangle } from '../../components/icons'
 import { catalog, type Order } from '../../data'
 import { formatMoney } from '../../lib/format'
 import { formatEventTime } from '../../lib/status'

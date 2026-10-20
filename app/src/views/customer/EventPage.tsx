@@ -1,22 +1,18 @@
 import { useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
-import { CheckCircle2Icon, ChevronDownIcon } from 'lucide-react'
+import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -32,7 +28,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
@@ -65,8 +60,8 @@ const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
 
 const errorFieldLabels: Partial<Record<IntakeField, string>> = {
   eventType: 'Event type',
-  guestCount: 'Number of guests',
-  eventDate: 'Event date',
+  guestCount: 'Guests',
+  eventDate: 'Date',
   budget: 'Budget',
 }
 
@@ -138,28 +133,18 @@ export function EventPage() {
   return (
     <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
       <section className="mx-auto w-full max-w-3xl">
-        <div className="mb-6">
-          <h1 className="type-page-title text-foreground">
-            Plan your catering
-          </h1>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Tell us about your event to start building a catering request.
-          </p>
-        </div>
+        <h1 className="type-page-title mb-6 text-foreground">
+          Plan your catering
+        </h1>
 
         <Card className="w-full">
           <form ref={formRef} onSubmit={onSubmit} noValidate>
-            <CardHeader>
-              <CardTitle>Event details</CardTitle>
-              <CardDescription>Start with the basics. You can change these details later.</CardDescription>
-            </CardHeader>
             <CardContent>
               {Object.values(errors).filter(Boolean).length > 1 && (
                 <Alert variant="destructive" className="mb-6">
-                  <AlertTitle>Review these details</AlertTitle>
+                  <AlertTitle>Fix these to continue</AlertTitle>
                   <AlertDescription>
-                    <p>Correct these answers before choosing your menu.</p>
-                    <ul className="mt-2 list-inside list-disc space-y-1">
+                    <ul className="list-inside list-disc space-y-1">
                       {(Object.entries(errors) as Array<[IntakeField, string | undefined]>).map(
                         ([field, message]) =>
                           message && (
@@ -179,7 +164,7 @@ export function EventPage() {
               <FieldLegend className="sr-only">Event details</FieldLegend>
               <FieldGroup>
                 <Field data-invalid={Boolean(errors.eventType) || undefined}>
-                  <FieldLabel htmlFor="eventType">Event type (required)</FieldLabel>
+                  <FieldLabel htmlFor="eventType">Event type</FieldLabel>
                   <Select
                     items={eventTypeItems}
                     value={form.eventType || null}
@@ -198,7 +183,6 @@ export function EventPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectLabel>Event type</SelectLabel>
                         {eventTypeItems.map((type) => (
                           <SelectItem key={type.value} value={type.value}>
                             {type.label}
@@ -211,7 +195,7 @@ export function EventPage() {
                 </Field>
 
                 <Field data-invalid={Boolean(errors.guestCount) || undefined}>
-                  <FieldLabel htmlFor="guestCount">Number of guests (required)</FieldLabel>
+                  <FieldLabel htmlFor="guestCount">Guests</FieldLabel>
                   <Input
                     id="guestCount"
                     name="guestCount"
@@ -223,20 +207,14 @@ export function EventPage() {
                     required
                     value={form.guestCount}
                     aria-invalid={Boolean(errors.guestCount)}
-                    aria-describedby={errors.guestCount ? 'guestCount-error' : 'guestCount-hint'}
+                    aria-describedby={errors.guestCount ? 'guestCount-error' : undefined}
                     onChange={(event) => set('guestCount', event.target.value)}
                   />
-                  {errors.guestCount ? (
-                    <FieldError id="guestCount-error">{errors.guestCount}</FieldError>
-                  ) : (
-                    <FieldDescription id="guestCount-hint">
-                      An estimate is fine. You can change it later.
-                    </FieldDescription>
-                  )}
+                  {errors.guestCount && <FieldError id="guestCount-error">{errors.guestCount}</FieldError>}
                 </Field>
 
                 <Field data-invalid={Boolean(errors.eventDate) || undefined}>
-                  <FieldLabel htmlFor="eventDate">Event date (required)</FieldLabel>
+                  <FieldLabel htmlFor="eventDate">Date</FieldLabel>
                   <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                     <PopoverTrigger
                       render={
@@ -269,9 +247,6 @@ export function EventPage() {
                       />
                     </PopoverContent>
                   </Popover>
-                  <FieldDescription>
-                    You’ll choose your pickup or delivery time on the Details step.
-                  </FieldDescription>
                   {errors.eventDate && <FieldError id="eventDate-error">{errors.eventDate}</FieldError>}
                 </Field>
               </FieldGroup>
@@ -326,15 +301,11 @@ export function EventPage() {
                   placeholder="1,200"
                   value={form.budget}
                   aria-invalid={Boolean(errors.budget)}
-                  aria-describedby={errors.budget ? 'budget-error' : 'budget-hint'}
+                  aria-describedby={errors.budget ? 'budget-error' : undefined}
                   onChange={(event) => set('budget', event.target.value)}
                 />
               </InputGroup>
-              {errors.budget ? (
-                <FieldError id="budget-error">{errors.budget}</FieldError>
-              ) : (
-                <FieldDescription id="budget-hint">Total for food, in dollars.</FieldDescription>
-              )}
+              {errors.budget && <FieldError id="budget-error">{errors.budget}</FieldError>}
             </Field>
 
               </FieldGroup>
@@ -352,7 +323,7 @@ export function EventPage() {
                 </Button>
               </span>
               <Button type="submit" className="min-h-11 px-4">
-                Choose your menu
+                Continue
               </Button>
             </CardFooter>
           </form>

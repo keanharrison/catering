@@ -10,7 +10,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
-import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from 'lucide-react'
+import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from '../../components/icons'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
 import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
@@ -185,7 +185,7 @@ export function StaffPage() {
             >
               {(() => {
                 const Icon = filterIcon[key]
-                return <span aria-hidden="true" className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon className="size-5" /></span>
+                return <span aria-hidden="true" data-icon-surface className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon /></span>
               })()}
               <span className="flex min-w-0 flex-col items-start gap-0.5">
                 <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>

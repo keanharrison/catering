@@ -13,6 +13,9 @@ describe('routes', () => {
       customerMessages: '/customer/messages',
       staffMessages: '/staff/messages',
       settings: '/settings',
+      integrations: '/staff/integrations',
+      agents: '/staff/agents',
+      staffSettings: '/staff/settings',
     })
   })
 })

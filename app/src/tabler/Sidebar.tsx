@@ -1,11 +1,13 @@
+import '../components/linear-sidebar.css'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { IconCheck, IconChefHat, IconMoon, IconPin, IconSun, IconUser } from '@tabler/icons-react'
+import { IconCheck, IconMenu, IconChevronDown, IconChefHat, IconMoon, IconPin, IconSun, IconUser } from '../components/icons'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '../state/demoAccount'
 import { Dropdown } from './Dropdown'
 import { accountHome, navigation } from './navigation'
 import { useResolvedTheme } from './ThemeBridge'
 import { useTheme } from '../components/ThemeProvider'
+import { ThemePicker } from '../components/ThemePicker'
 
 const FOLD_KEY = 'pi2go-tabler-sidebar'
 
@@ -54,7 +56,7 @@ export function Sidebar() {
   const nextTheme = resolved === 'dark' ? 'light' : 'dark'
 
   return (
-    <aside className="navbar navbar-vertical navbar-expand-lg">
+    <aside className="navbar navbar-vertical navbar-expand-lg linear-tabler-sidebar">
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -64,12 +66,12 @@ export function Sidebar() {
           aria-label="Toggle sidebar navigation"
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span className="navbar-toggler-icon" />
+          <IconMenu className="icon" aria-hidden="true" />
         </button>
 
         <div className="navbar-brand navbar-brand-autodark">
-          <a href={`#${accountHome[account]}`} aria-label="Pearl Island2GO home" className="d-flex align-items-center gap-2">
-            <img src="/branding/pearl-island-logo.png" alt="" width={33} height={32} className="brand-mark navbar-brand-image" />
+          <a href="/pearl-login.html" aria-label="Pearl Island 2 GO login" className="d-flex align-items-center gap-2">
+            <img src="/branding/pearl-island-logo.png" alt="" width={24} height={24} className="brand-mark navbar-brand-image" /><span className="linear-tabler-brand-name">Pearl Island 2 GO</span>
           </a>
           <button
             type="button"
@@ -83,22 +85,14 @@ export function Sidebar() {
           >
             <IconPin className="icon" aria-hidden="true" focusable="false" />
           </button>
-        </div>
-
-        <div className="navbar-footer">
+        <div className="linear-tabler-account">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Dropdown className="dropup">
                 {({ triggerProps, menuProps, close }) => (
                   <>
                     <button type="button" className="nav-link w-100" aria-label={`${demoAccountLabels[account]} account menu`} {...triggerProps}>
-                      <span className="avatar avatar-sm" aria-hidden="true">
-                        {account === 'team' ? <IconChefHat className="icon" /> : <IconUser className="icon" />}
-                      </span>
-                      <div className="nav-link-title">
-                        {demoAccountLabels[account]}
-                        <div className="small text-secondary">Demo account</div>
-                      </div>
+                      <IconChevronDown className="icon" aria-hidden="true" />
                     </button>
                     <div {...menuProps}>
                       {accountOptions.map(({ value, icon: Icon }) => (
@@ -126,14 +120,18 @@ export function Sidebar() {
             </li>
           </ul>
         </div>
+        </div>
+
+
 
         <nav className={`collapse navbar-collapse${menuOpen ? ' show' : ''}`} id="sidebar-menu" aria-label="Sidebar">
-          <ul className="navbar-nav pt-lg-3">
+          <ul className="navbar-nav">
             {navigation[account].map((section) => (
               <SectionItems key={section.title} section={section} pathname={pathname} />
             ))}
           </ul>
           <div className="navbar-side">
+            <div className="px-2 pb-2"><ThemePicker /></div>
             <ul className="navbar-nav">
               <li className="nav-item">
                 <button type="button" className="nav-link" aria-label={`Switch to ${nextTheme} mode`} onClick={() => setTheme(nextTheme)}>

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { IconChecks, IconClipboardList, IconEye, IconMessageQuestion, IconSearch } from '@tabler/icons-react'
-import type { Icon } from '@tabler/icons-react'
+import { IconChecks, IconClipboardList, IconEye, IconMessageQuestion, IconSearch } from '../components/icons'
+import type { Icon } from '../components/icons'
 import type { Order, OrderStatus } from '../data'
 import { formatMoney } from '../lib/format'
 import { statusLabel } from '../lib/status'

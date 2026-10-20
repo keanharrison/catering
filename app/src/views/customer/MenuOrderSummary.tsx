@@ -1,4 +1,4 @@
-import { ChevronsUpDown } from 'lucide-react'
+import { ChevronsUpDown } from '../../components/icons'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'

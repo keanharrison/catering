@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { TriangleAlert } from 'lucide-react'
+import { TriangleAlert } from '../../components/icons'
 import type { Order } from '../../data'
 import type { OrderSummary } from '../customer/orderSummary'
 import { catalog } from '../../data'

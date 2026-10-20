@@ -15,6 +15,7 @@ import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
+import { WorkspacePage } from './views/staff/WorkspacePage'
 import { SettingsPage } from './views/settings/SettingsPage'
 
 export function AppRoutes() {
@@ -38,6 +39,9 @@ export function AppRoutes() {
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
       <Route path={routes.staffMessages} element={account === 'team' ? <MessagesPage /> : <Navigate to={routes.customer} replace />} />
+      {(['integrations', 'agents', 'staffSettings'] as const).map(area => (
+        <Route key={area} path={routes[area]} element={account === 'team' ? <WorkspacePage area={area} /> : <Navigate to={routes.customer} replace />} />
+      ))}
       <Route path={routes.settings} element={<SettingsPage />} />
       <Route path={routes.handoff} element={account === 'team' ? <HandoffPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.gallery} element={<Navigate to={routes.customer} replace />} />

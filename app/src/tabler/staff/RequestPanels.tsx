@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { IconMinus, IconPlus } from '@tabler/icons-react'
+import { IconMinus, IconPlus } from '../../components/icons'
 import { catalog, MAX_MESSAGE_LENGTH, type OrderLine } from '../../data'
 import { estimate, MAX_QUANTITY } from '../../engine'
 import { formatMoney } from '../../lib/format'

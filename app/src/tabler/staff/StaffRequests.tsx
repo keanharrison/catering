@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { IconChecks, IconClipboardList, IconEye, IconInbox, IconMessageQuestion } from '@tabler/icons-react'
-import type { Icon } from '@tabler/icons-react'
+import { IconChecks, IconClipboardList, IconEye, IconInbox, IconMessageQuestion } from '../../components/icons'
+import type { Icon } from '../../components/icons'
 import type { Order } from '../../data'
 import { statusLabel } from '../../lib/status'
 import { canAccept } from '../../state/orderMachine'

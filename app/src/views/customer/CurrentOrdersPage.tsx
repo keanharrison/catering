@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Package, Utensils } from 'lucide-react'
+import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Package, Utensils } from '../../components/icons'
 import type { Order } from '../../data'
 import { catalog } from '../../data'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'

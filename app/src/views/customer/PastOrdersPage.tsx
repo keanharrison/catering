@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CalendarDays, MapPin, Package, Search, Utensils } from 'lucide-react'
+import { CalendarDays, MapPin, Package, Search, Utensils } from '../../components/icons'
 import type { Order, OrderLine } from '../../data'
 import { catalog } from '../../data'
 import { Button } from '../../components/ui/button'

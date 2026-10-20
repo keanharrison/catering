@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus } from '../components/icons'
 import { demoAccountLabels, useDemoAccount } from '../state/demoAccount'
 import { accountHome, findDestination } from './navigation'
 import { routes } from '../routes'
 import { PreviewContent } from './PreviewContent'
+import { WorkspacePage } from '../views/staff/WorkspacePage'
 import { StaffRequests } from './staff/StaffRequests'
 import { Sidebar } from './Sidebar'
 
@@ -27,6 +28,7 @@ function Page() {
 
   // Staff Requests is the first migrated product page; every other destination still shows the Phase 1 examples.
   const isStaffRequests = pathname === routes.staff
+  const workspaceArea = (['integrations', 'agents', 'staffSettings'] as const).find(area => routes[area] === pathname)
   const title = isStaffRequests ? 'Catering requests' : destination.label
   const primary = account === 'team' ? { label: 'Open requests', href: '/staff' } : { label: 'New request', href: '/customer' }
 
@@ -44,7 +46,7 @@ function Page() {
                 <a className="btn d-none d-sm-inline-flex" href={destination.href}>
                   Open current screen
                 </a>
-                {!isStaffRequests && (
+                {!isStaffRequests && !workspaceArea && (
                   <>
                     <a className="btn btn-primary d-none d-sm-inline-flex" href={primary.href}>
                       <IconPlus className="icon" aria-hidden="true" />
@@ -62,7 +64,7 @@ function Page() {
       </div>
       <main id="content" tabIndex={-1} className="page-body">
         <div className="container-xl">
-          {isStaffRequests ? <StaffRequests /> : <PreviewContent />}
+          {isStaffRequests ? <StaffRequests /> : workspaceArea ? <WorkspacePage area={workspaceArea} embedded /> : <PreviewContent />}
         </div>
       </main>
     </div>

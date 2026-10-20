@@ -1,6 +1,9 @@
-import type { Icon } from '@tabler/icons-react'
+import type { Icon } from '../components/icons'
 import {
   IconClipboardList,
+  IconPlug,
+  IconRobot,
+  IconAdjustments,
   IconHistory,
   IconMessage,
   IconPackage,
@@ -8,7 +11,7 @@ import {
   IconSettings,
   IconToolsKitchen2,
   IconTruckDelivery,
-} from '@tabler/icons-react'
+} from '../components/icons'
 import { routes } from '../routes'
 import type { DemoAccount } from '../state/demoAccount'
 
@@ -41,13 +44,16 @@ export const navigation: Record<DemoAccount, NavSection[]> = {
       items: [
         { label: 'Requests', icon: IconClipboardList, href: routes.staff },
         { label: 'Handoff', icon: IconTruckDelivery, href: routes.handoff },
+        { label: 'Messages', icon: IconMessage, href: routes.staffMessages },
       ],
     },
     {
-      title: 'Team',
+      title: 'Workspace',
       items: [
-        { label: 'Messages', icon: IconMessage, href: routes.staffMessages },
         { label: 'Menu and rules', icon: IconToolsKitchen2, href: routes.settings },
+        { label: 'Integrations', icon: IconPlug, href: routes.integrations },
+        { label: 'AI & agents', icon: IconRobot, href: routes.agents },
+        { label: 'Settings', icon: IconAdjustments, href: routes.staffSettings },
       ],
     },
   ],

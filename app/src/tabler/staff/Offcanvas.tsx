@@ -1,3 +1,4 @@
+import { IconClose } from '../../components/icons'
 import { useEffect, useId, useRef, type ReactNode } from 'react'
 
 // Tabler's bottom offcanvas, driven by React instead of Bootstrap JS: Escape closes, focus is trapped while
@@ -61,7 +62,7 @@ export function Offcanvas({ open, onClose, title, children }: { open: boolean; o
           <h2 className="offcanvas-title" id={titleId} ref={titleRef} tabIndex={-1}>
             {title}
           </h2>
-          <button type="button" className="btn-close" aria-label="Close request details" onClick={onClose} />
+          <button type="button" className="btn-close" aria-label="Close request details" onClick={onClose}><IconClose className="icon" aria-hidden="true" /></button>
         </div>
         <div className="offcanvas-body">{children}</div>
       </div>
