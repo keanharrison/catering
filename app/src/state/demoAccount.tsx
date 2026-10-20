@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
+import { useDemoStore } from './store'
 
 export type DemoAccount = 'customer' | 'team'
 
@@ -29,6 +30,8 @@ export function DemoAccountProvider({ children }: { children: ReactNode }) {
   const [account, updateAccount] = useState<DemoAccount>(readAccount)
 
   function setAccount(next: DemoAccount) {
+    // Staff select sample requests as the active order; a customer must never inherit one.
+    if (next === 'customer') useDemoStore.getState().activateDraft()
     updateAccount(next)
     try {
       window.localStorage.setItem(STORAGE_KEY, next)

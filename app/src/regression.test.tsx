@@ -137,13 +137,13 @@ describe('regression: full journeys and edge cases', () => {
     expect(store().order.lines).toHaveLength(before)
   })
 
-  it('shows staff sample requests and explains when handoff is not ready', () => {
+  it('shows staff sample requests and explains when no request is accepted yet', () => {
     renderAt('/staff')
     expect(screen.getByText('Catering requests')).toBeTruthy()
     expect(screen.getAllByRole('row').length).toBeGreaterThan(1) // representative sample requests remain available
     cleanup()
     renderAt('/handoff')
-    expect(screen.getByText('Handoff is not ready')).toBeTruthy()
+    expect(screen.getByText('No accepted request yet')).toBeTruthy()
   })
 
   it('filters the staff queue by status and supports keyboard row selection', async () => {
@@ -408,5 +408,34 @@ describe('regression: full journeys and edge cases', () => {
     store().reset()
     expect(store().order.status).toBe('draft')
     expect(store().order.lines).toEqual([])
+  })
+  it('never lets a customer inherit a sample request that staff selected', () => {
+    store().activateOrder('sample-needs-review')
+    expect(store().order.demoSample).toBe(true)
+    renderAt('/customer/review')
+    expect(store().order.status).toBe('draft')
+    expect(store().order.demoSample).toBeUndefined()
+    expect(h1()).toBe('Plan your catering')
+  })
+
+  it('opens a fresh draft when New request is visited while a submitted request is active', () => {
+    store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store().submit()
+    expect(store().order.status).not.toBe('draft')
+    renderAt('/customer')
+    expect(store().order.status).toBe('draft')
+    expect(h1()).toBe('Plan your catering')
+    expect(screen.getByLabelText('Guests')).toBeTruthy()
+    expect(store().lastError).toBeNull()
+  })
+
+  it('shows the latest request staff accepted on the handoff page even after another request is selected', () => {
+    store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store().submit()
+    store().accept('staff')
+    expect(store().order.status).toBe('confirmed')
+    store().activateOrder('sample-needs-review')
+    renderAt('/handoff')
+    expect(h1()).toBe('Staff handoff')
   })
 })

@@ -116,6 +116,16 @@ describe('detectExceptions', () => {
     expect(flagCodes(intent, routine.now)).toContain('budget_mismatch')
   })
 
+  it('compares the budget to food only, not supplies', () => {
+    const intent = { ...routine.intent, guestCount: 40, budgetCents: 10_000, dietary: [], customRequest: '' }
+    const food = [{ itemId: 'slow-roasted-pork', units: 10 }] // $62.50, within the budget
+    const withSupplies = [...food, { itemId: 'supplies-plates-cutlery-cups', units: 1 }] // $80 more, over a $100 total
+    const codes = (lines: typeof food) => detectExceptions({ intent, lines, now: routine.now }).map((f) => f.code)
+    expect(codes(food)).not.toContain('budget_mismatch')
+    expect(codes(withSupplies)).not.toContain('budget_mismatch')
+    expect(codes([{ itemId: 'slow-roasted-pork', units: 20 }])).toContain('budget_mismatch') // $125 of food is over
+  })
+
   it('does not flag a vegetarian-only request on its own', () => {
     expect(flagCodes(routine.intent, routine.now)).not.toContain('dietary_complexity')
   })

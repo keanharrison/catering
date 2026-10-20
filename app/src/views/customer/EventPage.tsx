@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
@@ -65,7 +65,17 @@ const errorFieldLabels: Partial<Record<IntakeField, string>> = {
   budget: 'Budget',
 }
 
+/** Opening New request while a submitted request is active starts a fresh draft, so edits are never silently dropped. */
 export function EventPage() {
+  const status = useDemoStore((state) => state.order.status)
+  const activateDraft = useDemoStore((state) => state.activateDraft)
+  useEffect(() => {
+    if (status !== 'draft') activateDraft()
+  }, [status, activateDraft])
+  return status === 'draft' ? <EventForm /> : null
+}
+
+function EventForm() {
   const navigate = useNavigate()
   const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)

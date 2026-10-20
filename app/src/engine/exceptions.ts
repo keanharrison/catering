@@ -82,11 +82,14 @@ export function detectExceptions(
   }
 
   if (intent.budgetCents !== null) {
-    const { subtotalCents } = estimate(lines, intent.guestCount, catalog)
-    if (subtotalCents > intent.budgetCents) {
+    // The customer's budget is a food budget, so supplies are not counted against it.
+    const foodCents = estimate(lines, intent.guestCount, catalog)
+      .lines.filter((line) => getItem(catalog, line.itemId).category !== 'supply')
+      .reduce((sum, line) => sum + line.costCents, 0)
+    if (foodCents > intent.budgetCents) {
       flags.push({
         code: 'budget_mismatch',
-        reason: `The estimate (${dollars(subtotalCents)}) is above the stated budget (${dollars(intent.budgetCents)}).`,
+        reason: `The food estimate (${dollars(foodCents)}) is above the stated food budget (${dollars(intent.budgetCents)}).`,
       })
     }
   }

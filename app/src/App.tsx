@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { routes } from './routes'
 import { EventPage } from './views/customer/EventPage'
 import { MenuPageShell } from './views/customer/MenuPageShell'
@@ -9,6 +9,7 @@ import { ReviewPage } from './views/customer/ReviewPage'
 import { AppShell } from './components/AppShell'
 import { ThemeProvider } from './components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount } from './state/demoAccount'
+import { useDemoStore } from './state/store'
 import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
@@ -20,6 +21,11 @@ import { SettingsPage } from './views/settings/SettingsPage'
 
 export function AppRoutes() {
   const { account } = useDemoAccount()
+  const activeIsSample = useDemoStore((state) => Boolean(state.order.demoSample))
+  // A saved session can reopen on a sample request that staff selected; customers start from their own draft.
+  useEffect(() => {
+    if (account === 'customer' && activeIsSample) useDemoStore.getState().activateDraft()
+  }, [account, activeIsSample])
   const customerPage = (page: ReactNode) =>
     account === 'team' ? <Navigate to={routes.staff} replace /> : page
 

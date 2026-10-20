@@ -68,8 +68,13 @@ function HandoffTable({ title, rows }: { title: string; rows: ReturnType<typeof 
 }
 
 export function HandoffPage() {
-  const order = useDemoStore((state) => state.order)
+  const activeOrder = useDemoStore((state) => state.order)
+  const orders = useDemoStore((state) => state.orders)
   const clock = useDemoStore((state) => state.clock)
+  // Show the selected request when it is accepted; otherwise the most recent request this session accepted.
+  const order = activeOrder.status === 'confirmed'
+    ? activeOrder
+    : [...orders].reverse().find((item) => item.status === 'confirmed' && !item.demoSample) ?? activeOrder
   const backButton = <Button variant="outline" nativeButton={false} render={<Link to={routes.staff} />}>Back to requests</Button>
 
   if (order.status !== 'confirmed') {
@@ -77,9 +82,9 @@ export function HandoffPage() {
       <section className="handoff-page mx-auto w-full max-w-3xl px-5 py-8 sm:px-8">
         <Card>
           <CardHeader>
-            <CardTitle>Handoff is not ready</CardTitle>
+            <CardTitle>No accepted request yet</CardTitle>
             <CardDescription>
-              Request {order.id} has not been accepted yet. Accept it from Staff Requests to prepare a read-only handoff summary.
+              Accept a request from Staff Requests to prepare a read-only handoff summary.
             </CardDescription>
           </CardHeader>
           <CardFooter className="print:hidden">{backButton}</CardFooter>
