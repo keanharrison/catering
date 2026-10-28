@@ -1,5 +1,6 @@
 export const routes = {
   customer: '/customer',
+  customerDashboard: '/customer/dashboard',
   staff: '/staff',
   handoff: '/handoff',
   currentOrders: '/customer/orders',

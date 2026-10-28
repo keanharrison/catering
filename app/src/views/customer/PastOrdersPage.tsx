@@ -15,11 +15,7 @@ import { formatEventTime } from '../../lib/status'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
-
-function isHistorical(order: Order, clock: string) {
-  if (order.status === 'rejected') return true
-  return order.status === 'confirmed' && new Date(order.intent.eventAt).getTime() < new Date(clock).getTime()
-}
+import { isHistorical } from './orderBuckets'
 
 function eventTypeLabel(order: Order) {
   return catalog.eventTypes.find((event) => event.id === order.intent.eventType)?.label ?? order.intent.eventType

@@ -13,6 +13,7 @@ import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
+import { DashboardPage } from './views/customer/DashboardPage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
 import { WorkspacePage } from './views/staff/WorkspacePage'
@@ -40,6 +41,7 @@ export function AppRoutes() {
         path={routes.staff}
         element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
       />
+      <Route path={routes.customerDashboard} element={customerPage(<DashboardPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />

@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ClipboardList,
   History,
+  Home,
   MessageSquare,
   PackageCheck,
   Plus,
@@ -54,6 +55,7 @@ type Destination = {
 }
 
 const customerNavigation: Destination[] = [
+  { label: 'Dashboard', icon: Home, href: routes.customerDashboard },
   { label: 'New request', icon: Plus, href: routes.customer },
   { label: 'Current orders', icon: PackageCheck, href: routes.currentOrders },
   { label: 'Past orders', icon: History, href: routes.pastOrders },
@@ -97,6 +99,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
+  const firstGroupSize = account === 'team' ? 3 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount
@@ -147,14 +150,14 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent className="linear-sidebar-content">
-        {[items.slice(0, 3), items.slice(3)].map((section, index) => (
+        {[items.slice(0, firstGroupSize), items.slice(firstGroupSize)].map((section, index) => (
           <SidebarGroup key={index} className="linear-nav-group">
             <SidebarGroupLabel>{index === 0 ? account === 'team' ? 'Operations' : 'Catering' : account === 'team' ? 'Workspace' : 'Account'}</SidebarGroupLabel>
             <SidebarGroupContent><SidebarMenu>
               {section.map((item) => {
                 const Icon = item.icon
                 const active = item.href === routes.customer
-                  ? pathname === routes.customer || pathname.startsWith(`${routes.customer}/`) && !pathname.startsWith(routes.currentOrders) && !pathname.startsWith(routes.customerMessages)
+                  ? pathname === routes.customer || pathname.startsWith(`${routes.customer}/`) && !pathname.startsWith(routes.currentOrders) && !pathname.startsWith(routes.customerMessages) && !pathname.startsWith(routes.customerDashboard)
                   : pathname === item.href
                 return <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {

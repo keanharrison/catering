@@ -40,7 +40,7 @@ export function SiteHeader() {
       </Link>
       <Breadcrumb className="hidden min-w-0 md:block">
         <BreadcrumbList className="flex-nowrap">
-          {account === 'team' ? (
+          {account === 'team' || pathname === routes.customerDashboard ? (
             <BreadcrumbItem>
               <BreadcrumbPage>{pageLabel(pathname)}</BreadcrumbPage>
             </BreadcrumbItem>
