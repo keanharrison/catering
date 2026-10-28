@@ -25,6 +25,20 @@
 }
 
 @layer components {
+  /* The assistant's avatar: a soft glassy sphere in the restaurant's brand color. */
+  .assistant-orb {
+    display: inline-block;
+    flex: none;
+    width: var(--orb-size, 28px);
+    height: var(--orb-size, 28px);
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 30% 26%, var(--brand-light) 0, transparent 54%),
+      radial-gradient(circle at 74% 80%, var(--brand-deep) 0, transparent 64%),
+      var(--brand);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35), inset 0 -3px 8px rgb(0 0 0 / 0.14);
+  }
+
   /* Page title: 28px Inter regular, tight tracking, matching the ElevenLabs product headline. */
   .type-page-title {
     margin: 0;
@@ -168,6 +182,10 @@
   --border: #e7e7e7;
   --input: #e5e5e5;
   --ring: #0f0f10;
+  /* Brand accent: one setting per restaurant. It colors the assistant orb and nothing structural. */
+  --brand: #00a1ca;
+  --brand-light: #9be8fb;
+  --brand-deep: #006f8f;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { cx } from '../../lib/cx'
 import { routes } from '../../routes'
+import { AssistantOrb } from '../../components/AssistantOrb'
 import { Send } from '../../components/icons'
 import { answerQuestion, suggestedQuestions, type Answer, type DashboardSummary } from './dashboardSummary'
 
@@ -40,7 +41,10 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
   return (
     <section aria-labelledby="assistant-title" className={cx('flex min-h-[32rem] flex-col rounded-2xl border border-border bg-background p-5 sm:p-6', className)}>
       <div className="flex items-start justify-between gap-3">
-        <Heading id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</Heading>
+        <div className="flex items-center gap-2.5">
+          <AssistantOrb />
+          <Heading id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</Heading>
+        </div>
         {showFullPageLink && <Link to={routes.askPearl} className="text-[14px] text-foreground underline underline-offset-4">Open full page</Link>}
       </div>
       <p className="mt-1 text-[14px] text-muted-foreground">Ask about your requests, drafts, and messages.</p>
