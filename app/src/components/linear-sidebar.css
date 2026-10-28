@@ -1,7 +1,7 @@
 @import '@fontsource-variable/inter';
 
 /* ElevenLabs-style sidebar: eggshell canvas, warm gray text, cream active fill, flat 8px-radius items.
-   Scoped to navigation; the dark block below is left over from the theme picker and is retired with it. */
+   Scoped to navigation. */
 .linear-sidebar, [data-mobile='true'][data-slot='sidebar'], [data-slot='sidebar-wrapper'] {
   --linear-nav-bg: #fdfcfc;
   --linear-nav-ink: #44403b;
@@ -12,15 +12,6 @@
   --linear-nav-border: rgb(0 0 0 / 0.05);
   font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--linear-nav-ink);
-}
-.dark .linear-sidebar, .dark [data-mobile='true'][data-slot='sidebar'], .dark [data-slot='sidebar-wrapper'] {
-  --linear-nav-muted: var(--palette-sidebar-ink, #a9a9ae);
-  --linear-nav-bg: var(--palette-sidebar-bg, #191a1c);
-  --linear-nav-ink: var(--palette-sidebar-ink, #a9a9ae);
-  --linear-nav-strong: var(--palette-sidebar-strong, #ededf0);
-  --linear-nav-active: var(--palette-sidebar-active, #303136);
-  --linear-nav-hover: var(--palette-sidebar-hover, #26272b);
-  --linear-nav-border: var(--palette-sidebar-border, #303136);
 }
 .linear-sidebar [data-slot='sidebar-inner'], [data-mobile='true'][data-slot='sidebar'] {
   background: var(--linear-nav-bg);

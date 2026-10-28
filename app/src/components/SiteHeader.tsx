@@ -10,7 +10,6 @@ import {
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { routes } from '@/routes'
 import { useDemoAccount } from '@/state/demoAccount'
-import { ThemePicker } from './ThemePicker'
 
 function pageLabel(pathname: string) {
   if (pathname === routes.customer) return 'Event details'
@@ -59,9 +58,6 @@ export function SiteHeader() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="ml-auto flex shrink-0 items-center gap-2">
-        <ThemePicker />
-      </div>
     </header>
   )
 }

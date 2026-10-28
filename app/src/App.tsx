@@ -7,7 +7,6 @@ import { SuppliesPage } from './views/customer/SuppliesPage'
 import { DetailsPage } from './views/customer/DetailsPage'
 import { ReviewPage } from './views/customer/ReviewPage'
 import { AppShell } from './components/AppShell'
-import { ThemeProvider } from './components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount } from './state/demoAccount'
 import { useDemoStore } from './state/store'
 import { stagePath } from './views/customer/journey'
@@ -57,14 +56,12 @@ export function AppRoutes() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <DemoAccountProvider>
-          <AppShell>
-            <AppRoutes />
-          </AppShell>
-        </DemoAccountProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <DemoAccountProvider>
+        <AppShell>
+          <AppRoutes />
+        </AppShell>
+      </DemoAccountProvider>
+    </BrowserRouter>
   )
 }
