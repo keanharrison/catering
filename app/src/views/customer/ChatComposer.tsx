@@ -4,6 +4,9 @@ import { ArrowUp, Microphone, Plus, X } from '../../components/icons'
 const MAX_QUESTION_LENGTH = 300
 const MAX_FILES = 5
 
+// Example questions that take turns in the empty field: each reveals left to right, holds, then lifts away as the next rises in.
+const HINTS = ['What’s the status of my request?', 'When is my next event?', 'Do I have any drafts in progress?']
+
 type SpeechResultEvent = { results: ArrayLike<ArrayLike<{ transcript: string }>> }
 type Recognizer = {
   lang: string
@@ -35,6 +38,7 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
 }) {
   const [files, setFiles] = useState<File[]>([])
   const [listening, setListening] = useState(false)
+  const [hint, setHint] = useState(0)
   const picker = useRef<HTMLInputElement>(null)
   const recognizer = useRef<Recognizer | null>(null)
   const voiceSupported = typeof window !== 'undefined' && recognizerConstructor() !== null
@@ -122,9 +126,10 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
             autoComplete="off"
             autoFocus={autoFocus}
             placeholder="Ask about your requests…"
-            className="chat-input h-10 w-full bg-transparent text-lead text-foreground outline-none placeholder:text-muted-foreground"
+            className="chat-input h-10 w-full bg-transparent text-lead text-foreground outline-none placeholder:text-transparent"
           />
           <span aria-hidden="true" className="chat-caret" />
+          <span key={hint} aria-hidden="true" className="chat-hint" onAnimationEnd={() => setHint((current) => (current + 1) % HINTS.length)}>{HINTS[hint]}</span>
         </div>
         <button
           type="button"

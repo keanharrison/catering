@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { AppRoutes } from './App'
@@ -78,5 +78,23 @@ describe('chat page', () => {
   it('puts the cursor in the question field on arrival', () => {
     renderAppAt('/customer/ask-pearl', <AppRoutes />)
     expect(document.activeElement).toBe(screen.getByLabelText('Ask a question'))
+  })
+
+  it('rotates three example questions in the empty field and hides them once typing starts', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    const hint = () => document.querySelector('.chat-hint') as HTMLElement
+    // jsdom has no CSS animation support, so React listens for the prefixed event name; send whichever it is waiting for.
+    const end = () => { fireEvent.animationEnd(hint()); fireEvent(hint(), new Event('webkitAnimationEnd', { bubbles: true })) }
+    expect(hint().textContent).toBe('What’s the status of my request?')
+    end()
+    expect(hint().textContent).toBe('When is my next event?')
+    end()
+    expect(hint().textContent).toBe('Do I have any drafts in progress?')
+    end()
+    expect(hint().textContent).toBe('What’s the status of my request?')
+    expect(hint().getAttribute('aria-hidden')).toBe('true')
+    await user.type(screen.getByLabelText('Ask a question'), 'x')
+    expect((screen.getByLabelText('Ask a question') as HTMLInputElement).value).toBe('x')
   })
 })
