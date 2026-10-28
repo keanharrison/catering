@@ -38,7 +38,7 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
   }
 
   return (
-    <section aria-labelledby="assistant-title" className={cx('flex min-h-[32rem] flex-col rounded-2xl bg-secondary p-5 sm:p-6', className)}>
+    <section aria-labelledby="assistant-title" className={cx('flex min-h-[32rem] flex-col rounded-2xl border border-border bg-background p-5 sm:p-6', className)}>
       <div className="flex items-start justify-between gap-3">
         <Heading id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</Heading>
         {showFullPageLink && <Link to={routes.askPearl} className="text-[14px] text-foreground underline underline-offset-4">Open full page</Link>}
@@ -53,7 +53,7 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
                 key={question}
                 type="button"
                 onClick={() => ask(question)}
-                className="min-h-9 rounded-full bg-card px-4 text-left text-[14px] text-foreground shadow-[inset_0_0_0_1px_var(--border)] transition-shadow duration-150 hover:shadow-[inset_0_0_0_1px_var(--muted-foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="min-h-9 rounded-full bg-background px-4 text-left text-[14px] text-foreground shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {question}
               </button>
@@ -63,7 +63,7 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
           <ol className="grid gap-5">
             {turns.map((turn) => (
               <li key={turn.id} className="grid gap-3">
-                <p className="ml-auto max-w-[85%] rounded-2xl bg-card px-4 py-2 text-[14px] text-foreground shadow-[inset_0_0_0_1px_var(--border)]">
+                <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2 text-[14px] text-foreground">
                   <span className="sr-only">You: </span>{turn.question}
                 </p>
                 <div className="max-w-[92%] text-[14px] leading-[1.45] text-foreground">
@@ -78,7 +78,7 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
         )}
       </div>
 
-      <form onSubmit={submit} className="mt-5 flex items-center gap-2 rounded-full bg-card p-1 pl-5 shadow-[inset_0_0_0_1px_var(--border)] transition-shadow duration-150 focus-within:shadow-[inset_0_0_0_2px_var(--ring)]">
+      <form onSubmit={submit} className="mt-5 flex items-center gap-2 rounded-full bg-background p-1 pl-5 shadow-[inset_0_0_0_1px_var(--input)] transition-shadow duration-150 focus-within:shadow-[inset_0_0_0_2px_var(--ring)]">
         <label htmlFor="assistant-input" className="sr-only">Ask a question</label>
         <input
           id="assistant-input"

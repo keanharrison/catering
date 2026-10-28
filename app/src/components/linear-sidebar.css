@@ -1,15 +1,15 @@
 @import '@fontsource-variable/inter';
 
-/* ElevenLabs-style sidebar: eggshell canvas, warm gray text, cream active fill, flat 8px-radius items.
+/* ElevenLabs product sidebar: #FAFAFA rail beside a white canvas, neutral gray items, #EFEFEF active fill, 8px-radius rows.
    Scoped to navigation. */
 .linear-sidebar, [data-mobile='true'][data-slot='sidebar'], [data-slot='sidebar-wrapper'] {
-  --linear-nav-bg: #fdfcfc;
-  --linear-nav-ink: #44403b;
-  --linear-nav-muted: #777169;
-  --linear-nav-strong: #000;
-  --linear-nav-active: #f5f3f1;
+  --linear-nav-bg: #fafafa;
+  --linear-nav-ink: #6b6b6b;
+  --linear-nav-muted: #6b6b6b;
+  --linear-nav-strong: #171717;
+  --linear-nav-active: #efefef;
   --linear-nav-hover: rgb(0 0 0 / 0.04);
-  --linear-nav-border: rgb(0 0 0 / 0.05);
+  --linear-nav-border: #e7e7e7;
   font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--linear-nav-ink);
 }
@@ -18,7 +18,7 @@
   color: var(--linear-nav-ink);
   transition: background-color 150ms ease-out;
 }
-.linear-sidebar[data-slot='sidebar-container'] { border: 0; }
+.linear-sidebar[data-slot='sidebar-container'] { border: 0; border-right: 1px solid var(--linear-nav-border); }
 .linear-sidebar-header { padding: 12px; }
 .linear-workspace-row { display: flex; align-items: center; gap: 4px; min-width: 0; height: 32px; }
 .linear-workspace-brand { display: flex; align-items: center; min-width: 0; flex: 1; gap: 8px; height: 32px; padding: 4px 6px 4px 4px; border: 0; border-radius: 8px; background: transparent; color: var(--linear-nav-strong); font-size: 14px; font-weight: 400; line-height: 1.3; letter-spacing: 0.01em; text-align: left; text-decoration: none !important; cursor: pointer; transition: background-color 150ms ease-out; }
@@ -58,15 +58,11 @@
 .linear-sidebar-header { padding: 10px 12px; }
 .linear-sidebar-content { padding-top: 8px; gap: 16px; }
 .linear-nav-group [data-slot='sidebar-menu-button'] { height: 36px; min-height: 36px; font-size: 14px; gap: 10px; }
-.linear-nav-group [data-slot='sidebar-group-label'] { height: 28px; font-size: 13px; }
+.linear-nav-group [data-slot='sidebar-group-label'] { height: 28px; font-size: 14px; }
 @media (max-width: 767px) {
   .linear-nav-group [data-slot='sidebar-menu-button'] { height: 44px; min-height: 44px; }
 }
 
-/* Inset layout: the sidebar color is the canvas, and the main panel floats on top of it like Linear's. */
-[data-slot='sidebar-wrapper']:has([data-variant='inset']) { background: var(--linear-nav-bg); }
-[data-slot='sidebar-inset'] { box-shadow: 0 0 0 0.5px var(--border), 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.05); }
-@media (min-width: 768px) { [data-slot='sidebar-inset'] { border-radius: 12px; } }
 
 /* Collapsed rail: the X mark stays on top and every destination stays one 40px icon target (names appear as tooltips). */
 [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px; height: 40px; min-height: 40px; padding: 0; justify-content: center; }

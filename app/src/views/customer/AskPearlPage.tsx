@@ -9,7 +9,7 @@ export function AskPearlPage() {
   const summary = summarizeDashboard(orders, draftOrder, clock)
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col px-5 py-6 sm:px-8 sm:py-8 md:min-h-[calc(100svh-5rem)]">
+    <div className="mx-auto flex w-full max-w-3xl flex-col px-5 py-6 sm:px-8 sm:py-8 md:min-h-[calc(100svh-3.25rem)]">
       <DashboardAssistant summary={summary} headingLevel={1} className="flex-1" />
     </div>
   )

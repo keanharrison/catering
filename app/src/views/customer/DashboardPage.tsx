@@ -11,14 +11,14 @@ function Tile({ title, to, headline, detail }: { title: string; to: string; head
   return (
     <Link
       to={to}
-      className="group flex min-h-40 flex-col justify-between rounded-2xl bg-secondary p-6 no-underline transition-[background-color,box-shadow] duration-150 hover:bg-card hover:shadow-[inset_0_0_0_1px_var(--border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="group flex min-h-40 flex-col justify-between rounded-2xl border border-border bg-background p-6 no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <span className="flex items-start justify-between gap-3">
         <h2 className="text-[16px] font-normal tracking-[0.01em] text-foreground">{title}</h2>
         <ChevronRight aria-hidden="true" className="mt-0.5 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5" />
       </span>
       <span className="grid gap-1">
-        <span className="text-[14px] tabular-nums text-[#44403b]">{headline}</span>
+        <span className="text-[14px] tabular-nums text-foreground">{headline}</span>
         {detail && <span className="text-[13px] text-muted-foreground">{detail}</span>}
       </span>
     </Link>

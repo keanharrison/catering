@@ -31,10 +31,10 @@ export function NotificationsMenu() {
     <Popover open={open} onOpenChange={(next) => { setOpen(next); if (next) markSeen() }}>
       <PopoverTrigger
         aria-label={unread ? `Notifications, ${unread} new` : 'Notifications'}
-        render={<button type="button" className="relative flex size-11 shrink-0 items-center justify-center rounded-full text-foreground shadow-[inset_0_0_0_1px_var(--border)] transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-10" />}
+        render={<button type="button" className="relative flex size-11 shrink-0 items-center justify-center rounded-[10px] text-foreground shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-9" />}
       >
         <Bell aria-hidden="true" />
-        {unread > 0 && <span aria-hidden="true" className="absolute right-2.5 top-2.5 size-2 rounded-full bg-primary ring-2 ring-card" />}
+        {unread > 0 && <span aria-hidden="true" className="absolute right-2 top-2 size-2 rounded-full bg-primary ring-2 ring-background" />}
       </PopoverTrigger>
       <PopoverContent align="end" sideOffset={8} className="w-80 gap-0 rounded-2xl p-2">
         <p className="px-3 pb-2 pt-2 text-[14px] text-foreground">Notifications</p>

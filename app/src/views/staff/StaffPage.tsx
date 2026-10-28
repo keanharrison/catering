@@ -24,10 +24,10 @@ const filterIcon: Record<RequestFilter, typeof ListChecks> = {
 }
 
 const filterIconStyle: Record<RequestFilter, string> = {
-  all: 'bg-blue-600 text-white',
-  review: 'bg-amber-500 text-white',
-  awaiting: 'bg-orange-500 text-white',
-  confirmed: 'bg-green-600 text-white',
+  all: 'bg-secondary text-foreground',
+  review: 'bg-secondary text-foreground',
+  awaiting: 'bg-secondary text-foreground',
+  confirmed: 'bg-secondary text-foreground',
 }
 
 function RequestStatus({ status }: { status: Order['status'] }) {

@@ -114,7 +114,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="inset" className="linear-sidebar">
+    <Sidebar collapsible="icon" variant="sidebar" className="linear-sidebar">
       <SidebarHeader className="linear-sidebar-header">
         <div className="linear-workspace-row">
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
