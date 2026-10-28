@@ -100,7 +100,7 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
       )}
       <form
         onSubmit={submit}
-        className="flex items-center gap-1 rounded-full bg-background p-2 pl-2.5 shadow-[0_1px_2px_rgb(0_0_0/0.04),inset_0_0_0_1px_var(--border)] transition-shadow duration-150 focus-within:shadow-[0_1px_2px_rgb(0_0_0/0.04),inset_0_0_0_1.5px_var(--foreground)]"
+        className="flex items-center gap-1 rounded-full bg-background p-2 pl-2.5 shadow-[0_1px_2px_rgb(0_0_0/0.04),inset_0_0_0_1px_var(--border)] transition-shadow duration-150 focus-within:shadow-[0_2px_10px_rgb(0_0_0/0.07),inset_0_0_0_1px_var(--border)]"
       >
         <input ref={picker} type="file" multiple hidden accept="image/*,.pdf,.doc,.docx,.txt,.csv" onChange={pick} />
         <button

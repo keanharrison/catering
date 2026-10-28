@@ -43,9 +43,6 @@
 [data-collapsible='icon'] .linear-sidebar .linear-workspace-brand svg,
 [data-collapsible='icon'] .linear-sidebar .linear-compose,
 [data-collapsible='icon'] .linear-sidebar .linear-account-caption { display: none; }
-[data-collapsible='icon'] .linear-sidebar .linear-workspace-row { height: auto; flex-direction: column; gap: 8px; }
-[data-collapsible='icon'] .linear-sidebar .linear-sidebar-header { padding: 12px 4px; }
-[data-collapsible='icon'] .linear-sidebar .linear-sidebar-content { padding-inline: 8px; }
 @media (max-width: 767px) {
   [data-mobile='true'][data-slot='sidebar'] { width: min(288px, calc(100vw - 48px)); }
   .linear-workspace-row { height: 44px; }
@@ -64,15 +61,20 @@
 }
 
 
-/* Collapsed rail: the X mark stays on top and every destination stays one 40px icon target (names appear as tooltips). */
-[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px !important; height: 40px !important; min-height: 40px; padding: 0 !important; gap: 0; justify-content: center; margin-inline: auto; }
-[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: none; }
-[data-collapsible='icon'] .linear-sidebar .linear-workspace-row { align-items: center; }
-[data-collapsible='icon'] .linear-sidebar .linear-workspace-brand { flex: none; width: 40px; padding: 0; justify-content: center; }
-[data-collapsible='icon'] .linear-sidebar .linear-wordmark { padding-left: 0; }
-:root [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] svg { width: 20px; height: 20px; }
-[data-collapsible='icon'] .linear-sidebar-content { gap: 12px; }
-[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }
 /* Sturdier icons, as in the ElevenLabs sidebar: slightly larger with a heavier stroke. */
 :root .linear-nav-group [data-slot='sidebar-menu-button'] svg { width: 18px; height: 18px; stroke-width: 2.25; }
-:root [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] svg { width: 20px; height: 20px; }
+
+/* One geometry for open and closed. The rail is 56px wide and every icon, and the X, centers on x=28 in both states,
+   so nothing moves when the sidebar toggles. Group titles keep their height when closed, leaving white space. */
+.linear-sidebar-header { padding: 10px 8px; }
+.linear-sidebar-content { padding-inline: 8px; }
+.linear-workspace-brand { gap: 0; padding: 0 8px 0 0; }
+.linear-wordmark { box-sizing: border-box; display: inline-block; width: 40px; padding-left: 0; text-align: center; }
+.linear-nav-group [data-slot='sidebar-menu-button'] { padding: 0 8px 0 11px; gap: 12px; }
+[data-collapsible='icon'] .linear-sidebar .linear-workspace-brand { flex: none; width: 40px; padding: 0; justify-content: center; }
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-group-label'] { margin-top: 0 !important; opacity: 0; }
+/* Layered on purpose: important declarations in an earlier layer beat the important size-8 and p-2 utilities. */
+@layer components {
+  [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px !important; height: 36px !important; min-height: 36px; padding: 0 !important; gap: 0; justify-content: center; }
+}
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: none; }
