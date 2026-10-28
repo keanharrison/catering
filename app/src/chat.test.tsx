@@ -69,12 +69,6 @@ describe('chat page', () => {
     expect(screen.queryByRole('list', { name: 'Attached files' })).toBeNull()
   })
 
-  it('has a microphone control that is unavailable, not broken, where speech input is unsupported', () => {
-    renderAppAt('/customer/ask-pearl', <AppRoutes />)
-    const mic = screen.getByRole('button', { name: /Voice input is not supported/ }) as HTMLButtonElement
-    expect(mic.disabled).toBe(true)
-  })
-
   it('puts the cursor in the question field on arrival', () => {
     renderAppAt('/customer/ask-pearl', <AppRoutes />)
     expect(document.activeElement).toBe(screen.getByLabelText('Ask a question'))

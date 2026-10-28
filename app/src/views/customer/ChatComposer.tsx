@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
-import { ArrowUp, Microphone, Plus, X } from '../../components/icons'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
+import { ArrowUp, Plus, X } from '../../components/icons'
 
 const MAX_QUESTION_LENGTH = 300
 const MAX_FILES = 5
@@ -7,27 +7,11 @@ const MAX_FILES = 5
 // Example questions that take turns in the empty field: each reveals left to right, holds, then lifts away as the next rises in.
 const HINTS = ['What’s the status of my request?', 'When is my next event?', 'Do I have any drafts in progress?']
 
-type SpeechResultEvent = { results: ArrayLike<ArrayLike<{ transcript: string }>> }
-type Recognizer = {
-  lang: string
-  interimResults: boolean
-  continuous: boolean
-  onresult: ((event: SpeechResultEvent) => void) | null
-  onend: (() => void) | null
-  onerror: (() => void) | null
-  start: () => void
-  stop: () => void
-}
-
-function recognizerConstructor(): (new () => Recognizer) | null {
-  const w = window as unknown as { SpeechRecognition?: new () => Recognizer; webkitSpeechRecognition?: new () => Recognizer }
-  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null
-}
 
 const toolButton = 'flex size-11 shrink-0 items-center justify-center rounded-full text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent md:size-10'
 
 /**
- * The pill-shaped question field used on the Chat page: attach files with +, dictate with the microphone, send with the arrow.
+ * The pill-shaped question field used on the Chat page: attach files with +, send with the arrow.
  * Attachments are listed but not read yet; the answer says so.
  */
 export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
@@ -37,46 +21,16 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
   autoFocus?: boolean
 }) {
   const [files, setFiles] = useState<File[]>([])
-  const [listening, setListening] = useState(false)
   const [hint, setHint] = useState(0)
   const picker = useRef<HTMLInputElement>(null)
-  const recognizer = useRef<Recognizer | null>(null)
-  const voiceSupported = typeof window !== 'undefined' && recognizerConstructor() !== null
-
-  useEffect(() => () => recognizer.current?.stop(), [])
-
   function pick(event: ChangeEvent<HTMLInputElement>) {
     const chosen = Array.from(event.target.files ?? [])
     setFiles((current) => [...current, ...chosen].slice(0, MAX_FILES))
     event.target.value = ''
   }
 
-  function toggleVoice() {
-    if (listening) {
-      recognizer.current?.stop()
-      return
-    }
-    const Recognition = recognizerConstructor()
-    if (!Recognition) return
-    const base = value.trim()
-    const next = new Recognition()
-    next.lang = navigator.language || 'en-US'
-    next.interimResults = true
-    next.continuous = false
-    next.onresult = (event) => {
-      const heard = Array.from(event.results).map((result) => result[0].transcript).join('')
-      onChange(`${base} ${heard}`.trim().slice(0, MAX_QUESTION_LENGTH))
-    }
-    next.onend = () => setListening(false)
-    next.onerror = () => setListening(false)
-    recognizer.current = next
-    setListening(true)
-    next.start()
-  }
-
   function submit(event: FormEvent) {
     event.preventDefault()
-    recognizer.current?.stop()
     onSubmit(files.map((file) => file.name))
     setFiles([])
   }
@@ -131,17 +85,6 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
           <span aria-hidden="true" className="chat-caret" />
           <span key={hint} aria-hidden="true" className="chat-hint" onAnimationEnd={() => setHint((current) => (current + 1) % HINTS.length)}>{HINTS[hint]}</span>
         </div>
-        <button
-          type="button"
-          aria-label={voiceSupported ? (listening ? 'Stop voice input' : 'Start voice input') : 'Voice input is not supported in this browser'}
-          aria-pressed={voiceSupported ? listening : undefined}
-          disabled={!voiceSupported}
-          onClick={toggleVoice}
-          className={`${toolButton} relative ${listening ? 'bg-secondary' : ''}`}
-        >
-          <Microphone aria-hidden="true" style={{ width: 20, height: 20 }} />
-          {listening && <span aria-hidden="true" className="absolute right-2 top-2 size-2 rounded-full bg-destructive" />}
-        </button>
         <button
           type="submit"
           aria-label="Send question"
