@@ -44,7 +44,7 @@ export function SiteHeader() {
             <BreadcrumbItem>
               <BreadcrumbPage>{pageLabel(pathname)}</BreadcrumbPage>
             </BreadcrumbItem>
-          ) : (
+          ) : pathname === routes.customer ? null : (
             <>
               <BreadcrumbItem>
                 <BreadcrumbLink render={<Link to={routes.customer} />}>New request</BreadcrumbLink>
