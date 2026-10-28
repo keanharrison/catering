@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { cx } from '../../lib/cx'
+import { routes } from '../../routes'
 import { Send } from '../../components/icons'
 import { answerQuestion, suggestedQuestions, type Answer, type DashboardSummary } from './dashboardSummary'
 
@@ -7,7 +9,13 @@ type Turn = { id: number; question: string; answer: Answer }
 
 const MAX_QUESTION_LENGTH = 300
 
-export function DashboardAssistant({ summary }: { summary: DashboardSummary }) {
+export function DashboardAssistant({ summary, headingLevel = 2, className, showFullPageLink = false }: {
+  summary: DashboardSummary
+  headingLevel?: 1 | 2
+  className?: string
+  showFullPageLink?: boolean
+}) {
+  const Heading = headingLevel === 1 ? 'h1' : 'h2'
   const [turns, setTurns] = useState<Turn[]>([])
   const [value, setValue] = useState('')
   const log = useRef<HTMLDivElement>(null)
@@ -30,8 +38,11 @@ export function DashboardAssistant({ summary }: { summary: DashboardSummary }) {
   }
 
   return (
-    <section aria-labelledby="assistant-title" className="flex min-h-[32rem] flex-col rounded-2xl bg-secondary p-5 sm:p-6">
-      <h2 id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Assistant</h2>
+    <section aria-labelledby="assistant-title" className={cx('flex min-h-[32rem] flex-col rounded-2xl bg-secondary p-5 sm:p-6', className)}>
+      <div className="flex items-start justify-between gap-3">
+        <Heading id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</Heading>
+        {showFullPageLink && <Link to={routes.askPearl} className="text-[14px] text-foreground underline underline-offset-4">Open full page</Link>}
+      </div>
       <p className="mt-1 text-[14px] text-muted-foreground">Ask about your requests, drafts, and messages.</p>
 
       <div ref={log} role="log" aria-label="Conversation" aria-live="polite" className="mt-5 flex-1 overflow-y-auto [scrollbar-width:thin]">

@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </div>
             </div>
           )}
-          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-3.5rem)] min-w-0 outline-none md:min-h-[calc(100svh-4.5rem)]">
+          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-4rem)] min-w-0 outline-none md:min-h-[calc(100svh-5rem)]">
             {children}
           </div>
         </SidebarInset>

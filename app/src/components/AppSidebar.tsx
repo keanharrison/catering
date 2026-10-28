@@ -43,6 +43,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { routes } from '@/routes'
+import { stages } from '@/views/customer/journey'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '@/state/demoAccount'
 import { useNavigate } from 'react-router-dom'
 import { useDemoStore } from '@/state/store'
@@ -111,7 +112,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="inset" className="linear-sidebar">
+    <Sidebar collapsible="offcanvas" variant="inset" className="linear-sidebar">
       <SidebarHeader className="linear-sidebar-header">
         <div className="linear-workspace-row">
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
@@ -157,7 +158,7 @@ export function AppSidebar() {
               {section.map((item) => {
                 const Icon = item.icon
                 const active = item.href === routes.customer
-                  ? pathname === routes.customer || pathname.startsWith(`${routes.customer}/`) && !pathname.startsWith(routes.currentOrders) && !pathname.startsWith(routes.customerMessages) && !pathname.startsWith(routes.customerDashboard)
+                  ? stages.some((stage) => stage.path === pathname)
                   : pathname === item.href
                 return <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {
