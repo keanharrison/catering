@@ -44,7 +44,6 @@ type Destination = {
 }
 
 const customerNavigation: Destination[] = [
-  { label: 'Dashboard', icon: destinationIcons.dashboard, href: routes.customerDashboard },
   { label: 'Chat', icon: destinationIcons.chat, href: routes.askPearl },
   { label: 'New request', icon: destinationIcons.newRequest, href: routes.customer },
   { label: 'Current orders', icon: destinationIcons.currentOrders, href: routes.currentOrders },
@@ -65,7 +64,7 @@ const teamNavigation: Destination[] = [
 
 // EXPERIMENT: pages that get the refined sidebar (32px rows, 10px radius, fading labels). Empty this list, and delete the
 // "refined sidebar" block at the end of linear-sidebar.css, to go back to the earlier sidebar everywhere.
-const REFINED_SIDEBAR_ROUTES: string[] = [routes.customerDashboard]
+const REFINED_SIDEBAR_ROUTES: string[] = [routes.askPearl]
 
 function navigationFor(account: DemoAccount) {
   if (account === 'team') return teamNavigation
@@ -94,7 +93,7 @@ export function AppSidebar() {
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
   const refined = REFINED_SIDEBAR_ROUTES.includes(pathname)
-  const firstGroupSize = account === 'team' ? 3 : 5
+  const firstGroupSize = account === 'team' ? 3 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount

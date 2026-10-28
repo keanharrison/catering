@@ -168,7 +168,7 @@ function CustomerMessagesPage() {
 
     {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
       <EmptyHeader><EmptyMedia variant="tile"><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here when the Pearl Island team adds an update to one of your requests.</EmptyDescription></EmptyHeader>
-      <EmptyContent><Button nativeButton={false} variant="outline" render={<Link to={routes.customer} />}>New catering request</Button></EmptyContent>
+      <EmptyContent><Button nativeButton={false} render={<Link to={routes.customer} />}>New catering request</Button></EmptyContent>
     </Empty></CardContent></Card> : <div className="grid min-h-[34rem] gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)]">
       <Card className={`${mobileThreadOpen ? 'hidden lg:flex' : 'flex'} min-w-0 flex-col`}>
         <CardHeader><CardTitle>Conversations</CardTitle><CardDescription>{threads.length} request {threads.length === 1 ? 'thread' : 'threads'}</CardDescription></CardHeader>

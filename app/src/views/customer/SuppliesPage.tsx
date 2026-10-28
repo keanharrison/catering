@@ -157,7 +157,6 @@ export function SuppliesPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="min-h-11"
                 onClick={() => navigate(stagePath('menu'))}
               >
                 Back to menu
@@ -170,8 +169,7 @@ export function SuppliesPage() {
                 )}
                 <Button
                   type="button"
-                  className="min-h-11"
-                  disabled={!canContinue}
+                    disabled={!canContinue}
                   aria-describedby={!canContinue ? 'supplies-continue-help' : undefined}
                   onClick={() => navigate(stagePath('details'))}
                 >

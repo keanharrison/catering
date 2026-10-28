@@ -95,9 +95,9 @@ export function MenuOrderSummary({ summary, onBack, onContinue, mobile = false }
       {!mobile && showNavigation && (
         <CardFooter className="flex-col items-stretch gap-2">
           <div className="flex gap-2">
-            <Button type="button" variant="outline" className="min-h-11 px-4" onClick={onBack}>Back</Button>
+            <Button type="button" variant="outline" onClick={onBack}>Back</Button>
             <Button
-              className="min-h-11 flex-1"
+              className="flex-1"
               disabled={!summary.hasFood}
               aria-describedby={!summary.hasFood ? continueHelpId : undefined}
               onClick={onContinue}
@@ -130,9 +130,9 @@ export function MenuOrderSummary({ summary, onBack, onContinue, mobile = false }
       {showNavigation && (
         <>
           <div className="flex gap-2 py-2">
-            <Button type="button" variant="outline" className="min-h-11 flex-1" onClick={onBack}>Back</Button>
+            <Button type="button" variant="outline" className="flex-1" onClick={onBack}>Back</Button>
             <Button
-              className="min-h-11 flex-1"
+              className="flex-1"
               disabled={!summary.hasFood}
               aria-describedby={!summary.hasFood ? continueHelpId : undefined}
               onClick={onContinue}

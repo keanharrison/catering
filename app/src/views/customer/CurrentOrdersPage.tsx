@@ -83,7 +83,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         <AlertTitle>Review the revised proposal</AlertTitle>
         <AlertDescription className="mt-2 grid justify-items-start gap-3">
           <span>{last?.text || 'Pearl Island proposed changes to your selections. Review them before approving.'}</span>
-          <Button size="sm" onClick={onReviewProposal}>Review proposal</Button>
+          <Button onClick={onReviewProposal}>Review proposal</Button>
         </AlertDescription>
       </Alert>}
 
@@ -99,7 +99,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
               <FieldDescription id={`order-reply-hint-${order.id}`}>Required.</FieldDescription>
               {replyError && <FieldError id={`order-reply-error-${order.id}`}>{replyError}</FieldError>}
             </Field>
-            <Button type="submit" size="sm" className="justify-self-start">Save response</Button>
+            <Button type="submit" className="justify-self-start">Save response</Button>
           </form>
         </AlertDescription>
       </Alert>}

@@ -1,6 +1,5 @@
 export const routes = {
   customer: '/customer',
-  customerDashboard: '/customer/dashboard',
   askPearl: '/customer/ask-pearl',
   staff: '/staff',
   handoff: '/handoff',

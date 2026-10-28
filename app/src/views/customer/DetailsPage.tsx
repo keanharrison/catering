@@ -166,8 +166,8 @@ function DetailsView() {
 
               </CardContent>
               <CardFooter className="flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <Button type="button" variant="outline" className="min-h-11" onClick={() => navigate(stagePath('supplies'))}>Back to supplies</Button>
-                <Button type="submit" className="min-h-11">Review your request</Button>
+                <Button type="button" variant="outline" onClick={() => navigate(stagePath('supplies'))}>Back to supplies</Button>
+                <Button type="submit">Review your request</Button>
               </CardFooter>
             </form>
           </Card>

@@ -359,14 +359,13 @@ function EventForm() {
                 ref={draftButtonRef}
                 type="button"
                 variant="outline"
-                className="min-h-11 px-4 text-body"
                 onClick={saveDraft}
               >
                 {draftSaved && <span data-icon-surface className="inline-flex text-success"><CheckCircle2Icon aria-hidden="true" /></span>}
                 {draftSaved ? 'Draft saved' : 'Save draft'}
               </Button>
             </span>
-            <Button type="submit" className="min-h-11 px-4 text-body">
+            <Button type="submit">
               Continue
             </Button>
           </div>

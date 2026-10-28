@@ -29,7 +29,7 @@ export function SiteHeader() {
           aria-label="Toggle navigation"
           aria-expanded={sidebarShown}
           onClick={toggleSidebar}
-          render={<button type="button" className="flex size-11 shrink-0 items-center justify-center rounded-[10px] text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-9" />}
+          render={<button type="button" className="flex size-11 shrink-0 items-center justify-center rounded-xl text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-9" />}
         >
           <PanelLeftIcon aria-hidden="true" />
         </TooltipTrigger>
@@ -46,7 +46,7 @@ export function SiteHeader() {
             to={routes.askPearl}
             aria-label="Ask"
             aria-current={pathname === routes.askPearl ? 'page' : undefined}
-            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-background px-3 text-body tracking-[0.01em] text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-secondary md:h-9"
+            className="inline-flex h-11 items-center gap-2 rounded-xl bg-background px-3 text-body tracking-[0.01em] text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-secondary md:h-9"
           >
             <span aria-hidden="true" className="text-heading font-bold leading-none tracking-[-0.03em]">X</span>
             <span aria-hidden="true" className="hidden sm:inline">Ask</span>

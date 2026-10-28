@@ -13,7 +13,6 @@ import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
-import { DashboardPage } from './views/customer/DashboardPage'
 import { ChatPage } from './views/customer/ChatPage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
@@ -42,7 +41,8 @@ export function AppRoutes() {
         path={routes.staff}
         element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
       />
-      <Route path={routes.customerDashboard} element={customerPage(<DashboardPage />)} />
+      {/* The Dashboard was folded into Chat; keep old links working. */}
+      <Route path="/customer/dashboard" element={<Navigate to={routes.askPearl} replace />} />
       <Route path={routes.askPearl} element={customerPage(<ChatPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />

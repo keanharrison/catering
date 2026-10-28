@@ -283,7 +283,7 @@ export function MenuPageShell() {
               )}
             </CardContent>
             <CardFooter className="flex flex-wrap justify-end gap-2">
-              {!suggestion && <Button variant="outline" onClick={suggestMenu}>Suggest</Button>}
+              {!suggestion && <Button onClick={suggestMenu}>Suggest</Button>}
               {suggestion && !suggestion.applied && suggestion.recommendation.lines.length > 0 && (
                 <>
                   <Button variant="outline" onClick={suggestMenu}>Suggest again</Button>

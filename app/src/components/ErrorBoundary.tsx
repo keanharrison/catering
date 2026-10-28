@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { STORAGE_KEY } from '../state/store'
-import { Button } from './Button'
+import { Button } from '@/components/ui/button'
 
 type ErrorBoundaryProps = {
   children: ReactNode
