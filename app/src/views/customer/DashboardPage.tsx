@@ -13,10 +13,10 @@ const plural = (count: number, word: string) => `${count} ${word}${count === 1 ?
 function Shortcut({ title, to, status, icon: Icon, attention = false }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>>; attention?: boolean }) {
   return (
     <Link to={to} className="group flex flex-col items-center gap-2 rounded-xl p-2 text-center no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-      <span data-icon-surface className="flex size-12 items-center justify-center rounded-xl border border-border bg-background text-foreground transition-colors duration-150 group-hover:bg-secondary">
+      <span data-icon-surface className="floating-tile transition-colors duration-150 group-hover:bg-secondary">
         <Icon aria-hidden="true" style={{ width: 20, height: 20 }} />
       </span>
-      <span className="text-body text-foreground">{title}</span>
+      <span className="text-ui font-medium text-foreground">{title}</span>
       <span className={attention ? 'text-ui leading-[1.3] text-warning' : 'text-ui leading-[1.3] text-muted-foreground'}>{status}</span>
     </Link>
   )

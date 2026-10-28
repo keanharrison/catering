@@ -193,7 +193,7 @@ function EventForm() {
             <FieldLegend className="sr-only">Event details</FieldLegend>
             <div className="grid gap-x-4 gap-y-6 sm:grid-cols-2">
               <Field data-invalid={Boolean(errors.eventType) || undefined} className="sm:col-span-2">
-                <FieldLabel htmlFor="eventType" className="text-body">Event type</FieldLabel>
+                <FieldLabel htmlFor="eventType">Event type</FieldLabel>
                 <Select
                   items={eventTypeItems}
                   value={form.eventType || null}
@@ -224,7 +224,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.guestCount) || undefined}>
-                <FieldLabel htmlFor="guestCount" className="text-body">Guests</FieldLabel>
+                <FieldLabel htmlFor="guestCount">Guests</FieldLabel>
                 <Input
                   id="guestCount"
                   name="guestCount"
@@ -243,7 +243,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.eventDate) || undefined}>
-                <FieldLabel htmlFor="eventDate" className="text-body">Date</FieldLabel>
+                <FieldLabel htmlFor="eventDate">Date</FieldLabel>
                 <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                   <PopoverTrigger
                     render={
@@ -280,7 +280,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.fulfillment) || undefined}>
-                <FieldLabel htmlFor="fulfillment" className="text-body">Pickup or delivery</FieldLabel>
+                <FieldLabel htmlFor="fulfillment">Pickup or delivery</FieldLabel>
                 <Select
                   items={fulfillmentItems}
                   value={form.fulfillment || null}
@@ -311,7 +311,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.budget) || undefined}>
-                <FieldLabel htmlFor="budget" className="text-body">Budget (optional)</FieldLabel>
+                <FieldLabel htmlFor="budget">Budget (optional)</FieldLabel>
                 <InputGroup className="h-11">
                   <InputGroupAddon aria-hidden="true">$</InputGroupAddon>
                   <InputGroupInput
@@ -330,7 +330,7 @@ function EventForm() {
               </Field>
 
               <FieldSet className="sm:col-span-2">
-                <FieldLegend variant="label" className="text-body">Dietary needs (optional)</FieldLegend>
+                <FieldLegend variant="label">Dietary needs (optional)</FieldLegend>
                 <div className="flex flex-wrap gap-2">
                   {dietaryOptions.map((option) => (
                     <label

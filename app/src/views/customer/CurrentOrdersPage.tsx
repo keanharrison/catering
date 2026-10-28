@@ -261,14 +261,14 @@ export function CurrentOrdersPage() {
       {currentOrders.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-72">
-            <EmptyHeader><EmptyMedia variant="icon"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="tile"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
             <EmptyContent>{newRequestButton}</EmptyContent>
           </Empty>
         </CardContent></Card>
       ) : visible.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-64">
-            <EmptyHeader><EmptyMedia variant="icon"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="tile"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
             <EmptyContent><Button variant="outline" onClick={() => setFilter('all')}>Show all active orders</Button></EmptyContent>
           </Empty>
         </CardContent></Card>
