@@ -29,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { destinationIcons } from './destinationIcons'
+import { cx } from '@/lib/cx'
 import { routes } from '@/routes'
 import { stages } from '@/views/customer/journey'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '@/state/demoAccount'
@@ -62,6 +63,10 @@ const teamNavigation: Destination[] = [
   { label: 'Settings', icon: destinationIcons.staffSettings, href: routes.staffSettings },
 ]
 
+// EXPERIMENT: pages that get the refined sidebar (32px rows, 10px radius, fading labels). Empty this list, and delete the
+// "refined sidebar" block at the end of linear-sidebar.css, to go back to the earlier sidebar everywhere.
+const REFINED_SIDEBAR_ROUTES: string[] = [routes.customerDashboard]
+
 function navigationFor(account: DemoAccount) {
   if (account === 'team') return teamNavigation
   return customerNavigation
@@ -88,6 +93,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
+  const refined = REFINED_SIDEBAR_ROUTES.includes(pathname)
   const firstGroupSize = account === 'team' ? 3 : 5
 
   function chooseAccount(value: string) {
@@ -100,7 +106,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="sidebar" className="linear-sidebar">
+    <Sidebar collapsible="icon" variant="sidebar" className={cx('linear-sidebar', refined && 'linear-sidebar-refined')}>
       <SidebarHeader className="linear-sidebar-header">
         <div className="linear-workspace-row">
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
