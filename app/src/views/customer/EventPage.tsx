@@ -5,16 +5,10 @@ import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Field,
   FieldError,
-  FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSet,
@@ -170,214 +164,213 @@ function EventForm() {
   return (
     <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
       <section className="mx-auto w-full max-w-3xl">
-        <h1 className="type-page-title mb-6 text-foreground">
+        <h1 className="type-page-title mb-8 text-foreground">
           Plan your catering
         </h1>
 
-        <Card className="w-full">
-          <form ref={formRef} onSubmit={onSubmit} noValidate>
-            <CardContent>
-              {Object.values(errors).filter(Boolean).length > 1 && (
-                <Alert variant="destructive" className="mb-6">
-                  <AlertTitle>Fix these to continue</AlertTitle>
-                  <AlertDescription>
-                    <ul className="list-inside list-disc space-y-1">
-                      {(Object.entries(errors) as Array<[IntakeField, string | undefined]>).map(
-                        ([field, message]) =>
-                          message && (
-                            <li key={field}>
-                              <a href={`#${field}`}>
-                                {errorFieldLabels[field] ?? 'Answer'}: {message}
-                              </a>
-                            </li>
-                          ),
-                      )}
-                    </ul>
-                  </AlertDescription>
-                </Alert>
-              )}
-              <FieldGroup className="gap-6">
-            <FieldSet>
-              <FieldLegend className="sr-only">Event details</FieldLegend>
-              <FieldGroup>
-                <Field data-invalid={Boolean(errors.eventType) || undefined}>
-                  <FieldLabel htmlFor="eventType">Event type</FieldLabel>
-                  <Select
-                    items={eventTypeItems}
-                    value={form.eventType || null}
-                    onValueChange={(value) => set('eventType', String(value ?? ''))}
-                    name="eventType"
-                    required
+        <form ref={formRef} onSubmit={onSubmit} noValidate>
+          {Object.values(errors).filter(Boolean).length > 1 && (
+            <Alert variant="destructive" className="mb-6">
+              <AlertTitle>Fix these to continue</AlertTitle>
+              <AlertDescription>
+                <ul className="list-inside list-disc space-y-1">
+                  {(Object.entries(errors) as Array<[IntakeField, string | undefined]>).map(
+                    ([field, message]) =>
+                      message && (
+                        <li key={field}>
+                          <a href={`#${field}`}>
+                            {errorFieldLabels[field] ?? 'Answer'}: {message}
+                          </a>
+                        </li>
+                      ),
+                  )}
+                </ul>
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <FieldSet>
+            <FieldLegend className="sr-only">Event details</FieldLegend>
+            <div className="grid gap-x-4 gap-y-6 sm:grid-cols-2">
+              <Field data-invalid={Boolean(errors.eventType) || undefined} className="sm:col-span-2">
+                <FieldLabel htmlFor="eventType" className="text-[14px]">Event type</FieldLabel>
+                <Select
+                  items={eventTypeItems}
+                  value={form.eventType || null}
+                  onValueChange={(value) => set('eventType', String(value ?? ''))}
+                  name="eventType"
+                  required
+                >
+                  <SelectTrigger
+                    id="eventType"
+                    className="w-full text-[14px] data-[size=default]:h-11"
+                    aria-required="true"
+                    aria-invalid={Boolean(errors.eventType)}
+                    aria-describedby={errors.eventType ? 'eventType-error' : undefined}
                   >
-                    <SelectTrigger
-                      id="eventType"
-                      className="w-full data-[size=default]:h-11"
-                      aria-required="true"
-                      aria-invalid={Boolean(errors.eventType)}
-                      aria-describedby={errors.eventType ? 'eventType-error' : undefined}
-                    >
-                      <SelectValue placeholder="Please select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {eventTypeItems.map((type) => (
-                          <SelectItem key={type.value} value={type.value}>
-                            {type.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  {errors.eventType && <FieldError id="eventType-error">{errors.eventType}</FieldError>}
-                </Field>
+                    <SelectValue placeholder="Please select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {eventTypeItems.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                {errors.eventType && <FieldError id="eventType-error">{errors.eventType}</FieldError>}
+              </Field>
 
-                <Field data-invalid={Boolean(errors.guestCount) || undefined}>
-                  <FieldLabel htmlFor="guestCount">Guests</FieldLabel>
-                  <Input
-                    id="guestCount"
-                    name="guestCount"
-                    type="number"
-                    className="h-11"
-                    inputMode="numeric"
-                    min={1}
-                    max={5000}
-                    required
-                    value={form.guestCount}
-                    aria-invalid={Boolean(errors.guestCount)}
-                    aria-describedby={errors.guestCount ? 'guestCount-error' : undefined}
-                    onChange={(event) => set('guestCount', event.target.value)}
-                  />
-                  {errors.guestCount && <FieldError id="guestCount-error">{errors.guestCount}</FieldError>}
-                </Field>
-
-                <Field data-invalid={Boolean(errors.eventDate) || undefined}>
-                  <FieldLabel htmlFor="eventDate">Date</FieldLabel>
-                  <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
-                    <PopoverTrigger
-                      render={
-                        <Button
-                          id="eventDate"
-                          type="button"
-                          variant="outline"
-                          data-empty={!selectedDate}
-                          aria-required="true"
-                          aria-invalid={Boolean(errors.eventDate)}
-                          aria-describedby={errors.eventDate ? 'eventDate-error' : undefined}
-                          className="h-11 w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
-                        >
-                          {selectedDate ? format(selectedDate, 'PPP') : <span>Please select</span>}
-                          <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
-                        </Button>
-                      }
-                    />
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={selectedDate}
-                        onSelect={(date) => {
-                          if (!date) return
-                          set('eventDate', format(date, 'yyyy-MM-dd'))
-                          setDatePickerOpen(false)
-                        }}
-                        defaultMonth={selectedDate ?? earliestDate}
-                        disabled={{ before: earliestDate }}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  {errors.eventDate && <FieldError id="eventDate-error">{errors.eventDate}</FieldError>}
-                </Field>
-              </FieldGroup>
-            </FieldSet>
-
-            <Field data-invalid={Boolean(errors.fulfillment) || undefined}>
-              <FieldLabel htmlFor="fulfillment">Pickup or delivery</FieldLabel>
-              <Select
-                items={fulfillmentItems}
-                value={form.fulfillment || null}
-                onValueChange={(value) => set('fulfillment', (value ?? '') as Fulfillment | '')}
-                name="fulfillment"
-                required
-              >
-                <SelectTrigger
-                  id="fulfillment"
-                  className="w-full data-[size=default]:h-11"
-                  aria-required="true"
-                  aria-invalid={Boolean(errors.fulfillment)}
-                  aria-describedby={errors.fulfillment ? 'fulfillment-error' : undefined}
-                >
-                  <SelectValue placeholder="Please select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {fulfillmentItems.map((item) => (
-                      <SelectItem key={item.value} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              {errors.fulfillment && <FieldError id="fulfillment-error">{errors.fulfillment}</FieldError>}
-            </Field>
-
-            <FieldSet>
-              <FieldLegend variant="label">Dietary needs (optional)</FieldLegend>
-              <FieldGroup className="gap-0">
-                {dietaryOptions.map((option) => (
-                  <Field key={option.id} orientation="horizontal" className="min-h-9">
-                    <Checkbox
-                      id={`dietary-${option.id}`}
-                      name="dietary"
-                      value={option.id}
-                      checked={form.dietary.includes(option.id)}
-                      onCheckedChange={() => toggleDietary(option.id)}
-                      className="after:-inset-x-4 after:-inset-y-4"
-                    />
-                    <FieldLabel htmlFor={`dietary-${option.id}`}>{option.label}</FieldLabel>
-                  </Field>
-                ))}
-              </FieldGroup>
-            </FieldSet>
-
-            <Field data-invalid={Boolean(errors.budget) || undefined}>
-              <FieldLabel htmlFor="budget">Budget (optional)</FieldLabel>
-              <InputGroup>
-                <InputGroupAddon aria-hidden="true">$</InputGroupAddon>
-                <InputGroupInput
-                  id="budget"
-                  name="budget"
-                  inputMode="decimal"
-                  placeholder="800"
-                  value={form.budget}
-                  aria-invalid={Boolean(errors.budget)}
-                  aria-describedby={errors.budget ? 'budget-error' : undefined}
-                  onChange={(event) => set('budget', event.target.value)}
+              <Field data-invalid={Boolean(errors.guestCount) || undefined}>
+                <FieldLabel htmlFor="guestCount" className="text-[14px]">Guests</FieldLabel>
+                <Input
+                  id="guestCount"
+                  name="guestCount"
+                  type="number"
+                  className="h-11 md:text-[14px]"
+                  inputMode="numeric"
+                  min={1}
+                  max={5000}
+                  required
+                  value={form.guestCount}
+                  aria-invalid={Boolean(errors.guestCount)}
+                  aria-describedby={errors.guestCount ? 'guestCount-error' : undefined}
+                  onChange={(event) => set('guestCount', event.target.value)}
                 />
-              </InputGroup>
-              {errors.budget && <FieldError id="budget-error">{errors.budget}</FieldError>}
-            </Field>
+                {errors.guestCount && <FieldError id="guestCount-error">{errors.guestCount}</FieldError>}
+              </Field>
 
-              </FieldGroup>
-            </CardContent>
-            <CardFooter className="justify-end gap-2">
-              <span role="status" aria-live="polite">
-                <Button
-                  ref={draftButtonRef}
-                  type="button"
-                  variant="secondary"
-                  className="min-h-11 px-4"
-                  onClick={saveDraft}
+              <Field data-invalid={Boolean(errors.eventDate) || undefined}>
+                <FieldLabel htmlFor="eventDate" className="text-[14px]">Date</FieldLabel>
+                <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
+                  <PopoverTrigger
+                    render={
+                      <Button
+                        id="eventDate"
+                        type="button"
+                        variant="outline"
+                        data-empty={!selectedDate}
+                        aria-required="true"
+                        aria-invalid={Boolean(errors.eventDate)}
+                        aria-describedby={errors.eventDate ? 'eventDate-error' : undefined}
+                        className="h-11 w-full justify-between text-left text-[14px] font-normal data-[empty=true]:text-muted-foreground"
+                      >
+                        {selectedDate ? format(selectedDate, 'PPP') : <span>Please select</span>}
+                        <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+                      </Button>
+                    }
+                  />
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        if (!date) return
+                        set('eventDate', format(date, 'yyyy-MM-dd'))
+                        setDatePickerOpen(false)
+                      }}
+                      defaultMonth={selectedDate ?? earliestDate}
+                      disabled={{ before: earliestDate }}
+                    />
+                  </PopoverContent>
+                </Popover>
+                {errors.eventDate && <FieldError id="eventDate-error">{errors.eventDate}</FieldError>}
+              </Field>
+
+              <Field data-invalid={Boolean(errors.fulfillment) || undefined}>
+                <FieldLabel htmlFor="fulfillment" className="text-[14px]">Pickup or delivery</FieldLabel>
+                <Select
+                  items={fulfillmentItems}
+                  value={form.fulfillment || null}
+                  onValueChange={(value) => set('fulfillment', (value ?? '') as Fulfillment | '')}
+                  name="fulfillment"
+                  required
                 >
-                  {draftSaved && <CheckCircle2Icon aria-hidden="true" />}
-                  {draftSaved ? 'Draft saved' : 'Save draft'}
-                </Button>
-              </span>
-              <Button type="submit" className="min-h-11 px-4">
-                Continue
+                  <SelectTrigger
+                    id="fulfillment"
+                    className="w-full text-[14px] data-[size=default]:h-11"
+                    aria-required="true"
+                    aria-invalid={Boolean(errors.fulfillment)}
+                    aria-describedby={errors.fulfillment ? 'fulfillment-error' : undefined}
+                  >
+                    <SelectValue placeholder="Please select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {fulfillmentItems.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                {errors.fulfillment && <FieldError id="fulfillment-error">{errors.fulfillment}</FieldError>}
+              </Field>
+
+              <Field data-invalid={Boolean(errors.budget) || undefined}>
+                <FieldLabel htmlFor="budget" className="text-[14px]">Budget (optional)</FieldLabel>
+                <InputGroup className="h-11">
+                  <InputGroupAddon aria-hidden="true">$</InputGroupAddon>
+                  <InputGroupInput
+                    id="budget"
+                    name="budget"
+                    inputMode="decimal"
+                    placeholder="800"
+                    className="md:text-[14px]"
+                    value={form.budget}
+                    aria-invalid={Boolean(errors.budget)}
+                    aria-describedby={errors.budget ? 'budget-error' : undefined}
+                    onChange={(event) => set('budget', event.target.value)}
+                  />
+                </InputGroup>
+                {errors.budget && <FieldError id="budget-error">{errors.budget}</FieldError>}
+              </Field>
+
+              <FieldSet className="sm:col-span-2">
+                <FieldLegend variant="label" className="text-[14px]">Dietary needs (optional)</FieldLegend>
+                <div className="flex flex-wrap gap-2">
+                  {dietaryOptions.map((option) => (
+                    <label
+                      key={option.id}
+                      htmlFor={`dietary-${option.id}`}
+                      className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-input bg-background px-3.5 text-[14px] transition-colors duration-150 hover:bg-secondary has-data-checked:border-foreground has-data-checked:bg-secondary has-focus-visible:ring-2 has-focus-visible:ring-ring md:min-h-10"
+                    >
+                      <Checkbox
+                        id={`dietary-${option.id}`}
+                        name="dietary"
+                        value={option.id}
+                        checked={form.dietary.includes(option.id)}
+                        onCheckedChange={() => toggleDietary(option.id)}
+                      />
+                      {option.label}
+                    </label>
+                  ))}
+                </div>
+              </FieldSet>
+            </div>
+          </FieldSet>
+
+          <div className="mt-8 flex justify-end gap-2">
+            <span role="status" aria-live="polite">
+              <Button
+                ref={draftButtonRef}
+                type="button"
+                variant="outline"
+                className="min-h-11 px-4 text-[14px]"
+                onClick={saveDraft}
+              >
+                {draftSaved && <CheckCircle2Icon aria-hidden="true" />}
+                {draftSaved ? 'Draft saved' : 'Save draft'}
               </Button>
-            </CardFooter>
-          </form>
-        </Card>
+            </span>
+            <Button type="submit" className="min-h-11 px-4 text-[14px]">
+              Continue
+            </Button>
+          </div>
+        </form>
       </section>
     </div>
   )
