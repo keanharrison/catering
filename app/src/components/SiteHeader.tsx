@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { IconUser, PanelLeftIcon } from './icons'
 import { NotificationsMenu } from './NotificationsMenu'
 import { useSidebar } from '@/components/ui/sidebar'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { pageTitle } from '@/lib/pageTitle'
 import { routes } from '@/routes'
 import { useDemoAccount } from '@/state/demoAccount'
@@ -23,15 +24,17 @@ export function SiteHeader() {
 
   return (
     <header data-slot="site-header" className="sticky top-0 z-40 flex h-16 w-full shrink-0 items-center gap-3 border-b border-border bg-card px-4 sm:px-6">
-      <button
-        type="button"
-        aria-label="Toggle navigation"
-        aria-expanded={sidebarShown}
-        onClick={toggleSidebar}
-        className="flex size-11 shrink-0 items-center justify-center rounded-lg text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-10"
-      >
-        <PanelLeftIcon aria-hidden="true" />
-      </button>
+      <Tooltip>
+        <TooltipTrigger
+          aria-label="Toggle navigation"
+          aria-expanded={sidebarShown}
+          onClick={toggleSidebar}
+          render={<button type="button" className="flex size-11 shrink-0 items-center justify-center rounded-lg text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:size-10" />}
+        >
+          <PanelLeftIcon aria-hidden="true" />
+        </TooltipTrigger>
+        <TooltipContent side="bottom">{sidebarShown ? 'Close sidebar' : 'Open sidebar'}</TooltipContent>
+      </Tooltip>
       <span aria-hidden="true" className="h-5 w-px shrink-0 bg-border" />
       <p className="min-w-0 flex-1 truncate text-[20px] font-medium leading-none tracking-[-0.02em] text-foreground">{pageTitle(pathname, account)}</p>
 

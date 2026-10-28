@@ -67,3 +67,9 @@
 [data-slot='sidebar-wrapper']:has([data-variant='inset']) { background: var(--linear-nav-bg); }
 [data-slot='sidebar-inset'] { box-shadow: 0 0 0 0.5px var(--border), 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.05); }
 @media (min-width: 768px) { [data-slot='sidebar-inset'] { border-radius: 12px; } }
+
+/* Collapsed rail: the X mark stays on top and every destination stays one 40px icon target (names appear as tooltips). */
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px; height: 40px; min-height: 40px; padding: 0; justify-content: center; }
+:root [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] svg { width: 20px; height: 20px; }
+[data-collapsible='icon'] .linear-sidebar-content { gap: 12px; }
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }

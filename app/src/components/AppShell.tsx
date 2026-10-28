@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <TooltipProvider>
-      <SidebarProvider style={{ "--sidebar-width": "224px" } as React.CSSProperties} className="min-h-svh bg-background text-foreground">
+      <SidebarProvider style={{ "--sidebar-width": "224px", "--sidebar-width-icon": "56px" } as React.CSSProperties} className="min-h-svh bg-background text-foreground">
         <Toaster position="top-right" />
         <a
           href="#main"
