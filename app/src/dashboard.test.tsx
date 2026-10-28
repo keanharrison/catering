@@ -33,32 +33,32 @@ describe('customer dashboard', () => {
     expect(Array.from(current).map((el) => el.textContent)).toEqual(['New request'])
   })
 
-  it('shows the four tiles and links each to its page', () => {
+  it('shows a shortcut to each part of the account and links it to its page', () => {
     renderAppAt('/customer/dashboard', <AppRoutes />)
     const main = within(document.getElementById('main') as HTMLElement)
-    expect(main.getByRole('heading', { level: 1, name: 'Dashboard' })).toBeTruthy()
+    expect(main.getByRole('heading', { level: 1, name: 'What can I help you with?' })).toBeTruthy()
     expect(main.getByRole('link', { name: /Past/ }).getAttribute('href')).toBe('/customer/orders/past')
     expect(main.getByRole('link', { name: /Active/ }).getAttribute('href')).toBe('/customer/orders')
     expect(main.getByRole('link', { name: /Drafts/ }).getAttribute('href')).toBe('/customer')
     expect(main.getByRole('link', { name: /Messages/ }).getAttribute('href')).toBe('/customer/messages')
   })
 
-  it('answers a typed question in the assistant and keeps the field usable', async () => {
+  it('hands a typed question to the Chat page, which answers it once', async () => {
     const user = userEvent.setup()
     renderAppAt('/customer/dashboard', <AppRoutes />)
     const send = screen.getByRole('button', { name: 'Send question' }) as HTMLButtonElement
     expect(send.disabled).toBe(true)
     await user.type(screen.getByLabelText('Ask a question'), 'Do I have any drafts?')
     await user.click(send)
-    const log = screen.getByRole('log', { name: 'Conversation' })
-    expect(within(log).getByText(/You have no draft right now/)).toBeTruthy()
-    expect((screen.getByLabelText('Ask a question') as HTMLInputElement).value).toBe('')
+    const log = await screen.findByRole('log', { name: 'Conversation' })
+    expect(within(log).getAllByText(/You have a request in progress|You have no draft right now/)).toHaveLength(1)
   })
 
-  it('sends a suggested question when it is chosen', async () => {
+  it('shows the quickstarts tab with a way to start a request', async () => {
     const user = userEvent.setup()
     renderAppAt('/customer/dashboard', <AppRoutes />)
-    await user.click(screen.getByRole('button', { name: 'When is my next event?' }))
-    expect(within(screen.getByRole('log')).getByText(/no upcoming event/)).toBeTruthy()
+    expect(screen.getByText(/Nothing yet\./)).toBeTruthy()
+    await user.click(screen.getByRole('tab', { name: 'Quickstarts' }))
+    expect(screen.getByRole('link', { name: /Start a catering request/ }).getAttribute('href')).toBe('/customer')
   })
 })

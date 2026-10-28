@@ -9,6 +9,6 @@ Do this after the ElevenLabs layout is confirmed on every page. The app is neutr
 | Awaiting your approval, notification dot, links | Blue, about `#0A59D2` on a `#EAF2FF` tint | Active or new |
 | Errors, Declined | Red, about `#C8102E` | Current red is bright for small text |
 | Order status chips | Gray, amber, blue, green, red tints | One set shared by Current orders, Past orders, Dashboard, staff pages |
-| Brand accent | `--brand` (Pearl Island teal `#00A1CA`) | A per-restaurant setting. Fill only; use `--brand-deep` for text. Already drives the assistant orb |
+| Brand accent | Undecided | The assistant orb was tried and dropped: it is not catering-related. Revisit when there is a restaurant-specific brand element worth coloring |
 
 Keep Continue buttons and the stepper black, as ElevenLabs does. Check contrast on every tint before shipping.

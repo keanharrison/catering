@@ -52,7 +52,6 @@ export const suggestedPrompts = [
   { title: 'Changing a request', description: 'Learn how to change a request you already submitted.', question: 'How do I change a submitted request?' },
 ]
 
-export const suggestedQuestions = suggestedPrompts.map((prompt) => prompt.question)
 
 /** Answers come from the requests stored in this browser; there is no language-model service behind this yet. */
 export function answerQuestion(question: string, summary: DashboardSummary): Answer {
