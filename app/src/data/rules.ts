@@ -68,7 +68,7 @@ export const leadTimeRules: LeadTimeRule[] = [
 ]
 
 
-const FLOW_SOURCE = 'spoonfed_current_workflow_notes.md (Spoonfed ordering flow observed October 13, 2026)'
+const FLOW_SOURCE = 'WORKFLOW.md (Spoonfed ordering flow observed October 13, 2026)'
 
 leadTimeRules.push({
   leadTimeClass: 'large',

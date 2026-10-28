@@ -1,6 +1,6 @@
 # Pearl Island branding: implementation record
 
-Written October 15, 2026, for the catering demo in `app/`. This records what was observed on Pearl Island's sites, what the demo chose to use (and why it differs), and how it was checked. Source observations: [Pearl-Island-Catering-Branding-and-Workflow-Reference.md](Pearl-Island-Catering-Branding-and-Workflow-Reference.md) (observed October 15, 2026 with Safari Web Inspector; not an official brand manual). The earlier Fin-inspired references (`fin_marketing_reference_report.md`, `images/fin_*`) are kept as history; Pearl Island's captured branding now takes precedence for brand identity, while Fin-style layout patterns (tabs, panels, spacing) remain.
+Written October 15, 2026, for the catering demo in `app/`. This records what was observed on Pearl Island's sites, what the demo chose to use (and why it differs), and how it was checked. Source observations: [Pearl-Island-Catering-Branding-and-Workflow-Reference.md](Pearl-Island-Catering-Branding-and-Workflow-Reference.md) (observed October 15, 2026 with Safari Web Inspector; not an official brand manual). Pearl Island's captured branding is the visual source for the customer-facing demo; layout patterns should follow `SOUL.md`.
 
 ## 1. Observed values versus demo values
 
@@ -35,7 +35,7 @@ All tokens live in one theme in `app/src/index.css`. Older token names were kept
 | `charcoal`, `muted` | Body text, secondary text |
 | `status-*` | Status pills and tags only |
 
-Files changed for the branding pass: `app/src/index.css`, `app/index.html`, `app/package.json` and lockfile (Source Serif dependency removed); components `Button`, `Field`, `QuantityStepper`, `DemoBar`, `AppShell`, `CornerSquares` (comment), `OrderSummaryPanel`; views `MenuPage`, `SuppliesPage`, `orderSummary.ts` (captured category label "Disposable catering supplies") and the Panel corner-decoration removals in the customer, staff and handoff views; assets `app/public/branding/pearl-island-logo.png` (added) and `app/public/favicon.svg` (removed). Each change is its own commit (see the build plan).
+Files changed for the branding pass: `app/src/index.css`, `app/index.html`, `app/package.json` and lockfile (Source Serif dependency removed); components `Button`, `Field`, `QuantityStepper`, `DemoBar`, `AppShell`, `CornerSquares` (comment), `OrderSummaryPanel`; views `MenuPage`, `SuppliesPage`, `orderSummary.ts` (captured category label "Disposable catering supplies") and the Panel corner-decoration removals in the customer, staff and handoff views; assets `app/public/branding/pearl-island-logo.png` (added) and `app/public/favicon.svg` (removed). Change history is available in Git commits.
 
 ## 3. Typography and accessibility decisions
 
@@ -57,7 +57,7 @@ The logo in the header is the artwork served on pearlislandcatering.com. The JPE
 
 ## 6. Open items and questions for Sober
 
-Still to update to match this record: PRD section 8 and the styling rows in `TECH_DESIGN.md` still describe the earlier Fin-inspired orange theme, the README does not link here, and the internal component Gallery page still mentions the old orange look.
+The current visual guidance is in `SOUL.md`; current product requirements are in `PRD.md`. The internal component Gallery may still mention the old orange look and should be checked when that page is next updated.
 
 Questions for Sober:
 1. Is this turquoise (and the darker button shade) how he wants the brand to look in ordering, or does he have a brand guide?
