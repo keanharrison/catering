@@ -9,7 +9,8 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
-import { BadgeCheck, Clock3, Inbox, ListChecks, TriangleAlert } from '../../components/icons'
+import { BadgeCheck, Clock3, ListChecks, TriangleAlert } from '../../components/icons'
+import { destinationIcons } from '../../components/destinationIcons'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
 import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
@@ -212,7 +213,7 @@ export function StaffPage() {
               <CardContent className="p-0">
                 <Empty className="min-h-72 border-0">
                   <EmptyHeader>
-                    <EmptyMedia variant="icon"><Inbox aria-hidden="true" /></EmptyMedia>
+                    <EmptyMedia variant="icon"><destinationIcons.requests aria-hidden="true" /></EmptyMedia>
                     <EmptyTitle>No requests yet</EmptyTitle>
                     <EmptyDescription>
                       A catering request will appear here after it is submitted from the customer ordering flow.
@@ -226,7 +227,7 @@ export function StaffPage() {
               <CardContent className="p-0">
                 <Empty className="min-h-72 border-0">
                   <EmptyHeader>
-                    <EmptyMedia variant="icon"><Inbox aria-hidden="true" /></EmptyMedia>
+                    <EmptyMedia variant="icon"><destinationIcons.requests aria-hidden="true" /></EmptyMedia>
                     <EmptyTitle>No matching requests</EmptyTitle>
                     <EmptyDescription>
                       There are no requests in “{filterLabel[filter]}” right now. Clear the filter to see all requests.

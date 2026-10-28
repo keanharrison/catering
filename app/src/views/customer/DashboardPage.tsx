@@ -1,6 +1,6 @@
 import { useState, type ComponentType, type SVGProps } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Edit05, History, MessageSquare, PackageCheck } from '../../components/icons'
+import { destinationIcons } from '../../components/destinationIcons'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { deriveNotifications } from '../../lib/notifications'
 import { routes } from '../../routes'
@@ -50,11 +50,11 @@ export function DashboardPage() {
       </div>
 
       <nav aria-label="Your account" className="mt-16 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
-        <Shortcut title="Past" to={routes.pastOrders} icon={History} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
+        <Shortcut title="Past" to={routes.pastOrders} icon={destinationIcons.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
         <Shortcut
           title="Active"
           to={routes.currentOrders}
-          icon={PackageCheck}
+          icon={destinationIcons.currentOrders}
           attention={summary.needsAction.length > 0}
           status={summary.needsAction.length
             ? `${plural(summary.needsAction.length, 'request')} waiting on your reply`
@@ -62,8 +62,8 @@ export function DashboardPage() {
               ? `${plural(summary.active.length, 'active request')}${summary.nextEvent ? `, next ${shortDate(summary.nextEvent.intent.eventAt)}` : ''}`
               : 'No active requests'}
         />
-        <Shortcut title="Drafts" to={routes.customer} icon={Edit05} status={summary.drafts ? '1 draft in progress' : 'No drafts in progress'} />
-        <Shortcut title="Messages" to={routes.customerMessages} icon={MessageSquare} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
+        <Shortcut title="Drafts" to={routes.customer} icon={destinationIcons.drafts} status={summary.drafts ? '1 draft in progress' : 'No drafts in progress'} />
+        <Shortcut title="Messages" to={routes.customerMessages} icon={destinationIcons.messages} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
       </nav>
 
       <Tabs defaultValue="recent" className="mt-16">

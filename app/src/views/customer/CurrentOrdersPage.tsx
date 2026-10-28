@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Package, Utensils } from '../../components/icons'
+import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Utensils } from '../../components/icons'
 import type { Order } from '../../data'
 import { catalog } from '../../data'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
@@ -17,6 +17,7 @@ import { Textarea } from '../../components/ui/textarea'
 import { Tabs, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { formatMoney } from '../../lib/format'
 import { formatEventTime } from '../../lib/status'
+import { destinationIcons } from '../../components/destinationIcons'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
@@ -260,14 +261,14 @@ export function CurrentOrdersPage() {
       {currentOrders.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-72">
-            <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="icon"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
             <EmptyContent>{newRequestButton}</EmptyContent>
           </Empty>
         </CardContent></Card>
       ) : visible.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-64">
-            <EmptyHeader><EmptyMedia variant="icon"><CheckCircle2 /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="icon"><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
             <EmptyContent><Button variant="outline" onClick={() => setFilter('all')}>Show all active orders</Button></EmptyContent>
           </Empty>
         </CardContent></Card>

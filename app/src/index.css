@@ -261,6 +261,9 @@
 :is([data-slot='button'][data-variant='default'], [data-slot='sidebar-menu-button'][data-active], [data-slot='alert'], [data-slot='badge'], [data-sonner-toast], [data-slot='checkbox'], .btn-primary, .alert, .badge, .avatar, .stat-icon, [aria-current='step'], [data-selected='true'], [data-icon-surface]):not(:disabled) { --icon-color: currentColor; }
 button:hover > svg, a:hover > svg, [role='menuitem']:focus > svg { --icon-color: var(--foreground); }
 
+/* Empty-state icons: one size and weight, same as the sidebar. */
+:root [data-slot='empty-icon'][data-variant='icon'] svg { width: 18px; height: 18px; stroke-width: 2.25; }
+
 /* Phones: every tappable control is at least 44px tall (WCAG 2.5.8 target size, with room to spare).
    Desktop keeps Linear's compact density. Checkboxes, radios, switches and calendar days keep their own sizes. */
 @media (max-width: 767px) {

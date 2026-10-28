@@ -1,20 +1,7 @@
 import './linear-sidebar.css'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useState, type ComponentType, type SVGProps } from 'react'
-import {
-  ChevronDown,
-  ClipboardList,
-  History,
-  MessageSquare,
-  PackageCheck,
-  Plus,
-  Settings2,
-  Truck,
-  X,
-  Plug,
-  Bot,
-  SlidersHorizontal,
-} from './icons'
+import { ChevronDown, X } from './icons'
 import {
   Sidebar,
   SidebarContent,
@@ -41,7 +28,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ChatIcon, HomeIcon } from './navIcons'
+import { destinationIcons } from './destinationIcons'
 import { routes } from '@/routes'
 import { stages } from '@/views/customer/journey'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '@/state/demoAccount'
@@ -56,23 +43,23 @@ type Destination = {
 }
 
 const customerNavigation: Destination[] = [
-  { label: 'Dashboard', icon: HomeIcon, href: routes.customerDashboard },
-  { label: 'Chat', icon: ChatIcon, href: routes.askPearl },
-  { label: 'New request', icon: Plus, href: routes.customer },
-  { label: 'Current orders', icon: PackageCheck, href: routes.currentOrders },
-  { label: 'Past orders', icon: History, href: routes.pastOrders },
-  { label: 'Messages', icon: MessageSquare, href: routes.customerMessages },
-  { label: 'Account settings', icon: Settings2, href: routes.settings },
+  { label: 'Dashboard', icon: destinationIcons.dashboard, href: routes.customerDashboard },
+  { label: 'Chat', icon: destinationIcons.chat, href: routes.askPearl },
+  { label: 'New request', icon: destinationIcons.newRequest, href: routes.customer },
+  { label: 'Current orders', icon: destinationIcons.currentOrders, href: routes.currentOrders },
+  { label: 'Past orders', icon: destinationIcons.pastOrders, href: routes.pastOrders },
+  { label: 'Messages', icon: destinationIcons.messages, href: routes.customerMessages },
+  { label: 'Account settings', icon: destinationIcons.accountSettings, href: routes.settings },
 ]
 
 const teamNavigation: Destination[] = [
-  { label: 'Requests', icon: ClipboardList, href: routes.staff },
-  { label: 'Handoff', icon: Truck, href: routes.handoff },
-  { label: 'Messages', icon: MessageSquare, href: routes.staffMessages },
-  { label: 'Menu and rules', icon: Settings2, href: routes.settings },
-  { label: 'Integrations', icon: Plug, href: routes.integrations },
-  { label: 'AI & agents', icon: Bot, href: routes.agents },
-  { label: 'Settings', icon: SlidersHorizontal, href: routes.staffSettings },
+  { label: 'Requests', icon: destinationIcons.requests, href: routes.staff },
+  { label: 'Handoff', icon: destinationIcons.handoff, href: routes.handoff },
+  { label: 'Messages', icon: destinationIcons.messages, href: routes.staffMessages },
+  { label: 'Menu and rules', icon: destinationIcons.menuAndRules, href: routes.settings },
+  { label: 'Integrations', icon: destinationIcons.integrations, href: routes.integrations },
+  { label: 'AI & agents', icon: destinationIcons.agents, href: routes.agents },
+  { label: 'Settings', icon: destinationIcons.staffSettings, href: routes.staffSettings },
 ]
 
 function navigationFor(account: DemoAccount) {
