@@ -116,8 +116,7 @@ export function AppSidebar() {
               aria-label={`${demoAccountLabels[account]} account menu`}
               render={<button type="button" className="linear-workspace-brand" />}
             >
-              <img src="/branding/pearl-island-logo.png" alt="" width={24} height={24} />
-              <span>Pearl Island 2 GO</span>
+              <span className="linear-wordmark" aria-hidden="true">X</span>
               <ChevronDown aria-hidden="true" />
             </DropdownMenuTrigger>
             <DropdownMenuContent side="bottom" align="start" className="linear-menu w-60">
