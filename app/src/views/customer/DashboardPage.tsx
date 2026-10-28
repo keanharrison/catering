@@ -37,15 +37,15 @@ export function DashboardPage() {
   const summary = summarizeDashboard(orders, draftOrder, clock)
   const recent = deriveNotifications(orders, 'customer', 5)
 
-  function ask() {
+  function ask(attachments: string[]) {
     const question = value.trim()
-    if (question) navigate(routes.askPearl, { state: { question } })
+    if (question || attachments.length) navigate(routes.askPearl, { state: { question, attachments } })
   }
 
   return (
     <div className="mx-auto flex w-full max-w-[900px] flex-col px-5 pb-12 pt-[10vh] sm:px-8">
       <h1 className="text-balance text-center text-hero font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
-      <div className="mx-auto mt-8 w-full max-w-[760px]">
+      <div className="mx-auto mt-8 w-full max-w-[640px]">
         <ChatComposer value={value} onChange={setValue} onSubmit={ask} />
       </div>
 

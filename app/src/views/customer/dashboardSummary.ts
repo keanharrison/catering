@@ -54,7 +54,14 @@ export const suggestedPrompts = [
 
 
 /** Answers come from the requests stored in this browser; there is no language-model service behind this yet. */
-export function answerQuestion(question: string, summary: DashboardSummary): Answer {
+export function answerQuestion(question: string, summary: DashboardSummary, attachments: string[] = []): Answer {
+  if (attachments.length > 0) {
+    return {
+      text: `I can't open attachments in this preview yet, so I haven't read ${attachments.join(', ')}. To share a file, send it to the team from Messages.`,
+      href: routes.customerMessages,
+      linkLabel: 'Open Messages',
+    }
+  }
   const q = question.toLowerCase()
   const has = (...words: string[]) => words.some((word) => q.includes(word))
 

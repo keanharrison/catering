@@ -65,7 +65,11 @@
 
 
 /* Collapsed rail: the X mark stays on top and every destination stays one 40px icon target (names appear as tooltips). */
-[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px; height: 40px; min-height: 40px; padding: 0; justify-content: center; }
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px !important; height: 40px !important; min-height: 40px; padding: 0 !important; gap: 0; justify-content: center; margin-inline: auto; }
+[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: none; }
+[data-collapsible='icon'] .linear-sidebar .linear-workspace-row { align-items: center; }
+[data-collapsible='icon'] .linear-sidebar .linear-workspace-brand { flex: none; width: 40px; padding: 0; justify-content: center; }
+[data-collapsible='icon'] .linear-sidebar .linear-wordmark { padding-left: 0; }
 :root [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] svg { width: 20px; height: 20px; }
 [data-collapsible='icon'] .linear-sidebar-content { gap: 12px; }
 [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }

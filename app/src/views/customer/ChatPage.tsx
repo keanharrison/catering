@@ -16,14 +16,15 @@ export function ChatPage() {
   const end = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const navigate = useNavigate()
-  const incoming = (location.state as { question?: string } | null)?.question
+  const incoming = (location.state as { question?: string; attachments?: string[] } | null)
   const handedOver = useRef(false)
 
   // A question typed on the Dashboard arrives here and is answered once.
   useEffect(() => {
-    if (!incoming || handedOver.current) return
+    if (!incoming?.question && !incoming?.attachments?.length) return
+    if (handedOver.current) return
     handedOver.current = true
-    ask(incoming)
+    ask(incoming.question ?? '', incoming.attachments ?? [])
     navigate(location.pathname, { replace: true, state: null })
   }, [incoming, ask, navigate, location.pathname])
 
@@ -33,8 +34,8 @@ export function ChatPage() {
     end.current?.scrollIntoView?.({ block: 'end', behavior: reduce ? 'auto' : 'smooth' })
   }, [turns.length])
 
-  function send(question: string) {
-    ask(question)
+  function send(question: string, attachments: string[] = []) {
+    ask(question, attachments)
     setValue('')
   }
 
@@ -42,8 +43,8 @@ export function ChatPage() {
     return (
       <div className="mx-auto flex min-h-[calc(100svh-3.25rem)] w-full max-w-[800px] flex-col px-5 pb-12 pt-[14vh] sm:px-8">
         <h1 className="text-balance text-center text-hero font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
-        <div className="mx-auto mt-8 w-full max-w-[760px]">
-          <ChatComposer value={value} onChange={setValue} onSubmit={() => send(value)} />
+        <div className="mx-auto mt-8 w-full max-w-[640px]">
+          <ChatComposer value={value} onChange={setValue} onSubmit={(files) => send(value, files)} autoFocus />
         </div>
         <section aria-labelledby="chat-suggestions" className="mt-28">
           <h2 id="chat-suggestions" className="mb-2 px-1 text-ui font-normal text-muted-foreground">Suggestions</h2>
@@ -75,6 +76,7 @@ export function ChatPage() {
             <li key={turn.id} className="grid gap-4">
               <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-body text-foreground">
                 <span className="sr-only">You: </span>{turn.question}
+                {turn.attachments.length > 0 && <span className="mt-1 block text-ui text-muted-foreground">Attached: {turn.attachments.join(', ')}</span>}
               </p>
               <div className="max-w-[92%] text-body leading-[1.55] text-foreground">
                 <p className="whitespace-pre-line [text-wrap:pretty]"><span className="sr-only">Assistant: </span>{turn.answer.text}</p>
@@ -88,7 +90,7 @@ export function ChatPage() {
         <div ref={end} />
       </div>
       <div className="sticky bottom-0 bg-background pb-6 pt-3">
-        <ChatComposer value={value} onChange={setValue} onSubmit={() => send(value)} />
+        <ChatComposer value={value} onChange={setValue} onSubmit={(files) => send(value, files)} autoFocus />
       </div>
     </div>
   )

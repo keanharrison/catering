@@ -25,6 +25,8 @@
   --text-title--line-height: 1.25;
   --text-heading: 0.9375rem;
   --text-heading--line-height: 1.4;
+  --text-lead: 1rem;
+  --text-lead--line-height: 1.4;
   --text-body: 0.875rem;
   --text-body--line-height: 1.45;
   --text-ui: 0.8125rem;
@@ -260,6 +262,13 @@
 :root svg[viewBox='0 0 24 24'][stroke='currentColor'] { width: var(--icon-size); height: var(--icon-size); color: var(--icon-color); }
 :is([data-slot='button'][data-variant='default'], [data-slot='sidebar-menu-button'][data-active], [data-slot='alert'], [data-slot='badge'], [data-sonner-toast], [data-slot='checkbox'], .btn-primary, .alert, .badge, .avatar, .stat-icon, [aria-current='step'], [data-selected='true'], [data-icon-surface]):not(:disabled) { --icon-color: currentColor; }
 button:hover > svg, a:hover > svg, [role='menuitem']:focus > svg { --icon-color: var(--foreground); }
+
+/* Chat input: an empty field shows a softly pulsing caret in place of the native hard blink. */
+.chat-input:placeholder-shown { caret-color: transparent; }
+.chat-caret { position: absolute; left: 4px; top: 50%; width: 1.5px; height: 22px; margin-top: -11px; border-radius: 1px; background: var(--foreground); opacity: 0; pointer-events: none; }
+.chat-input:focus:placeholder-shown + .chat-caret { opacity: 1; animation: caret-pulse 1.2s ease-in-out infinite; }
+@keyframes caret-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.1; } }
+@media (prefers-reduced-motion: reduce) { .chat-input:focus:placeholder-shown + .chat-caret { animation: none; } }
 
 /* Empty-state icons: one size and weight, same as the sidebar. */
 :root [data-slot='empty-icon'][data-variant='icon'] svg { width: 18px; height: 18px; stroke-width: 2.25; }

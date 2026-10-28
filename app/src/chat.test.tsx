@@ -44,4 +44,39 @@ describe('chat page', () => {
     await user.click(send)
     expect(within(screen.getByRole('log')).getByText(/no upcoming event/)).toBeTruthy()
   })
+
+  it('offers + to attach files, lists them, and says plainly that attachments are not read yet', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    expect(screen.getByRole('button', { name: 'Attach files' })).toBeTruthy()
+    const picker = document.querySelector('input[type="file"]') as HTMLInputElement
+    await user.upload(picker, new File(['x'], 'menu-ideas.pdf', { type: 'application/pdf' }))
+    const attached = screen.getByRole('list', { name: 'Attached files' })
+    expect(within(attached).getByText('menu-ideas.pdf')).toBeTruthy()
+    expect((screen.getByRole('button', { name: 'Send question' }) as HTMLButtonElement).disabled).toBe(false)
+    await user.click(screen.getByRole('button', { name: 'Send question' }))
+    const log = screen.getByRole('log', { name: 'Conversation' })
+    expect(within(log).getByText(/can't open attachments in this preview/)).toBeTruthy()
+    expect(within(log).getByText(/Attached: menu-ideas\.pdf/)).toBeTruthy()
+  })
+
+  it('lets an attachment be removed before sending', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    const picker = document.querySelector('input[type="file"]') as HTMLInputElement
+    await user.upload(picker, new File(['x'], 'a.png', { type: 'image/png' }))
+    await user.click(screen.getByRole('button', { name: 'Remove a.png' }))
+    expect(screen.queryByRole('list', { name: 'Attached files' })).toBeNull()
+  })
+
+  it('has a microphone control that is unavailable, not broken, where speech input is unsupported', () => {
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    const mic = screen.getByRole('button', { name: /Voice input is not supported/ }) as HTMLButtonElement
+    expect(mic.disabled).toBe(true)
+  })
+
+  it('puts the cursor in the question field on arrival', () => {
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    expect(document.activeElement).toBe(screen.getByLabelText('Ask a question'))
+  })
 })
