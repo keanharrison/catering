@@ -14,6 +14,7 @@ import {
   X,
   Plug,
   Bot,
+  ChatCircle,
   SlidersHorizontal,
 } from './icons'
 import {
@@ -57,6 +58,7 @@ type Destination = {
 
 const customerNavigation: Destination[] = [
   { label: 'Dashboard', icon: Home, href: routes.customerDashboard },
+  { label: 'Ask Pearl', icon: ChatCircle, href: routes.askPearl },
   { label: 'New request', icon: Plus, href: routes.customer },
   { label: 'Current orders', icon: PackageCheck, href: routes.currentOrders },
   { label: 'Past orders', icon: History, href: routes.pastOrders },
@@ -100,7 +102,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = account === 'team' ? 3 : 4
+  const firstGroupSize = account === 'team' ? 3 : 5
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount

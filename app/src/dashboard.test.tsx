@@ -21,6 +21,12 @@ describe('customer dashboard', () => {
     expect(current[0].textContent).toBe('Dashboard')
   })
 
+  it('lists Ask Pearl in the sidebar and marks it current on its page', () => {
+    renderAppAt('/customer/ask-pearl', <AppRoutes />)
+    const current = document.querySelectorAll('[data-slot="sidebar-menu-button"][data-active]')
+    expect(Array.from(current).map((el) => el.textContent)).toEqual(['Ask Pearl'])
+  })
+
   it('does not mark Dashboard as current on New request', () => {
     renderAppAt('/customer', <AppRoutes />)
     const current = document.querySelectorAll('[data-slot="sidebar-menu-button"][data-active]')
