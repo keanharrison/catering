@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider } from '../components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount, type DemoAccount } from '../state/demoAccount'
 import '@fontsource-variable/inter'
 import './login.css'
@@ -32,5 +31,5 @@ function LoginPage() {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode><ThemeProvider><DemoAccountProvider><LoginPage /></DemoAccountProvider></ThemeProvider></StrictMode>,
+  <StrictMode><DemoAccountProvider><LoginPage /></DemoAccountProvider></StrictMode>,
 )
