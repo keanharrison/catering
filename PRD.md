@@ -1,81 +1,93 @@
 # Catering Platform PRD
 
-**Status:** Product direction and Pearl Island pilot requirements; open business rules remain unconfirmed.
-**Updated:** October 27, 2026
+**Status:** Demo-day product direction; Pearl Island operating rules and admin workflow still need validation.
+**Updated:** October 27, 2026 · **Sober follow-up availability:** October 29 at 11 a.m. Eastern, as recorded in Obsidian.
 
 ## Product direction
 
-Build a standalone catering platform that helps customers place complete, accurate catering orders and helps restaurant teams review and run them. The product must work without a restaurant website, POS, calendar, or other vendor; integrations are optional connectors. Restaurant differences—brand, menu, prices, locations, fulfillment, and rules—belong in setup rather than restaurant-specific code.
+Build a standalone catering platform that helps customers create complete orders and helps restaurant teams review and fulfill them. The product serves different restaurants through restaurant-owned setup for menu, prices, guidance, policies, and brand. A restaurant website may link to catering, but the products are separate; calendar, POS, email, payments, and other services connect only through optional integrations.
 
-Pearl Island is the first pilot and validation partner, not the product boundary. Its website and the catering platform are separate products. A website may link to the platform, but neither product depends on the other or shares its code, login, or data by default.
+Pearl Island is the first pilot, not the product boundary. Interest in the idea is not a pilot, purchase, or replacement commitment.
 
-## Customer and business problem
+## Pearl Island evidence
 
-Customers need help starting catering orders and judging quantities. Restaurant owners and staff answer repeated questions, review incomplete or infeasible requests, and may re-enter order information into operational tools. The product should make self-service practical while keeping a person reachable and the restaurant in control of exceptions.
+The following is grounded in the active Pearl Island Obsidian notes. Direct reports, team synthesis, and unresolved details are distinguished below.
 
-Pearl Island feedback recorded in project notes: customers commonly ask how to cater and ask repeated serving-size questions; Sober described roughly 5–6 help or substitution calls per week at 5–7 minutes each, during a slow period; he said his wife re-enters Spoonfed orders into Google Calendar. These are reported observations, not independently measured outcomes. Her workflow has not yet been observed directly, and current Spoonfed capabilities and costs need verification.
+- **Customer ordering help:** On October 20, Sober said customers often ask “how do I cater?” Calls are usually a few minutes and currently infrequent because business is slow. He prefers starting with help inside a web app; a phone agent is not warranted at current call volume. He is open to switching from Spoonfed for a more capable, seamless, ideally less expensive option. He reported its monthly renewal at $235.
+- **What customers value today:** Sober values straightforward ordering, customer profiles, communication, and easy order updates in Spoonfed; these should carry into any replacement.
+- **AI-assisted ordering:** Sober responded positively to a web assistant that drafts a complete order from customer needs, lets the customer revise it, and submits it for staff review, with manual ordering available. This was discussed as a desired direction, not demonstrated as working AI or approved as final scope.
+- **Operations and connectedness:** Sober described email notification and order review in Spoonfed, followed by manual transfer of order details into Google Calendar by his wife. The exact fields, frequency, time, changes, and system ownership still need to be observed with her. Sober affirmed that better connections between systems would help.
+- **Quantity guidance:** Customers ask whether there will be enough food. The October 6 discussion mentions a 10–15% buffer, but the transcript does not make the speaker attribution fully clear or establish how it applies across menu categories. Treat it as a question for Sober, not a configured rule. Historical Square sales were mentioned as a possible input; their suitability and access have not been assessed.
+- **Business priorities:** Sober wants Pearl Island to become more technology-centered and reduce manual work. He also wants to monetize restaurant knowledge asynchronously and does not want to provide live one-to-one coaching; that is a separate opportunity, outside this catering demo.
+- **Limits of the feedback:** The October 20 notes say the admin view was introduced but not explored in depth. Call volume, administrative savings, willingness to pay, pilot commitment, and replacement scope are not established outcomes.
+
+**Sources in Obsidian:** `Clients/Active/Pearl Island/Meetings/10-06-2026.md`, `Meetings/10-20-2026.md`, `About/Company Objectives.md`, `About/Updates.md`, `Plan/Next Steps.md`, and `Plan/2026-10-25 - High-level transformation direction.md`. The current product direction to keep the website and catering platform separate, agnostic, and independently usable is a product decision, not a claim attributed to Sober.
 
 ## Users
 
-- **Customer / event organizer:** builds an order, gets quantity help, checks status, and communicates with the restaurant.
-- **Restaurant staff / location manager:** reviews orders, handles exceptions, coordinates fulfillment, and communicates changes.
-- **Owner / admin:** oversees locations, controls setup and approval rules, and reviews operations.
-- **Setup operator:** configures a restaurant and locations without changing product code.
+- **Catering customer:** wants help starting an order, choosing food and quantities, revising the order, and tracking the restaurant’s response.
+- **Pearl Island owner and team:** review submitted orders, resolve exceptions, communicate with customers, maintain approved ordering knowledge, and coordinate fulfillment.
 
-## Product requirements
+## Demo-day customer experience
 
-### Customer ordering
+1. **Start with AI-assisted ordering.** From a direct catering link (which Pearl Island’s website may provide), the first option is to describe the event and get a proposed order. A clear secondary action skips to manual ordering. Do not require an account to start; profiles and order history can support returning customers.
+2. **Build a draft conversationally.** Ask only for details needed to recommend the order. Use restaurant-approved menu items, prices, portions, availability, and rules. Show an itemized proposal with quantities and short reasons; let customers revise, remove, or replace items before submission.
+3. **Keep help in the ordering flow.** Answer common questions such as how to place a catering order and how quantities are estimated. If approved information does not answer the question, connect the customer to Pearl Island staff rather than guessing. Voice assistance is not part of this demo.
+4. **Offer manual ordering without losing work.** Customers who know what they want can choose items and quantities directly, with the same approved menu and rule checks as the assisted path.
+5. **Check the order before submission.** The system verifies required details and configured ordering rules. If a hard requirement fails, explain the issue and what the customer can do. Do not silently alter an order or invent a substitute, price, portion, or policy.
+6. **Submit with clear status.** A submitted order has passed the configured customer-side checks, but Pearl Island has not confirmed it. Show **“Waiting for confirmation from Pearl Island.”** Keep validation result and restaurant confirmation as separate states.
+7. **Let the customer follow up.** Preserve the profile, messages, and order-update capabilities Sober values. Show staff questions or proposed changes and let the customer respond or approve changes.
 
-- Support guided and manual ordering; customers can switch modes without losing entered information.
-- Collect configured event, contact, fulfillment, dietary, and timing details.
-- Browse a restaurant-configured menu with descriptions, options, dietary labels, units, minimums, increments, and prices where approved.
-- Help customers estimate quantities and show coverage or short-order guidance with clear explanations.
-- Check configured rules before submission and explain allowed alternatives or how to reach a person.
-- Show a complete review, submit an order, and access drafts, active and past orders, messages, edit/cancellation requests, and proposed changes.
+## Demo-day staff experience
 
-### Restaurant operations
+Use the following as the proposed admin navigation, based on the current product direction; it is not validated by Sober because the admin view was only briefly introduced:
 
-- Provide an action center, order list, and order detail with context, flags, history, and the next available actions.
-- Let authorized staff accept, decline with a reason, ask a question, or propose a change; customer approval is required for staff-proposed changes before acceptance.
-- Support location-aware scheduling and preparation views. Calendar, email, payments, POS, and other connections are optional integrations; manual workflows must remain usable without them.
-- Keep a consistent order record between customer and staff views so details are not re-entered between product screens.
+| Tab | Purpose in the demo |
+|---|---|
+| **Review** | New orders waiting for Pearl Island confirmation; inspect order details and any rule or completeness issues. |
+| **Completed** | Fulfilled orders and their final order record. |
+| **In Progress** | Confirmed orders still being prepared or fulfilled. |
+| **Messages** | Customer conversations attached to their orders. |
+| **Analytics** | Basic counts derived from actual order records; no invented savings, demand, or performance claims. |
+| **Settings** | Pearl Island-approved menu, prices, portions, availability, policies, and assistant knowledge. |
+| **Account** | The signed-in staff member’s account details. |
+| **Team** | Pearl Island staff who use the system; specific roles and permissions need validation. |
 
-### Restaurant setup
+In **Review**, staff should see the same order the customer submitted, including event timing, selected items, quantities, price status, notes, and customer contact. Staff can confirm, ask a question, propose a change, or decline with a reason. Proposed changes return to the customer for approval. After confirmation, the order can appear in **In Progress** and provide a calendar-ready handoff from the same record.
 
-- Configure business and location details, branding, menu and prices, item options, dietary labels, quantity and portion rules, fulfillment, lead times, fees, policies, roles, alerts, and integrations.
-- Support location overrides for availability, prices, fulfillment, lead times, and staff/calendar assignment.
-- Validate setup when loaded; missing required values must be surfaced to staff and never guessed for customers.
+For the demo, a Google Calendar preview can show the information that would transfer; it must be labeled as a preview unless a connector actually completes the write. Keep the standalone order workflow usable without Calendar, Spoonfed, Square, or any other provider.
 
-## Trust, safety, and product boundaries
+## Pearl Island ownership of AI knowledge
 
-- Automation may suggest and explain; restaurant staff retain control over exceptions and acceptance rules.
-- Dietary labels are not allergy, nutrition, or cross-contamination guarantees. The product must direct safety questions to the restaurant unless verified data and process support an answer.
-- Do not show an estimate as a final quote, imply acceptance on submission, or claim an integration action occurred unless it actually succeeded.
-- Do not invent menu facts, prices, portions, fees, policies, testimonials, savings, or business outcomes.
-- A restaurant can use the catering product independently of its website and other software.
+Pearl Island’s authorized team owns and approves the menu, prices, availability, portions, substitutions, lead times, policies, and answers the assistant may use. The AI can assemble and explain a proposal from that approved information; it cannot create menu facts, change the source data, or make Pearl Island’s confirmation decision. The product validates AI-generated items and quantities against the restaurant’s configured rules, and hands unanswered or uncertain questions to staff.
 
-## Current Pearl Island prototype
+Historical Square data may inform future quantity guidance only after Pearl Island approves access and the team confirms how the data should be interpreted. The 10–15% buffer is not a universal or implemented rule until Sober confirms its meaning and application.
 
-The existing React, TypeScript, Vite, and React Router app is a browser-based demo, not the production platform. It currently demonstrates customer event intake, menu selection, quantities and estimates, optional rule-based suggestions, supplies, final details, review and simulated submission; customer order and message views; and staff review, revision, messaging, settings, and a simulated handoff. The exact current routes are wired in `app/src/App.tsx` and `app/src/routes.ts`.
+## Demo success and guardrails
 
-State is local to one browser and persisted for the demo. There is no backend, account security, shared multi-device state, live messaging, payment, AI service, calendar write, website connection, or other live integration. Assistant controls are display-only where present; rule-based menu suggestions are not an AI service. Do not describe simulated actions as real transactions or integrations.
+- A customer can start with AI assistance or skip to manual ordering, revise the proposed order, and reach a clear submission status without a long intake form.
+- Every suggested menu item and business rule comes from Pearl Island-approved setup; the team can identify and correct that source information.
+- Customer and staff see the same order; staff can review and confirm it, communicate changes, and produce a calendar-ready handoff preview.
+- The demo does not imply that submission means Pearl Island confirmation, or that a simulated message, payment, or calendar write occurred.
+- Do not show invented menu facts, prices, policies, savings, or performance metrics. Confirm menu and operating details with Sober before presenting them as facts.
+- Do not add a phone agent or live coaching/knowledge product to this catering demo. Explore asynchronous knowledge monetization separately.
 
-The Pearl Island menu and operating data in `app/src/data/` are illustrative. Menu descriptions were cross-referenced against public menus, and some values were observed in Spoonfed, but Pearl Island has not confirmed current availability, prices, dietary labels, units, portions, minimums, combinations, lead times, or policies. Sample customers and events are invented for repeatable walkthroughs.
+## Open questions for Pearl Island
 
-## Demo objective
+- Which items, prices, units, options, and dietary descriptions are current and approved?
+- What portion guidance and buffer should the assistant use, by menu category, and may approved Square data inform it?
+- What are the real minimums, lead times, availability constraints, delivery terms, and substitution rules?
+- Which details are required before an order is valid, and which exceptional orders may still be submitted for staff review?
+- What does Sober’s wife transfer to Google Calendar, how are changes handled, and who owns each step?
+- Who on the team confirms orders, maintains approved assistant knowledge, and handles customer messages?
+- Which admin tabs and analytics are useful, given that the admin experience was not explored in depth?
+- What customer-data access, retention, and AI-provider boundaries will Pearl Island approve?
+- Should the product complement or replace Spoonfed, and what Spoonfed/Square access or migration constraints apply?
+- What measurable pilot outcome and guardrail would justify continued use? No purchase, pilot, or savings target is agreed yet.
 
-Refine the existing prototype into a clear, credible Sober walkthrough: a customer can assemble a catering request without getting stuck, and staff can understand and review the same request. Keep optional help customer-led, demonstrate staff control, and make simulated behavior clear at the point it matters. Use the walkthrough to confirm menu data, quantity guidance, operating rules, exception handling, and the actual staff handoff before expanding scope.
+## Product development method
 
-## Evidence and open questions
-
-Product flow and Spoonfed observations are consolidated in `WORKFLOW.md`; unresolved questions are maintained in `SOBER_MEETING_QUESTIONS.md` and `docs/branding/pearl-island/`. Confirm with Pearl Island:
-
-- Current menu, prices, item availability, options, dietary wording, portions, and serving units.
-- Item and order minimums, increments, included sides, supply combinations, and supply quantities.
-- Lead times and cutoffs; current sources conflict on 48/72 business hours versus five business days for large orders.
-- Delivery availability, zones, fees, time windows, order minimums, taxes, and payment process.
-- Change and cancellation rules, when submission becomes accepted, and which cases require personal review.
-- When event timing is collected, staff roles and actual order/calendar handoff, and questions customers still call about.
-- Whether customers prefer self-selection, guided ordering, or both, and what assistant guidance Sober approves.
-
-Do not treat reported interest as a pilot commitment or purchase decision. Measure operational outcomes only after a live pilot with an agreed baseline.
+- Start with customer conversations and operational evidence; the product lead owns the problem, rationale, and outcomes, while design and engineering choose how and when to deliver.
+- Before building, align on users, problem, hypotheses, scope, non-goals, assumptions, success measures, and guardrails; prioritize by customer and business value.
+- Work in sequence: research → plan → design → build → test → release → measure; test customer and staff flows, edge cases, mobile/accessibility, and the demo narrative.
+- Record decisions and open questions, measure intended outcomes and harms, and verify AI-assisted work rather than treating it as authoritative.
