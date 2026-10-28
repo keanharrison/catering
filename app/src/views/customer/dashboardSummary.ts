@@ -45,12 +45,14 @@ export function summarizeDashboard(orders: Order[], draftOrder: Order, clock: st
   }
 }
 
-export const suggestedQuestions = [
-  'What is the status of my request?',
-  'When is my next event?',
-  'Do I have any drafts?',
-  'How do I change a submitted request?',
+export const suggestedPrompts = [
+  { title: 'Check a request', description: 'See where your current catering requests stand.', question: 'What is the status of my request?' },
+  { title: 'Next event', description: 'Find out when your next event is and where it stands.', question: 'When is my next event?' },
+  { title: 'Drafts', description: 'See whether you have a request in progress.', question: 'Do I have any drafts?' },
+  { title: 'Changing a request', description: 'Learn how to change a request you already submitted.', question: 'How do I change a submitted request?' },
 ]
+
+export const suggestedQuestions = suggestedPrompts.map((prompt) => prompt.question)
 
 /** Answers come from the requests stored in this browser; there is no language-model service behind this yet. */
 export function answerQuestion(question: string, summary: DashboardSummary): Answer {

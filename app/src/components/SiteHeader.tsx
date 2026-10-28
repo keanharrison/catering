@@ -35,7 +35,10 @@ export function SiteHeader() {
         </TooltipTrigger>
         <TooltipContent side="bottom">{sidebarShown ? 'Close sidebar' : 'Open sidebar'}</TooltipContent>
       </Tooltip>
-      <p className="min-w-0 flex-1 truncate pl-1 text-[15px] leading-none tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
+      <div className="flex min-w-0 flex-1 items-center gap-2 pl-1">
+        <p className="truncate text-[15px] leading-none tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
+        {pathname === routes.askPearl && <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-[12px] leading-none text-foreground">Preview</span>}
+      </div>
 
       <nav aria-label="Notifications and account" className="flex shrink-0 items-center gap-2">
         {account !== 'team' && (

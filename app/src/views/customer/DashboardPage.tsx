@@ -61,7 +61,7 @@ export function DashboardPage() {
             headline={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'}
           />
         </div>
-        <DashboardAssistant summary={summary} showFullPageLink />
+        <DashboardAssistant summary={summary} />
       </div>
     </section>
   )

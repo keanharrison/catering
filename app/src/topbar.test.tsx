@@ -35,7 +35,7 @@ describe('top bar', () => {
     const user = userEvent.setup()
     renderAppAt('/customer/dashboard', <AppRoutes />)
     await user.click(header().getByRole('link', { name: 'Ask' }))
-    expect(screen.getByRole('heading', { level: 1, name: 'Ask Pearl' })).toBeTruthy()
+    expect(screen.getByRole('heading', { level: 1, name: 'What can I help you with?' })).toBeTruthy()
     expect(header().getByText('Chat', { selector: 'p' })).toBeTruthy()
   })
 

@@ -1,23 +1,15 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { cx } from '../../lib/cx'
 import { routes } from '../../routes'
 import { AssistantOrb } from '../../components/AssistantOrb'
 import { Send } from '../../components/icons'
-import { answerQuestion, suggestedQuestions, type Answer, type DashboardSummary } from './dashboardSummary'
-
-type Turn = { id: number; question: string; answer: Answer }
+import { suggestedQuestions, type DashboardSummary } from './dashboardSummary'
+import { useAssistant } from './useAssistant'
 
 const MAX_QUESTION_LENGTH = 300
 
-export function DashboardAssistant({ summary, headingLevel = 2, className, showFullPageLink = false }: {
-  summary: DashboardSummary
-  headingLevel?: 1 | 2
-  className?: string
-  showFullPageLink?: boolean
-}) {
-  const Heading = headingLevel === 1 ? 'h1' : 'h2'
-  const [turns, setTurns] = useState<Turn[]>([])
+export function DashboardAssistant({ summary }: { summary: DashboardSummary }) {
+  const { turns, ask: send } = useAssistant(summary)
   const [value, setValue] = useState('')
   const log = useRef<HTMLDivElement>(null)
 
@@ -27,9 +19,7 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
   }, [turns.length])
 
   function ask(question: string) {
-    const trimmed = question.trim()
-    if (!trimmed) return
-    setTurns((current) => [...current, { id: current.length, question: trimmed, answer: answerQuestion(trimmed, summary) }])
+    send(question)
     setValue('')
   }
 
@@ -39,13 +29,13 @@ export function DashboardAssistant({ summary, headingLevel = 2, className, showF
   }
 
   return (
-    <section aria-labelledby="assistant-title" className={cx('flex min-h-[32rem] flex-col rounded-2xl border border-border bg-background p-5 sm:p-6', className)}>
+    <section aria-labelledby="assistant-title" className="flex min-h-[32rem] flex-col rounded-2xl border border-border bg-background p-5 sm:p-6">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <AssistantOrb />
-          <Heading id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</Heading>
+          <h2 id="assistant-title" className="text-[16px] font-normal tracking-[0.01em] text-foreground">Ask Pearl</h2>
         </div>
-        {showFullPageLink && <Link to={routes.askPearl} className="text-[14px] text-foreground underline underline-offset-4">Open full page</Link>}
+        <Link to={routes.askPearl} className="text-[14px] text-foreground underline underline-offset-4">Open full page</Link>
       </div>
       <p className="mt-1 text-[14px] text-muted-foreground">Ask about your requests, drafts, and messages.</p>
 
