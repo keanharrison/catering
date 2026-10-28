@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider } from '../components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount, type DemoAccount } from '../state/demoAccount'
 import '@fontsource-variable/inter'
 import './login.css'
@@ -15,9 +14,9 @@ function LoginPage() {
 
   return (
     <main className="login-page">
+      <span className="login-wordmark" aria-hidden="true">X</span>
       <section className="login-panel" aria-labelledby="login-title">
-        <img className="login-mark" src="/branding/pearl-island-logo.png" alt="Pearl Island" width="52" height="52" />
-        <h1 id="login-title">Log in to Pearl Island 2 GO</h1>
+        <h1 id="login-title">Log in to X</h1>
         <div className="login-actions">
           <button className="login-button login-button-primary" type="button" onClick={() => enter('customer')}>
             Continue as a customer
@@ -32,5 +31,5 @@ function LoginPage() {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode><ThemeProvider><DemoAccountProvider><LoginPage /></DemoAccountProvider></ThemeProvider></StrictMode>,
+  <StrictMode><DemoAccountProvider><LoginPage /></DemoAccountProvider></StrictMode>,
 )

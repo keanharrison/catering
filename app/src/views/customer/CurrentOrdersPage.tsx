@@ -21,23 +21,9 @@ import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
 import { buildOrderSummary } from './orderSummary'
+import { isActive, latestMessage, needsCustomerAction } from './orderBuckets'
 
 type OrderFilter = 'all' | 'action' | 'confirmed'
-
-function latestMessage(order: Order) {
-  return order.messages.at(-1)
-}
-
-function needsCustomerAction(order: Order) {
-  return order.status === 'awaiting_customer_approval' && order.revision === 'pending'
-    || order.status === 'needs_review' && latestMessage(order)?.author === 'staff'
-}
-
-function isActive(order: Order, clock: string) {
-  if (order.status === 'draft' || order.status === 'rejected') return false
-  if (order.status === 'confirmed') return new Date(order.intent.eventAt).getTime() >= new Date(clock).getTime()
-  return true
-}
 
 function InfoValue({ label, children }: { label: string; children: React.ReactNode }) {
   return <div className="min-w-0"><dt className="type-small-label text-muted-foreground">{label}</dt><dd className="mt-1 break-words text-sm">{children}</dd></div>

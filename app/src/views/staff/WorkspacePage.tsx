@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ThemePicker } from '../../components/ThemePicker'
 import { routes } from '../../routes'
 import './workspace.css'
 
@@ -32,7 +31,6 @@ export function WorkspacePage({ area, embedded = false }: { area: WorkspaceArea;
   return <section className={`workspace-page${embedded ? ' workspace-page-embedded' : ''}`} aria-label={settings ? 'Settings' : section!.title}>
     {!embedded && <header><h1>{settings ? 'Settings' : section!.title}</h1></header>}
     {settings ? <>
-      <div className="workspace-row"><div><h2>Appearance</h2><p>Choose a color theme.</p></div><ThemePicker /></div>
       <div className="workspace-row"><div><h2>Menu and rules</h2><p>Review the existing menu and catering rules preview.</p></div><Link to={routes.settings}>Open menu and rules</Link></div>
       <div className="workspace-row"><div><h2>Account access</h2><p>Use the workspace menu at the top of the sidebar to switch between the customer and restaurant staff accounts.</p></div></div>
     </> : <>

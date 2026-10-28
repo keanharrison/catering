@@ -1,62 +1,68 @@
 import { useNavigate } from 'react-router-dom'
 import { cx } from '../lib/cx'
 import { useDemoStore } from '../state/store'
-import { canEnter, stagePath, stages, type Stage } from '../views/customer/journey'
-import { Progress } from './ui/progress'
+import { canEnter, completedStages, stagePath, stages, type Stage } from '../views/customer/journey'
+import { Check } from './icons'
 
-// Keep the complete journey visible at every size; future steps stay locked until ready.
+// One line of labeled steps: finished steps are checked, the current step is outlined, later steps are gray.
+// The full journey stays visible at every size; future steps stay locked until ready.
 export function JourneyNav({ active }: { active: Stage }) {
   const navigate = useNavigate()
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
-  const index = stages.findIndex((stage) => stage.id === active)
-  const progress = ((index + 1) / stages.length) * 100
+  const done = completedStages(order, clock)
   const draft = order.status === 'draft'
 
   return (
-    <nav aria-label="Request progress" className="space-y-3">
-      <ol className="grid grid-cols-5 gap-1 sm:gap-2">
-        {stages.map((stage, stageIndex) => {
+    <nav aria-label="Request progress">
+      <ol className="grid grid-cols-5">
+        {stages.map((stage, index) => {
           const isActive = stage.id === active
+          const isDone = !isActive && done[stage.id]
           const enabled = draft ? canEnter(stage.id, order, clock) : stage.id === 'review'
+          const previousDone = index > 0 && done[stages[index - 1].id]
 
           return (
             <li key={stage.id} className="min-w-0">
               <button
                 type="button"
                 aria-current={isActive ? 'step' : undefined}
+                aria-describedby={isDone ? `journey-${stage.id}-done` : undefined}
                 disabled={!enabled && !isActive}
                 onClick={() => navigate(stagePath(stage.id))}
                 className={cx(
-                  'flex min-h-10 w-full items-center justify-center rounded-md px-1 text-center text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:justify-start sm:px-2',
-                  isActive ? 'bg-secondary text-secondary-foreground' : enabled ? 'text-foreground hover:bg-muted' : 'cursor-not-allowed text-muted-foreground',
+                  'group flex w-full flex-col items-center gap-2 rounded-lg pb-1 pt-0.5 text-[14px] tracking-[0.01em] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  isActive || isDone ? 'text-foreground' : 'text-muted-foreground',
+                  !enabled && !isActive && 'cursor-not-allowed',
                 )}
               >
-                <span
-                  aria-hidden="true"
-                  className={cx(
-                    'mr-1.5 hidden size-5 shrink-0 items-center justify-center rounded-full text-[11px] sm:inline-flex',
-                    isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground',
-                  )}
-                >
-                  {stageIndex + 1}
-                </span>
                 <span className="truncate">{stage.label}</span>
+                <span className="relative flex h-5 w-full items-center justify-center">
+                  {index > 0 && (
+                    <span aria-hidden="true" className={cx('absolute left-0 right-1/2 h-0.5', previousDone ? 'bg-primary' : 'bg-border')} />
+                  )}
+                  {index < stages.length - 1 && (
+                    <span aria-hidden="true" className={cx('absolute left-1/2 right-0 h-0.5', done[stage.id] ? 'bg-primary' : 'bg-border')} />
+                  )}
+                  <span
+                    aria-hidden="true"
+                    data-icon-surface
+                    className={cx(
+                      'relative flex size-5 items-center justify-center rounded-full',
+                      isDone && 'bg-primary text-primary-foreground',
+                      isActive && 'border-2 border-primary bg-card',
+                      !isActive && !isDone && 'bg-border',
+                    )}
+                  >
+                    {isDone && <Check className="size-3" />}
+                  </span>
+                </span>
               </button>
+              {isDone && <span id={`journey-${stage.id}-done`} className="sr-only">Completed</span>}
             </li>
           )
         })}
       </ol>
-      <div className="flex items-center gap-3">
-        <Progress
-          value={progress}
-          aria-label="Request progress"
-          className="w-full gap-0 [&_[data-slot=progress-track]]:h-1 [&_[data-slot=progress-track]]:bg-muted [&_[data-slot=progress-indicator]]:bg-primary"
-        />
-        <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
-          Step {index + 1} of {stages.length}
-        </span>
-      </div>
     </nav>
   )
 }

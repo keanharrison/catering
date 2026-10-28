@@ -7,13 +7,14 @@ import { SuppliesPage } from './views/customer/SuppliesPage'
 import { DetailsPage } from './views/customer/DetailsPage'
 import { ReviewPage } from './views/customer/ReviewPage'
 import { AppShell } from './components/AppShell'
-import { ThemeProvider } from './components/ThemeProvider'
 import { DemoAccountProvider, useDemoAccount } from './state/demoAccount'
 import { useDemoStore } from './state/store'
 import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
+import { DashboardPage } from './views/customer/DashboardPage'
+import { AskPearlPage } from './views/customer/AskPearlPage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
 import { WorkspacePage } from './views/staff/WorkspacePage'
@@ -41,6 +42,8 @@ export function AppRoutes() {
         path={routes.staff}
         element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
       />
+      <Route path={routes.customerDashboard} element={customerPage(<DashboardPage />)} />
+      <Route path={routes.askPearl} element={customerPage(<AskPearlPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
@@ -57,14 +60,12 @@ export function AppRoutes() {
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <DemoAccountProvider>
-          <AppShell>
-            <AppRoutes />
-          </AppShell>
-        </DemoAccountProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <DemoAccountProvider>
+        <AppShell>
+          <AppRoutes />
+        </AppShell>
+      </DemoAccountProvider>
+    </BrowserRouter>
   )
 }

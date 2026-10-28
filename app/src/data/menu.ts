@@ -1,9 +1,9 @@
 import type { DietaryTag, MenuCategory, MenuItem, MenuUnit } from './types'
 
 // Source: Pearl Island2GO's Spoonfed ordering page, observed October 13, 2026
-// (spoonfed_current_workflow_notes.md). Prices, tags, descriptions and serving notes
+// (WORKFLOW.md). Prices, tags, descriptions and serving notes
 // are as observed. Not confirmed by Sober, so every record stays illustrative.
-const SOURCE = 'spoonfed_current_workflow_notes.md (Spoonfed ordering flow observed October 13, 2026)'
+const SOURCE = 'WORKFLOW.md (Spoonfed ordering flow observed October 13, 2026)'
 const OBSERVED =
   'Observed on the Spoonfed ordering page; not confirmed by Sober. Dietary tags are as listed there, not allergy or nutrition claims.'
 const ASSUMED_SIDES =
