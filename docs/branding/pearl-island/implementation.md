@@ -1,6 +1,6 @@
 # Pearl Island branding: implementation record
 
-Written October 15, 2026, for the catering demo in `app/`. This records what was observed on Pearl Island's sites, what the demo chose to use (and why it differs), and how it was checked. Source observations: [Pearl-Island-Catering-Branding-and-Workflow-Reference.md](Pearl-Island-Catering-Branding-and-Workflow-Reference.md) (observed October 15, 2026 with Safari Web Inspector; not an official brand manual). Pearl Island's captured branding is the visual source for the customer-facing demo; layout patterns should follow `SOUL.md`.
+Written October 15, 2026, for the catering demo in `app/`. This records what was observed on Pearl Island's sites, what the demo chose to use (and why it differs), and how it was checked. Source observations: [pearl-island-catering-branding-and-workflow-reference.md](pearl-island-catering-branding-and-workflow-reference.md) (observed October 15, 2026 with Safari Web Inspector; not an official brand manual). Pearl Island's captured branding is the visual source for the customer-facing demo; layout patterns should follow `soul.md`.
 
 ## 1. Observed values versus demo values
 
@@ -51,13 +51,13 @@ The logo in the header is the artwork served on pearlislandcatering.com. The JPE
 ## 5. Validation
 
 - Typecheck, lint, 110 automated tests and the production build pass.
-- Real Chromium at 1280px and 390px: header logo shares a left edge with the page content; 9 screens (event, menu, supplies, details, review, submitted, staff, accepted, handoff) show no horizontal overflow; 38-check QA suite 37 pass, 0 fail, 1 warning; axe (WCAG 2.1 A/AA) reports no violations. Details: `docs/qa/QA_REPORT.md`.
+- Real Chromium at 1280px and 390px: header logo shares a left edge with the page content; 9 screens (event, menu, supplies, details, review, submitted, staff, accepted, handoff) show no horizontal overflow; 38-check QA suite 37 pass, 0 fail, 1 warning; axe (WCAG 2.1 A/AA) reports no violations. Details: `docs/qa/qa_report.md`.
 - Contrast ratios above were computed, not estimated.
 - **Not verified:** a side-by-side visual comparison with the live Pearl Island sites; Safari and Firefox; real phones; screen readers.
 
 ## 6. Open items and questions for Sober
 
-The current visual guidance is in `SOUL.md`; current product requirements are in `PRD.md`. The internal component Gallery may still mention the old orange look and should be checked when that page is next updated.
+The current visual guidance is in `soul.md`; current product requirements are in `prd.md`. The internal component Gallery may still mention the old orange look and should be checked when that page is next updated.
 
 Questions for Sober:
 1. Is this turquoise (and the darker button shade) how he wants the brand to look in ordering, or does he have a brand guide?

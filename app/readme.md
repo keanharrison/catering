@@ -1,6 +1,6 @@
 # Pearl Island2GO Prototype App
 
-Assumption-based catering prototype for customer ordering and staff review. See [`../PRD.md`](../PRD.md) for requirements and [`../SOUL.md`](../SOUL.md) for product and design principles.
+Assumption-based catering prototype for customer ordering and staff review. See [`../prd.md`](../prd.md) for requirements and [`../soul.md`](../soul.md) for product and design principles.
 
 ```
 npm run dev        # dev server

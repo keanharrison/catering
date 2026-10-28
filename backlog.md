@@ -1,12 +1,12 @@
 # Backlog
 
-**Updated:** October 28, 2026 · **Sources:** `PRD.md`, `PRODUCT.md`, `WORKFLOW.md`, `SOBER_MEETING_QUESTIONS.md`, read-only inspection of `app/`, and product decisions made in conversation.
+**Updated:** October 28, 2026 · **Sources:** `prd.md`, `PRODUCT.md`, `workflow.md`, `sober_meeting_questions.md`, read-only inspection of `app/`, and product decisions made in conversation.
 
 ## How to read this
 
 - **Priority:** *Active* = client-facing work being done now, in order. *Queued* = admin-facing and setup work, not started. *Deferred* = parked on purpose. *Hygiene* = repository upkeep, to be done later.
 - **Status:** `Done` (evidence cited) · `Partial` (what exists, what is missing) · `Not started` · `Needs definition` (scope not decided) · `Needs validation` (depends on an answer from Pearl Island or the product owner).
-- **Basis:** `PRD` (stated in `PRD.md`) · `user direction` (asked for in conversation) · `needs validation` (a proposal not yet confirmed by anyone).
+- **Basis:** `PRD` (stated in `prd.md`) · `user direction` (asked for in conversation) · `needs validation` (a proposal not yet confirmed by anyone).
 - Nothing is marked `Done` without a file that shows it. The code was read, not run; "evidence" means the behavior is present in source, and where tests exist they are named.
 
 ## Where the product stands
@@ -140,7 +140,7 @@ Not started unless noted. The admin view was only briefly introduced to Sober, s
 - **Description:** After confirmation, orders move through preparation to completion and appear in the matching tabs.
 - **Acceptance criteria:** Staff can mark a confirmed order in progress and then completed; customers see the same status; Completed shows the final order record.
 - **Status:** Not started. Evidence: `OrderStatus` has only draft, submitted, needs_review, awaiting_customer_approval, confirmed, rejected (`data/types.ts`).
-- **Basis:** PRD (tabs); `WORKFLOW.md` suggested lifecycle is a proposal.
+- **Basis:** PRD (tabs); `workflow.md` suggested lifecycle is a proposal.
 
 ### A4. Calendar-ready handoff preview
 - **Description:** Confirmed orders produce a handoff that shows what would transfer to a calendar, labeled as a preview unless a connector actually writes it.
@@ -199,13 +199,13 @@ Not started unless noted. The admin view was only briefly introduced to Sober, s
 - **Description:** Missing or conflicting setup values are flagged to staff before customers use the product.
 - **Acceptance criteria:** A setup check lists missing or conflicting values; the ordering flow never fills a gap with a guess.
 - **Status:** Not started.
-- **Basis:** `needs validation` (proposed in `WORKFLOW.md`, not in the PRD).
+- **Basis:** `needs validation` (proposed in `workflow.md`, not in the PRD).
 
 ### S4. Locations
 - **Description:** Support for multiple locations with their own availability, fulfillment and lead times.
 - **Acceptance criteria:** To be defined if Pearl Island needs it.
 - **Status:** Needs validation. Evidence: no location concept in `app/src`.
-- **Basis:** needs validation (appears only in `WORKFLOW.md`).
+- **Basis:** needs validation (appears only in `workflow.md`).
 
 ---
 
@@ -233,7 +233,7 @@ Not started unless noted. The admin view was only briefly introduced to Sober, s
 
 ## Unresolved questions
 
-From `PRD.md` and `SOBER_MEETING_QUESTIONS.md`. Each answer changes data or rules, not the journey.
+From `prd.md` and `sober_meeting_questions.md`. Each answer changes data or rules, not the journey.
 
 1. Which menu items, prices, units, options and dietary descriptions are current and approved? Which items are really offered for catering?
 2. What portion guidance and buffer apply by category, and may approved Square data inform it? (The 10–15% buffer is not a configured rule.)
@@ -280,13 +280,12 @@ Not added because the PRD and the product owner have not supported them: CRM pip
 ### H1. Lowercase the Markdown file names
 - **Description:** Rename the project's Markdown files to lowercase, for example `PRD.md` to `prd.md`. Only Markdown files are in scope; code files keep their current names.
 - **Acceptance criteria:**
-  - The root files `PRD.md`, `PRODUCT.md`, `README.md`, `SOBER_MEETING_QUESTIONS.md`, `SOUL.md` and `WORKFLOW.md` become lowercase, along with the other first-party Markdown files (`app/README.md` and the `.md` files under `docs/` that have capitals).
-  - A check for names that collide when case is ignored is run first, and any collision is resolved or reported.
-  - Every reference to a renamed file (links in other Markdown files, the sources list in the PRD, comments in code, config) is updated.
-  - Renames keep git history and work on a case-insensitive file system (macOS), which needs a two-step move.
-  - Files whose names a tool requires, such as the `SKILL.md` files under `.agents/` and `.claude/`, stay as they are unless the owner confirms the tool allows lowercase.
-  - Typecheck and tests still pass after the change.
-- **Status:** Not started. Read-only check at the time of writing: no names collide when case is ignored; about 20 tracked Markdown files have capitals outside the archived and generated folders. Re-run the check when the work starts.
+  - First-party Markdown files are lowercase: the root files (`prd.md`, `readme.md`, `sober_meeting_questions.md`, `soul.md`, `workflow.md`), `app/readme.md`, and the files under `docs/` that had capitals.
+  - A check for names that collide when case is ignored found none before renaming.
+  - Every reference to a renamed file (links, the sources list, comments and source labels in `app/src/data/`) points to the new name.
+  - Renames keep git history and use a two-step move so they work on a case-insensitive file system.
+  - Files whose names a tool or a third party requires keep their names.
+- **Status:** Done on October 28, 2026. Evidence: `git log --follow` shows the renames; references updated in `readme.md`, `workflow.md`, `app/readme.md`, `PRODUCT.md`, `docs/`, `app/src/data/menu.ts` and `rules.ts`. **Kept uppercase on purpose:** `PRODUCT.md` (the design tooling looks for that exact name; lowercasing could break it on a case-sensitive system), the `SKILL.md` files under `.agents/` and `.claude/` (required by those tools), the `README.md` and `LICENSE.md` in `docs/component-references/shadcn-header/` (third-party copy), and the generated `.impeccable/` and `.playwright-mcp/` files.
 - **Basis:** user direction.
 
 ### H2. Stop tracking generated files
