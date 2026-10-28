@@ -73,21 +73,15 @@
 .linear-nav-group [data-slot='sidebar-menu-button'] { padding: 0 8px 0 11px; gap: 12px; }
 [data-collapsible='icon'] .linear-sidebar .linear-workspace-brand { flex: none; width: 40px; padding: 0; justify-content: center; }
 [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-group-label'] { margin-top: 0 !important; opacity: 0; }
-/* Layered on purpose: important declarations in an earlier layer beat the important size-8 and p-2 utilities. */
-@layer components {
-  [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] { width: 40px !important; height: 36px !important; min-height: 36px; padding: 0 !important; gap: 0; justify-content: center; }
-}
-[data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: none; }
 
-/* ===== EXPERIMENT: refined sidebar (see REFINED_SIDEBAR_ROUTES in AppSidebar.tsx). Delete this block to revert. =====
-   Modeled on the ElevenLabs sidebar: 32px rows with 4px gaps, 10px radius, 1.5px icon strokes. Rows keep fixed padding and the
+/* ===== Refined rows, now used by every page. Modeled on the ElevenLabs sidebar: 32px rows with 4px gaps, 10px radius, 1.5px icon strokes. Rows keep fixed padding and the
    sidebar only clips them, so icons never move and labels fade and slide 4px instead of vanishing. */
-.linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }
-.linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] { height: 32px; min-height: 32px; border-radius: 10px; overflow: hidden; }
-:root .linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] svg { stroke-width: 2; }
-.linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] > span { white-space: nowrap; transition: opacity 150ms ease, transform 150ms ease; }
+.linear-sidebar .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }
+.linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] { height: 32px; min-height: 32px; border-radius: 10px; overflow: hidden; }
+:root .linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] svg { stroke-width: 2; }
+.linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] > span { white-space: nowrap; transition: opacity 150ms ease, transform 150ms ease; }
 @layer components {
-  [data-collapsible='icon'] .linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] { width: 100% !important; height: 32px !important; min-height: 32px; padding: 0 8px 0 11px !important; gap: 12px; justify-content: flex-start; }
+  [data-collapsible='icon'] .linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] { width: 100% !important; height: 32px !important; min-height: 32px; padding: 0 8px 0 11px !important; gap: 12px; justify-content: flex-start; }
 }
-[data-collapsible='icon'] .linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: inline; opacity: 0; transform: translateX(4px); }
-@media (prefers-reduced-motion: reduce) { .linear-sidebar-refined .linear-nav-group [data-slot='sidebar-menu-button'] > span { transition: none; } }
+[data-collapsible='icon'] .linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] > span { display: inline; opacity: 0; transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] > span { transition: none; } }
