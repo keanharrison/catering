@@ -12,7 +12,7 @@ import { Separator } from '../../components/ui/separator'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { formatEventTime } from '../../lib/status'
-import { destinationIcons } from '../../components/destinationIcons'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
@@ -143,7 +143,7 @@ export function PastOrdersPage() {
     </div>
 
     {customerHistory.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
-      <EmptyHeader><EmptyMedia variant="tile"><destinationIcons.pastOrders /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed.</EmptyDescription></EmptyHeader>
+      <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.pastOrders}><destinationIcons.pastOrders /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed.</EmptyDescription></EmptyHeader>
       <EmptyContent>{newRequestButton}</EmptyContent>
     </Empty></CardContent></Card> : visible.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-64">
       <EmptyHeader><EmptyMedia variant="tile"><Search /></EmptyMedia><EmptyTitle>No matching orders</EmptyTitle><EmptyDescription>Try another request ID or event type.</EmptyDescription></EmptyHeader>

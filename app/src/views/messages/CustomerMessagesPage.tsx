@@ -13,7 +13,7 @@ import { ScrollArea } from '../../components/ui/scroll-area'
 import { Separator } from '../../components/ui/separator'
 import { Textarea } from '../../components/ui/textarea'
 import { formatEventTime } from '../../lib/status'
-import { destinationIcons } from '../../components/destinationIcons'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
@@ -167,7 +167,7 @@ function CustomerMessagesPage() {
     </header>
 
     {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
-      <EmptyHeader><EmptyMedia variant="tile"><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here when the Pearl Island team adds an update to one of your requests.</EmptyDescription></EmptyHeader>
+      <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.messages}><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here when the Pearl Island team adds an update to one of your requests.</EmptyDescription></EmptyHeader>
       <EmptyContent><Button nativeButton={false} render={<Link to={routes.customer} />}>New catering request</Button></EmptyContent>
     </Empty></CardContent></Card> : <div className="grid min-h-[34rem] gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)]">
       <Card className={`${mobileThreadOpen ? 'hidden lg:flex' : 'flex'} min-w-0 flex-col`}>
@@ -236,7 +236,7 @@ function CustomerMessagesPage() {
           <Alert variant="destructive"><AlertTitle>Request unavailable</AlertTitle><AlertDescription>This request is no longer available in the customer account. Its conversation cannot be opened.</AlertDescription></Alert>
           <Button variant="outline" className="w-fit lg:hidden" onClick={() => setMobileThreadOpen(false)}><ArrowLeft aria-hidden="true" />Back to conversations</Button>
         </CardContent> : <CardContent className="flex flex-1 items-center justify-center p-4">
-          <Empty className="border-0"><EmptyHeader><EmptyMedia variant="tile"><destinationIcons.messages /></EmptyMedia><EmptyTitle>Select a conversation</EmptyTitle><EmptyDescription>Choose a request to view its message history and reply.</EmptyDescription></EmptyHeader><EmptyContent><span className="text-xs text-muted-foreground">Your unsent replies are kept per request.</span></EmptyContent></Empty>
+          <Empty className="border-0"><EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.messages}><destinationIcons.messages /></EmptyMedia><EmptyTitle>Select a conversation</EmptyTitle><EmptyDescription>Choose a request to view its message history and reply.</EmptyDescription></EmptyHeader><EmptyContent><span className="text-xs text-muted-foreground">Your unsent replies are kept per request.</span></EmptyContent></Empty>
         </CardContent>}
       </Card>
     </div>}

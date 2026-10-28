@@ -12,3 +12,7 @@ Status: the semantic colors below are applied (tokens `--success`, `--warning`, 
 | Brand accent | Undecided | The assistant orb was tried and dropped: it is not catering-related. Revisit when there is a restaurant-specific brand element worth coloring |
 
 Keep Continue buttons and the stepper black, as ElevenLabs does. Check contrast on every tint before shipping.
+
+## Colored icon tiles (applied October 28, 2026)
+
+Inside pages only, never in the sidebar: a solid tile with a white glyph, one color per destination (`destinationTones` in `app/src/components/destinationIcons.ts`). Chat violet, Current orders indigo, Drafts teal, Messages sky, Past orders slate. Used on the Chat account summaries and the empty states of Current orders, Past orders and Messages. Status colors above are not reused for icons.

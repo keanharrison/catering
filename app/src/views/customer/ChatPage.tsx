@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ComponentType, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
-import { destinationIcons } from '../../components/destinationIcons'
+import { destinationIcons, destinationTones, type Tone } from '../../components/destinationIcons'
 import { deriveNotifications } from '../../lib/notifications'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
@@ -10,10 +10,10 @@ import { useAssistant } from './useAssistant'
 
 const cardClass = 'rounded-xl border border-border bg-background px-4 py-3 text-left no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
 
-function Shortcut({ title, to, status, icon: Icon, attention = false }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>>; attention?: boolean }) {
+function Shortcut({ title, to, status, icon: Icon, tone, attention = false }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>>; tone?: Tone; attention?: boolean }) {
   return (
     <Link to={to} className="group flex flex-col items-center gap-2 rounded-xl p-2 text-center no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-      <span data-icon-surface className="floating-tile transition-colors duration-150 group-hover:bg-secondary">
+      <span data-icon-surface data-tone={tone} className="floating-tile transition-[filter] duration-150 group-hover:brightness-110">
         <Icon aria-hidden="true" style={{ width: 20, height: 20 }} />
       </span>
       <span className="text-ui font-medium text-foreground">{title}</span>
@@ -53,11 +53,12 @@ export function ChatPage() {
         </div>
 
         <nav aria-label="Your account" className="mt-14 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
-          <Shortcut title="Past orders" to={routes.pastOrders} icon={destinationIcons.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
+          <Shortcut title="Past orders" to={routes.pastOrders} icon={destinationIcons.pastOrders} tone={destinationTones.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
           <Shortcut
             title="Current orders"
             to={routes.currentOrders}
             icon={destinationIcons.currentOrders}
+            tone={destinationTones.currentOrders}
             attention={summary.needsAction.length > 0}
             status={summary.needsAction.length
               ? `${plural(summary.needsAction.length, 'request')} waiting on your reply`
@@ -65,8 +66,8 @@ export function ChatPage() {
                 ? `${plural(summary.active.length, 'active request')}${summary.nextEvent ? `, next ${shortDate(summary.nextEvent.intent.eventAt)}` : ''}`
                 : 'No active requests'}
           />
-          <Shortcut title="Drafts" to={routes.customer} icon={destinationIcons.drafts} status={summary.drafts ? '1 draft in progress' : 'No drafts in progress'} />
-          <Shortcut title="Messages" to={routes.customerMessages} icon={destinationIcons.messages} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
+          <Shortcut title="Drafts" to={routes.customer} icon={destinationIcons.drafts} tone={destinationTones.drafts} status={summary.drafts ? '1 draft in progress' : 'No drafts in progress'} />
+          <Shortcut title="Messages" to={routes.customerMessages} icon={destinationIcons.messages} tone={destinationTones.messages} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
         </nav>
 
         <section aria-labelledby="chat-suggestions" className="mt-14">

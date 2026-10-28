@@ -17,3 +17,15 @@ export const destinationIcons = {
   agents: Bot,
   staffSettings: SlidersHorizontal,
 } as const
+
+export type Tone = 'indigo' | 'violet' | 'teal' | 'sky' | 'slate'
+
+/** The tile color for a destination, used for icons inside pages. The sidebar stays neutral. */
+export const destinationTones: Partial<Record<keyof typeof destinationIcons, Tone>> = {
+  chat: 'violet',
+  currentOrders: 'indigo',
+  pastOrders: 'slate',
+  drafts: 'teal',
+  messages: 'sky',
+  requests: 'indigo',
+}

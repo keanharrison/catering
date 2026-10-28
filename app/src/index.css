@@ -54,6 +54,14 @@
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 6px 14px -4px rgb(0 0 0 / 0.08);
   }
 
+  /* With a tone, the tile is a solid color with a white glyph, one color per destination. */
+  .floating-tile[data-tone] { border-color: transparent; background: var(--tile-color); color: #fff; }
+  .floating-tile[data-tone='indigo'] { --tile-color: var(--tile-indigo); }
+  .floating-tile[data-tone='violet'] { --tile-color: var(--tile-violet); }
+  .floating-tile[data-tone='teal'] { --tile-color: var(--tile-teal); }
+  .floating-tile[data-tone='sky'] { --tile-color: var(--tile-sky); }
+  .floating-tile[data-tone='slate'] { --tile-color: var(--tile-slate); }
+
   /* Page title: 24px Inter regular with tight tracking, clearly larger than the 13px medium labels. The hero size (28px) is reserved for the Chat headline. */
   .type-page-title {
     margin: 0;
@@ -211,6 +219,12 @@
   --input: #e5e5e5;
   /* Fill for a disabled primary action (Continue, Save changes, Send). */
   --disabled-fill: #c3c3c3;
+  /* Colored icon tiles inside pages (never in the sidebar). White glyphs on each pass 4.8:1. Red, amber, green and blue stay reserved for status. */
+  --tile-indigo: #4f46e5;
+  --tile-violet: #7c3aed;
+  --tile-teal: #0f766e;
+  --tile-sky: #0b78b5;
+  --tile-slate: #475569;
   --ring: #0f0f10;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);

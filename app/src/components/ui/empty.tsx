@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/cn"
+import type { Tone } from "@/components/destinationIcons"
 
 function Empty({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -43,12 +44,15 @@ const emptyMediaVariants = cva(
 function EmptyMedia({
   className,
   variant = "default",
+  tone,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants>) {
+}: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants> & { tone?: Tone }) {
   return (
     <div
       data-slot="empty-icon"
       data-variant={variant}
+      data-tone={tone}
+      data-icon-surface
       className={cn(emptyMediaVariants({ variant, className }))}
       {...props}
     />

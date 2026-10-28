@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { MessageSquare, Send } from '../../components/icons'
-import { destinationIcons } from '../../components/destinationIcons'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
 import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
@@ -65,7 +65,7 @@ export function MessagesPage() {
   return (
     <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
       <header className="mb-6"><h1 className="type-page-title">Messages</h1></header>
-      {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72"><EmptyHeader><EmptyMedia variant="tile"><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here after a catering request is submitted.</EmptyDescription></EmptyHeader></Empty></CardContent></Card> : (
+      {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72"><EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.messages}><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here after a catering request is submitted.</EmptyDescription></EmptyHeader></Empty></CardContent></Card> : (
         <div className="grid min-h-[32rem] gap-4 lg:grid-cols-[minmax(15rem,0.65fr)_minmax(0,1.35fr)]">
           <Card className="min-w-0"><CardHeader><CardTitle>Conversations</CardTitle><CardDescription>{threads.length} request {threads.length === 1 ? 'thread' : 'threads'}</CardDescription></CardHeader><CardContent className="grid gap-2">{threads.map((order) => <button type="button" key={order.id} onClick={() => choose(order)} className="rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring"><Item variant={selected?.id === order.id ? 'muted' : 'outline'}><ItemContent className="min-w-0"><ItemTitle className="break-words">{order.intent.contactName || 'Customer'} · {order.intent.organization || 'Catering request'}</ItemTitle><ItemDescription className="break-words">{formatEventTime(order.intent.eventAt)}</ItemDescription></ItemContent><div className="flex items-center gap-2">{order.messages.length > 0 && <Badge variant="secondary">{order.messages.length}</Badge>}</div></Item></button>)}</CardContent></Card>
           {selected ? <Card className="flex min-h-[32rem] min-w-0 flex-col"><CardHeader><CardTitle>{selected.intent.contactName || 'Customer'}</CardTitle><CardDescription>{selected.intent.organization || 'Catering request'} · {formatEventTime(selected.intent.eventAt)}</CardDescription></CardHeader><CardContent className="flex min-h-0 flex-1 flex-col gap-4">

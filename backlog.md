@@ -251,10 +251,14 @@ From `PRD.md` and `SOBER_MEETING_QUESTIONS.md`. Each answer changes data or rule
 
 ## Deferred
 
-### D1. Decide where colored icons belong
-- **Description:** An analysis was prepared on October 28, 2026 (in conversation, not in code) of where colored icons could go, using an Attio-style reference of solid colored tiles with a white glyph. Its recommendation: a colored tile per destination, drawn from one shared icon list, starting with the Chat page's account summaries and the empty-state tiles; leave the sidebar, top bar, composer, buttons, stepper and form controls neutral; keep red, amber, green and blue reserved for status.
-- **Acceptance criteria:** The owner decides which places (if any) use colored icons, in what style (colored tile or colored glyph), and which colors; only then is an implementation item created. No colored icons are added before that decision.
-- **Status:** Deferred; analysis done, decision pending, nothing implemented.
+### D1. Colored icons inside pages
+- **Description:** On October 28, 2026 the owner decided that colored icons belong inside pages and not in the sidebar. Each destination has one tile color from a shared list: Chat violet, Current orders indigo, Drafts teal, Messages sky, Past orders slate. Red, amber, green and blue stay reserved for status.
+- **Acceptance criteria:**
+  - The Chat page's account summaries and the empty states on Current orders, Past orders and Messages show a solid colored tile with a white icon.
+  - The sidebar, top bar, composer, buttons, step line and form controls stay neutral.
+  - Each tile color keeps a white glyph at 4.5:1 contrast or better.
+  - Whether to color other in-page icons (for example the staff pages, order detail rows) is decided before any are added.
+- **Status:** Done for the places above. Evidence: `destinationTones` in `components/destinationIcons.ts`, tile styles in `index.css`, applied in `ChatPage.tsx`, `CurrentOrdersPage.tsx`, `PastOrdersPage.tsx`, `CustomerMessagesPage.tsx`, `MessagesPage.tsx`; `tiles.test.tsx`. Staff summary tiles stay neutral because they show status.
 - **Basis:** user direction.
 
 ### D2. Brand accent color
