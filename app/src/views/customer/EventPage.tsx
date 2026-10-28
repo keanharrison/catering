@@ -193,7 +193,7 @@ function EventForm() {
             <FieldLegend className="sr-only">Event details</FieldLegend>
             <div className="grid gap-x-4 gap-y-6 sm:grid-cols-2">
               <Field data-invalid={Boolean(errors.eventType) || undefined} className="sm:col-span-2">
-                <FieldLabel htmlFor="eventType" className="text-[14px]">Event type</FieldLabel>
+                <FieldLabel htmlFor="eventType" className="text-body">Event type</FieldLabel>
                 <Select
                   items={eventTypeItems}
                   value={form.eventType || null}
@@ -203,7 +203,7 @@ function EventForm() {
                 >
                   <SelectTrigger
                     id="eventType"
-                    className="w-full text-[14px] data-[size=default]:h-11"
+                    className="w-full text-body data-[size=default]:h-11"
                     aria-required="true"
                     aria-invalid={Boolean(errors.eventType)}
                     aria-describedby={errors.eventType ? 'eventType-error' : undefined}
@@ -224,12 +224,12 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.guestCount) || undefined}>
-                <FieldLabel htmlFor="guestCount" className="text-[14px]">Guests</FieldLabel>
+                <FieldLabel htmlFor="guestCount" className="text-body">Guests</FieldLabel>
                 <Input
                   id="guestCount"
                   name="guestCount"
                   type="number"
-                  className="h-11 md:text-[14px]"
+                  className="h-11 md:text-body"
                   inputMode="numeric"
                   min={1}
                   max={5000}
@@ -243,7 +243,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.eventDate) || undefined}>
-                <FieldLabel htmlFor="eventDate" className="text-[14px]">Date</FieldLabel>
+                <FieldLabel htmlFor="eventDate" className="text-body">Date</FieldLabel>
                 <Popover open={datePickerOpen} onOpenChange={setDatePickerOpen}>
                   <PopoverTrigger
                     render={
@@ -255,7 +255,7 @@ function EventForm() {
                         aria-required="true"
                         aria-invalid={Boolean(errors.eventDate)}
                         aria-describedby={errors.eventDate ? 'eventDate-error' : undefined}
-                        className="h-11 w-full justify-between text-left text-[14px] font-normal data-[empty=true]:text-muted-foreground"
+                        className="h-11 w-full justify-between text-left text-body font-normal data-[empty=true]:text-muted-foreground"
                       >
                         {selectedDate ? format(selectedDate, 'PPP') : <span>Please select</span>}
                         <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
@@ -280,7 +280,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.fulfillment) || undefined}>
-                <FieldLabel htmlFor="fulfillment" className="text-[14px]">Pickup or delivery</FieldLabel>
+                <FieldLabel htmlFor="fulfillment" className="text-body">Pickup or delivery</FieldLabel>
                 <Select
                   items={fulfillmentItems}
                   value={form.fulfillment || null}
@@ -290,7 +290,7 @@ function EventForm() {
                 >
                   <SelectTrigger
                     id="fulfillment"
-                    className="w-full text-[14px] data-[size=default]:h-11"
+                    className="w-full text-body data-[size=default]:h-11"
                     aria-required="true"
                     aria-invalid={Boolean(errors.fulfillment)}
                     aria-describedby={errors.fulfillment ? 'fulfillment-error' : undefined}
@@ -311,7 +311,7 @@ function EventForm() {
               </Field>
 
               <Field data-invalid={Boolean(errors.budget) || undefined}>
-                <FieldLabel htmlFor="budget" className="text-[14px]">Budget (optional)</FieldLabel>
+                <FieldLabel htmlFor="budget" className="text-body">Budget (optional)</FieldLabel>
                 <InputGroup className="h-11">
                   <InputGroupAddon aria-hidden="true">$</InputGroupAddon>
                   <InputGroupInput
@@ -319,7 +319,7 @@ function EventForm() {
                     name="budget"
                     inputMode="decimal"
                     placeholder="800"
-                    className="md:text-[14px]"
+                    className="md:text-body"
                     value={form.budget}
                     aria-invalid={Boolean(errors.budget)}
                     aria-describedby={errors.budget ? 'budget-error' : undefined}
@@ -330,13 +330,13 @@ function EventForm() {
               </Field>
 
               <FieldSet className="sm:col-span-2">
-                <FieldLegend variant="label" className="text-[14px]">Dietary needs (optional)</FieldLegend>
+                <FieldLegend variant="label" className="text-body">Dietary needs (optional)</FieldLegend>
                 <div className="flex flex-wrap gap-2">
                   {dietaryOptions.map((option) => (
                     <label
                       key={option.id}
                       htmlFor={`dietary-${option.id}`}
-                      className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-input bg-background px-3.5 text-[14px] transition-colors duration-150 hover:bg-secondary has-data-checked:border-foreground has-data-checked:bg-secondary has-focus-visible:ring-2 has-focus-visible:ring-ring md:min-h-10"
+                      className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-input bg-background px-3.5 text-body transition-colors duration-150 hover:bg-secondary has-data-checked:border-foreground has-data-checked:bg-secondary has-focus-visible:ring-2 has-focus-visible:ring-ring md:min-h-10"
                     >
                       <Checkbox
                         id={`dietary-${option.id}`}
@@ -359,14 +359,14 @@ function EventForm() {
                 ref={draftButtonRef}
                 type="button"
                 variant="outline"
-                className="min-h-11 px-4 text-[14px]"
+                className="min-h-11 px-4 text-body"
                 onClick={saveDraft}
               >
-                {draftSaved && <CheckCircle2Icon aria-hidden="true" />}
+                {draftSaved && <span data-icon-surface className="inline-flex text-success"><CheckCircle2Icon aria-hidden="true" /></span>}
                 {draftSaved ? 'Draft saved' : 'Save draft'}
               </Button>
             </span>
-            <Button type="submit" className="min-h-11 px-4 text-[14px]">
+            <Button type="submit" className="min-h-11 px-4 text-body">
               Continue
             </Button>
           </div>

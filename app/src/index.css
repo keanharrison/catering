@@ -17,19 +17,31 @@
 }
 
 @theme {
-  /* Body text matches the sidebar: Inter at 13px. */
+  /* One type scale for the whole product: hero 28, title 22, heading 15, body 14, ui 13, caption 12. */
   --font-weight-normal: 450;
+  --text-hero: 1.75rem;
+  --text-hero--line-height: 1.15;
+  --text-title: 1.375rem;
+  --text-title--line-height: 1.25;
+  --text-heading: 0.9375rem;
+  --text-heading--line-height: 1.4;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.45;
+  --text-ui: 0.8125rem;
+  --text-ui--line-height: 1.4;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.35;
   --text-sm: 0.8125rem;
   --text-sm--line-height: 1.25rem;
   --font-sans: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer components {
-  /* Page title: 28px Inter regular, tight tracking, matching the ElevenLabs product headline. */
+  /* Page title: 22px Inter regular with tight tracking. The hero size (28px) is reserved for Chat and the Dashboard. */
   .type-page-title {
     margin: 0;
-    font-size: 1.75rem;
-    line-height: 1.2;
+    font-size: var(--text-title);
+    line-height: 1.25;
     font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--foreground);
@@ -37,14 +49,14 @@
 
   .type-card-title,
   .type-section-title {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--text-heading);
+    line-height: 1.4;
     font-weight: 500;
     letter-spacing: -0.01em;
   }
 
   .type-small-label {
-    font-size: 0.75rem;
+    font-size: var(--text-caption);
     line-height: 1rem;
     font-weight: 500;
     letter-spacing: 0.03em;
@@ -116,6 +128,12 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
   --color-primary-hover: var(--primary-hover);
   --color-link: var(--link);
   --color-input: var(--input);
@@ -164,7 +182,14 @@
   --muted-foreground: #6b6b6b;
   --accent: #efefef;
   --accent-foreground: #0f0f10;
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: #c8102e;
+  /* Status colors. Each has a dark text value and a pale tint; both pass 4.5:1 together. */
+  --success: #12794a;
+  --success-soft: #e8f5ee;
+  --warning: #8f5400;
+  --warning-soft: #fff4e0;
+  --info: #0a59d2;
+  --info-soft: #eaf2ff;
   --border: #e7e7e7;
   --input: #e5e5e5;
   --ring: #0f0f10;

@@ -22,7 +22,7 @@ export function ChatComposer({ value, onChange, onSubmit }: { value: string; onC
         maxLength={MAX_QUESTION_LENGTH}
         autoComplete="off"
         placeholder="Ask about your requests…"
-        className="h-10 min-w-0 flex-1 bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
+        className="h-10 min-w-0 flex-1 bg-transparent text-body text-foreground outline-none placeholder:text-muted-foreground"
       />
       <button
         type="submit"

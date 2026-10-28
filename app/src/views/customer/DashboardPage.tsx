@@ -10,14 +10,14 @@ import { shortDate, summarizeDashboard } from './dashboardSummary'
 
 const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
 
-function Shortcut({ title, to, status, icon: Icon }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>> }) {
+function Shortcut({ title, to, status, icon: Icon, attention = false }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>>; attention?: boolean }) {
   return (
     <Link to={to} className="group flex flex-col items-center gap-2 rounded-xl p-2 text-center no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
       <span data-icon-surface className="flex size-12 items-center justify-center rounded-xl border border-border bg-background text-foreground transition-colors duration-150 group-hover:bg-secondary">
         <Icon aria-hidden="true" style={{ width: 20, height: 20 }} />
       </span>
-      <span className="text-[14px] text-foreground">{title}</span>
-      <span className="text-[13px] leading-[1.3] text-muted-foreground">{status}</span>
+      <span className="text-body text-foreground">{title}</span>
+      <span className={attention ? 'text-ui leading-[1.3] text-warning' : 'text-ui leading-[1.3] text-muted-foreground'}>{status}</span>
     </Link>
   )
 }
@@ -44,17 +44,18 @@ export function DashboardPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-[900px] flex-col px-5 pb-12 pt-[10vh] sm:px-8">
-      <h1 className="text-balance text-center text-[34px] font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
+      <h1 className="text-balance text-center text-hero font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
       <div className="mx-auto mt-8 w-full max-w-[760px]">
         <ChatComposer value={value} onChange={setValue} onSubmit={ask} />
       </div>
 
-      <nav aria-label="Your account" className="mt-14 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
+      <nav aria-label="Your account" className="mt-16 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
         <Shortcut title="Past" to={routes.pastOrders} icon={History} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
         <Shortcut
           title="Active"
           to={routes.currentOrders}
           icon={PackageCheck}
+          attention={summary.needsAction.length > 0}
           status={summary.needsAction.length
             ? `${plural(summary.needsAction.length, 'request')} waiting on your reply`
             : summary.active.length
@@ -65,21 +66,21 @@ export function DashboardPage() {
         <Shortcut title="Messages" to={routes.customerMessages} icon={MessageSquare} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
       </nav>
 
-      <Tabs defaultValue="recent" className="mt-14">
+      <Tabs defaultValue="recent" className="mt-16">
         <TabsList>
           <TabsTrigger value="recent">Recent</TabsTrigger>
           <TabsTrigger value="quickstarts">Quickstarts</TabsTrigger>
         </TabsList>
         <TabsContent value="recent" className="pt-4">
           {recent.length === 0 ? (
-            <p className="rounded-xl border border-border px-5 py-4 text-[14px] text-muted-foreground">Nothing yet. Updates from the team on your requests appear here.</p>
+            <p className="rounded-xl border border-border px-5 py-4 text-body text-muted-foreground">Nothing yet. Updates from the team on your requests appear here.</p>
           ) : (
             <ul className="grid gap-2">
               {recent.map((item) => (
                 <li key={item.id}>
-                  <Link to={item.href} className="flex items-center justify-between gap-4 rounded-xl border border-border px-5 py-4 text-[14px] text-foreground no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                  <Link to={item.href} className="flex items-center justify-between gap-4 rounded-xl border border-border px-5 py-4 text-body text-foreground no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <span>{item.title}</span>
-                    <span className="shrink-0 text-[13px] text-muted-foreground">{shortDate(item.at)}</span>
+                    <span className="shrink-0 text-ui text-muted-foreground">{shortDate(item.at)}</span>
                   </Link>
                 </li>
               ))}
@@ -89,9 +90,9 @@ export function DashboardPage() {
         <TabsContent value="quickstarts" className="pt-4">
           <div className="grid gap-3 sm:grid-cols-2">
             {quickstarts.map((item) => (
-              <Link key={item.title} to={item.to} className="rounded-xl border border-border px-5 py-4 no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-                <span className="block text-[15px] text-foreground">{item.title}</span>
-                <span className="mt-1 block text-[14px] leading-[1.4] text-muted-foreground">{item.description}</span>
+              <Link key={item.title} to={item.to} className="rounded-xl border border-border px-4 py-3 no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                <span className="block text-body font-medium text-foreground">{item.title}</span>
+                <span className="mt-0.5 block text-ui text-muted-foreground">{item.description}</span>
               </Link>
             ))}
           </div>

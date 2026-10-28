@@ -36,8 +36,8 @@ export function SiteHeader() {
         <TooltipContent side="bottom">{sidebarShown ? 'Close sidebar' : 'Open sidebar'}</TooltipContent>
       </Tooltip>
       <div className="flex min-w-0 flex-1 items-center gap-2 pl-1">
-        <p className="truncate text-[15px] leading-none tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
-        {pathname === routes.askPearl && <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-[12px] leading-none text-foreground">Preview</span>}
+        <p className="truncate text-heading leading-none tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
+        {pathname === routes.askPearl && <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-caption leading-none text-foreground">Preview</span>}
       </div>
 
       <nav aria-label="Notifications and account" className="flex shrink-0 items-center gap-2">
@@ -46,9 +46,9 @@ export function SiteHeader() {
             to={routes.askPearl}
             aria-label="Ask"
             aria-current={pathname === routes.askPearl ? 'page' : undefined}
-            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-background px-3 text-[14px] tracking-[0.01em] text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-secondary md:h-9"
+            className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-background px-3 text-body tracking-[0.01em] text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-secondary md:h-9"
           >
-            <span aria-hidden="true" className="text-[16px] font-bold leading-none tracking-[-0.03em]">X</span>
+            <span aria-hidden="true" className="text-heading font-bold leading-none tracking-[-0.03em]">X</span>
             <span aria-hidden="true" className="hidden sm:inline">Ask</span>
           </Link>
         )}
@@ -58,7 +58,7 @@ export function SiteHeader() {
           aria-label="Account settings"
           aria-current={pathname === accountPath ? 'page' : undefined}
           data-icon-surface
-          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-[12px] font-medium text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:shadow-[inset_0_0_0_1.5px_var(--foreground)] md:size-9"
+          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-caption font-medium text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:shadow-[inset_0_0_0_1.5px_var(--foreground)] md:size-9"
         >
           {initialsText ? <span aria-hidden="true">{initialsText}</span> : <IconUser aria-hidden="true" />}
         </Link>

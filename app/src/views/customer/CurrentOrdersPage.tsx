@@ -284,7 +284,7 @@ export function CurrentOrdersPage() {
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
-                {action && <div className="flex items-center gap-2 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-950 dark:bg-amber-950/30 dark:text-amber-100"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
+                {action && <div className="flex items-center gap-2 rounded-md bg-warning-soft px-3 py-2 text-sm text-warning"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
                   <InfoValue label="Guests">{item.intent.guestCount ?? 'Not provided'}</InfoValue>
                   <InfoValue label="Pickup or delivery"><span className="capitalize">{item.intent.fulfillment}</span></InfoValue>

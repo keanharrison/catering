@@ -9,11 +9,11 @@ export const statusLabel: Record<OrderStatus, string> = {
   rejected: 'Declined',
 }
 
-export const statusTone: Record<OrderStatus, 'neutral' | 'confirmed' | 'review' | 'blocked'> = {
+export const statusTone: Record<OrderStatus, 'neutral' | 'confirmed' | 'review' | 'info' | 'blocked'> = {
   draft: 'neutral',
   submitted: 'neutral',
   needs_review: 'review',
-  awaiting_customer_approval: 'review',
+  awaiting_customer_approval: 'info',
   confirmed: 'confirmed',
   rejected: 'blocked',
 }

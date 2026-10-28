@@ -32,10 +32,11 @@ const filterIconStyle: Record<RequestFilter, string> = {
 
 function RequestStatus({ status }: { status: Order['status'] }) {
   const tone = {
-    neutral: 'bg-slate-400',
-    review: 'bg-amber-500',
-    confirmed: 'bg-green-600',
-    blocked: 'bg-red-600',
+    neutral: 'bg-muted-foreground',
+    review: 'bg-warning',
+    info: 'bg-info',
+    confirmed: 'bg-success',
+    blocked: 'bg-destructive',
   }[statusTone[status]]
 
   return (
@@ -199,7 +200,7 @@ export function StaffPage() {
               })()}
               <span className="flex min-w-0 flex-col items-start gap-0.5">
                 <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>
-                <span className="truncate text-[13px] font-normal leading-5 text-muted-foreground">{filterLabel[key]}</span>
+                <span className="truncate text-ui font-normal leading-5 text-muted-foreground">{filterLabel[key]}</span>
               </span>
             </TabsTrigger>
           ))}
@@ -296,7 +297,7 @@ export function StaffPage() {
                         >
                           <span className="min-w-0">
                             <span className="block truncate text-sm font-medium">{request.intent.contactName || 'Customer'} </span>
-                            <span className="mt-1 block truncate text-[11px] tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
+                            <span className="mt-1 block truncate text-caption tabular-nums text-muted-foreground" title={request.id}>{shortRequestId(request.id)}</span>
                             <span className="mt-0.5 block text-xs text-muted-foreground">
                               {dateOnly(request.intent.eventAt)} · {request.intent.guestCount ?? '—'} guests · {request.intent.fulfillment}
                             </span>

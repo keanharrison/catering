@@ -202,10 +202,10 @@ export function RequestDetails({
           )}
 
           {summary.flags.length > 0 && (
-            <Alert className="border-amber-300 bg-amber-50 text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
+            <Alert className="border-warning/30 bg-warning-soft text-warning">
               <TriangleAlert aria-hidden="true" />
               <AlertTitle>Review reasons</AlertTitle>
-              <AlertDescription className="text-amber-950/80 dark:text-amber-100/80">
+              <AlertDescription className="text-warning/90">
                 <ul className="mt-1 list-disc space-y-1 pl-4">
                   {summary.flags.map((flag) => <li key={flag.code}>{flag.reason}</li>)}
                 </ul>

@@ -1,6 +1,6 @@
-# Color plan (deferred)
+# Color plan
 
-Do this after the ElevenLabs layout is confirmed on every page. The app is neutral today; color is added only where it carries meaning.
+Status: the semantic colors below are applied (tokens `--success`, `--warning`, `--info`, `--destructive` in `app/src/index.css`): order status badges and dots, Draft saved, the notification dot, and the Dashboard's waiting-on-you line. The brand accent is still undecided. The app is neutral otherwise; color is added only where it carries meaning.
 
 | Where | Color | Notes |
 |---|---|---|

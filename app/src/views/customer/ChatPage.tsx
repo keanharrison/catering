@@ -40,24 +40,24 @@ export function ChatPage() {
 
   if (turns.length === 0) {
     return (
-      <div className="mx-auto flex min-h-[calc(100svh-3.25rem)] w-full max-w-[900px] flex-col px-5 pb-12 pt-[14vh] sm:px-8">
-        <h1 className="text-balance text-center text-[34px] font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
+      <div className="mx-auto flex min-h-[calc(100svh-3.25rem)] w-full max-w-[800px] flex-col px-5 pb-12 pt-[14vh] sm:px-8">
+        <h1 className="text-balance text-center text-hero font-normal leading-[1.1] tracking-[-0.02em] text-foreground">What can I help you with?</h1>
         <div className="mx-auto mt-8 w-full max-w-[760px]">
           <ChatComposer value={value} onChange={setValue} onSubmit={() => send(value)} />
         </div>
-        <section aria-labelledby="chat-suggestions" className="mt-16">
-          <h2 id="chat-suggestions" className="mb-3 px-1 text-[14px] font-normal text-muted-foreground">Suggestions</h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+        <section aria-labelledby="chat-suggestions" className="mt-28">
+          <h2 id="chat-suggestions" className="mb-2 px-1 text-ui font-normal text-muted-foreground">Suggestions</h2>
+          <div className="grid gap-2 sm:grid-cols-2">
             {suggestedPrompts.map((prompt) => (
               <button
                 key={prompt.question}
                 type="button"
                 onClick={() => send(prompt.question)}
                 aria-label={prompt.question}
-                className="rounded-xl border border-border bg-background px-5 py-4 text-left transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="rounded-xl border border-border bg-background px-4 py-3 text-left transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <span className="block text-[15px] text-foreground">{prompt.title}</span>
-                <span className="mt-1 block text-[14px] leading-[1.4] text-muted-foreground">{prompt.description}</span>
+                <span className="block text-body font-medium text-foreground">{prompt.title}</span>
+                <span className="mt-0.5 block text-ui text-muted-foreground">{prompt.description}</span>
               </button>
             ))}
           </div>
@@ -73,13 +73,13 @@ export function ChatPage() {
         <ol className="grid gap-8">
           {turns.map((turn) => (
             <li key={turn.id} className="grid gap-4">
-              <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-[15px] text-foreground">
+              <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-body text-foreground">
                 <span className="sr-only">You: </span>{turn.question}
               </p>
-              <div className="max-w-[92%] text-[15px] leading-[1.5] text-foreground">
+              <div className="max-w-[92%] text-body leading-[1.55] text-foreground">
                 <p className="whitespace-pre-line [text-wrap:pretty]"><span className="sr-only">Assistant: </span>{turn.answer.text}</p>
                 {turn.answer.href && (
-                  <Link to={turn.answer.href} className="mt-2 inline-block text-[14px] underline underline-offset-4">{turn.answer.linkLabel}</Link>
+                  <Link to={turn.answer.href} className="mt-2 inline-block text-body underline underline-offset-4">{turn.answer.linkLabel}</Link>
                 )}
               </div>
             </li>
