@@ -22,7 +22,7 @@ describe('top bar', () => {
     renderAppAt(path, <AppRoutes />)
     expect(header().getByRole('button', { name: 'Toggle navigation' })).toBeTruthy()
     expect(header().getByRole('button', { name: 'Notifications' })).toBeTruthy()
-    expect(header().getByRole('link', { name: 'Ask Pearl' }).getAttribute('href')).toBe('/customer/ask-pearl')
+    expect(header().getByRole('link', { name: 'Ask' }).getAttribute('href')).toBe('/customer/ask-pearl')
     expect(header().getByRole('link', { name: 'Account settings' }).getAttribute('href')).toBe('/settings')
   })
 
@@ -34,9 +34,9 @@ describe('top bar', () => {
   it('opens the Ask Pearl page from the X tab', async () => {
     const user = userEvent.setup()
     renderAppAt('/customer/dashboard', <AppRoutes />)
-    await user.click(header().getByRole('link', { name: 'Ask Pearl' }))
+    await user.click(header().getByRole('link', { name: 'Ask' }))
     expect(screen.getByRole('heading', { level: 1, name: 'Ask Pearl' })).toBeTruthy()
-    expect(header().getByText('Ask Pearl', { selector: 'p' })).toBeTruthy()
+    expect(header().getByText('Chat', { selector: 'p' })).toBeTruthy()
   })
 
   it('shows an empty notifications list when nothing has happened', async () => {
@@ -50,7 +50,7 @@ describe('top bar', () => {
     localStorage.setItem('pi2go-demo-account', 'team')
     renderAppAt('/staff', <AppRoutes />)
     expect(header().getByText('Requests')).toBeTruthy()
-    expect(header().queryByRole('link', { name: 'Ask Pearl' })).toBeNull()
+    expect(header().queryByRole('link', { name: 'Ask' })).toBeNull()
     expect(header().getByRole('link', { name: 'Account settings' }).getAttribute('href')).toBe('/staff/settings')
   })
 })

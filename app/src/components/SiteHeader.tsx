@@ -41,12 +41,12 @@ export function SiteHeader() {
         {account !== 'team' && (
           <Link
             to={routes.askPearl}
-            aria-label="Ask Pearl"
+            aria-label="Ask"
             aria-current={pathname === routes.askPearl ? 'page' : undefined}
             className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-background px-3 text-[14px] tracking-[0.01em] text-foreground no-underline shadow-[inset_0_0_0_1px_var(--input)] transition-colors duration-150 hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:bg-secondary md:h-9"
           >
             <span aria-hidden="true" className="text-[16px] font-bold leading-none tracking-[-0.03em]">X</span>
-            <span aria-hidden="true" className="hidden sm:inline">Ask Pearl</span>
+            <span aria-hidden="true" className="hidden sm:inline">Ask</span>
           </Link>
         )}
         <NotificationsMenu />

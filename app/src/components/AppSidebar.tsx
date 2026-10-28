@@ -1,11 +1,10 @@
 import './linear-sidebar.css'
 import { NavLink, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, type ComponentType, type SVGProps } from 'react'
 import {
   ChevronDown,
   ClipboardList,
   History,
-  Home,
   MessageSquare,
   PackageCheck,
   Plus,
@@ -14,7 +13,6 @@ import {
   X,
   Plug,
   Bot,
-  ChatCircle,
   SlidersHorizontal,
 } from './icons'
 import {
@@ -43,6 +41,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ChatIcon, HomeIcon } from './navIcons'
 import { routes } from '@/routes'
 import { stages } from '@/views/customer/journey'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '@/state/demoAccount'
@@ -51,14 +50,14 @@ import { useDemoStore } from '@/state/store'
 
 type Destination = {
   label: string
-  icon: typeof Plus
+  icon: ComponentType<SVGProps<SVGSVGElement>>
   href?: string
   disabled?: boolean
 }
 
 const customerNavigation: Destination[] = [
-  { label: 'Dashboard', icon: Home, href: routes.customerDashboard },
-  { label: 'Ask Pearl', icon: ChatCircle, href: routes.askPearl },
+  { label: 'Dashboard', icon: HomeIcon, href: routes.customerDashboard },
+  { label: 'Chat', icon: ChatIcon, href: routes.askPearl },
   { label: 'New request', icon: Plus, href: routes.customer },
   { label: 'Current orders', icon: PackageCheck, href: routes.currentOrders },
   { label: 'Past orders', icon: History, href: routes.pastOrders },
