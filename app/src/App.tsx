@@ -19,6 +19,8 @@ import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
 import { WorkspacePage } from './views/staff/WorkspacePage'
 import { SettingsPage } from './views/settings/SettingsPage'
 
+const LEGACY_DASHBOARD_PATH = '/customer/dashboard'
+
 export function AppRoutes() {
   const { account } = useDemoAccount()
   const activeIsSample = useDemoStore((state) => Boolean(state.order.demoSample))
@@ -42,7 +44,7 @@ export function AppRoutes() {
         element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
       />
       {/* The Dashboard was folded into Chat; keep old links working. */}
-      <Route path="/customer/dashboard" element={<Navigate to={routes.askPearl} replace />} />
+      <Route path={LEGACY_DASHBOARD_PATH} element={<Navigate to={routes.askPearl} replace />} />
       <Route path={routes.askPearl} element={customerPage(<ChatPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />

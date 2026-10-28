@@ -1,6 +1,6 @@
 import type { Order } from '../../data'
 
-/** Which list a customer's request belongs to. Shared by the orders pages and the dashboard so counts always agree. */
+/** Which list a customer's request belongs to. Shared by the orders pages and the Chat page's summaries so counts always agree. */
 
 export function latestMessage(order: Order) {
   return order.messages.at(-1)

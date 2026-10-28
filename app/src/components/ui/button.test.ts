@@ -11,7 +11,7 @@ describe('button variants', () => {
   })
 
   it('shows a disabled primary action as solid gray, not a faded black', () => {
-    expect(buttonVariants({})).toContain('disabled:bg-[#c3c3c3]')
+    expect(buttonVariants({})).toContain('disabled:bg-[var(--disabled-fill)]')
     expect(buttonVariants({})).toContain('disabled:opacity-100')
   })
 

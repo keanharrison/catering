@@ -74,7 +74,7 @@
 [data-collapsible='icon'] .linear-sidebar .linear-workspace-brand { flex: none; width: 40px; padding: 0; justify-content: center; }
 [data-collapsible='icon'] .linear-nav-group [data-slot='sidebar-group-label'] { margin-top: 0 !important; opacity: 0; }
 
-/* ===== Refined rows, now used by every page. Modeled on the ElevenLabs sidebar: 32px rows with 4px gaps, 10px radius, 1.5px icon strokes. Rows keep fixed padding and the
+/* ===== Refined rows, now used by every page. Modeled on the ElevenLabs sidebar: 32px rows with 4px gaps, 10px radius, and icon strokes of 1.5px (stroke-width 2 on the 24px grid, drawn at 18px). Rows keep fixed padding and the
    sidebar only clips them, so icons never move and labels fade and slide 4px instead of vanishing. */
 .linear-sidebar .linear-nav-group [data-slot='sidebar-menu'] { gap: 4px; }
 .linear-sidebar .linear-nav-group [data-slot='sidebar-menu-button'] { height: 32px; min-height: 32px; border-radius: 10px; overflow: hidden; }

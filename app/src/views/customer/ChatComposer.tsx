@@ -27,7 +27,7 @@ function recognizerConstructor(): (new () => Recognizer) | null {
 const toolButton = 'flex size-11 shrink-0 items-center justify-center rounded-full text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:text-muted-foreground disabled:hover:bg-transparent md:size-10'
 
 /**
- * The pill-shaped question field used on Chat and the Dashboard: attach files with +, dictate with the microphone, send with the arrow.
+ * The pill-shaped question field used on the Chat page: attach files with +, dictate with the microphone, send with the arrow.
  * Attachments are listed but not read yet; the answer says so.
  */
 export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
@@ -147,7 +147,7 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
           aria-label="Send question"
           disabled={!canSend}
           data-icon-surface
-          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[#c3c3c3] disabled:hover:bg-[#c3c3c3] md:size-10"
+          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[var(--disabled-fill)] disabled:hover:bg-[var(--disabled-fill)] md:size-10"
         >
           <ArrowUp aria-hidden="true" />
         </button>

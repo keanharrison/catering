@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState, type ComponentType, type SVGProps } from 'react'
+import { useEffect, useMemo, useRef, useState, type ComponentType, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
 import { destinationIcons } from '../../components/destinationIcons'
 import { deriveNotifications } from '../../lib/notifications'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
-import { shortDate, summarizeDashboard, suggestedPrompts } from './dashboardSummary'
+import { plural, shortDate, summarizeDashboard, suggestedPrompts } from './dashboardSummary'
 import { ChatComposer } from './ChatComposer'
 import { useAssistant } from './useAssistant'
-
-const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
 
 const cardClass = 'rounded-xl border border-border bg-background px-4 py-3 text-left no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
 
@@ -29,8 +27,8 @@ export function ChatPage() {
   const orders = useDemoStore((state) => state.orders)
   const draftOrder = useDemoStore((state) => state.draftOrder)
   const clock = useDemoStore((state) => state.clock)
-  const summary = summarizeDashboard(orders, draftOrder, clock)
-  const recent = deriveNotifications(orders, 'customer', 4)
+  const summary = useMemo(() => summarizeDashboard(orders, draftOrder, clock), [orders, draftOrder, clock])
+  const recent = useMemo(() => deriveNotifications(orders, 'customer', 4), [orders])
   const { turns, ask } = useAssistant(summary)
   const [value, setValue] = useState('')
   const end = useRef<HTMLDivElement>(null)
@@ -55,9 +53,9 @@ export function ChatPage() {
         </div>
 
         <nav aria-label="Your account" className="mt-14 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
-          <Shortcut title="Past" to={routes.pastOrders} icon={destinationIcons.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
+          <Shortcut title="Past orders" to={routes.pastOrders} icon={destinationIcons.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
           <Shortcut
-            title="Active"
+            title="Current orders"
             to={routes.currentOrders}
             icon={destinationIcons.currentOrders}
             attention={summary.needsAction.length > 0}

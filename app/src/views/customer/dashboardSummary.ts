@@ -24,7 +24,7 @@ export function shortDate(eventAt: string) {
   return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
 }
 
-const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
+export const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
 
 /** The customer's own picture of their requests. Sample fixtures belong to other illustrative customers and stay out. */
 export function summarizeDashboard(orders: Order[], draftOrder: Order, clock: string): DashboardSummary {
