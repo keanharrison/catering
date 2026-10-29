@@ -184,9 +184,10 @@ function EventForm() {
   return (
     <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
       <section className="mx-auto w-full max-w-3xl">
-        <h1 className="type-page-title mb-8 text-foreground">
-          Plan your catering
-        </h1>
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <h1 className="type-page-title text-foreground">Plan your catering</h1>
+          <Button variant="outline" onClick={() => navigate(routes.planRequest)}>Help me plan it</Button>
+        </div>
 
         {prefilled && (
           <Alert className="mb-6">
