@@ -211,9 +211,9 @@ export function MenuPageShell() {
             </CardHeader>
             <CardContent className="pt-0">
               <Tabs defaultValue="entree" aria-label="Menu categories" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 gap-1 rounded-md p-1 group-data-horizontal/tabs:h-12">
+              <TabsList className="grid w-full grid-cols-3">
                   {categories.map((category) => (
-                    <TabsTrigger key={category.value} value={category.value} className="h-full min-h-10">
+                    <TabsTrigger key={category.value} value={category.value} >
                       {category.label}
                     </TabsTrigger>
                   ))}

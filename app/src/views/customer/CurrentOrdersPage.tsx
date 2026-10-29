@@ -252,9 +252,9 @@ export function CurrentOrdersPage() {
 
       <Tabs value={filter} onValueChange={(value) => setFilter(value as OrderFilter)}>
         <TabsList className="grid h-auto w-full grid-cols-3 sm:max-w-lg">
-          <TabsTrigger value="all" className="min-h-9">All active <span className="text-xs text-muted-foreground">{counts.all}</span></TabsTrigger>
-          <TabsTrigger value="action" className="min-h-9">Needs your action <span className="text-xs text-muted-foreground">{counts.action}</span></TabsTrigger>
-          <TabsTrigger value="confirmed" className="min-h-9">Accepted <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
+          <TabsTrigger value="all">All active <span className="text-xs text-muted-foreground">{counts.all}</span></TabsTrigger>
+          <TabsTrigger value="action">Needs your action <span className="text-xs text-muted-foreground">{counts.action}</span></TabsTrigger>
+          <TabsTrigger value="confirmed">Accepted <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
         </TabsList>
       </Tabs>
 
