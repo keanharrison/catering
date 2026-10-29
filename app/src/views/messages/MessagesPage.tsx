@@ -113,17 +113,17 @@ export function MessagesPage() {
   }
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
-      <header className="mb-6"><h1 className="type-page-title">Messages</h1></header>
+    <section className="mx-auto flex h-[calc(100svh-3.25rem)] min-h-[36rem] w-full max-w-6xl flex-col px-5 py-4 sm:px-8 sm:py-6 lg:min-h-[30rem]">
+      <header className="mb-4 shrink-0"><h1 className="type-page-title">Messages</h1></header>
       {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72"><EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.messages}><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here after a catering request is submitted.</EmptyDescription></EmptyHeader></Empty></CardContent></Card> : (
-        <div className="grid items-start gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)]">
-          <Card className="min-w-0">
-            <CardHeader>
+        <div className="grid min-h-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)] lg:grid-rows-1">
+          <Card className="flex max-h-64 min-h-0 min-w-0 flex-col lg:max-h-none">
+            <CardHeader className="shrink-0">
               <CardTitle>Conversations</CardTitle>
               <CardDescription>{shown.length === threads.length ? `${threads.length} request ${threads.length === 1 ? 'thread' : 'threads'}` : `${shown.length} of ${threads.length} request threads`}</CardDescription>
             </CardHeader>
-            <CardContent className="grid min-w-0 gap-3 [&>*]:min-w-0">
-              <form role="search" aria-label="Find a conversation" className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-1 xl:grid-cols-[minmax(0,1fr)_auto]" onSubmit={(event) => event.preventDefault()}>
+            <CardContent className="flex min-h-0 min-w-0 flex-1 flex-col gap-3 [&>*]:min-w-0">
+              <form role="search" aria-label="Find a conversation" className="grid shrink-0 grid-cols-[minmax(0,1fr)_8.5rem] gap-2 lg:grid-cols-1 xl:grid-cols-[minmax(0,1fr)_auto]" onSubmit={(event) => event.preventDefault()}>
                 <label>
                   <span className="sr-only">Search conversations</span>
                   <span className="relative block">
@@ -131,12 +131,12 @@ export function MessagesPage() {
                     <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search conversations" className="h-9 pl-9" />
                   </span>
                 </label>
-                <div className="w-full xl:w-36"><OptionSelect label="Sort conversations" value={sort} onValueChange={(next) => setSort(next as ThreadSort)} options={sortOptions} /></div>
+                <div className="xl:w-36"><OptionSelect label="Sort conversations" value={sort} onValueChange={(next) => setSort(next as ThreadSort)} options={sortOptions} /></div>
               </form>
               {shown.length === 0
                 ? <p className="px-1 py-4 text-sm text-muted-foreground">No conversations match “{query}”.</p>
                 : (
-                  <ul className="grid gap-2" aria-label="Conversations">
+                  <ul className="grid min-h-0 flex-1 content-start gap-2 overflow-y-auto" aria-label="Conversations">
                     {shown.map((order) => {
                       const latest = latestMessage(order)
                       const unread = unreadCount(order, read)
@@ -172,8 +172,8 @@ export function MessagesPage() {
           </Card>
 
           {selected ? (
-            <Card className="flex min-w-0 flex-col">
-              <CardHeader>
+            <Card className="flex min-h-0 min-w-0 flex-col">
+              <CardHeader className="shrink-0">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <CardTitle className="break-words">{selected.intent.contactName || 'Customer'}</CardTitle>
@@ -187,7 +187,7 @@ export function MessagesPage() {
                 </div>
               </CardHeader>
               <CardContent className="flex min-h-0 flex-1 flex-col gap-4">
-                <div ref={scroller} role="log" aria-label="Messages in this conversation" aria-live="polite" className="max-h-[26rem] min-h-40 flex-1 overflow-y-auto rounded-lg border bg-muted/20 p-4">
+                <div ref={scroller} role="log" aria-label="Messages in this conversation" aria-live="polite" className="min-h-24 flex-1 overflow-y-auto rounded-lg border bg-muted/20 p-4">
                   {selected.messages.length ? (
                     <ol className="grid gap-3">
                       {selected.messages.map((entry, index) => {
@@ -211,12 +211,12 @@ export function MessagesPage() {
                     <Empty className="min-h-32 border-0"><EmptyHeader><EmptyMedia variant="icon"><MessageSquare /></EmptyMedia><EmptyTitle>No messages yet</EmptyTitle><EmptyDescription>{staff ? 'Ask for clarification to start a conversation.' : 'The catering team has not sent a question.'}</EmptyDescription></EmptyHeader></Empty>
                   )}
                 </div>
-            {notice && <Alert><AlertTitle>Saved locally</AlertTitle><AlertDescription>{notice}</AlertDescription></Alert>}
-            {lastError && <Alert variant="destructive"><AlertTitle>Could not save message</AlertTitle><AlertDescription>{lastError}</AlertDescription></Alert>}
-            <div className="grid gap-2 border-t pt-4"><label htmlFor="message-compose" className="text-sm font-medium">{staff ? 'Ask for clarification' : 'Reply'}</label><Textarea id="message-compose" disabled={staff && !['submitted', 'needs_review'].includes(selected.status)} value={message} onChange={(event) => setMessage(event.target.value)} placeholder={staff ? 'Write a question for the customer…' : 'Write a reply…'} rows={3} maxLength={MAX_MESSAGE_LENGTH} aria-describedby="message-compose-count" /><div className="flex flex-wrap items-center justify-between gap-3"><span id="message-compose-count" className="text-xs text-muted-foreground" aria-live="polite">{message.length}/{MAX_MESSAGE_LENGTH} characters</span><Button onClick={send} disabled={saving || !message.trim() || (staff && !['submitted', 'needs_review'].includes(selected.status)) || (!staff && ['confirmed', 'rejected'].includes(selected.status))}>{saving ? 'Saving…' : 'Save message'}<Send aria-hidden="true" /></Button></div>{staff && !['submitted', 'needs_review'].includes(selected.status) && <p className="text-xs text-muted-foreground">Clarification is only available while a request is awaiting staff review.</p>}</div>
+            {notice && <Alert className="shrink-0"><AlertTitle>Saved locally</AlertTitle><AlertDescription>{notice}</AlertDescription></Alert>}
+            {lastError && <Alert variant="destructive" className="shrink-0"><AlertTitle>Could not save message</AlertTitle><AlertDescription>{lastError}</AlertDescription></Alert>}
+            <div className="grid shrink-0 gap-2 border-t pt-3"><label htmlFor="message-compose" className="text-sm font-medium">{staff ? 'Ask for clarification' : 'Reply'}</label><Textarea id="message-compose" disabled={staff && !['submitted', 'needs_review'].includes(selected.status)} value={message} onChange={(event) => setMessage(event.target.value)} placeholder={staff ? 'Write a question for the customer…' : 'Write a reply…'} rows={2} maxLength={MAX_MESSAGE_LENGTH} aria-describedby="message-compose-count" /><div className="flex flex-wrap items-center justify-between gap-3"><span id="message-compose-count" className="text-xs text-muted-foreground" aria-live="polite">{message.length}/{MAX_MESSAGE_LENGTH} characters</span><Button onClick={send} disabled={saving || !message.trim() || (staff && !['submitted', 'needs_review'].includes(selected.status)) || (!staff && ['confirmed', 'rejected'].includes(selected.status))}>{saving ? 'Saving…' : 'Save message'}<Send aria-hidden="true" /></Button></div>{staff && !['submitted', 'needs_review'].includes(selected.status) && <p className="text-xs text-muted-foreground">Clarification is only available while a request is awaiting staff review.</p>}</div>
           </CardContent></Card>
           ) : (
-            <Card className="min-w-0"><CardContent className="p-0"><Empty className="min-h-64 border-0"><EmptyHeader><EmptyMedia variant="icon"><MessageSquare /></EmptyMedia><EmptyTitle>No conversation selected</EmptyTitle><EmptyDescription>Pick a request thread from the list to read it and reply.</EmptyDescription></EmptyHeader></Empty></CardContent></Card>
+            <Card className="min-w-0"><CardContent className="p-0"><Empty className="min-h-40 border-0"><EmptyHeader><EmptyMedia variant="icon"><MessageSquare /></EmptyMedia><EmptyTitle>No conversation selected</EmptyTitle><EmptyDescription>Pick a request thread from the list to read it and reply.</EmptyDescription></EmptyHeader></Empty></CardContent></Card>
           )}
         </div>
       )}
