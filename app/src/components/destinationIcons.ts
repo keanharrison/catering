@@ -28,4 +28,5 @@ export const destinationTones: Partial<Record<keyof typeof destinationIcons, Ton
   drafts: 'teal',
   messages: 'sky',
   requests: 'indigo',
+  accountSettings: 'slate',
 }

@@ -56,11 +56,47 @@
 
   /* With a tone, the tile is a solid color with a white glyph, one color per destination. */
   .floating-tile[data-tone] { border-color: transparent; background: var(--tile-color); color: #fff; }
-  .floating-tile[data-tone='indigo'] { --tile-color: var(--tile-indigo); }
-  .floating-tile[data-tone='violet'] { --tile-color: var(--tile-violet); }
-  .floating-tile[data-tone='teal'] { --tile-color: var(--tile-teal); }
-  .floating-tile[data-tone='sky'] { --tile-color: var(--tile-sky); }
-  .floating-tile[data-tone='slate'] { --tile-color: var(--tile-slate); }
+  .floating-tile[data-tone='indigo'], .soft-tile[data-tone='indigo'] { --tile-color: var(--tile-indigo); }
+  .floating-tile[data-tone='violet'], .soft-tile[data-tone='violet'] { --tile-color: var(--tile-violet); }
+  .floating-tile[data-tone='teal'], .soft-tile[data-tone='teal'] { --tile-color: var(--tile-teal); }
+  .floating-tile[data-tone='sky'], .soft-tile[data-tone='sky'] { --tile-color: var(--tile-sky); }
+  .floating-tile[data-tone='slate'], .soft-tile[data-tone='slate'] { --tile-color: var(--tile-slate); }
+
+  /* Card-heading icon: a small tinted tile with a colored glyph. Quieter than the solid floating tile. */
+  .soft-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    background: color-mix(in srgb, var(--tile-color, var(--tile-slate)) 12%, #fff);
+    color: var(--tile-color, var(--tile-slate));
+  }
+
+  /* Feature card: a hairline border that drifts from indigo to sky at low strength, over the normal white card. */
+  .feature-card {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--card), var(--card)) padding-box,
+      linear-gradient(135deg, color-mix(in srgb, var(--tile-indigo) 32%, transparent), color-mix(in srgb, var(--tile-sky) 32%, transparent)) border-box;
+  }
+
+  /* Faint dot field behind related content, fading out from one corner. Decorative only; use once per screen at most. */
+  .dot-field { position: relative; isolation: isolate; }
+  .dot-field::before {
+    content: '';
+    position: absolute;
+    inset: -2rem 0 -1rem -1rem;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in srgb, var(--foreground) 14%, transparent) 1.25px, transparent 1.75px) 0 0 / 16px 16px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 0%, transparent 70%);
+  }
+  /* Let the dots peek out past the card's right edge where there is room; on a phone they stay inside the page. */
+  @media (min-width: 640px) { .dot-field::before { right: -2.5rem; } }
 
   /* Page title: 24px Inter regular with tight tracking, clearly larger than the 13px medium labels. The hero size (28px) is reserved for the Chat headline. */
   .type-page-title {
