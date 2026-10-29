@@ -35,7 +35,7 @@ function SelectionTable({ title, rows }: { title: string; rows: ReturnType<typeo
     <section aria-label={title}>
       <h3 className="type-section-title mb-2">{title}</h3>
       {rows.length ? (
-        <div className="overflow-x-auto rounded-xl border">
+        <div className="overflow-x-auto rounded-md border">
           <Table className="min-w-[22rem] sm:min-w-0">
             <TableHeader><TableRow><TableHead>Item</TableHead><TableHead>Quantity</TableHead><TableHead className="hidden text-right sm:table-cell">Unit price</TableHead><TableHead className="text-right">Line total</TableHead></TableRow></TableHeader>
             <TableBody>
@@ -135,7 +135,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         <SelectionTable title="Supplies" rows={supplies} />
       </section>
 
-      <section className="grid gap-2 rounded-xl bg-muted/50 p-4" aria-label="Estimated cost summary">
+      <section className="grid gap-2 rounded-lg bg-muted/50 p-4" aria-label="Estimated cost summary">
         <h3 className="type-section-title">Estimated total</h3>
         <div className="flex justify-between gap-4 text-sm"><span className="text-muted-foreground">Food subtotal</span><span className="tabular-nums">{formatMoney(foodSubtotal)}</span></div>
         <div className="flex justify-between gap-4 text-sm"><span className="text-muted-foreground">Supplies subtotal</span><span className="tabular-nums">{formatMoney(supplySubtotal)}</span></div>
@@ -150,7 +150,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         {order.intent.customRequest && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Custom request:</span> {order.intent.customRequest}</p>}
         {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
         {order.messages.length > 0 && <div className="grid gap-2 border-t pt-3">
-          {order.messages.map((message) => <div key={message.id} className="rounded-xl bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
+          {order.messages.map((message) => <div key={message.id} className="rounded-md bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
         </div>}
       </section>}
     </div>
@@ -285,7 +285,7 @@ export function CurrentOrdersPage() {
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
-                {action && <div className="flex items-center gap-2 rounded-xl bg-warning-soft px-3 py-2 text-sm text-warning"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
+                {action && <div className="flex items-center gap-2 rounded-md bg-warning-soft px-3 py-2 text-sm text-warning"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
                   <InfoValue label="Guests">{item.intent.guestCount ?? 'Not provided'}</InfoValue>
                   <InfoValue label="Pickup or delivery"><span className="capitalize">{item.intent.fulfillment}</span></InfoValue>

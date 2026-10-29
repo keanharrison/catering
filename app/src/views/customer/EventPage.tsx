@@ -5,7 +5,6 @@ import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
   Field,
@@ -169,8 +168,7 @@ function EventForm() {
           Plan your catering
         </h1>
 
-        <Card>
-        <form ref={formRef} onSubmit={onSubmit} noValidate className="p-5 sm:p-6">
+        <form ref={formRef} onSubmit={onSubmit} noValidate>
           {Object.values(errors).filter(Boolean).length > 1 && (
             <Alert variant="destructive" className="mb-6">
               <AlertTitle>Fix these to continue</AlertTitle>
@@ -372,7 +370,6 @@ function EventForm() {
             </Button>
           </div>
         </form>
-        </Card>
       </section>
     </div>
   )

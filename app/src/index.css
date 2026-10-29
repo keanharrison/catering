@@ -75,20 +75,15 @@
     color: var(--tile-color, var(--tile-slate));
   }
 
-  /* The one box: every card and panel shares this corner radius and a hairline border that drifts from indigo to sky at low strength.
-     Boxes are 16px. Things nested inside a box (tables, summaries, notices) and controls are 12px. Only pills are fully round. */
-  .box {
-    --box-fill: var(--card);
+  /* Feature card: a hairline border that drifts from indigo to sky at low strength, over the normal white card. */
+  .feature-card {
     border: 1px solid transparent;
-    border-radius: var(--radius-box);
     background:
-      linear-gradient(var(--box-fill), var(--box-fill)) padding-box,
+      linear-gradient(var(--card), var(--card)) padding-box,
       linear-gradient(135deg, color-mix(in srgb, var(--tile-indigo) 32%, transparent), color-mix(in srgb, var(--tile-sky) 32%, transparent)) border-box;
   }
-  .box-link { transition: box-shadow 150ms ease; }
-  .box-link:hover { --box-fill: var(--secondary); }
 
-  /* Parked for later, not used yet: a faint dot field behind related content, fading out from one corner. Decorative only. */
+  /* Faint dot field behind related content, fading out from one corner. Decorative only; use once per screen at most. */
   .dot-field { position: relative; isolation: isolate; }
   .dot-field::before {
     content: '';
@@ -223,7 +218,6 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.2);
-  --radius-box: 1rem;
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);

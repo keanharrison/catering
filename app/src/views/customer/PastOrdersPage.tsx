@@ -32,7 +32,7 @@ function quantityLabel(line: OrderLine) {
 function HistoryTable({ title, rows }: { title: string; rows: OrderLine[] }) {
   return <section aria-label={title}>
     <h3 className="type-section-title mb-2">{title}</h3>
-    {rows.length ? <div className="overflow-x-auto rounded-xl border">
+    {rows.length ? <div className="overflow-x-auto rounded-md border">
       <Table className="w-full min-w-0 sm:min-w-[28rem]">
         <TableHeader><TableRow><TableHead>Item</TableHead><TableHead>Quantity</TableHead><TableHead className="hidden text-right sm:table-cell">Unit price</TableHead><TableHead className="hidden text-right sm:table-cell">Line total</TableHead></TableRow></TableHeader>
         <TableBody>{rows.map((line) => {
@@ -83,7 +83,7 @@ function HistoricalOrderDetails({ order }: { order: Order }) {
       <HistoryTable title="Supplies" rows={supplies} />
     </section>
 
-    <section className="grid gap-2 rounded-xl bg-muted/50 p-4" aria-label="Recorded total">
+    <section className="grid gap-2 rounded-lg bg-muted/50 p-4" aria-label="Recorded total">
       <h3 className="type-section-title">Recorded total</h3>
       <p className="text-sm text-muted-foreground">Total not recorded.</p>
     </section>
@@ -94,7 +94,7 @@ function HistoricalOrderDetails({ order }: { order: Order }) {
       {order.intent.customRequest && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Custom request:</span> {order.intent.customRequest}</p>}
       {order.intent.notes && <p className="whitespace-pre-wrap text-sm"><span className="font-medium">Event instructions:</span> {order.intent.notes}</p>}
       {order.messages.length > 0 && <div className="grid gap-2 border-t pt-3">
-        {order.messages.map((message) => <div key={message.id} className="rounded-xl bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
+        {order.messages.map((message) => <div key={message.id} className="rounded-md bg-muted/50 p-3 text-sm"><p className="font-medium">{{ customer: 'You', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{message.text}</p></div>)}
       </div>}
     </section>}
   </div>

@@ -16,8 +16,3 @@ Keep Continue buttons and the stepper black, as ElevenLabs does. Check contrast 
 ## Colored icon tiles (applied October 28, 2026)
 
 Inside pages only, never in the sidebar: a solid tile with a white glyph, one color per destination (`destinationTones` in `app/src/components/destinationIcons.ts`). Chat violet, Current orders indigo, Drafts teal, Messages sky, Past orders slate. Used on the Chat account summaries and the empty states of Current orders, Past orders and Messages. Status colors above are not reused for icons.
-
-## Boxes (applied October 29, 2026)
-
-Every card and panel is one `.box` (`app/src/index.css`): a 16px corner radius and a hairline border that drifts from indigo to sky at about 32% strength. Things nested inside a box (tables, summaries, notices) and controls are 12px; only pills are fully round. The dot pattern is parked and unused.
-

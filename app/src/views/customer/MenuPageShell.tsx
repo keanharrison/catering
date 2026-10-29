@@ -101,7 +101,7 @@ export function MenuPageShell() {
     }
 
     return (
-      <div className="overflow-hidden rounded-xl border border-border">
+      <div className="overflow-hidden rounded-md border border-border">
         <div
           aria-hidden="true"
           className="type-small-label hidden grid-cols-[minmax(0,1fr)_7rem_7.5rem] items-center gap-4 border-b border-border bg-muted/50 px-5 py-3 uppercase text-muted-foreground lg:grid"
@@ -192,7 +192,7 @@ export function MenuPageShell() {
             </CardHeader>
             <CardContent className="pt-0">
               <Tabs defaultValue="entree" aria-label="Menu categories" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 gap-1 rounded-xl p-1 group-data-horizontal/tabs:h-12">
+              <TabsList className="grid w-full grid-cols-3 gap-1 rounded-md p-1 group-data-horizontal/tabs:h-12">
                   {categories.map((category) => (
                     <TabsTrigger key={category.value} value={category.value} className="h-full min-h-10">
                       {category.label}

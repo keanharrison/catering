@@ -69,7 +69,7 @@ function SummaryDetails({ summary }: { summary: OrderSummary }) {
         <span>Per guest</span><span>{summary.estimate.costPerGuestCents === null ? '—' : formatMoney(summary.estimate.costPerGuestCents)}</span>
       </div>
       {summary.guestCount !== null && (
-        <div className="mt-3 rounded-xl bg-muted/50 p-3 text-sm" data-testid="coverage">
+        <div className="mt-3 rounded-md bg-muted/50 p-3 text-sm" data-testid="coverage">
           <p>Entree servings: <strong>{summary.coverage.servings}</strong> of {summary.guestCount} guests</p>
           <p className="mt-1 text-xs text-muted-foreground">
             Coverage counts one entree serving per guest. Side quantities are separate.

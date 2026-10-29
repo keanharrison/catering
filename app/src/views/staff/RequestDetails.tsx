@@ -191,7 +191,7 @@ export function RequestDetails({
                 </div>
                 <ol className="mt-3 grid gap-3">
                   {order.messages.map((message) => (
-                    <li key={message.id} className="rounded-xl bg-muted/60 px-3 py-2 text-sm">
+                    <li key={message.id} className="rounded-md bg-muted/60 px-3 py-2 text-sm">
                       <p className="font-medium">{{ customer: 'Customer', staff: 'Pearl Island team', system: 'Request update' }[message.author]}</p>
                       <p className="mt-1 break-words text-muted-foreground">{message.text}</p>
                     </li>
@@ -212,8 +212,8 @@ export function RequestDetails({
               </AlertDescription>
             </Alert>
           )}
-          {notice && <p role="status" className="rounded-xl bg-teal-50 px-3 py-2 text-sm text-teal-950 dark:bg-teal-950/40 dark:text-teal-100">{notice}</p>}
-          {error && panel === null && <p role="alert" className="rounded-xl bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
+          {notice && <p role="status" className="rounded-md bg-teal-50 px-3 py-2 text-sm text-teal-950 dark:bg-teal-950/40 dark:text-teal-100">{notice}</p>}
+          {error && panel === null && <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
         </CardContent>
         <CardFooter className="flex flex-wrap items-start gap-2">
           {order.status === 'confirmed' ? (

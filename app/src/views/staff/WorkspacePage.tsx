@@ -30,12 +30,12 @@ export function WorkspacePage({ area, embedded = false }: { area: WorkspaceArea;
   const section = settings ? null : sections[area]
   return <section className={`workspace-page${embedded ? ' workspace-page-embedded' : ''}`} aria-label={settings ? 'Settings' : section!.title}>
     {!embedded && <header><h1>{settings ? 'Settings' : section!.title}</h1></header>}
-    {settings ? <div className="box workspace-list">
+    {settings ? <>
       <div className="workspace-row"><div><h2>Menu and rules</h2><p>Review the existing menu and catering rules preview.</p></div><Link to={routes.settings}>Open menu and rules</Link></div>
       <div className="workspace-row"><div><h2>Account access</h2><p>Use the workspace menu at the top of the sidebar to switch between the customer and restaurant staff accounts.</p></div></div>
-    </div> : <>
+    </> : <>
       <p className="workspace-notice">{area === 'integrations' ? 'These connections are not configured. This page outlines the proposed setup; it does not connect external services.' : 'Only menu recommendations are available today. The other assistants are planned.'}</p>
-      <div className="box workspace-list">{section!.items.map(([title, status, description]) => <div className="workspace-row" key={title}><div><h2>{title}</h2><p>{description}</p></div><span className="workspace-status">{status}</span></div>)}</div>
+      {section!.items.map(([title, status, description]) => <div className="workspace-row" key={title}><div><h2>{title}</h2><p>{description}</p></div><span className="workspace-status">{status}</span></div>)}
     </>}
   </section>
 }

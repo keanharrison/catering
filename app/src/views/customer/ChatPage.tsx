@@ -2,14 +2,13 @@ import { useEffect, useMemo, useRef, useState, type ComponentType, type SVGProps
 import { Link } from 'react-router-dom'
 import { destinationIcons, destinationTones, type Tone } from '../../components/destinationIcons'
 import { deriveNotifications } from '../../lib/notifications'
-import { Card } from '../../components/ui/card'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { plural, shortDate, summarizeDashboard, suggestedPrompts } from './dashboardSummary'
 import { ChatComposer } from './ChatComposer'
 import { useAssistant } from './useAssistant'
 
-const cardClass = 'box box-link px-4 py-3 text-left no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
+const cardClass = 'rounded-xl border border-border bg-background px-4 py-3 text-left no-underline transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
 
 function Shortcut({ title, to, status, icon: Icon, tone, attention = false }: { title: string; to: string; status: string; icon: ComponentType<SVGProps<SVGSVGElement>>; tone?: Tone; attention?: boolean }) {
   return (
@@ -53,7 +52,7 @@ export function ChatPage() {
           <ChatComposer value={value} onChange={setValue} onSubmit={(files) => send(value, files)} autoFocus />
         </div>
 
-        <Card className="mt-12 p-4 sm:p-5"><nav aria-label="Your account" className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
+        <nav aria-label="Your account" className="mt-14 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
           <Shortcut title="Past orders" to={routes.pastOrders} icon={destinationIcons.pastOrders} tone={destinationTones.pastOrders} status={summary.past.length ? plural(summary.past.length, 'past request') : 'No past requests yet'} />
           <Shortcut
             title="Current orders"
@@ -69,7 +68,7 @@ export function ChatPage() {
           />
           <Shortcut title="Drafts" to={routes.customer} icon={destinationIcons.drafts} tone={destinationTones.drafts} status={summary.drafts ? '1 draft in progress' : 'No drafts in progress'} />
           <Shortcut title="Messages" to={routes.customerMessages} icon={destinationIcons.messages} tone={destinationTones.messages} status={summary.threads.length ? plural(summary.threads.length, 'conversation') : 'No messages yet'} />
-        </nav></Card>
+        </nav>
 
         <section aria-labelledby="chat-suggestions" className="mt-14">
           <h2 id="chat-suggestions" className="mb-2 px-1 text-ui font-normal text-muted-foreground">Suggestions</h2>
@@ -113,7 +112,7 @@ export function ChatPage() {
         <ol className="grid gap-8">
           {turns.map((turn) => (
             <li key={turn.id} className="grid gap-4">
-              <p className="ml-auto max-w-[85%] rounded-box bg-secondary px-4 py-2.5 text-body text-foreground">
+              <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-body text-foreground">
                 <span className="sr-only">You: </span>{turn.question}
                 {turn.attachments.length > 0 && <span className="mt-1 block text-ui text-muted-foreground">Attached: {turn.attachments.join(', ')}</span>}
               </p>
