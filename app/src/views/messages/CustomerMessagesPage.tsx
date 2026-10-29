@@ -161,18 +161,18 @@ function CustomerMessagesPage() {
     setNotice('Reply saved.')
   }
 
-  return <section className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8 sm:py-8">
-    <header className="mb-6">
+  return <section className="mx-auto flex h-[calc(100svh-3.25rem)] min-h-[36rem] w-full max-w-6xl flex-col px-5 py-4 sm:px-8 sm:py-6 lg:min-h-[30rem]">
+    <header className="mb-4 shrink-0">
       <h1 className="type-page-title">Messages</h1>
     </header>
 
     {threads.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
       <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.messages}><destinationIcons.messages /></EmptyMedia><EmptyTitle>No conversations yet</EmptyTitle><EmptyDescription>Messages will appear here when the Pearl Island team adds an update to one of your requests.</EmptyDescription></EmptyHeader>
       <EmptyContent><Button nativeButton={false} render={<Link to={routes.customer} />}>New catering request</Button></EmptyContent>
-    </Empty></CardContent></Card> : <div className="grid min-h-[34rem] gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)]">
-      <Card className={`${mobileThreadOpen ? 'hidden lg:flex' : 'flex'} min-w-0 flex-col`}>
-        <CardHeader><CardTitle>Conversations</CardTitle><CardDescription>{threads.length} request {threads.length === 1 ? 'thread' : 'threads'}</CardDescription></CardHeader>
-        <CardContent className="grid content-start gap-2">
+    </Empty></CardContent></Card> : <div className="grid min-h-0 flex-1 grid-rows-1 gap-4 lg:grid-cols-[minmax(17rem,0.7fr)_minmax(0,1.3fr)]">
+      <Card className={`${mobileThreadOpen ? 'hidden lg:flex' : 'flex'} min-h-0 min-w-0 flex-col`}>
+        <CardHeader className="shrink-0"><CardTitle>Conversations</CardTitle><CardDescription>{threads.length} request {threads.length === 1 ? 'thread' : 'threads'}</CardDescription></CardHeader>
+        <CardContent className="grid min-h-0 flex-1 content-start gap-2 overflow-y-auto">
           {threads.map((order) => {
             const latest = latestMessage(order)
             return <button type="button" key={order.id} onClick={() => choose(order)} aria-current={selected?.id === order.id ? 'true' : undefined} className="rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -190,9 +190,9 @@ function CustomerMessagesPage() {
         </CardContent>
       </Card>
 
-      <Card className={`${mobileThreadOpen ? 'flex' : 'hidden lg:flex'} min-h-[34rem] min-w-0 flex-col`}>
+      <Card className={`${mobileThreadOpen ? 'flex' : 'hidden lg:flex'} min-h-0 min-w-0 flex-col`}>
         {selected ? <>
-          <CardHeader className="gap-3">
+          <CardHeader className="shrink-0 gap-3">
             <div className="flex items-center gap-2 lg:hidden"><Button variant="ghost" size="sm" onClick={() => setMobileThreadOpen(false)}><ArrowLeft aria-hidden="true" />Back to conversations</Button></div>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0"><CardTitle className="break-words">Request {selected.id}</CardTitle><CardDescription className="mt-1 break-words">{eventTypeLabel(selected)} · {formatEventTime(selected.intent.eventAt)}</CardDescription></div>
@@ -203,9 +203,9 @@ function CustomerMessagesPage() {
               <AlertDescription>Open the order details to review the proposed selections and approve them.</AlertDescription>
             </Alert>}
           </CardHeader>
-          <Separator />
+          <Separator className="shrink-0" />
           <CardContent className="flex min-h-0 flex-1 flex-col gap-4 pt-4">
-            <ScrollArea className="min-h-48 flex-1 rounded-md border p-4">
+            <ScrollArea className="min-h-24 flex-1 rounded-md border p-4">
               <ol aria-label="Conversation messages" className="grid gap-3">
                 {messagesChronologically(selected).map((entry) => entry.author === 'system' ? <li key={entry.id} className="mx-auto max-w-[92%] rounded-md bg-muted px-3 py-2 text-center text-xs text-muted-foreground">
                   <p className="font-medium text-foreground">{authorLabel(entry.author)}</p><p className="mt-1 whitespace-pre-wrap break-words">{entry.text}</p><time className="mt-1 block">{messageDate(entry.at)}</time>
@@ -215,13 +215,13 @@ function CustomerMessagesPage() {
               </ol>
             </ScrollArea>
 
-            {notice && <Alert role="status"><AlertTitle>Saved locally</AlertTitle><AlertDescription>{notice}</AlertDescription></Alert>}
-            {saveError && <Alert variant="destructive" role="alert"><AlertTitle>Could not save reply</AlertTitle><AlertDescription>{saveError}</AlertDescription></Alert>}
+            {notice && <Alert role="status" className="shrink-0"><AlertTitle>Saved locally</AlertTitle><AlertDescription>{notice}</AlertDescription></Alert>}
+            {saveError && <Alert variant="destructive" role="alert" className="shrink-0"><AlertTitle>Could not save reply</AlertTitle><AlertDescription>{saveError}</AlertDescription></Alert>}
 
-            <form onSubmit={sendReply} className="grid gap-3">
+            <form onSubmit={sendReply} className="grid shrink-0 gap-3">
               <Field data-invalid={Boolean(replyError)}>
                 <FieldLabel htmlFor={`customer-reply-${selected.id}`}>Your reply</FieldLabel>
-                <Textarea id={`customer-reply-${selected.id}`} value={reply} onChange={(event) => updateReply(event.target.value)} placeholder="Write a reply…" rows={3} maxLength={MAX_MESSAGE_LENGTH} aria-invalid={Boolean(replyError)} aria-describedby={`reply-hint-${selected.id} reply-count-${selected.id}${replyError ? ` reply-error-${selected.id}` : ''}`} disabled={!canReply || saving} />
+                <Textarea id={`customer-reply-${selected.id}`} value={reply} onChange={(event) => updateReply(event.target.value)} placeholder="Write a reply…" rows={2} maxLength={MAX_MESSAGE_LENGTH} aria-invalid={Boolean(replyError)} aria-describedby={`reply-hint-${selected.id} reply-count-${selected.id}${replyError ? ` reply-error-${selected.id}` : ''}`} disabled={!canReply || saving} />
                 <FieldDescription id={`reply-hint-${selected.id}`}>{canReply ? '' : 'This request is closed, so replies are disabled.'}</FieldDescription>
                 <p id={`reply-count-${selected.id}`} className="text-xs text-muted-foreground" aria-live="polite">{reply.length}/{MAX_MESSAGE_LENGTH} characters</p>
                 {replyError && <FieldError id={`reply-error-${selected.id}`}>{replyError}</FieldError>}
