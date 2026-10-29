@@ -28,8 +28,8 @@ describe('Admin navigation', () => {
       Array.from(group.querySelectorAll('[data-slot="sidebar-menu-button"]')).map((el) => el.textContent),
     ])
     expect(groups).toEqual([
-      ['Operations', ['Requests', 'Messages']],
-      ['Workspace', ['Analytics', 'Menu and rules', 'Integrations', 'AI & agents', 'Settings']],
+      ['Operations', ['Requests', 'Messages', 'Calendar']],
+      ['Workspace', ['Analytics', 'Menu and rules', 'Integrations', 'Settings']],
     ])
     expect(nav()).not.toContain('Handoff')
   })

@@ -10,6 +10,7 @@ export function pageTitle(pathname: string, account: DemoAccount): string {
       [routes.handoff]: 'Handoff',
       [routes.staffMessages]: 'Messages',
       [routes.analytics]: 'Analytics',
+      [routes.calendar]: 'Calendar',
       [routes.settings]: 'Menu and rules',
       [routes.integrations]: 'Integrations',
       [routes.agents]: 'AI & agents',

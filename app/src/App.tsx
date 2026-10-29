@@ -16,6 +16,7 @@ import { OrdersPage } from './views/customer/OrdersPage'
 import { DraftsPage } from './views/customer/DraftsPage'
 import { AnalyticsPage } from './views/staff/AnalyticsPage'
 import { IntegrationsPage } from './views/staff/IntegrationsPage'
+import { CalendarPage } from './views/staff/CalendarPage'
 import { AdminSettingsPage } from './views/staff/AdminSettingsPage'
 import { ChatPage } from './views/customer/ChatPage'
 import { PlanIntakePage } from './views/customer/PlanIntakePage'
@@ -58,6 +59,7 @@ export function AppRoutes() {
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
       <Route path={routes.analytics} element={account === 'team' ? <AnalyticsPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.staffMessages} element={account === 'team' ? <MessagesPage /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.calendar} element={account === 'team' ? <CalendarPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.integrations} element={account === 'team' ? <IntegrationsPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.agents} element={account === 'team' ? <WorkspacePage area="agents" /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.staffSettings} element={account === 'team' ? <AdminSettingsPage /> : <Navigate to={routes.customer} replace />} />

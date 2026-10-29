@@ -5,6 +5,7 @@ export const routes = {
   drafts: '/customer/drafts',
   staff: '/staff',
   analytics: '/staff/analytics',
+  calendar: '/staff/calendar',
   handoff: '/handoff',
   currentOrders: '/customer/orders',
   pastOrders: '/customer/orders/past',

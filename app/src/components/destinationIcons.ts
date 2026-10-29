@@ -1,4 +1,4 @@
-import { Bot, ClipboardList, LineChart, Edit05, History, MessageSquare, PackageCheck, Plug, Plus, Settings2, SlidersHorizontal, Truck } from './icons'
+import { Bot, CalendarDays, ClipboardList, LineChart, Edit05, History, MessageSquare, PackageCheck, Plug, Plus, Settings2, SlidersHorizontal, Truck } from './icons'
 import { ChatIcon } from './navIcons'
 
 /** One icon per destination, used by the sidebar, the Chat page's account summaries and empty states so a place always looks the same. */
@@ -12,6 +12,7 @@ export const destinationIcons = {
   accountSettings: Settings2,
   requests: ClipboardList,
   analytics: LineChart,
+  calendar: CalendarDays,
   handoff: Truck,
   menuAndRules: Settings2,
   integrations: Plug,
@@ -30,5 +31,6 @@ export const destinationTones: Partial<Record<keyof typeof destinationIcons, Ton
   messages: 'sky',
   requests: 'indigo',
   analytics: 'violet',
+  calendar: 'sky',
   accountSettings: 'slate',
 }

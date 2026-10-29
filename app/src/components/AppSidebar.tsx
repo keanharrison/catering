@@ -55,10 +55,10 @@ const customerNavigation: Destination[] = [
 const teamNavigation: Destination[] = [
   { label: 'Requests', icon: destinationIcons.requests, href: routes.staff },
   { label: 'Messages', icon: destinationIcons.messages, href: routes.staffMessages },
+  { label: 'Calendar', icon: destinationIcons.calendar, href: routes.calendar },
   { label: 'Analytics', icon: destinationIcons.analytics, href: routes.analytics },
   { label: 'Menu and rules', icon: destinationIcons.menuAndRules, href: routes.settings },
   { label: 'Integrations', icon: destinationIcons.integrations, href: routes.integrations },
-  { label: 'AI & agents', icon: destinationIcons.agents, href: routes.agents },
   { label: 'Settings', icon: destinationIcons.staffSettings, href: routes.staffSettings },
 ]
 
@@ -88,7 +88,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = account === 'team' ? 2 : 4
+  const firstGroupSize = account === 'team' ? 3 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount
