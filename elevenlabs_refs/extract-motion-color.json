@@ -1,0 +1,166 @@
+{
+  "blocked": 4,
+  "keyframes": [],
+  "transitions": [
+    [
+      "0.15s",
+      9
+    ],
+    [
+      "0.3s",
+      2
+    ],
+    [
+      "0.2s",
+      1
+    ],
+    [
+      "0.5s",
+      1
+    ]
+  ],
+  "colors": [
+    [
+      "text rgb(0, 0, 0)",
+      2041
+    ],
+    [
+      "text rgb(119, 113, 105)",
+      124
+    ],
+    [
+      "bg rgb(255, 255, 255)",
+      70
+    ],
+    [
+      "bg rgb(0, 0, 0)",
+      54
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.05)",
+      37
+    ],
+    [
+      "bg rgb(253, 252, 252)",
+      36
+    ],
+    [
+      "bg rgb(245, 243, 241)",
+      35
+    ],
+    [
+      "text rgb(68, 64, 59)",
+      27
+    ],
+    [
+      "text rgb(255, 255, 255)",
+      26
+    ],
+    [
+      "text rgb(165, 159, 151)",
+      18
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.3)",
+      18
+    ],
+    [
+      "bg rgb(235, 232, 228)",
+      12
+    ],
+    [
+      "borderT rgb(229, 229, 229)",
+      12
+    ],
+    [
+      "text rgb(244, 26, 47)",
+      9
+    ],
+    [
+      "text rgb(10, 89, 210)",
+      9
+    ],
+    [
+      "text rgb(5, 47, 112)",
+      8
+    ],
+    [
+      "borderT rgb(235, 232, 228)",
+      7
+    ],
+    [
+      "text rgb(245, 243, 241)",
+      6
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.075)",
+      4
+    ],
+    [
+      "borderT rgba(0, 0, 0, 0.075)",
+      2
+    ],
+    [
+      "text rgba(255, 255, 255, 0.8)",
+      2
+    ],
+    [
+      "bg rgb(255, 71, 4)",
+      2
+    ],
+    [
+      "bg rgb(4, 71, 255)",
+      2
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.1)",
+      1
+    ],
+    [
+      "text rgb(89, 84, 79)",
+      1
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.01)",
+      1
+    ],
+    [
+      "borderT rgba(0, 0, 0, 0.05)",
+      1
+    ],
+    [
+      "bg rgba(0, 0, 0, 0.15)",
+      1
+    ]
+  ],
+  "hairlines": [
+    {
+      "w": "1px",
+      "c": "rgba(0, 0, 0, 0.05)"
+    },
+    {
+      "w": "1px",
+      "c": "rgba(0, 0, 0, 0.05)"
+    },
+    {
+      "w": "1px",
+      "c": "rgba(0, 0, 0, 0.05)"
+    },
+    {
+      "w": "1px",
+      "c": "rgba(0, 0, 0, 0.075)"
+    },
+    {
+      "w": "1px",
+      "c": "rgba(0, 0, 0, 0.075)"
+    }
+  ],
+  "runningAnimations": [],
+  "bgImages": [
+    "image-set(url(\"https://eleven-public-cdn.elevenlabs.io/marketing_website/_next/static/media/noise@20",
+    "image-set(url(\"https://eleven-public-cdn.elevenlabs.io/marketing_website/_next/static/media/noise@20",
+    "image-set(url(\"https://eleven-public-cdn.elevenlabs.io/marketing_website/_next/static/media/noise@20",
+    "image-set(url(\"https://eleven-public-cdn.elevenlabs.io/marketing_website/_next/static/media/noise@20",
+    "image-set(url(\"https://eleven-public-cdn.elevenlabs.io/marketing_website/_next/static/media/noise@20"
+  ]
+}
