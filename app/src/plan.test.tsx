@@ -35,9 +35,15 @@ async function pickDate(user: ReturnType<typeof userEvent.setup>) {
 describe('Plan with AI', () => {
   it('starts with a required choice between the two paths', async () => {
     renderAt('/customer')
-    expect(screen.getAllByRole('button', { name: 'Plan with AI' })).toHaveLength(1)
+    expect(btn('Plan with AI')).toBeTruthy()
     expect(btn('Enter details myself')).toBeTruthy()
     expect(screen.queryByLabelText('Guests')).toBeNull()
+  })
+
+  it('sends Plan with AI to the Chat page', async () => {
+    renderAt('/customer')
+    await userEvent.setup().click(btn('Plan with AI'))
+    expect(screen.getByRole('heading', { level: 1, name: 'What can I help you with?' })).toBeTruthy()
   })
 
   it('opens the unchanged request form on Enter details myself', async () => {
@@ -76,8 +82,7 @@ describe('Plan with AI', () => {
 
   it('asks the six questions in a chat, then carries every answer into the editable form', async () => {
     const user = userEvent.setup()
-    renderAt('/customer')
-    await user.click(btn('Plan with AI'))
+    renderAt('/customer/plan')
 
     await user.click(radio('Corporate lunch'))
     await pickDate(user)

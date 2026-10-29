@@ -92,10 +92,7 @@ function EventEntry() {
   if (!showChoice) return <EventForm />
   return (
     <PlanChoice
-      onAssisted={() => {
-        savePlanningState(session, { mode: 'assisted', prefilled: false })
-        navigate(routes.planRequest)
-      }}
+      onAssisted={() => navigate(routes.askPearl)}
       onManual={() => {
         savePlanningState(session, { mode: 'manual', prefilled: false })
         setShowChoice(false)
