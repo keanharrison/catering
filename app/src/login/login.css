@@ -1,5 +1,5 @@
-/* ElevenLabs sign-up surface: white page, bold headline, flat rounded-rectangle controls with hairline borders.
-   Tokens are scoped to .login-page so the rest of the app is untouched until its pages are restyled. */
+/* Sign-in surface: a kitchen photograph under an even dark shade, a bold white headline, flat rounded-rectangle controls.
+   Tokens are scoped to .login-page so the rest of the app is untouched. */
 :root {
   font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-synthesis: none;
@@ -7,23 +7,23 @@
   color-scheme: light;
 }
 .login-page {
-  --login-bg: #fff;
-  --login-ink: #000;
-  --login-muted: #777169;
-  --login-hairline: rgb(0 0 0 / 0.05);
-  --login-ring: #e5e5e5;
-  --login-solid: #000;
-  --login-solid-hover: #292524;
-  --login-solid-ink: #fff;
-  --login-surface: #fff;
-  --login-surface-hover: #f5f3f1;
-  --login-focus: #000;
+  --login-shade: rgb(0 0 0 / 0.55);
+  --login-bg: #0f0f10;
+  --login-ink: #fff;
+  --login-muted: rgb(255 255 255 / 0.72);
+  --login-ring: rgb(255 255 255 / 0.4);
+  --login-solid: #fff;
+  --login-solid-hover: #ececec;
+  --login-solid-ink: #0f0f10;
+  --login-surface: rgb(0 0 0 / 0.3);
+  --login-surface-hover: rgb(0 0 0 / 0.45);
+  --login-focus: #fff;
 }
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 280px; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
-::selection { background: rgb(0 0 0 / 0.12); }
+::selection { background: rgb(255 255 255 / 0.3); }
 .login-page {
   position: relative;
   isolation: isolate;
@@ -31,7 +31,7 @@ button { font: inherit; }
   display: grid;
   place-items: center;
   padding: 64px 24px;
-  background: var(--login-bg);
+  background: linear-gradient(var(--login-shade), var(--login-shade)), url('./login-bg.jpeg') center / cover no-repeat, var(--login-bg);
   color: var(--login-ink);
 }
 .login-panel { width: min(360px, 100%); text-align: center; padding-bottom: 24px; }
