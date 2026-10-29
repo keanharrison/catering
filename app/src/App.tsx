@@ -14,6 +14,7 @@ import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
 import { DraftsPage } from './views/customer/DraftsPage'
+import { AnalyticsPage } from './views/staff/AnalyticsPage'
 import { ChatPage } from './views/customer/ChatPage'
 import { PlanIntakePage } from './views/customer/PlanIntakePage'
 import { MessagesPage } from './views/messages/MessagesPage'
@@ -53,6 +54,7 @@ export function AppRoutes() {
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
+      <Route path={routes.analytics} element={account === 'team' ? <AnalyticsPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.staffMessages} element={account === 'team' ? <MessagesPage /> : <Navigate to={routes.customer} replace />} />
       {(['integrations', 'agents', 'staffSettings'] as const).map(area => (
         <Route key={area} path={routes[area]} element={account === 'team' ? <WorkspacePage area={area} /> : <Navigate to={routes.customer} replace />} />

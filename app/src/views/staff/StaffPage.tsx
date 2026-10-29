@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
 import { BadgeCheck, Clock3, ListChecks, TriangleAlert } from '../../components/icons'
-import { destinationIcons } from '../../components/destinationIcons'
+import { destinationIcons, type Tone } from '../../components/destinationIcons'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
 import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
@@ -24,11 +24,11 @@ const filterIcon: Record<RequestFilter, typeof ListChecks> = {
   confirmed: BadgeCheck,
 }
 
-const filterIconStyle: Record<RequestFilter, string> = {
-  all: 'bg-secondary text-foreground',
-  review: 'bg-secondary text-foreground',
-  awaiting: 'bg-secondary text-foreground',
-  confirmed: 'bg-secondary text-foreground',
+const filterTone: Record<RequestFilter, Tone> = {
+  all: 'slate',
+  review: 'indigo',
+  awaiting: 'sky',
+  confirmed: 'teal',
 }
 
 function RequestStatus({ status }: { status: Order['status'] }) {
@@ -193,11 +193,11 @@ export function StaffPage() {
             <TabsTrigger
               key={key}
               value={key}
-              className="group/status-card h-auto min-h-[5.5rem] justify-start gap-3 rounded-lg border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
+              className="group/status-card h-auto before:hidden min-h-[5.5rem] justify-start gap-3 rounded-lg border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
             >
               {(() => {
                 const Icon = filterIcon[key]
-                return <span aria-hidden="true" data-icon-surface className={`flex size-10 shrink-0 items-center justify-center rounded-md ${filterIconStyle[key]}`}><Icon /></span>
+                return <span aria-hidden="true" data-icon-surface data-tone={filterTone[key]} data-size="sm" className="floating-tile"><Icon /></span>
               })()}
               <span className="flex min-w-0 flex-col items-start gap-0.5">
                 <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>

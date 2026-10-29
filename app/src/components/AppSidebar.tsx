@@ -56,6 +56,7 @@ const teamNavigation: Destination[] = [
   { label: 'Requests', icon: destinationIcons.requests, href: routes.staff },
   { label: 'Handoff', icon: destinationIcons.handoff, href: routes.handoff },
   { label: 'Messages', icon: destinationIcons.messages, href: routes.staffMessages },
+  { label: 'Analytics', icon: destinationIcons.analytics, href: routes.analytics },
   { label: 'Menu and rules', icon: destinationIcons.menuAndRules, href: routes.settings },
   { label: 'Integrations', icon: destinationIcons.integrations, href: routes.integrations },
   { label: 'AI & agents', icon: destinationIcons.agents, href: routes.agents },
@@ -88,7 +89,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = account === 'team' ? 3 : 4
+  const firstGroupSize = 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount
@@ -118,7 +119,7 @@ export function AppSidebar() {
                   <DropdownMenuSubContent className="linear-menu">
                     <DropdownMenuRadioGroup value={account} onValueChange={chooseAccount}>
                       <DropdownMenuRadioItem value="customer">Customer account</DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem value="team">Pearl Island team account</DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem value="team">Admin</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>

@@ -52,5 +52,5 @@ export function useDemoAccount() {
 
 export const demoAccountLabels: Record<DemoAccount, string> = {
   customer: 'Customer',
-  team: 'Pearl Island team',
+  team: 'Admin',
 }

@@ -62,6 +62,10 @@
   .floating-tile[data-tone='sky'], .soft-tile[data-tone='sky'] { --tile-color: var(--tile-sky); }
   .floating-tile[data-tone='slate'], .soft-tile[data-tone='slate'] { --tile-color: var(--tile-slate); }
 
+  /* Compact variant for dense Admin screens: a 30px tile around a 16px glyph. */
+  .floating-tile[data-size='sm'] { width: 1.875rem; height: 1.875rem; border-radius: 0.5rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.08); }
+  .floating-tile[data-size='sm'] svg { width: 1rem; height: 1rem; }
+
   /* Card-heading icon: a small tinted tile with a colored glyph. Quieter than the solid floating tile. */
   .soft-tile {
     display: flex;

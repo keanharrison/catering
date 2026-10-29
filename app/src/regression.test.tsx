@@ -34,7 +34,7 @@ async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('button', { name: 'Customer account menu' }))
   await user.keyboard('{ArrowDown}')
   await user.keyboard('{ArrowRight}')
-  await user.click(await screen.findByRole('menuitemradio', { name: 'Pearl Island team account' }))
+  await user.click(await screen.findByRole('menuitemradio', { name: 'Admin' }))
 }
 
 beforeEach(() => {
