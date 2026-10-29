@@ -161,36 +161,44 @@ describe('regression: full journeys and edge cases', () => {
     expect(screen.getByText('No accepted request yet')).toBeTruthy()
   })
 
-  it('filters the staff queue by status and supports keyboard row selection', async () => {
+  it('organizes the staff queue into views, with keyboard row selection and filters', async () => {
     const user = userEvent.setup()
     renderAt('/staff')
 
-    const [allTab, reviewTab, awaitingTab, confirmedTab] = screen.getAllByRole('tab')
-    expect([allTab.textContent, reviewTab.textContent, awaitingTab.textContent, confirmedTab.textContent]).toEqual([
+    const [allTab, pastTab, currentTab, upcomingTab] = screen.getAllByRole('tab')
+    expect([allTab.textContent, pastTab.textContent, currentTab.textContent, upcomingTab.textContent]).toEqual([
       'All5',
-      'Needs review2',
-      'Awaiting customer1',
-      'Accepted1',
+      'Past2',
+      'Current3',
+      'Upcoming accepted0',
     ])
     expect(screen.getAllByRole('row')).toHaveLength(6)
 
-    reviewTab.focus()
+    currentTab.focus()
     await user.keyboard('{Enter}')
-    expect(reviewTab.getAttribute('aria-selected')).toBe('true')
-    expect(screen.getAllByRole('row')).toHaveLength(3)
+    expect(currentTab.getAttribute('aria-selected')).toBe('true')
+    expect(screen.getAllByRole('row')).toHaveLength(4)
 
     const selectedRow = screen.getByRole('row', { name: /Sam Rivera/ })
     selectedRow.focus()
     await user.keyboard('{Enter}')
     expect(screen.getByText('Rivera Wedding')).toBeTruthy()
 
-    await user.click(awaitingTab)
+    await user.click(pastTab)
+    expect(screen.getAllByRole('row')).toHaveLength(3)
+    expect(screen.getByRole('row', { name: /Taylor Brooks/ })).toBeTruthy()
+
+    await user.click(allTab)
+    await user.type(screen.getByRole('searchbox'), 'northstar')
     expect(screen.getAllByRole('row')).toHaveLength(2)
     expect(screen.getByRole('row', { name: /Morgan Chen/ })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Clear filters' }))
+    expect(screen.getAllByRole('row')).toHaveLength(6)
 
-    await user.click(confirmedTab)
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Status' }), 'confirmed')
     expect(screen.getAllByRole('row')).toHaveLength(2)
-    expect(screen.getByRole('row', { name: /Taylor Brooks/ })).toBeTruthy()
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Pickup or delivery' }), 'delivery')
+    expect(screen.queryAllByRole('row').length).toBeLessThanOrEqual(2) // filters combine; they never widen the list
   })
 
   it('shows the food budget on both customer review and staff request details', () => {

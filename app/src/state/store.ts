@@ -5,6 +5,7 @@ import { addMinutes } from '../engine'
 import * as machine from './orderMachine'
 import { isValidDemoState } from './validate'
 import { prefillMissingContact } from './customerProfile'
+import { seedOrders } from '../data/seedOrders'
 
 /**
  * The live demo state: current scenario, a demo clock, and the order. Persisted in
@@ -31,6 +32,8 @@ type DemoState = {
   orders: Order[]
   /** Requests the customer chose to save for later. They are not submitted and staff never see them. */
   savedDrafts: Order[]
+  /** True once the starting requests have been added, so a request deleted later stays deleted. */
+  seeded: boolean
   lastError: string | null
   clearError: () => void
 
@@ -39,6 +42,10 @@ type DemoState = {
   activateDraft: () => void
   /** Logging in as a customer: replace the sample draft with an empty one and drop any half-typed form. */
   startBlankDraft: () => void
+  /** Adds Pearl Island's starting requests the first time the app opens on this computer. */
+  seedStartingRequests: () => void
+  /** Removes a request for good (Admin only). */
+  deleteRequest: (id: string) => void
   /** Files the current request under Drafts and starts a clean one. */
   saveDraftForLater: (intent: OrderIntent) => void
   /** Reopens a saved draft as the current request. */
@@ -81,6 +88,7 @@ function freshState(id: string, previousSession = 0) {
     draftOrder: order,
     orders: [] as Order[], // staff see only requests made in this walkthrough
     savedDrafts: [] as Order[],
+    seeded: false,
     lastError: null,
   }
 }
@@ -116,7 +124,7 @@ export const useDemoStore = create<DemoState>()(
         clearError: () => set({ lastError: null }),
         loadScenario: (id) => {
           const previous = get()
-          set({ ...freshState(id, previous.session), orders: previous.orders, savedDrafts: previous.savedDrafts })
+          set({ ...freshState(id, previous.session), orders: previous.orders, savedDrafts: previous.savedDrafts, seeded: previous.seeded })
         },
         activateOrder: (id) => {
           const order = get().orders.find((item) => item.id === id)
@@ -127,7 +135,7 @@ export const useDemoStore = create<DemoState>()(
           const draft = blankDraft(findScenario(get().scenarioId))
           set({ order: draft, draftOrder: draft, session: get().session + 1, lastError: null })
         },
-        reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders, savedDrafts: get().savedDrafts }),
+        reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders, savedDrafts: get().savedDrafts, seeded: get().seeded }),
         saveDraftForLater: (intent) => {
           const { order, savedDrafts, session, scenarioId } = get()
           if (order.status !== 'draft') return
@@ -138,6 +146,15 @@ export const useDemoStore = create<DemoState>()(
             savedDrafts: [saved, ...savedDrafts.filter((item) => item.id !== id)],
             order: blank, draftOrder: blank, session: session + 1, lastError: null,
           })
+        },
+        seedStartingRequests: () => {
+          if (get().seeded) return
+          const have = new Set(get().orders.map((item) => item.id))
+          set({ orders: [...get().orders, ...seedOrders.filter((item) => !have.has(item.id))], seeded: true })
+        },
+        deleteRequest: (id) => {
+          const { orders, order, draftOrder } = get()
+          set({ orders: orders.filter((item) => item.id !== id), ...(order.id === id ? { order: draftOrder } : {}), lastError: null })
         },
         resumeDraft: (id) => {
           const { savedDrafts, session } = get()
@@ -193,6 +210,7 @@ export const useDemoStore = create<DemoState>()(
           order: saved.order?.demoSample ? draftOrder : saved.order ?? current.order,
           orders: (saved.orders ?? []).filter((order) => !order.demoSample),
           savedDrafts: saved.savedDrafts ?? [],
+          seeded: saved.seeded === true,
         }
       },
     },

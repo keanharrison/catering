@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { TriangleAlert } from '../../components/icons'
 import type { Order } from '../../data'
 import type { OrderSummary } from '../customer/orderSummary'
@@ -10,6 +10,7 @@ import { routes } from '../../routes'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
 import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 import { Separator } from '../../components/ui/separator'
 import { AskCustomerPanel } from './AskCustomerPanel'
 import { DeclineRequestPanel } from './DeclineRequestPanel'
@@ -36,6 +37,7 @@ type RequestDetailsProps = {
   onSaveQuestion: (text: string) => void
   onSaveProposal: (lines: Order['lines']) => void
   onSaveDecline: (reason: string) => void
+  onDelete: () => void
   onCancelPanel: () => void
 }
 
@@ -70,8 +72,10 @@ export function RequestDetails({
   onSaveQuestion,
   onSaveProposal,
   onSaveDecline,
+  onDelete,
   onCancelPanel,
 }: RequestDetailsProps) {
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const foodGroups = summary.groups.filter((group) => group.category !== 'supply')
   const supplyGroups = summary.groups.filter((group) => group.category === 'supply')
   const foodSubtotal = foodGroups.flatMap((group) => group.rows).reduce((total, row) => total + row.costCents, 0)
@@ -232,11 +236,27 @@ export function RequestDetails({
               <Button variant="outline" disabled={!canEdit} onClick={onDecline}>Decline</Button>
             </>
           ) : <span className="text-sm text-muted-foreground">This request is closed.</span>}
+          <Button variant="ghost" className="ml-auto text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => setConfirmDelete(true)}>Delete request</Button>
         </CardFooter>
         {!closed && !acceptAllowed && acceptReason && (
           <p className="px-4 pb-4 text-xs text-muted-foreground sm:px-6" id="accept-disabled-reason">{acceptReason}</p>
         )}
       </Card>
+
+      <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete this request?</DialogTitle>
+            <DialogDescription>
+              It will be removed from Admin and from the customer’s orders, along with its messages. This can’t be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+            <Button variant="destructive" onClick={() => { setConfirmDelete(false); onDelete() }}>Delete request</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {panel === 'ask' && (
         <AskCustomerPanel onSimulateSend={onSaveQuestion} onCancel={onCancelPanel} error={error} />
