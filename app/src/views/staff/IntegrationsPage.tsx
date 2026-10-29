@@ -3,7 +3,7 @@ import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardFooter } from '../../components/ui/card'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '../../components/ui/empty'
 import { Input } from '../../components/ui/input'
-import { NativeSelect, NativeSelectOption } from '../../components/ui/native-select'
+import { OptionSelect } from '../../components/OptionSelect'
 import { Search } from '../../components/icons'
 import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { logoFiles, serviceTypes, services, type Service } from './integrations'
@@ -12,7 +12,7 @@ function Logo({ service }: { service: Service }) {
   const file = logoFiles[service.id]
   return (
     <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-background text-ui font-semibold tracking-[-0.02em] text-foreground shadow-xs">
-      {file ? <img src={file} alt="" className="size-7 object-contain" /> : service.mark}
+      {file ? <img src={file} alt="" width={28} height={28} loading="lazy" decoding="async" className="size-7 object-contain" /> : service.mark}
     </span>
   )
 }
@@ -42,13 +42,14 @@ export function IntegrationsPage() {
             <Input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search integrations" className="h-9 pl-9" />
           </span>
         </label>
-        <label className="min-w-[10rem]">
-          <span className="sr-only">Type</span>
-          <NativeSelect value={type} onChange={(event) => setType(event.target.value)} className="w-full [&_select]:h-9">
-            <NativeSelectOption value="all">All types</NativeSelectOption>
-            {serviceTypes.map((option) => <NativeSelectOption key={option.id} value={option.id}>{option.label}</NativeSelectOption>)}
-          </NativeSelect>
-        </label>
+        <div className="min-w-[10rem]">
+          <OptionSelect
+            label="Type"
+            value={type}
+            onValueChange={setType}
+            options={[{ value: 'all', label: 'All types' }, ...serviceTypes.map((option) => ({ value: option.id, label: option.label }))]}
+          />
+        </div>
       </form>
 
       <p role="status" className="mb-3 text-ui text-muted-foreground empty:mb-0">

@@ -36,7 +36,7 @@ export function SiteHeader() {
         <TooltipContent side="bottom">{sidebarShown ? 'Close sidebar' : 'Open sidebar'}</TooltipContent>
       </Tooltip>
       <div className="flex min-w-0 flex-1 items-center gap-2 pl-1">
-        <p className="truncate text-heading leading-none tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
+        <p className="truncate text-heading leading-6 tracking-[0.01em] text-foreground">{pageTitle(pathname, account)}</p>
         {pathname === routes.askPearl && <span className="shrink-0 rounded-full bg-secondary px-2.5 py-1 text-caption leading-none text-foreground">Preview</span>}
       </div>
 

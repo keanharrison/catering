@@ -195,9 +195,11 @@ describe('regression: full journeys and edge cases', () => {
     await user.click(screen.getByRole('button', { name: 'Clear filters' }))
     expect(screen.getAllByRole('row')).toHaveLength(6)
 
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Status' }), 'confirmed')
+    await user.click(screen.getByRole('combobox', { name: 'Status' }))
+    await user.click(await screen.findByRole('option', { name: 'Accepted' }))
     expect(screen.getAllByRole('row')).toHaveLength(2)
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Pickup or delivery' }), 'delivery')
+    await user.click(screen.getByRole('combobox', { name: 'Pickup or delivery' }))
+    await user.click(await screen.findByRole('option', { name: 'Delivery' }))
     expect(screen.queryAllByRole('row').length).toBeLessThanOrEqual(2) // filters combine; they never widen the list
   })
 

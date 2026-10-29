@@ -37,7 +37,8 @@ describe('Admin Integrations catalog', () => {
   it('filters by type and combines with search, with a way back from no results', async () => {
     const user = userEvent.setup()
     renderAppAt('/staff/integrations', <AppRoutes />)
-    await user.selectOptions(screen.getByRole('combobox', { name: 'Type' }), 'pos')
+    await user.click(screen.getByRole('combobox', { name: 'Type' }))
+    await user.click(await screen.findByRole('option', { name: 'Point of sale' }))
     expect(cards()).toHaveLength(5)
     await user.type(screen.getByRole('searchbox'), 'doordash')
     expect(screen.getByText('No matching integrations')).toBeTruthy()

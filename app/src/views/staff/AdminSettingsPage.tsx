@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
-import { Button } from '../../components/ui/button'
-import { NativeSelect, NativeSelectOption } from '../../components/ui/native-select'
+import { Button, buttonVariants } from '../../components/ui/button'
+import { OptionSelect } from '../../components/OptionSelect'
 import { routes } from '../../routes'
 
 type Row = {
@@ -21,17 +21,14 @@ function Preview({ label, aria }: { label: string; aria: string }) {
 }
 
 function LinkButton({ to, children }: { to: string; children: ReactNode }) {
-  return <Button variant="outline" nativeButton={false} render={<Link to={to} />}>{children}</Button>
+  return <Link to={to} className={buttonVariants({ variant: 'outline' })}>{children}</Link>
 }
 
 function PreviewSelect({ label, options, what }: { label: string; options: string[]; what: string }) {
   return (
-    <label>
-      <span className="sr-only">{label}</span>
-      <NativeSelect value={options[0]} onChange={() => soon(what)} className="[&_select]:h-9">
-        {options.map((option) => <NativeSelectOption key={option} value={option}>{option}</NativeSelectOption>)}
-      </NativeSelect>
-    </label>
+    <div className="min-w-48">
+      <OptionSelect label={label} value={options[0]} onValueChange={() => soon(what)} options={options.map((option) => ({ value: option, label: option }))} />
+    </div>
   )
 }
 

@@ -26,8 +26,8 @@ describe('Admin Settings', () => {
   it('keeps the working links and never claims a change was saved', async () => {
     const user = userEvent.setup()
     renderAppAt('/staff/settings', <AppRoutes />)
-    expect(screen.getByText('Open integrations').closest('a')?.getAttribute('href')).toBe('/staff/integrations')
-    expect(screen.getByText('Open menu and rules').closest('a')?.getAttribute('href')).toBe('/settings')
+    expect(screen.getByRole('link', { name: 'Open integrations' }).getAttribute('href')).toBe('/staff/integrations')
+    expect(screen.getByRole('link', { name: 'Open menu and rules' }).getAttribute('href')).toBe('/settings')
     expect(screen.queryByText(/saved successfully|changes (were )?saved|settings saved/i)).toBeNull()
     await user.click(screen.getByRole('button', { name: 'Uploading a logo' }))
     expect(await screen.findByText(/Uploading a logo isn’t available in this prototype yet\. Nothing was changed\./)).toBeTruthy()

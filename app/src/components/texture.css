@@ -4,7 +4,7 @@
 [data-texture~='shadow'] [data-slot='card'] {
   box-shadow: 0 0 0 0.5px var(--border), 0 3px 6px -2px rgb(0 0 0 / 0.04), 0 1px 1px rgb(0 0 0 / 0.05);
 }
-[data-texture~='shadow'] :is(input, textarea, [data-slot='select-trigger'], [data-slot='native-select']) {
+[data-texture~='shadow'] :is(input, textarea, [data-slot='select-trigger']) {
   box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.06);
 }
 [data-texture~='shadow'] #main { background-image: linear-gradient(180deg, transparent 0, color-mix(in lch, var(--foreground) 3%, transparent) 100%); }

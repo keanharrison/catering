@@ -5,7 +5,7 @@ import { canAccept } from '../../state/orderMachine'
 import { buildOrderSummary } from '../customer/orderSummary'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
-import { NativeSelect, NativeSelectOption } from '../../components/ui/native-select'
+import { OptionSelect } from '../../components/OptionSelect'
 import { Search } from '../../components/icons'
 import { catalog } from '../../data'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
@@ -213,28 +213,30 @@ export function StaffPage() {
                 <Input type="search" value={criteria.query} onChange={(event) => changeCriteria({ query: event.target.value })} placeholder="Search customer or organization" className="h-9 pl-9" />
               </span>
             </label>
-            <label className="min-w-[9rem] flex-1">
-              <span className="sr-only">Status</span>
-              <NativeSelect value={criteria.status} onChange={(event) => changeCriteria({ status: event.target.value as RequestCriteria['status'] })} className="w-full [&_select]:h-9">
-                <NativeSelectOption value="all">All statuses</NativeSelectOption>
-                {(['submitted', 'needs_review', 'awaiting_customer_approval', 'confirmed', 'rejected'] as const).map((status) => <NativeSelectOption key={status} value={status}>{statusLabel[status]}</NativeSelectOption>)}
-              </NativeSelect>
-            </label>
-            <label className="min-w-[9rem] flex-1">
-              <span className="sr-only">Event type</span>
-              <NativeSelect value={criteria.eventType} onChange={(event) => changeCriteria({ eventType: event.target.value })} className="w-full [&_select]:h-9">
-                <NativeSelectOption value="all">All event types</NativeSelectOption>
-                {catalog.eventTypes.map((type) => <NativeSelectOption key={type.id} value={type.id}>{type.label}</NativeSelectOption>)}
-              </NativeSelect>
-            </label>
-            <label className="min-w-[9rem] flex-1">
-              <span className="sr-only">Pickup or delivery</span>
-              <NativeSelect value={criteria.fulfillment} onChange={(event) => changeCriteria({ fulfillment: event.target.value as RequestCriteria['fulfillment'] })} className="w-full [&_select]:h-9">
-                <NativeSelectOption value="all">Pickup or delivery</NativeSelectOption>
-                <NativeSelectOption value="pickup">Pickup</NativeSelectOption>
-                <NativeSelectOption value="delivery">Delivery</NativeSelectOption>
-              </NativeSelect>
-            </label>
+            <div className="min-w-[9rem] flex-1">
+              <OptionSelect
+                label="Status"
+                value={criteria.status}
+                onValueChange={(status) => changeCriteria({ status: status as RequestCriteria['status'] })}
+                options={[{ value: 'all', label: 'All statuses' }, ...(['submitted', 'needs_review', 'awaiting_customer_approval', 'confirmed', 'rejected'] as const).map((status) => ({ value: status, label: statusLabel[status] }))]}
+              />
+            </div>
+            <div className="min-w-[9rem] flex-1">
+              <OptionSelect
+                label="Event type"
+                value={criteria.eventType}
+                onValueChange={(eventType) => changeCriteria({ eventType })}
+                options={[{ value: 'all', label: 'All event types' }, ...catalog.eventTypes.map((type) => ({ value: type.id, label: type.label }))]}
+              />
+            </div>
+            <div className="min-w-[9rem] flex-1">
+              <OptionSelect
+                label="Pickup or delivery"
+                value={criteria.fulfillment}
+                onValueChange={(fulfillment) => changeCriteria({ fulfillment: fulfillment as RequestCriteria['fulfillment'] })}
+                options={[{ value: 'all', label: 'Pickup or delivery' }, { value: 'pickup', label: 'Pickup' }, { value: 'delivery', label: 'Delivery' }]}
+              />
+            </div>
             </div>
             <div className="flex flex-wrap items-end gap-2">
             <label className="grid gap-0.5 text-caption text-muted-foreground">
