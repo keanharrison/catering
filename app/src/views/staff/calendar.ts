@@ -1,4 +1,5 @@
-import { addDays, addMonths, addWeeks, endOfMonth, endOfWeek, format, isSameMonth, startOfMonth, startOfWeek } from 'date-fns'
+import { addDays, addHours, addMonths, addWeeks, endOfMonth, endOfWeek, format, isSameMonth, parseISO, startOfMonth, startOfWeek } from 'date-fns'
+import { catalog, type Order } from '../../data'
 
 /** Date math for the Admin calendar. Weeks start on Sunday, as in Google Calendar. */
 
@@ -16,6 +17,8 @@ export type CalendarEvent = {
   end: string
   allDay?: boolean
   orderId?: string
+  /** Accepted by Pearl Island, or still waiting on a decision or a reply. */
+  tone?: 'accepted' | 'pending'
 }
 
 export const HOUR_HEIGHT = 56
@@ -58,3 +61,44 @@ export const sameDay = (a: Date, b: Date) => format(a, 'yyyy-MM-dd') === format(
 /** Events that start on a given day, earliest first. */
 export const eventsOn = (events: CalendarEvent[], day: Date) =>
   events.filter((event) => event.start.slice(0, 10) === format(day, 'yyyy-MM-dd')).sort((a, b) => a.start.localeCompare(b.start))
+
+/**
+ * One entry per request that is still alive: accepted ones, and ones waiting on a decision or a reply.
+ * Declined requests and drafts are left off. Requests store a start time only, so each entry is drawn one hour long.
+ */
+export function eventsFromOrders(orders: Order[]): CalendarEvent[] {
+  return orders.flatMap((order): CalendarEvent[] => {
+    if (order.status === 'draft' || order.status === 'rejected' || !order.intent.eventAt) return []
+    const eventType = catalog.eventTypes.find((type) => type.id === order.intent.eventType)?.label ?? 'Catering event'
+    const start = order.intent.eventAt
+    return [{
+      id: order.id,
+      orderId: order.id,
+      title: order.intent.contactName ? `${eventType} · ${order.intent.contactName}` : eventType,
+      start,
+      end: format(addHours(parseISO(start), 1), "yyyy-MM-dd'T'HH:mm"),
+      tone: order.status === 'confirmed' ? 'accepted' : 'pending',
+    }]
+  })
+}
+
+export type PlacedEvent = { event: CalendarEvent; column: number; columns: number }
+
+/** Lays one day's events side by side where they overlap, so none hides another. */
+export function placeEvents(events: CalendarEvent[]): PlacedEvent[] {
+  const sorted = [...events].sort((a, b) => a.start.localeCompare(b.start))
+  const placed: PlacedEvent[] = []
+  let cluster: PlacedEvent[] = []
+  let clusterEnd = ''
+  const close = () => { for (const item of cluster) item.columns = Math.max(1, ...cluster.map((c) => c.column + 1)); placed.push(...cluster); cluster = [] }
+  for (const event of sorted) {
+    if (cluster.length && event.start >= clusterEnd) close()
+    const taken = new Set(cluster.filter((item) => item.event.end > event.start).map((item) => item.column))
+    let column = 0
+    while (taken.has(column)) column += 1
+    cluster.push({ event, column, columns: 1 })
+    clusterEnd = clusterEnd > event.end ? clusterEnd : event.end
+  }
+  close()
+  return placed
+}

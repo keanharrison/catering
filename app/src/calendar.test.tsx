@@ -18,6 +18,7 @@ const title = () => screen.getByRole('status').textContent
 
 describe('Admin Calendar', () => {
   it('opens on the week of the demo clock’s today, with today marked', () => {
+    useDemoStore.setState({ orders: [] })
     renderAppAt('/staff/calendar', <AppRoutes />)
     expect(screen.getByRole('heading', { level: 1, name: 'Calendar' })).toBeTruthy()
     expect(title()).toBe('October 2026')
@@ -53,6 +54,18 @@ describe('Admin Calendar', () => {
     await user.click(await screen.findByRole('option', { name: 'Month' }))
     await user.click(screen.getByRole('button', { name: 'Thursday, October 29, open week' }))
     expect(screen.getByRole('columnheader', { name: 'Thursday, October 29' })).toBeTruthy()
+  })
+
+  it('shows the requests saved in Admin on their event dates, with their status', async () => {
+    const user = userEvent.setup()
+    useDemoStore.getState().seedStartingRequests()
+    renderAppAt('/staff/calendar', <AppRoutes />)
+    expect(screen.getByText('Recurring office catering · Hannah Brooks')).toBeTruthy() // Fri Oct 16, this week
+    expect(screen.getByText(/12:00 PM · Accepted/)).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Next week' }))
+    expect(screen.getByText('Birthday or special occasion · Elena Ruiz')).toBeTruthy()
+    expect(screen.getByText(/1:00 PM · Pending/)).toBeTruthy()
+    expect(screen.queryByText(/Tasha Greene/)).toBeNull()
   })
 
   it('places events it is given in their day, ready for linked orders later', () => {

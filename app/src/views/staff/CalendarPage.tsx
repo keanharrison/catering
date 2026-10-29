@@ -6,11 +6,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from '../../components/icons'
 import { cn } from '../../lib/cn'
 import { useDemoStore } from '../../state/store'
 import {
-  HOUR_HEIGHT, hourLabel, hours, monthDays, offsetFor, rangeTitle, sameDay, step, weekDays, eventsOn,
+  HOUR_HEIGHT, eventsFromOrders, eventsOn, hourLabel, hours, monthDays, offsetFor, placeEvents, rangeTitle, sameDay, step, weekDays,
   type CalendarEvent, type CalendarView,
 } from './calendar'
 
 const viewOptions = [{ value: 'week', label: 'Week' }, { value: 'month', label: 'Month' }]
+const toneClass = {
+  accepted: 'border-success/30 bg-success-soft text-success',
+  pending: 'border-warning/30 bg-warning-soft text-warning',
+}
+const toneLabel = { accepted: 'Accepted', pending: 'Pending' }
+
 const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 /** The day number: a filled circle on today, the way every calendar marks it. */
@@ -56,15 +62,21 @@ function WeekView({ anchor, today, now, events }: { anchor: Date; today: Date; n
             return (
               <div key={day.toISOString()} role="gridcell" aria-label={format(day, 'EEEE, MMMM d')} className={cn('relative border-l border-border', (day.getDay() === 0 || day.getDay() === 6) && 'bg-muted/40')}>
                 {hours.map((hour) => <div key={hour} style={{ height: HOUR_HEIGHT }} className="border-b border-border/70" />)}
-                {eventsOn(events, day).map((event) => {
+                {placeEvents(eventsOn(events, day)).map(({ event, column, columns }) => {
                   const start = parseISO(event.start)
                   const end = parseISO(event.end)
                   const top = offsetFor(start.getHours(), start.getMinutes())
-                  const height = Math.max(24, offsetFor(end.getHours(), end.getMinutes()) - top)
+                  const height = Math.max(28, offsetFor(end.getHours(), end.getMinutes()) - top)
+                  const tone = event.tone ?? 'accepted'
                   return (
-                    <div key={event.id} style={{ top, height }} className="absolute inset-x-1 overflow-hidden rounded-lg border border-info/30 bg-info-soft px-2 py-1 text-ui text-info">
+                    <div
+                      key={event.id}
+                      title={`${event.title}, ${toneLabel[tone]}`}
+                      style={{ top, height, left: `calc(${(column / columns) * 100}% + 2px)`, width: `calc(${100 / columns}% - 4px)` }}
+                      className={cn('absolute overflow-hidden rounded-lg border px-2 py-1 text-ui', toneClass[tone])}
+                    >
                       <p className="truncate font-medium">{event.title}</p>
-                      <p className="truncate text-caption">{format(start, 'h:mm a')}</p>
+                      <p className="truncate text-caption">{format(start, 'h:mm a')} · {toneLabel[tone]}</p>
                     </div>
                   )
                 })}
@@ -106,7 +118,8 @@ function MonthView({ anchor, today, events, onPick }: { anchor: Date; today: Dat
                   <DayNumber day={day} today={sameDay(day, today)} muted={!inMonth} />
                 </button>
                 <ul className="mt-1 grid gap-0.5">
-                  {dayEvents.slice(0, 3).map((event) => <li key={event.id} className="truncate rounded-md bg-info-soft px-1.5 py-0.5 text-caption text-info">{event.title}</li>)}
+                  {dayEvents.slice(0, 3).map((event) => <li key={event.id} className={cn('truncate rounded-md px-1.5 py-0.5 text-caption', toneClass[event.tone ?? 'accepted'])} title={`${event.title}, ${toneLabel[event.tone ?? 'accepted']}`}>{event.title}</li>)}
+                  {dayEvents.length > 3 && <li className="px-1.5 text-caption text-muted-foreground">+{dayEvents.length - 3} more</li>}
                 </ul>
               </div>
             )
@@ -118,11 +131,13 @@ function MonthView({ anchor, today, events, onPick }: { anchor: Date; today: Dat
 }
 
 /**
- * Admin > Calendar: week and month views with date navigation. It shows the demo clock's today and no events yet;
- * pass `events` and each one lands in its time slot, ready for a later step that links an entry to its order.
+ * Admin > Calendar: week and month views with date navigation, showing the demo clock's today. Each live request
+ * is an entry on its event date (accepted in green, pending in amber); `orderId` is there for a later step that opens the order.
  */
-export function CalendarPage({ events = [] }: { events?: CalendarEvent[] }) {
+export function CalendarPage({ events: given }: { events?: CalendarEvent[] }) {
   const clock = useDemoStore((state) => state.clock)
+  const orders = useDemoStore((state) => state.orders)
+  const events = useMemo(() => given ?? eventsFromOrders(orders), [given, orders])
   const now = useMemo(() => parseISO(clock), [clock])
   const [anchor, setAnchor] = useState(() => parseISO(clock))
   const [view, setView] = useState<CalendarView>('week')
@@ -147,7 +162,14 @@ export function CalendarPage({ events = [] }: { events?: CalendarEvent[] }) {
         ? <WeekView anchor={anchor} today={now} now={now} events={events} />
         : <MonthView anchor={anchor} today={now} events={events} onPick={(day) => { setAnchor(day); setView('week') }} />}
 
-      {events.length === 0 && <p className="mt-3 text-ui text-muted-foreground">No events yet.</p>}
+      {events.length === 0
+        ? <p className="mt-3 text-ui text-muted-foreground">No events yet.</p>
+        : (
+          <ul aria-label="Legend" className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-ui text-muted-foreground">
+            <li className="flex items-center gap-2"><span aria-hidden="true" className="size-2 rounded-full bg-success" />Accepted</li>
+            <li className="flex items-center gap-2"><span aria-hidden="true" className="size-2 rounded-full bg-warning" />Pending</li>
+          </ul>
+        )}
     </section>
   )
 }
