@@ -167,10 +167,10 @@ describe('regression: full journeys and edge cases', () => {
 
     const [allTab, reviewTab, awaitingTab, confirmedTab] = screen.getAllByRole('tab')
     expect([allTab.textContent, reviewTab.textContent, awaitingTab.textContent, confirmedTab.textContent]).toEqual([
-      '5All',
-      '2Needs review',
-      '1Awaiting customer',
-      '1Accepted',
+      'All5',
+      'Needs review2',
+      'Awaiting customer1',
+      'Accepted1',
     ])
     expect(screen.getAllByRole('row')).toHaveLength(6)
 

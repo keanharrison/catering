@@ -9,27 +9,12 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
-import { BadgeCheck, Clock3, ListChecks, TriangleAlert } from '../../components/icons'
-import { destinationIcons, type Tone } from '../../components/destinationIcons'
+import { destinationIcons } from '../../components/destinationIcons'
 import { RequestDetails } from './RequestDetails'
 import type { Order } from '../../data'
 import { dateOnly, filterLabel, matchesFilter, shortRequestId, type RequestFilter } from './requestFilters'
 
 type ActionPanel = 'ask' | 'edit' | 'decline' | null
-
-const filterIcon: Record<RequestFilter, typeof ListChecks> = {
-  all: ListChecks,
-  review: TriangleAlert,
-  awaiting: Clock3,
-  confirmed: BadgeCheck,
-}
-
-const filterTone: Record<RequestFilter, Tone> = {
-  all: 'slate',
-  review: 'indigo',
-  awaiting: 'sky',
-  confirmed: 'teal',
-}
 
 function RequestStatus({ status }: { status: Order['status'] }) {
   const tone = {
@@ -188,21 +173,11 @@ export function StaffPage() {
       </header>
 
       <Tabs value={filter} onValueChange={changeFilter} className="gap-4">
-        <TabsList aria-label="Filter requests by status" className="grid !h-auto w-full grid-cols-2 gap-3 bg-transparent p-0 sm:grid-cols-4">
+        <TabsList aria-label="Filter requests by status" className="overflow-x-auto pb-px [&_[data-slot=tabs-trigger]]:shrink-0">
           {(Object.keys(filterLabel) as RequestFilter[]).map((key) => (
-            <TabsTrigger
-              key={key}
-              value={key}
-              className="group/status-card h-auto before:hidden min-h-[5.5rem] justify-start gap-3 rounded-lg border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
-            >
-              {(() => {
-                const Icon = filterIcon[key]
-                return <span aria-hidden="true" data-icon-surface data-tone={filterTone[key]} data-size="sm" className="floating-tile"><Icon /></span>
-              })()}
-              <span className="flex min-w-0 flex-col items-start gap-0.5">
-                <span className="text-xl font-semibold leading-6 tabular-nums text-foreground">{counts[key]}</span>
-                <span className="truncate text-ui font-normal leading-5 text-muted-foreground">{filterLabel[key]}</span>
-              </span>
+            <TabsTrigger key={key} value={key}>
+              {filterLabel[key]}
+              <span className="tabular-nums text-muted-foreground" aria-label={`${counts[key]} ${counts[key] === 1 ? 'request' : 'requests'}`}>{counts[key]}</span>
             </TabsTrigger>
           ))}
         </TabsList>
