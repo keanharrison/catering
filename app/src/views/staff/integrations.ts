@@ -11,10 +11,19 @@ export type Service = {
 export type ServiceGroup = { id: string; label: string; services: Service[] }
 
 /**
- * Official logos go in app/public/integrations/<id>.svg (or .png); list the id here to show it.
+ * Logo files live in app/public/integrations (see SOURCES.md there); add an entry here to show one.
  * Until a file is added the card shows a neutral text mark instead of an imitation of the logo.
  */
-export const logoFiles: Record<string, string | undefined> = {}
+export const logoFiles: Record<string, string | undefined> = {
+  'google-calendar': '/integrations/google-calendar.svg',
+  toast: '/integrations/toast.svg',
+  square: '/integrations/square.svg',
+  clover: '/integrations/clover.png',
+  lightspeed: '/integrations/lightspeed.svg',
+  touchbistro: '/integrations/touchbistro.png',
+  quickbooks: '/integrations/quickbooks.svg',
+  doordash: '/integrations/doordash.svg',
+}
 
 export const serviceGroups: ServiceGroup[] = [
   {
@@ -58,3 +67,10 @@ export const serviceGroups: ServiceGroup[] = [
     ],
   },
 ]
+
+export type ListedService = Service & { typeId: string; type: string }
+
+/** Every service in one list, tagged with its purpose, in catalog order. */
+export const services: ListedService[] = serviceGroups.flatMap((group) => group.services.map((service) => ({ ...service, typeId: group.id, type: group.label })))
+
+export const serviceTypes = serviceGroups.map((group) => ({ id: group.id, label: group.label }))

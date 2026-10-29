@@ -11,18 +11,38 @@ beforeEach(() => {
 })
 afterEach(cleanup)
 
+const cards = () => within(document.getElementById('main') as HTMLElement).getAllByRole('listitem')
 const names = ['Google Calendar', 'Toast', 'Square for Restaurants', 'Clover', 'Lightspeed Restaurant', 'TouchBistro', 'QuickBooks Online', '7shifts', 'ezCater', 'DoorDash']
 
 describe('Admin Integrations catalog', () => {
-  it('lists the ten services by purpose, each with a Connect button', () => {
+  it('lists all ten services on one page, each with its type and a Connect button', () => {
     renderAppAt('/staff/integrations', <AppRoutes />)
     expect(screen.getByRole('heading', { level: 1, name: 'Integrations' })).toBeTruthy()
     for (const name of names) {
-      expect(screen.getByRole('heading', { level: 3, name })).toBeTruthy()
+      expect(screen.getByRole('heading', { level: 2, name })).toBeTruthy()
       expect(screen.getByRole('button', { name: `Connect ${name}` })).toBeTruthy()
     }
-    expect(screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)).toEqual(['Calendar', 'Point of sale', 'Accounting', 'Staffing', 'Catering and delivery'])
-    expect(within(screen.getByRole('region', { name: 'Point of sale' })).getAllByRole('listitem')).toHaveLength(5)
+    expect(cards()).toHaveLength(10)
+  })
+
+  it('searches by name', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/staff/integrations', <AppRoutes />)
+    await user.type(screen.getByRole('searchbox', { name: 'Search integrations' }), 'quick')
+    expect(cards()).toHaveLength(1)
+    expect(screen.getByRole('heading', { level: 2, name: 'QuickBooks Online' })).toBeTruthy()
+    expect(screen.getByRole('status').textContent).toBe('1 of 10 integrations')
+  })
+
+  it('filters by type and combines with search, with a way back from no results', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/staff/integrations', <AppRoutes />)
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Type' }), 'pos')
+    expect(cards()).toHaveLength(5)
+    await user.type(screen.getByRole('searchbox'), 'doordash')
+    expect(screen.getByText('No matching integrations')).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Clear filters' }))
+    expect(cards()).toHaveLength(10)
   })
 
   it('never shows a connected state, and says plainly that Connect does nothing yet', async () => {
