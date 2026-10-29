@@ -59,6 +59,22 @@ describe('Admin Messages', () => {
     expect(header.getByRole('button', { name: 'View request' })).toBeTruthy()
   })
 
+  it('shows messages as labeled, timestamped bubbles under a date separator, with one reply action', () => {
+    renderAppAt('/staff/messages', <AppRoutes />)
+    const log = within(screen.getByRole('log', { name: 'Messages in this conversation' }))
+    expect(log.getByText('Yesterday')).toBeTruthy()
+    expect(log.getByText('Customer')).toBeTruthy()
+    expect(log.getByText(/4:40 PM/)).toBeTruthy()
+    expect(screen.getAllByRole('button', { name: 'Save message' })).toHaveLength(1)
+  })
+
+  it('says so when search leaves no conversation selected', async () => {
+    const user = userEvent.setup()
+    renderAppAt('/staff/messages', <AppRoutes />)
+    await user.type(screen.getByRole('searchbox'), 'zzz')
+    expect(screen.getByText('No conversation selected')).toBeTruthy()
+  })
+
   it('marks a thread read when it is opened', async () => {
     const user = userEvent.setup()
     renderAppAt('/staff/messages', <AppRoutes />)
