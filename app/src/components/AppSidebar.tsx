@@ -54,7 +54,6 @@ const customerNavigation: Destination[] = [
 
 const teamNavigation: Destination[] = [
   { label: 'Requests', icon: destinationIcons.requests, href: routes.staff },
-  { label: 'Handoff', icon: destinationIcons.handoff, href: routes.handoff },
   { label: 'Messages', icon: destinationIcons.messages, href: routes.staffMessages },
   { label: 'Analytics', icon: destinationIcons.analytics, href: routes.analytics },
   { label: 'Menu and rules', icon: destinationIcons.menuAndRules, href: routes.settings },
@@ -89,7 +88,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = 4
+  const firstGroupSize = account === 'team' ? 3 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount
@@ -148,7 +147,7 @@ export function AppSidebar() {
                 const Icon = item.icon
                 const active = item.href === routes.customer
                   ? stages.some((stage) => stage.path === pathname) || pathname === routes.planRequest
-                  : pathname === item.href
+                  : pathname === item.href || (item.href === routes.staff && pathname === routes.handoff) // the handoff summary belongs to Requests
                 return <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {
                     if (item.href === routes.customer) useDemoStore.getState().activateDraft()
