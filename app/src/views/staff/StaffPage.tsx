@@ -193,7 +193,7 @@ export function StaffPage() {
             <TabsTrigger
               key={key}
               value={key}
-              className="group/status-card h-auto min-h-[5.5rem] justify-start gap-3 rounded-lg border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
+              className="group/status-card h-auto min-h-[5.5rem] justify-start gap-3 rounded-box border border-border bg-card px-3 py-3 text-left text-foreground shadow-xs transition-colors duration-150 hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background data-active:border-primary/40 data-active:bg-accent/70 data-active:text-foreground data-active:shadow-sm sm:px-4"
             >
               {(() => {
                 const Icon = filterIcon[key]

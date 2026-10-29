@@ -116,7 +116,7 @@ export function SuppliesPage() {
                         <Field
                           key={item.id}
                           orientation="horizontal"
-                          className="items-center gap-3 rounded-lg border p-3"
+                          className="items-center gap-3 rounded-xl border p-3"
                         >
                           <Checkbox
                             id={checkboxId}

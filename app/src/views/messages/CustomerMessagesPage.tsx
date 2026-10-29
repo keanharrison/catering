@@ -175,7 +175,7 @@ function CustomerMessagesPage() {
         <CardContent className="grid content-start gap-2">
           {threads.map((order) => {
             const latest = latestMessage(order)
-            return <button type="button" key={order.id} onClick={() => choose(order)} aria-current={selected?.id === order.id ? 'true' : undefined} className="rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            return <button type="button" key={order.id} onClick={() => choose(order)} aria-current={selected?.id === order.id ? 'true' : undefined} className="rounded-xl text-left outline-none focus-visible:ring-2 focus-visible:ring-ring">
               <Item variant={selected?.id === order.id ? 'muted' : 'outline'}>
                 <ItemContent className="min-w-0">
                   <ItemTitle className="break-words">Request {order.id}</ItemTitle>
@@ -205,11 +205,11 @@ function CustomerMessagesPage() {
           </CardHeader>
           <Separator />
           <CardContent className="flex min-h-0 flex-1 flex-col gap-4 pt-4">
-            <ScrollArea className="min-h-48 flex-1 rounded-md border p-4">
+            <ScrollArea className="min-h-48 flex-1 rounded-xl border p-4">
               <ol aria-label="Conversation messages" className="grid gap-3">
-                {messagesChronologically(selected).map((entry) => entry.author === 'system' ? <li key={entry.id} className="mx-auto max-w-[92%] rounded-md bg-muted px-3 py-2 text-center text-xs text-muted-foreground">
+                {messagesChronologically(selected).map((entry) => entry.author === 'system' ? <li key={entry.id} className="mx-auto max-w-[92%] rounded-xl bg-muted px-3 py-2 text-center text-xs text-muted-foreground">
                   <p className="font-medium text-foreground">{authorLabel(entry.author)}</p><p className="mt-1 whitespace-pre-wrap break-words">{entry.text}</p><time className="mt-1 block">{messageDate(entry.at)}</time>
-                </li> : <li key={entry.id} className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${entry.author === 'customer' ? 'ml-auto bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                </li> : <li key={entry.id} className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${entry.author === 'customer' ? 'ml-auto bg-primary text-primary-foreground' : 'bg-muted'}`}>
                   <p className="mb-1 text-xs font-medium opacity-75">{authorLabel(entry.author)}</p><p className="whitespace-pre-wrap break-words">{entry.text}</p><time className="mt-1 block text-xs opacity-75">{messageDate(entry.at)}</time>
                 </li>)}
               </ol>

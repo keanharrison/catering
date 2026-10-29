@@ -36,7 +36,7 @@ export function NotificationsMenu() {
         <Bell aria-hidden="true" />
         {unread > 0 && <span aria-hidden="true" className="absolute right-2 top-2 size-2 rounded-full bg-info ring-2 ring-background" />}
       </PopoverTrigger>
-      <PopoverContent align="end" sideOffset={8} className="w-80 gap-0 rounded-2xl p-2">
+      <PopoverContent align="end" sideOffset={8} className="w-80 gap-0 rounded-box p-2">
         <p className="px-3 pb-2 pt-2 text-body text-foreground">Notifications</p>
         {items.length === 0 ? (
           <p className="px-3 pb-3 text-body text-muted-foreground">You’re all caught up.</p>

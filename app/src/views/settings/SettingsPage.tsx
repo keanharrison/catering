@@ -85,8 +85,7 @@ function CustomerSettings() {
 
   return <section className="mx-auto w-full max-w-3xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6"><h1 className="type-page-title">Account settings</h1></header>
-    <div className="dot-field">
-    <Card variant="feature"><FeatureCardHeader icon={destinationIcons.accountSettings} tone={destinationTones.accountSettings!} title="Contact information" />
+    <Card><FeatureCardHeader icon={destinationIcons.accountSettings} tone={destinationTones.accountSettings!} title="Contact information" />
       <CardContent><CardDescription className="mb-5">Saved details can fill blank contact fields on new requests. Existing drafts and orders keep their original information.</CardDescription><form onSubmit={save} noValidate>
         <FieldGroup>{fields.map(({ key, label, autocomplete, type, optional }) => {
           const id = `profile-${key}`
@@ -105,7 +104,6 @@ function CustomerSettings() {
         </div>
       </form></CardContent>
     </Card>
-    </div>
   </section>
 }
 

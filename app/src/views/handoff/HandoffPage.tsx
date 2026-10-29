@@ -28,7 +28,7 @@ function HandoffTable({ title, rows }: { title: string; rows: ReturnType<typeof 
     <section className="handoff-keep-together" aria-label={title}>
       <h3 className="type-section-title mb-2">{title}</h3>
       {rows.length ? (
-        <div className="overflow-x-auto rounded-md border">
+        <div className="overflow-x-auto rounded-xl border">
           <Table className="min-w-[21rem] sm:min-w-0">
             <TableHeader>
               <TableRow>

@@ -101,7 +101,7 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel, error }:
           </>
         )}
       </p>
-      {error && <p role="alert" className="mt-3 rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
+      {error && <p role="alert" className="mt-3 rounded-xl bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
       </CardContent>
       <CardFooter className="flex flex-wrap gap-2">
         <Button disabled={!hasFood || !changed} onClick={() => onSave(kept)}>
