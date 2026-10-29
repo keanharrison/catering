@@ -19,7 +19,6 @@ import { IntegrationsPage } from './views/staff/IntegrationsPage'
 import { CalendarPage } from './views/staff/CalendarPage'
 import { AdminSettingsPage } from './views/staff/AdminSettingsPage'
 import { ChatPage } from './views/customer/ChatPage'
-import { PlanIntakePage } from './views/customer/PlanIntakePage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
 import { WorkspacePage } from './views/staff/WorkspacePage'
@@ -41,7 +40,6 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<Navigate to={routes.customer} replace />} />
       <Route path={stagePath('event')} element={customerPage(<EventPage />)} />
-      <Route path={routes.planRequest} element={customerPage(<PlanIntakePage />)} />
       <Route path={stagePath('menu')} element={customerPage(<MenuPageShell />)} />
       <Route path={stagePath('supplies')} element={customerPage(<SuppliesPage />)} />
       <Route path={stagePath('details')} element={customerPage(<DetailsPage />)} />

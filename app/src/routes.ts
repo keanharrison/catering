@@ -1,7 +1,6 @@
 export const routes = {
   customer: '/customer',
   askPearl: '/customer/ask-pearl',
-  planRequest: '/customer/plan',
   drafts: '/customer/drafts',
   staff: '/staff',
   analytics: '/staff/analytics',

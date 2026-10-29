@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { catalog, type DietaryTag, type Fulfillment, type Order } from '@/data'
+import { catalog, type DietaryTag, type Fulfillment, type Order, type OrderLine } from '@/data'
 import { useDemoStore } from '@/state/store'
 import {
   formToIntent,
@@ -38,8 +38,10 @@ import {
   type IntakeForm,
 } from './intake'
 import { stagePath } from './journey'
-import { dietaryOptions } from './planScript'
-import { loadPlanningState, savePlanningState } from './planning'
+import { dietaryOptions } from './dietary'
+import { AssistantPanel } from './AssistantPanel'
+import { loadAssistant, proposeOrder, questionsToAsk, saveAssistant, type AssistantState } from './assistant'
+import { cn } from '@/lib/cn'
 import { routes } from '@/routes'
 
 const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
@@ -91,7 +93,7 @@ function EventForm() {
     loadIntakeFormDraft(session, startingForm(order)),
   )
   const [errors, setErrors] = useState<IntakeErrors>({})
-  const [prefilled] = useState(() => loadPlanningState(session).prefilled)
+  const [assistant, setAssistant] = useState<AssistantState>(() => loadAssistant(session))
   const [datePickerOpen, setDatePickerOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const selectedDate = form.eventDate ? parseISO(form.eventDate) : undefined
@@ -104,9 +106,16 @@ function EventForm() {
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
   }
 
-  function continueWithAI() {
-    saveIntakeFormDraft(session, form)
-    navigate(routes.askPearl)
+  function updateAssistant(next: AssistantState) {
+    setAssistant(next)
+    saveAssistant(session, next)
+  }
+
+  /** Opens the panel beside the form. The first time, it works out which questions the form has not answered yet. */
+  function toggleAssistant() {
+    if (assistant.open) return updateAssistant({ ...assistant, open: false })
+    const plan = assistant.plan ?? questionsToAsk(form, blankBasics().eventDate)
+    updateAssistant({ ...assistant, open: true, plan, lines: assistant.lines ?? (plan.length === 0 ? proposeOrder(form, assistant.entree, assistant.supplies) : null) })
   }
 
   function saveDraft() {
@@ -134,8 +143,8 @@ function EventForm() {
     )
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  /** Checks the Event answers; on success saves them (and any reviewed lines) to the request and moves to the Menu step. */
+  function submit(extra: { lines?: OrderLine[]; suppliesChoice?: 'none' | 'selected' } = {}): boolean {
     const found = sectionErrors(validateForm(form, clock, catalog), 'basics')
     setErrors(found)
     const firstInvalid = Object.keys(found)[0]
@@ -143,11 +152,10 @@ function EventForm() {
       formRef.current
         ?.querySelector<HTMLElement>(`#${CSS.escape(firstInvalid)}`)
         ?.focus()
-      return
+      return false
     }
 
     saveIntakeFormDraft(session, form)
-    if (prefilled) savePlanningState(session, { ...loadPlanningState(session), prefilled: false })
     updateDraft({
       intent: {
         ...order.intent,
@@ -161,24 +169,52 @@ function EventForm() {
           budget: form.budget,
         }),
       },
+      ...extra,
     })
     navigate(stagePath('menu'))
+    return true
+  }
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    submit()
+  }
+
+  function useAssistantOrder(lines: OrderLine[]) {
+    const hasSupplies = lines.some((line) => catalog.menu.find((item) => item.id === line.itemId)?.category === 'supply')
+    return submit({ lines, suppliesChoice: hasSupplies ? 'selected' : 'none' })
   }
 
   return (
     <div className="w-full px-4 py-8 text-foreground sm:px-8 sm:py-10">
-      <section className="mx-auto w-full max-w-3xl">
+      <section className={cn('mx-auto w-full', assistant.open ? 'max-w-6xl' : 'max-w-3xl')}>
         <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <h1 className="type-page-title text-foreground">Plan your catering</h1>
-          <Button variant="ghost" onClick={continueWithAI}>Continue with AI</Button>
+          <Button
+            variant="outline"
+            className="border-input px-4 hover:bg-muted active:bg-accent"
+            aria-expanded={assistant.open}
+            aria-controls="assistant-panel"
+            onClick={toggleAssistant}
+          >
+            {assistant.open ? 'Hide assistant' : 'Continue with AI'}
+          </Button>
         </div>
 
-        {prefilled && (
-          <Alert className="mb-6">
-            <AlertDescription>Filled in from your answers. Check each field, change anything, then continue.</AlertDescription>
-          </Alert>
+        <div className={cn(assistant.open && 'grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_23rem]')}>
+        {assistant.open && (
+          <AssistantPanel
+            className="lg:sticky lg:top-20 lg:order-2"
+            form={form}
+            setField={set}
+            earliest={clock.slice(0, 10)}
+            state={assistant}
+            onChange={updateAssistant}
+            onUse={useAssistantOrder}
+            onClose={toggleAssistant}
+          />
         )}
-
+        <div className="min-w-0">
         <form ref={formRef} onSubmit={onSubmit} noValidate>
           {Object.values(errors).filter(Boolean).length > 1 && (
             <Alert variant="destructive" className="mb-6">
@@ -371,6 +407,8 @@ function EventForm() {
             </Button>
           </div>
         </form>
+        </div>
+        </div>
       </section>
     </div>
   )
