@@ -36,10 +36,22 @@ describe('Admin Analytics', () => {
     renderAppAt('/staff/analytics', <AppRoutes />)
     expect(screen.queryByText('No analytics yet')).toBeNull()
     expect(screen.queryByText(/sample/i)).toBeNull()
-    for (const title of ['Requests received', 'Event types', 'Pickup or delivery', 'Menu demand', 'Accepted events']) {
+    for (const title of ['Requests received', 'Event types', 'Pickup or delivery', 'Menu demand', 'Upcoming events', 'Completed events']) {
       expect(screen.getByText(title)).toBeTruthy()
     }
     expect(screen.getByText('Slow Roasted Pork')).toBeTruthy()
+  })
+
+  it('filters by date range without changing the page', async () => {
+    const user = userEvent.setup()
+    const store = useDemoStore.getState()
+    store.updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store.submit()
+    renderAppAt('/staff/analytics', <AppRoutes />)
+    expect(screen.getByRole('tab', { name: '14 days', selected: true })).toBeTruthy()
+    await user.click(screen.getByRole('tab', { name: '30 days' }))
+    expect(screen.getByRole('tab', { name: '30 days', selected: true })).toBeTruthy()
+    expect(screen.getAllByText(/last 30 days/i).length).toBeGreaterThan(0)
   })
 
   it('reads a day aloud on focus and moves with the arrow keys', async () => {

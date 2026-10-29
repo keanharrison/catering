@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Order } from '../../data'
-import { acceptedEvents, dailyCounts, eventTypeMix, fulfillmentMix, menuDemand, niceMax, smoothPath } from './analytics'
+import { acceptedEvents, dailyCounts, receivedWithin, eventTypeMix, fulfillmentMix, menuDemand, niceMax, smoothPath } from './analytics'
 
 const clock = '2026-10-29T09:00:00'
 
@@ -69,9 +69,17 @@ describe('breakdowns', () => {
     const accepted = (eventAt: string, guestCount: number) => request({ status: 'confirmed', intent: { eventType: 'wedding', fulfillment: 'pickup', guestCount, eventAt } })
     const result = acceptedEvents([
       accepted('2026-11-05T12:00', 20), accepted('2026-10-30T12:00', 15), accepted('2026-10-01T12:00', 40), request({}),
-    ], clock)
+    ], clock, 30)
     expect(result.upcoming.map((order) => order.intent.eventAt)).toEqual(['2026-10-30T12:00', '2026-11-05T12:00'])
     expect(result.upcomingGuests).toBe(35)
-    expect(result).toMatchObject({ completed: 1, completedGuests: 40 })
+    expect(result.completed).toHaveLength(1)
+    expect(result.completedGuests).toBe(40)
+    expect(acceptedEvents([accepted('2026-10-01T12:00', 40)], clock, 7).completed).toHaveLength(0) // older than the range
+  })
+
+  it('keeps only requests that arrived inside the date range', () => {
+    const arrived = (day: string) => request({ history: [{ from: 'draft', to: 'submitted', actor: 'customer', at: `${day}T09:00` }] })
+    const kept = receivedWithin([arrived('2026-10-29'), arrived('2026-10-23'), arrived('2026-10-22'), request({})], clock, 7)
+    expect(kept).toHaveLength(2)
   })
 })

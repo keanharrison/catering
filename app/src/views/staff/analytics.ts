@@ -3,14 +3,29 @@ import { catalog, type Order } from '../../data'
 
 /** Daily counts for the Admin Analytics chart, taken straight from each request's status history. */
 
-export const ANALYTICS_DAYS = 14
+export const RANGES = [7, 14, 30] as const
+export type RangeDays = (typeof RANGES)[number]
 
 export type DailyPoint = { date: string; received: number; accepted: number }
 
 const RECEIVED: Array<Order['status']> = ['submitted', 'needs_review']
 
+/** The date (yyyy-MM-dd) a request reached the restaurant, or null if it has no submission on record. */
+function receivedDate(order: Order): string | null {
+  return order.history.find((change) => change.from === 'draft' && RECEIVED.includes(change.to))?.at.slice(0, 10) ?? null
+}
+
+/** Requests that arrived within the last `days` calendar days, today included. */
+export function receivedWithin(orders: Order[], clock: string, days: number): Order[] {
+  const since = format(addDays(parseISO(clock.slice(0, 10)), 1 - days), 'yyyy-MM-dd')
+  return orders.filter((order) => {
+    const date = receivedDate(order)
+    return date !== null && date >= since
+  })
+}
+
 /** The last `days` calendar days ending on the demo clock's day, oldest first. */
-export function dailyCounts(orders: Order[], clock: string, days = ANALYTICS_DAYS): DailyPoint[] {
+export function dailyCounts(orders: Order[], clock: string, days: number = 14): DailyPoint[] {
   const end = parseISO(clock.slice(0, 10))
   const points: DailyPoint[] = Array.from({ length: days }, (_, index) => ({
     date: format(addDays(end, index - (days - 1)), 'yyyy-MM-dd'),
@@ -110,17 +125,19 @@ export function menuDemand(orders: Order[], limit = 5): Share[] {
 export type AcceptedEvents = {
   upcoming: Order[]
   upcomingGuests: number
-  completed: number
+  /** Accepted events whose date passed within the chosen range, most recent first. */
+  completed: Order[]
   completedGuests: number
 }
 
-/** Accepted events split by whether the event date has passed on the demo clock. Soonest upcoming event first. */
-export function acceptedEvents(orders: Order[], clock: string): AcceptedEvents {
+/** Accepted events split by whether the event date has passed on the demo clock. Upcoming is soonest first and never filtered; completed covers only the last `days` days. */
+export function acceptedEvents(orders: Order[], clock: string, days: number): AcceptedEvents {
   const now = new Date(clock).getTime()
+  const since = new Date(`${format(addDays(parseISO(clock.slice(0, 10)), 1 - days), 'yyyy-MM-dd')}T00:00`).getTime()
   const accepted = orders.filter((order) => order.status === 'confirmed' && order.intent.eventAt)
-  const isPast = (order: Order) => new Date(order.intent.eventAt).getTime() < now
+  const at = (order: Order) => new Date(order.intent.eventAt).getTime()
   const guests = (list: Order[]) => list.reduce((sum, order) => sum + (order.intent.guestCount ?? 0), 0)
-  const upcoming = accepted.filter((order) => !isPast(order)).sort((a, b) => a.intent.eventAt.localeCompare(b.intent.eventAt))
-  const completed = accepted.filter(isPast)
-  return { upcoming, upcomingGuests: guests(upcoming), completed: completed.length, completedGuests: guests(completed) }
+  const upcoming = accepted.filter((order) => at(order) >= now).sort((x, y) => x.intent.eventAt.localeCompare(y.intent.eventAt))
+  const completed = accepted.filter((order) => at(order) < now && at(order) >= since).sort((x, y) => y.intent.eventAt.localeCompare(x.intent.eventAt))
+  return { upcoming, upcomingGuests: guests(upcoming), completed, completedGuests: guests(completed) }
 }

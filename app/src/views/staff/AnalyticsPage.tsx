@@ -1,12 +1,12 @@
-import { useMemo, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { format, parseISO } from 'date-fns'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '../../components/ui/empty'
-import { Separator } from '../../components/ui/separator'
-import { catalog } from '../../data'
+import { Tabs, TabsList, TabsTrigger } from '../../components/ui/tabs'
+import { catalog, type Order } from '../../data'
 import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { useDemoStore } from '../../state/store'
-import { ANALYTICS_DAYS, acceptedEvents, dailyCounts, eventTypeMix, fulfillmentMix, menuDemand } from './analytics'
+import { RANGES, acceptedEvents, dailyCounts, eventTypeMix, fulfillmentMix, menuDemand, receivedWithin, type RangeDays } from './analytics'
 import { Bars } from './Bars'
 import { LineChart } from './LineChart'
 
@@ -25,6 +25,23 @@ function Widget({ title, description, children }: { title: string; description?:
   )
 }
 
+function EventList({ orders, eventName, empty }: { orders: Order[]; eventName: (id: string) => string; empty: string }) {
+  if (orders.length === 0) return none(empty)
+  return (
+    <ul className="grid gap-2">
+      {orders.map((order) => (
+        <li key={order.id} className="flex items-baseline justify-between gap-3 text-ui">
+          <span className="min-w-0 truncate">
+            <span className="text-foreground">{format(parseISO(order.intent.eventAt), 'EEE, MMM d')}</span>
+            <span className="text-muted-foreground"> · {eventName(order.intent.eventType)}</span>
+          </span>
+          <span className="shrink-0 tabular-nums text-muted-foreground">{order.intent.guestCount ?? '—'} guests</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 const none = (text: string) => <p className="text-ui text-muted-foreground">{text}</p>
 
 /** Admin > Analytics: patterns across the requests customers have submitted. Everything is counted from request records; with none yet, the page says so. */
@@ -32,13 +49,17 @@ export function AnalyticsPage() {
   const orders = useDemoStore((state) => state.orders)
   const clock = useDemoStore((state) => state.clock)
 
-  const daily = useMemo(() => dailyCounts(orders, clock), [orders, clock])
-  const types = useMemo(() => eventTypeMix(orders), [orders])
-  const fulfillment = useMemo(() => fulfillmentMix(orders), [orders])
-  const demand = useMemo(() => menuDemand(orders), [orders])
-  const events = useMemo(() => acceptedEvents(orders, clock), [orders, clock])
+  const [days, setDays] = useState<RangeDays>(14)
+  const inRange = useMemo(() => receivedWithin(orders, clock, days), [orders, clock, days])
+  const daily = useMemo(() => dailyCounts(orders, clock, days), [orders, clock, days])
+  const types = useMemo(() => eventTypeMix(inRange), [inRange])
+  const fulfillment = useMemo(() => fulfillmentMix(inRange), [inRange])
+  const demand = useMemo(() => menuDemand(inRange), [inRange])
+  const events = useMemo(() => acceptedEvents(orders, clock, days), [orders, clock, days])
   const received = daily.reduce((sum, point) => sum + point.received, 0)
-  const caption = `Requests received and accepted per day, last ${ANALYTICS_DAYS} days`
+  const period = `Last ${days} days`
+  const caption = `Requests received and accepted per day, last ${days} days`
+  const eventName = (id: string) => catalog.eventTypes.find((type) => type.id === id)?.label ?? id
 
   return (
     <section className="mx-auto w-full max-w-5xl px-5 py-6 sm:px-8 sm:py-8" aria-labelledby="analytics-title">
@@ -46,6 +67,14 @@ export function AnalyticsPage() {
         <h1 id="analytics-title" className="type-page-title">Analytics</h1>
         <p className="mt-1 text-body text-muted-foreground">Patterns across the requests customers have submitted.</p>
       </header>
+
+      {orders.length > 0 && (
+        <Tabs value={String(days)} onValueChange={(value) => setDays(Number(value) as RangeDays)} className="mb-4">
+          <TabsList aria-label="Date range">
+            {RANGES.map((range) => <TabsTrigger key={range} value={String(range)}>{range} days</TabsTrigger>)}
+          </TabsList>
+        </Tabs>
+      )}
 
       {orders.length === 0 ? (
         <Card>
@@ -67,7 +96,7 @@ export function AnalyticsPage() {
                 <div>
                   <CardTitle className="text-base">Requests received</CardTitle>
                   <p className="mt-1 text-hero font-normal leading-none tabular-nums text-muted-foreground">{received}</p>
-                  <CardDescription className="mt-1">Last {ANALYTICS_DAYS} days</CardDescription>
+                  <CardDescription className="mt-1">{period}</CardDescription>
                 </div>
                 <ul className="flex flex-wrap gap-x-4 gap-y-1 text-ui" aria-label="Legend">
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="size-2 rounded-full bg-info" />Received</li>
@@ -89,40 +118,33 @@ export function AnalyticsPage() {
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Widget title="Event types" description={`Across ${plural(orders.length, 'request')}`}>
-              <Bars rows={types} total={orders.length} color="var(--tile-indigo)" />
+            <Widget title="Event types" description={`${plural(inRange.length, 'request')} · ${period.toLowerCase()}`}>
+              {inRange.length ? <Bars rows={types} total={inRange.length} color="var(--tile-indigo)" /> : none('No requests in this period.')}
             </Widget>
 
-            <Widget title="Pickup or delivery" description={`Across ${plural(orders.length, 'request')}`}>
-              <Bars rows={fulfillment} total={orders.length} color="var(--tile-sky)" />
+            <Widget title="Pickup or delivery" description={`${plural(inRange.length, 'request')} · ${period.toLowerCase()}`}>
+              {inRange.length ? <Bars rows={fulfillment} total={inRange.length} color="var(--tile-sky)" /> : none('No requests in this period.')}
             </Widget>
 
-            <Widget title="Menu demand" description="Most-requested food and drink, by quantity. Each item counts in its own unit.">
-              {demand.length ? <Bars rows={demand} color="var(--tile-teal)" /> : none('No menu items have been requested yet.')}
+            <Widget title="Menu demand" description={`Most-requested food and drink by quantity · ${period.toLowerCase()}. Each item counts in its own unit.`}>
+              {demand.length ? <Bars rows={demand} color="var(--tile-teal)" /> : none('No menu items were requested in this period.')}
             </Widget>
 
             <Widget
-              title="Accepted events"
-              description={events.upcoming.length ? `${plural(events.upcoming.length, 'upcoming event')} · ${plural(events.upcomingGuests, 'guest')}` : 'Nothing upcoming'}
+              title="Upcoming events"
+              description={events.upcoming.length ? `${plural(events.upcoming.length, 'accepted event')} · ${plural(events.upcomingGuests, 'guest')}` : 'Accepted events not yet held'}
             >
-              {events.upcoming.length ? (
-                <ul className="grid gap-2">
-                  {events.upcoming.slice(0, 5).map((order) => (
-                    <li key={order.id} className="flex items-baseline justify-between gap-3 text-ui">
-                      <span className="min-w-0 truncate">
-                        <span className="text-foreground">{format(parseISO(order.intent.eventAt), 'EEE, MMM d')}</span>
-                        <span className="text-muted-foreground"> · {catalog.eventTypes.find((type) => type.id === order.intent.eventType)?.label ?? order.intent.eventType}</span>
-                      </span>
-                      <span className="shrink-0 tabular-nums text-muted-foreground">{order.intent.guestCount ?? '—'} guests</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : none('No accepted events are coming up.')}
-              <Separator className="my-4" />
-              <p className="text-ui text-muted-foreground">
-                Completed: {plural(events.completed, 'event')}{events.completed ? ` · ${plural(events.completedGuests, 'guest')} served` : ''}
-              </p>
+              <EventList orders={events.upcoming.slice(0, 5)} eventName={eventName} empty="No accepted events are coming up." />
             </Widget>
+
+            <div className="md:col-span-2">
+              <Widget
+                title="Completed events"
+                description={events.completed.length ? `${plural(events.completed.length, 'event')} · ${plural(events.completedGuests, 'guest')} served · ${period.toLowerCase()}` : period}
+              >
+                <EventList orders={events.completed.slice(0, 5)} eventName={eventName} empty="No accepted events took place in this period." />
+              </Widget>
+            </div>
           </div>
         </div>
       )}
