@@ -14,11 +14,18 @@ const toolButton = 'flex size-11 shrink-0 items-center justify-center rounded-fu
  * The pill-shaped question field used on the Chat page: attach files with +, send with the arrow.
  * Attachments are listed but not read yet; the answer says so.
  */
-export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
+export function ChatComposer({ value, onChange, onSubmit, autoFocus = false, label = 'Ask a question', placeholder = 'Ask about your requests…', hints = HINTS, attach = true, inputMode, sendLabel = 'Send question' }: {
   value: string
   onChange: (value: string) => void
   onSubmit: (attachments: string[]) => void
   autoFocus?: boolean
+  label?: string
+  placeholder?: string
+  /** Example questions that take turns in the empty field. Pass none to show the plain placeholder instead. */
+  hints?: string[]
+  attach?: boolean
+  inputMode?: 'numeric' | 'decimal'
+  sendLabel?: string
 }) {
   const [files, setFiles] = useState<File[]>([])
   const [hint, setHint] = useState(0)
@@ -60,18 +67,22 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
         onSubmit={submit}
         className="flex items-center gap-1 rounded-full bg-background p-2 pl-2.5 shadow-[0_1px_2px_rgb(0_0_0/0.04),inset_0_0_0_1px_var(--border)] transition-shadow duration-150 focus-within:shadow-[0_2px_10px_rgb(0_0_0/0.07),inset_0_0_0_1px_var(--border)]"
       >
-        <input ref={picker} type="file" multiple hidden accept="image/*,.pdf,.doc,.docx,.txt,.csv" onChange={pick} />
-        <button
-          type="button"
-          aria-label="Attach files"
-          disabled={files.length >= MAX_FILES}
-          onClick={() => picker.current?.click()}
-          className={toolButton}
-        >
-          <Plus aria-hidden="true" style={{ width: 20, height: 20 }} />
-        </button>
-        <label htmlFor="chat-input" className="sr-only">Ask a question</label>
-        <div className="relative min-w-0 flex-1 pl-1">
+        {attach ? (
+          <>
+            <input ref={picker} type="file" multiple hidden accept="image/*,.pdf,.doc,.docx,.txt,.csv" onChange={pick} />
+            <button
+              type="button"
+              aria-label="Attach files"
+              disabled={files.length >= MAX_FILES}
+              onClick={() => picker.current?.click()}
+              className={toolButton}
+            >
+              <Plus aria-hidden="true" style={{ width: 20, height: 20 }} />
+            </button>
+          </>
+        ) : null}
+        <label htmlFor="chat-input" className="sr-only">{label}</label>
+        <div className={attach ? 'relative min-w-0 flex-1 pl-1' : 'relative min-w-0 flex-1 pl-3'}>
           <input
             id="chat-input"
             value={value}
@@ -79,15 +90,16 @@ export function ChatComposer({ value, onChange, onSubmit, autoFocus = false }: {
             maxLength={MAX_QUESTION_LENGTH}
             autoComplete="off"
             autoFocus={autoFocus}
-            placeholder="Ask about your requests…"
-            className="chat-input h-10 w-full bg-transparent text-lead text-foreground outline-none placeholder:text-transparent"
+            inputMode={inputMode}
+            placeholder={placeholder}
+            className={hints.length ? 'chat-input h-10 w-full bg-transparent text-lead text-foreground outline-none placeholder:text-transparent' : 'h-10 w-full bg-transparent text-lead text-foreground outline-none placeholder:text-muted-foreground'}
           />
-          <span aria-hidden="true" className="chat-caret" />
-          <span key={hint} aria-hidden="true" className="chat-hint" onAnimationEnd={() => setHint((current) => (current + 1) % HINTS.length)}>{HINTS[hint]}</span>
+          {hints.length > 0 && <span aria-hidden="true" className="chat-caret" />}
+          {hints.length > 0 && <span key={hint} aria-hidden="true" className="chat-hint" onAnimationEnd={() => setHint((current) => (current + 1) % hints.length)}>{hints[hint]}</span>}
         </div>
         <button
           type="submit"
-          aria-label="Send question"
+          aria-label={sendLabel}
           disabled={!canSend}
           data-icon-surface
           className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors duration-150 hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[var(--disabled-fill)] disabled:hover:bg-[var(--disabled-fill)] md:size-10"

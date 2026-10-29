@@ -1,182 +1,174 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
 import { ChevronDownIcon } from '../../components/icons'
 import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
 import { Calendar } from '../../components/ui/calendar'
-import { Card } from '../../components/ui/card'
-import { Field, FieldError, FieldLabel } from '../../components/ui/field'
-import { Input } from '../../components/ui/input'
+import { FieldError } from '../../components/ui/field'
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover'
-import { Progress } from '../../components/ui/progress'
-import { Textarea } from '../../components/ui/textarea'
-import { cn } from '../../lib/cn'
 import { catalog } from '../../data'
 import { useDemoStore } from '../../state/store'
+import { ChatComposer } from './ChatComposer'
 import { startingForm } from './EventPage'
 import { loadIntakeFormDraft, saveIntakeFormDraft } from './intake'
 import { stagePath } from './journey'
 import {
-  PREFERENCES_LIMIT, answersToFormPatch, dietaryOptions, emptyAnswers, fulfillmentOptions, mealSizeOptions,
-  planSteps, stepError, type PlanAnswers,
+  answerText, answersToFormPatch, dietaryOptions, emptyAnswers, fulfillmentOptions, planSteps, stepError,
+  type PlanAnswers,
 } from './planScript'
 import { loadPlanAnswers, savePlanAnswers, savePlanningState } from './planning'
 
 const chip = 'flex min-h-11 cursor-pointer items-center rounded-full border border-input bg-background px-4 text-body transition-colors duration-150 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-checked:border-foreground aria-checked:bg-secondary md:min-h-10'
 
-function Chips({ label, role, children }: { label: string; role: 'radiogroup' | 'group'; children: ReactNode }) {
-  return <div role={role} aria-label={label} className="flex flex-wrap gap-2">{children}</div>
+function Assistant({ children }: { children: string }) {
+  return <p className="max-w-[92%] text-body leading-[1.55] text-foreground [text-wrap:pretty]"><span className="sr-only">Assistant: </span>{children}</p>
 }
 
+function Customer({ children }: { children: string }) {
+  return <p className="ml-auto max-w-[85%] rounded-2xl bg-secondary px-4 py-2.5 text-body text-foreground"><span className="sr-only">You: </span>{children}</p>
+}
+
+/** A guided chat that asks six fixed questions and carries the answers into the normal request form. Scripted, not a language model. */
 export function PlanIntakePage() {
   const navigate = useNavigate()
   const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
-  const today = format(new Date(), 'yyyy-MM-dd')
   const earliest = clock.slice(0, 10)
-  const [answers, setAnswers] = useState<PlanAnswers>(() => loadPlanAnswers(session) ?? emptyAnswers(today))
+  const [answers, setAnswers] = useState<PlanAnswers>(() => loadPlanAnswers(session) ?? emptyAnswers())
+  const [reply, setReply] = useState('')
   const [error, setError] = useState('')
   const [dateOpen, setDateOpen] = useState(false)
-  const heading = useRef<HTMLHeadingElement>(null)
+  const dock = useRef<HTMLDivElement>(null)
+  const end = useRef<HTMLDivElement>(null)
   const first = useRef(true)
-  const step = planSteps[answers.step]
+  const finished = answers.step >= planSteps.length
+  const current = finished ? null : planSteps[answers.step]
   const selectedDate = answers.eventDate ? parseISO(answers.eventDate) : undefined
 
   useEffect(() => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    end.current?.scrollIntoView?.({ block: 'end', behavior: reduce ? 'auto' : 'smooth' })
     if (first.current) { first.current = false; return }
-    heading.current?.focus({ preventScroll: true })
+    dock.current?.querySelector<HTMLElement>('input, button')?.focus({ preventScroll: true })
   }, [answers.step])
 
-  function update(patch: Partial<PlanAnswers>) {
+  function commit(patch: Partial<PlanAnswers>) {
+    if (!current) return
     const next = { ...answers, ...patch }
-    setAnswers(next)
-    savePlanAnswers(session, next)
-    if (error) setError('')
+    const problem = stepError(current.id, next, earliest)
+    if (problem) { setError(problem); return }
+    const advanced = { ...next, step: answers.step + 1 }
+    setAnswers(advanced)
+    savePlanAnswers(session, advanced)
+    setReply('')
+    setError('')
   }
 
-  function carryAnswersToForm(next: PlanAnswers, menuPending: boolean) {
-    const base = loadIntakeFormDraft(session, startingForm(order))
-    const patch = answersToFormPatch(next)
-    saveIntakeFormDraft(session, { ...base, ...patch })
-    savePlanningState(session, { mode: menuPending ? 'assisted' : 'manual', prefilled: Object.keys(patch).length > 0, menuPending })
+  function carryAnswersToForm(mode: 'assisted' | 'manual') {
+    const patch = answersToFormPatch(answers)
+    saveIntakeFormDraft(session, { ...loadIntakeFormDraft(session, startingForm(order)), ...patch })
+    savePlanningState(session, { mode, prefilled: Object.keys(patch).length > 0 })
     navigate(stagePath('event'))
   }
 
-  function next() {
-    const problem = stepError(step.id, answers, earliest)
-    if (problem) { setError(problem); return }
-    if (answers.step < planSteps.length - 1) update({ step: answers.step + 1 })
-    else carryAnswersToForm(answers, true)
-  }
-
-  const isLast = answers.step === planSteps.length - 1
-
   return (
-    <div className="mx-auto w-full max-w-xl px-5 py-8 sm:px-8 sm:py-12">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <span className="flex items-center gap-2 text-ui text-muted-foreground">
-          Question {answers.step + 1} of {planSteps.length}
+    <div className="mx-auto flex min-h-[calc(100svh-3.25rem)] w-full max-w-[760px] flex-col px-5 sm:px-8">
+      <div className="flex items-center justify-between gap-3 pt-6">
+        <h1 className="flex items-center gap-2 text-heading font-semibold tracking-[-0.01em] text-foreground">
+          Plan with AI
           <Badge variant="secondary">Preview</Badge>
-        </span>
-        <Button variant="ghost" onClick={() => carryAnswersToForm(answers, false)}>Switch to manual</Button>
+        </h1>
+        <Button variant="ghost" onClick={() => carryAnswersToForm('manual')}>Switch to manual</Button>
       </div>
-      <Progress value={((answers.step + 1) / planSteps.length) * 100} aria-label="Planning progress" className="mb-6" />
 
-      <Card className="p-5 sm:p-6">
-        <h1 ref={heading} tabIndex={-1} className="type-page-title outline-none">{step.title}</h1>
-        <p className="mt-1 text-ui text-muted-foreground">{step.help}</p>
+      <div role="log" aria-label="Conversation" aria-live="polite" className="flex-1 py-8">
+        <ol className="grid gap-5">
+          <li><Assistant>I’ll ask six quick questions, then fill in your request. You can change anything afterward.</Assistant></li>
+          {planSteps.map((step, index) => index <= answers.step && (
+            <li key={step.id} className="grid gap-3">
+              <Assistant>{step.question}</Assistant>
+              {index < answers.step && <Customer>{answerText(step.id, answers)}</Customer>}
+            </li>
+          ))}
+          {finished && <li><Assistant>That’s everything. Your answers are in a draft request you can review and edit.</Assistant></li>}
+        </ol>
+        <div ref={end} />
+      </div>
 
-        <div className="mt-6 grid gap-5">
-          {step.id === 'eventType' && (
-            <Chips label="Event type" role="radiogroup">
-              {catalog.eventTypes.map((type) => (
-                <button key={type.id} type="button" role="radio" aria-checked={answers.eventType === type.id} className={chip} onClick={() => update({ eventType: type.id })}>{type.label}</button>
-              ))}
-            </Chips>
-          )}
+      <div ref={dock} className="sticky bottom-0 grid gap-2 bg-background pb-6 pt-3">
+        {error && <FieldError role="alert" className="px-2">{error}</FieldError>}
 
-          {step.id === 'guests' && (
-            <Field data-invalid={Boolean(error) || undefined}>
-              <FieldLabel htmlFor="plan-guests">Number of guests</FieldLabel>
-              <Input id="plan-guests" inputMode="numeric" autoComplete="off" className="h-11" value={answers.guests} aria-invalid={Boolean(error)} onChange={(event) => update({ guests: event.target.value })} onKeyDown={(event) => { if (event.key === 'Enter') { event.preventDefault(); next() } }} />
-            </Field>
-          )}
+        {current?.id === 'eventType' && (
+          <div role="radiogroup" aria-label="Event type" className="flex flex-wrap gap-2">
+            {catalog.eventTypes.map((type) => (
+              <button key={type.id} type="button" role="radio" aria-checked={answers.eventType === type.id} className={chip} onClick={() => commit({ eventType: type.id })}>{type.label}</button>
+            ))}
+          </div>
+        )}
 
-          {step.id === 'when' && (
-            <>
-              <Field>
-                <FieldLabel htmlFor="plan-date">Date</FieldLabel>
-                <Popover open={dateOpen} onOpenChange={setDateOpen}>
-                  <PopoverTrigger render={
-                    <Button id="plan-date" type="button" variant="outline" className="h-11 w-full justify-between text-left text-body font-normal">
-                      {selectedDate ? format(selectedDate, 'PPP') : <span>Please select</span>}
-                      <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
-                    </Button>
-                  } />
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={(date) => { if (!date) return; update({ eventDate: format(date, 'yyyy-MM-dd') }); setDateOpen(false) }}
-                      defaultMonth={selectedDate ?? parseISO(earliest)}
-                      disabled={{ before: parseISO(earliest) }}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </Field>
-              <Field>
-                <FieldLabel>Pickup or delivery</FieldLabel>
-                <Chips label="Pickup or delivery" role="radiogroup">
-                  {fulfillmentOptions.map((option) => (
-                    <button key={option.id} type="button" role="radio" aria-checked={answers.fulfillment === option.id} className={chip} onClick={() => update({ fulfillment: option.id })}>{option.label}</button>
-                  ))}
-                </Chips>
-              </Field>
-            </>
-          )}
+        {current?.id === 'eventDate' && (
+          <Popover open={dateOpen} onOpenChange={setDateOpen}>
+            <PopoverTrigger render={
+              <Button type="button" variant="outline" className="h-11 w-full justify-between text-left text-body font-normal sm:w-72">
+                Choose a date
+                <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+              </Button>
+            } />
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={(date) => { if (!date) return; setDateOpen(false); commit({ eventDate: format(date, 'yyyy-MM-dd') }) }}
+                defaultMonth={selectedDate ?? parseISO(earliest)}
+                disabled={{ before: parseISO(earliest) }}
+              />
+            </PopoverContent>
+          </Popover>
+        )}
 
-          {step.id === 'dietary' && (
-            <Chips label="Dietary needs" role="group">
+        {current?.id === 'guests' && (
+          <ChatComposer
+            value={reply} onChange={setReply} onSubmit={() => commit({ guests: reply })}
+            label="Number of guests" placeholder="Number of guests" hints={[]} attach={false} inputMode="numeric" sendLabel="Send guest count" autoFocus
+          />
+        )}
+
+        {current?.id === 'fulfillment' && (
+          <div role="radiogroup" aria-label="Pickup or delivery" className="flex flex-wrap gap-2">
+            {fulfillmentOptions.map((option) => (
+              <button key={option.id} type="button" role="radio" aria-checked={answers.fulfillment === option.id} className={chip} onClick={() => commit({ fulfillment: option.id })}>{option.label}</button>
+            ))}
+          </div>
+        )}
+
+        {current?.id === 'dietary' && (
+          <>
+            <div role="group" aria-label="Dietary needs" className="flex flex-wrap gap-2">
               {dietaryOptions.map((option) => {
                 const on = answers.dietary.includes(option.id)
                 return (
-                  <button key={option.id} type="button" role="checkbox" aria-checked={on} className={chip} onClick={() => update({ dietary: on ? answers.dietary.filter((tag) => tag !== option.id) : [...answers.dietary, option.id] })}>{option.label}</button>
+                  <button key={option.id} type="button" role="checkbox" aria-checked={on} className={chip} onClick={() => setAnswers({ ...answers, dietary: on ? answers.dietary.filter((tag) => tag !== option.id) : [...answers.dietary, option.id] })}>{option.label}</button>
                 )
               })}
-            </Chips>
-          )}
+            </div>
+            <div><Button onClick={() => commit({})}>{answers.dietary.length ? 'Done' : 'No dietary needs'}</Button></div>
+          </>
+        )}
 
-          {step.id === 'extras' && (
-            <>
-              <Field>
-                <FieldLabel>Meal size</FieldLabel>
-                <Chips label="Meal size" role="radiogroup">
-                  {mealSizeOptions.map((option) => (
-                    <button key={option.id} type="button" role="radio" aria-checked={answers.mealSize === option.id} className={chip} onClick={() => update({ mealSize: answers.mealSize === option.id ? '' : option.id })}>{option.label}</button>
-                  ))}
-                </Chips>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="plan-preferences">Food preferences or allergies (optional)</FieldLabel>
-                <Textarea id="plan-preferences" rows={3} maxLength={PREFERENCES_LIMIT} value={answers.preferences} onChange={(event) => update({ preferences: event.target.value })} />
-              </Field>
-            </>
-          )}
+        {current?.id === 'budget' && (
+          <>
+            <ChatComposer
+              value={reply} onChange={setReply} onSubmit={() => commit({ budget: reply })}
+              label="Budget in dollars" placeholder="Budget in dollars" hints={[]} attach={false} inputMode="decimal" sendLabel="Send budget" autoFocus
+            />
+            <div><Button variant="ghost" onClick={() => commit({ budget: '' })}>Skip</Button></div>
+          </>
+        )}
 
-          {error && <FieldError role="alert">{error}</FieldError>}
-        </div>
-
-        <div className={cn('mt-8 flex items-center gap-2', answers.step > 0 ? 'justify-between' : 'justify-end')}>
-          {answers.step > 0 && <Button variant="outline" onClick={() => update({ step: answers.step - 1 })}>Back</Button>}
-          <div className="flex gap-2">
-            {step.optional && <Button variant="ghost" onClick={() => { if (isLast) carryAnswersToForm(answers, true); else update({ step: answers.step + 1 }) }}>Skip</Button>}
-            <Button onClick={next}>{isLast ? 'Fill in my request' : 'Next'}</Button>
-          </div>
-        </div>
-      </Card>
+        {finished && <div><Button onClick={() => carryAnswersToForm('assisted')}>Review your request</Button></div>}
+      </div>
     </div>
   )
 }
-

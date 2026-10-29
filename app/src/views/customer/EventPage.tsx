@@ -95,7 +95,7 @@ function EventEntry() {
     <PlanChoice
       onAssisted={() => navigate(routes.planRequest)}
       onManual={() => {
-        savePlanningState(session, { mode: 'manual', prefilled: false, menuPending: false })
+        savePlanningState(session, { mode: 'manual', prefilled: false })
         setShowChoice(false)
       }}
     />
@@ -187,7 +187,7 @@ function EventForm() {
       <section className="mx-auto w-full max-w-3xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <h1 className="type-page-title text-foreground">Plan your catering</h1>
-          <Button variant="outline" onClick={() => navigate(routes.planRequest)}>Help me plan it</Button>
+          <Button variant="outline" onClick={() => navigate(routes.planRequest)}>Plan with AI</Button>
         </div>
 
         {prefilled && (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Check, CheckCircle2Icon, InfoIcon, SearchIcon } from '../../components/icons'
 import {
@@ -28,7 +28,6 @@ import { formatMoney, pluralize } from '../../lib/format'
 import { useDemoStore } from '../../state/store'
 import { StageGate } from '../../components/StageGate'
 import { stagePath } from './journey'
-import { loadPlanningState, savePlanningState } from './planning'
 import { menuEntries } from './menuView'
 import { buildOrderSummary } from './orderSummary'
 import { MenuOrderSummary } from './MenuOrderSummary'
@@ -61,7 +60,6 @@ export function MenuPageShell() {
   const [filters, setFilters] = useState<DietaryTag[]>([])
   const [suggestion, setSuggestion] = useState<MenuSuggestion | null>(null)
   const [feedback, setFeedback] = useState('')
-  const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
   const updateDraft = useDemoStore((state) => state.updateDraft)
@@ -72,31 +70,14 @@ export function MenuPageShell() {
     setFeedback('')
   }
 
-  function applyRecommendation(recommendation: Recommendation, from: OrderLine[]) {
-    const supplyLines = from.filter((line) => catalog.menu.find((item) => item.id === line.itemId)?.category === 'supply')
-    const suggestedLines = recommendation.lines.map(({ itemId, units }) => ({ itemId, units }))
-    setSuggestion({ recommendation, undoLines: from, applied: true })
-    updateDraft({ lines: [...suggestedLines, ...supplyLines] })
-  }
-
   function applySuggestion() {
     if (!suggestion) return
-    applyRecommendation(suggestion.recommendation, order.lines)
+    const supplyLines = order.lines.filter((line) => catalog.menu.find((item) => item.id === line.itemId)?.category === 'supply')
+    const suggestedLines = suggestion.recommendation.lines.map(({ itemId, units }) => ({ itemId, units }))
+    setSuggestion({ ...suggestion, undoLines: order.lines, applied: true })
+    updateDraft({ lines: [...suggestedLines, ...supplyLines] })
     setFeedback('Suggested quantities applied. You can restore your previous quantities with Undo.')
   }
-
-  // Arriving from the guided questions: fill in suggested quantities once, with Undo.
-  useEffect(() => {
-    const state = loadPlanningState(session)
-    if (!state.menuPending) return
-    savePlanningState(session, { ...state, menuPending: false })
-    const current = useDemoStore.getState().order
-    const hasFood = current.lines.some((line) => catalog.menu.find((item) => item.id === line.itemId)?.category !== 'supply')
-    if (hasFood) return
-    applyRecommendation(recommend(current.intent), current.lines)
-    setFeedback('Filled in from your answers. You can restore your previous quantities with Undo.')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   function undoSuggestion() {
     if (suggestion?.undoLines) updateDraft({ lines: suggestion.undoLines })

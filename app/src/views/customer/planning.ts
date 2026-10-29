@@ -8,14 +8,12 @@ export type PlanningState = {
   mode: PlanningMode | null
   /** The Event step was filled from the intake and should say so until the customer continues. */
   prefilled: boolean
-  /** The Menu step should fill in suggested quantities once, with Undo. */
-  menuPending: boolean
 }
 
 const STATE_KEY = 'x-planning-state'
 const ANSWERS_KEY = 'x-planning-answers'
 
-export const emptyPlanningState: PlanningState = { mode: null, prefilled: false, menuPending: false }
+export const emptyPlanningState: PlanningState = { mode: null, prefilled: false }
 
 function read<T>(key: string, session: number): T | null {
   try {
