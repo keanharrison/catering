@@ -31,7 +31,7 @@ export function JourneyNav({ active }: { active: Stage }) {
                 disabled={!enabled && !isActive}
                 onClick={() => navigate(stagePath(stage.id))}
                 className={cx(
-                  'group flex w-full flex-col items-center gap-2 rounded-lg pb-1 pt-0.5 text-[14px] tracking-[0.01em] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                  'group flex w-full flex-col items-center gap-2 rounded-lg pb-1 pt-0.5 text-ui font-medium tracking-[0.01em] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                   isActive || isDone ? 'text-foreground' : 'text-muted-foreground',
                   !enabled && !isActive && 'cursor-not-allowed',
                 )}

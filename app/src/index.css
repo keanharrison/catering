@@ -17,34 +17,111 @@
 }
 
 @theme {
-  /* Body text matches the sidebar: Inter at 13px. */
-  --font-weight-normal: 450;
+  /* One type scale for the whole product: hero 28, title 24, heading 15, body 14, ui 13, caption 12. Navigation and field labels are 13px medium; body and helper text are regular. */
+  --font-weight-normal: 400;
+  --text-hero: 1.75rem;
+  --text-hero--line-height: 1.15;
+  --text-title: 1.5rem;
+  --text-title--line-height: 1.25;
+  --text-heading: 0.9375rem;
+  --text-heading--line-height: 1.4;
+  --text-lead: 1rem;
+  --text-lead--line-height: 1.4;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.45;
+  --text-ui: 0.8125rem;
+  --text-ui--line-height: 1.4;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.35;
   --text-sm: 0.8125rem;
   --text-sm--line-height: 1.25rem;
   --font-sans: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer components {
-  /* Linear's title style: 24px Inter, weight 500, 1.3 line height, -0.02em tracking, strongest text color. */
+  /* A small neutral tile that floats above its surface: used for empty-state icons and the account summaries on Chat. */
+  .floating-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 6px 14px -4px rgb(0 0 0 / 0.08);
+  }
+
+  /* With a tone, the tile is a solid color with a white glyph, one color per destination. */
+  .floating-tile[data-tone] { border-color: transparent; background: var(--tile-color); color: #fff; }
+  .floating-tile[data-tone='indigo'], .soft-tile[data-tone='indigo'] { --tile-color: var(--tile-indigo); }
+  .floating-tile[data-tone='violet'], .soft-tile[data-tone='violet'] { --tile-color: var(--tile-violet); }
+  .floating-tile[data-tone='teal'], .soft-tile[data-tone='teal'] { --tile-color: var(--tile-teal); }
+  .floating-tile[data-tone='sky'], .soft-tile[data-tone='sky'] { --tile-color: var(--tile-sky); }
+  .floating-tile[data-tone='slate'], .soft-tile[data-tone='slate'] { --tile-color: var(--tile-slate); }
+
+  /* Compact variant for dense Admin screens: a 30px tile around a 16px glyph. */
+  .floating-tile[data-size='sm'] { width: 1.875rem; height: 1.875rem; border-radius: 0.5rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.08); }
+  .floating-tile[data-size='sm'] svg { width: 1rem; height: 1rem; }
+
+  /* Card-heading icon: a small tinted tile with a colored glyph. Quieter than the solid floating tile. */
+  .soft-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.625rem;
+    background: color-mix(in srgb, var(--tile-color, var(--tile-slate)) 12%, #fff);
+    color: var(--tile-color, var(--tile-slate));
+  }
+
+  /* Feature card: a hairline border that drifts from indigo to sky at low strength, over the normal white card. */
+  .feature-card {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--card), var(--card)) padding-box,
+      linear-gradient(135deg, color-mix(in srgb, var(--tile-indigo) 32%, transparent), color-mix(in srgb, var(--tile-sky) 32%, transparent)) border-box;
+  }
+
+  /* Faint dot field behind related content, fading out from one corner. Decorative only; use once per screen at most. */
+  .dot-field { position: relative; isolation: isolate; }
+  .dot-field::before {
+    content: '';
+    position: absolute;
+    inset: -2rem 0 -1rem -1rem;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in srgb, var(--foreground) 14%, transparent) 1.25px, transparent 1.75px) 0 0 / 16px 16px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 70% 80% at 100% 0%, #000 0%, transparent 70%);
+  }
+  /* Let the dots peek out past the card's right edge where there is room; on a phone they stay inside the page. */
+  @media (min-width: 640px) { .dot-field::before { right: -2.5rem; } }
+
+  /* Page title: 24px Inter regular with tight tracking, clearly larger than the 13px medium labels. The hero size (28px) is reserved for the Chat headline. */
   .type-page-title {
     margin: 0;
-    font-size: 1.5rem;
-    line-height: 1.3;
-    font-weight: 500;
+    font-size: var(--text-title);
+    line-height: 1.25;
+    font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--foreground);
   }
 
   .type-card-title,
   .type-section-title {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: var(--text-heading);
+    line-height: 1.4;
     font-weight: 500;
     letter-spacing: -0.01em;
   }
 
   .type-small-label {
-    font-size: 0.75rem;
+    font-size: var(--text-caption);
     line-height: 1rem;
     font-weight: 500;
     letter-spacing: 0.03em;
@@ -68,7 +145,7 @@
     color: var(--foreground);
     font-family: 'Inter Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 13px;
-    font-weight: 450;
+    font-weight: 400;
     line-height: 20px;
     -webkit-font-smoothing: antialiased;
     @apply bg-background text-foreground;
@@ -116,6 +193,12 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
   --color-primary-hover: var(--primary-hover);
   --color-link: var(--link);
   --color-input: var(--input);
@@ -138,50 +221,65 @@
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-xl: calc(var(--radius) * 1.2);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  /* ElevenLabs light theme: eggshell page, white cards, warm grays, black primary. */
-  --background: #fdfcfc;
-  --foreground: #000;
+  /* ElevenLabs product palette, sampled from their home view: white canvas, #FAFAFA sidebar, neutral grays, near-black text. */
+  --background: #fff;
+  --foreground: #0f0f10;
   --card: #fff;
-  --card-foreground: #000;
+  --card-foreground: #0f0f10;
   --popover: #fff;
-  --popover-foreground: #000;
-  --primary: #000;
-  --primary-hover: #292524;
+  --popover-foreground: #0f0f10;
+  --primary: #0f0f10;
+  --primary-hover: #2e2e2e;
   --primary-foreground: #fff;
-  --link: #000;
-  --link-hover: #44403b;
+  --link: #0f0f10;
+  --link-hover: #2e2e2e;
   --selection: rgb(0 0 0 / 0.12);
-  --secondary: #f5f3f1;
-  --secondary-foreground: #000;
-  --muted: #f5f3f1;
-  --muted-foreground: #777169;
-  --accent: #f5f3f1;
-  --accent-foreground: #000;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #ebe8e4;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #0f0f10;
+  --muted: #f5f5f5;
+  --muted-foreground: #6b6b6b;
+  --accent: #efefef;
+  --accent-foreground: #0f0f10;
+  --destructive: #c8102e;
+  /* Status colors. Each has a dark text value and a pale tint; both pass 4.5:1 together. */
+  --success: #12794a;
+  --success-soft: #e8f5ee;
+  --warning: #8f5400;
+  --warning-soft: #fff4e0;
+  --info: #0a59d2;
+  --info-soft: #eaf2ff;
+  --border: #e7e7e7;
   --input: #e5e5e5;
-  --ring: #000;
+  /* Fill for a disabled primary action (Continue, Save changes, Send). */
+  --disabled-fill: #c3c3c3;
+  /* Colored icon tiles inside pages (never in the sidebar). White glyphs on each pass 4.8:1. Red, amber, green and blue stay reserved for status. */
+  --tile-indigo: #4f46e5;
+  --tile-violet: #7c3aed;
+  --tile-teal: #0f766e;
+  --tile-sky: #0b78b5;
+  --tile-slate: #475569;
+  --ring: #0f0f10;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: #fdfcfc;
-  --sidebar-foreground: #44403b;
-  --sidebar-primary: #000;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #6b6b6b;
+  --sidebar-primary: #0f0f10;
   --sidebar-primary-foreground: #fff;
-  --sidebar-accent: #f5f3f1;
-  --sidebar-accent-foreground: #000;
-  --sidebar-border: rgb(0 0 0 / 0.05);
-  --sidebar-ring: #000;
+  --sidebar-accent: #efefef;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e7e7e7;
+  --sidebar-ring: #0f0f10;
 }
 
 
@@ -235,6 +333,47 @@
 :root svg[viewBox='0 0 24 24'][stroke='currentColor'] { width: var(--icon-size); height: var(--icon-size); color: var(--icon-color); }
 :is([data-slot='button'][data-variant='default'], [data-slot='sidebar-menu-button'][data-active], [data-slot='alert'], [data-slot='badge'], [data-sonner-toast], [data-slot='checkbox'], .btn-primary, .alert, .badge, .avatar, .stat-icon, [aria-current='step'], [data-selected='true'], [data-icon-surface]):not(:disabled) { --icon-color: currentColor; }
 button:hover > svg, a:hover > svg, [role='menuitem']:focus > svg { --icon-color: var(--foreground); }
+
+/* Chat input: an empty field shows a softly pulsing caret in place of the native hard blink. */
+.chat-input:placeholder-shown { caret-color: transparent; }
+/* The rotating hint replaces the native placeholder (the shared placeholder rule is unlayered, so a utility class cannot hide it). */
+.chat-input::placeholder { color: transparent; }
+.chat-caret { position: absolute; left: 4px; top: 50%; width: 1.5px; height: 22px; margin-top: -11px; border-radius: 1px; background: var(--foreground); opacity: 0; pointer-events: none; }
+.chat-input:focus:placeholder-shown + .chat-caret { opacity: 1; animation: caret-pulse 1.2s ease-in-out infinite; }
+@keyframes caret-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.1; } }
+@media (prefers-reduced-motion: reduce) { .chat-input:focus:placeholder-shown + .chat-caret { animation: none; } }
+
+/* Rotating example questions in the empty field. Each one is revealed left to right by a sliding mask, then rises out as the next arrives from below. */
+.chat-hint {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  max-width: calc(100% - 6px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 40px;
+  font-size: var(--text-lead);
+  color: var(--muted-foreground);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 40%, transparent 100%);
+  -webkit-mask-size: 250% 100%;
+  mask-size: 250% 100%;
+  animation: hint-cycle 4200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.chat-input:not(:placeholder-shown) ~ .chat-hint { display: none; }
+@keyframes hint-cycle {
+  0% { opacity: 0; transform: translateY(12px); -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  16% { opacity: 1; transform: translateY(0); -webkit-mask-position: 0 0; mask-position: 0 0; }
+  86% { opacity: 1; transform: translateY(0); -webkit-mask-position: 0 0; mask-position: 0 0; }
+  100% { opacity: 0; transform: translateY(-12px); -webkit-mask-position: 0 0; mask-position: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) { .chat-hint { animation: none; } }
+
+/* Empty-state icons: one size and weight, same as the sidebar. */
+:root [data-slot='empty-icon'][data-variant='tile'] svg { width: 20px; height: 20px; stroke-width: 2; }
+:root [data-slot='empty-icon'][data-variant='icon'] svg { width: 18px; height: 18px; stroke-width: 2.25; }
 
 /* Phones: every tappable control is at least 44px tall (WCAG 2.5.8 target size, with room to spare).
    Desktop keeps Linear's compact density. Checkboxes, radios, switches and calendar days keep their own sizes. */

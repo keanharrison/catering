@@ -40,7 +40,7 @@ Preserve Pearl Island's identity and use the approved Pearl Island brand referen
 
 ## Evidence on Hand
 
-- Project requirements, workflow assumptions, and questions for stakeholder validation are documented in `PRD.md`, `SOBER_MEETING_QUESTIONS.md`, and related project research notes.
+- Project requirements, workflow assumptions, and questions for stakeholder validation are documented in `prd.md`, `sober_meeting_questions.md`, and related project research notes.
 - The app contains an illustrative menu and repeatable sample scenarios. Menu details were observed from Spoonfed but remain unconfirmed by Pearl Island; sample customer and event details are invented for demonstration.
 - Approved brand references and implementation notes are in `docs/branding/pearl-island/`.
 - No verified customer testimonials, measured outcomes, confirmed operating rules, or live integration evidence is established for this prototype. Do not invent them.

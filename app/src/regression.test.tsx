@@ -34,7 +34,7 @@ async function switchToTeam(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('button', { name: 'Customer account menu' }))
   await user.keyboard('{ArrowDown}')
   await user.keyboard('{ArrowRight}')
-  await user.click(await screen.findByRole('menuitemradio', { name: 'Pearl Island team account' }))
+  await user.click(await screen.findByRole('menuitemradio', { name: 'Admin' }))
 }
 
 beforeEach(() => {
@@ -161,36 +161,46 @@ describe('regression: full journeys and edge cases', () => {
     expect(screen.getByText('No accepted request yet')).toBeTruthy()
   })
 
-  it('filters the staff queue by status and supports keyboard row selection', async () => {
+  it('organizes the staff queue into views, with keyboard row selection and filters', async () => {
     const user = userEvent.setup()
     renderAt('/staff')
 
-    const [allTab, reviewTab, awaitingTab, confirmedTab] = screen.getAllByRole('tab')
-    expect([allTab.textContent, reviewTab.textContent, awaitingTab.textContent, confirmedTab.textContent]).toEqual([
-      '5All',
-      '2Needs review',
-      '1Awaiting customer',
-      '1Accepted',
+    const [allTab, pastTab, currentTab, upcomingTab] = screen.getAllByRole('tab')
+    expect([allTab.textContent, pastTab.textContent, currentTab.textContent, upcomingTab.textContent]).toEqual([
+      'All5',
+      'Past2',
+      'Current3',
+      'Upcoming accepted0',
     ])
     expect(screen.getAllByRole('row')).toHaveLength(6)
 
-    reviewTab.focus()
+    currentTab.focus()
     await user.keyboard('{Enter}')
-    expect(reviewTab.getAttribute('aria-selected')).toBe('true')
-    expect(screen.getAllByRole('row')).toHaveLength(3)
+    expect(currentTab.getAttribute('aria-selected')).toBe('true')
+    expect(screen.getAllByRole('row')).toHaveLength(4)
 
     const selectedRow = screen.getByRole('row', { name: /Sam Rivera/ })
     selectedRow.focus()
     await user.keyboard('{Enter}')
     expect(screen.getByText('Rivera Wedding')).toBeTruthy()
 
-    await user.click(awaitingTab)
+    await user.click(pastTab)
+    expect(screen.getAllByRole('row')).toHaveLength(3)
+    expect(screen.getByRole('row', { name: /Taylor Brooks/ })).toBeTruthy()
+
+    await user.click(allTab)
+    await user.type(screen.getByRole('searchbox'), 'northstar')
     expect(screen.getAllByRole('row')).toHaveLength(2)
     expect(screen.getByRole('row', { name: /Morgan Chen/ })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Clear filters' }))
+    expect(screen.getAllByRole('row')).toHaveLength(6)
 
-    await user.click(confirmedTab)
+    await user.click(screen.getByRole('combobox', { name: 'Status' }))
+    await user.click(await screen.findByRole('option', { name: 'Accepted' }))
     expect(screen.getAllByRole('row')).toHaveLength(2)
-    expect(screen.getByRole('row', { name: /Taylor Brooks/ })).toBeTruthy()
+    await user.click(screen.getByRole('combobox', { name: 'Pickup or delivery' }))
+    await user.click(await screen.findByRole('option', { name: 'Delivery' }))
+    expect(screen.queryAllByRole('row').length).toBeLessThanOrEqual(2) // filters combine; they never widen the list
   })
 
   it('shows the food budget on both customer review and staff request details', () => {
@@ -433,7 +443,7 @@ describe('regression: full journeys and edge cases', () => {
     expect(h1()).toBe('Plan your catering')
   })
 
-  it('opens a fresh draft when New request is visited while a submitted request is active', () => {
+  it('opens a fresh draft when New request is visited while a submitted request is active', async () => {
     store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
     store().submit()
     expect(store().order.status).not.toBe('draft')

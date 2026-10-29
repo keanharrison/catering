@@ -2,6 +2,8 @@ import { useMemo, useRef, useState, type FormEvent } from 'react'
 import { toast } from 'sonner'
 import { Button } from '../../components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
+import { FeatureCardHeader } from '../../components/FeatureCardHeader'
 import { Field, FieldError, FieldGroup, FieldLabel } from '../../components/ui/field'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
@@ -83,8 +85,9 @@ function CustomerSettings() {
 
   return <section className="mx-auto w-full max-w-3xl px-5 py-6 sm:px-8 sm:py-8">
     <header className="mb-6"><h1 className="type-page-title">Account settings</h1></header>
-    <Card><CardHeader><CardTitle>Contact information</CardTitle><CardDescription>Saved details can fill blank contact fields on new requests. Existing drafts and orders keep their original information.</CardDescription></CardHeader>
-      <CardContent><form onSubmit={save} noValidate>
+    <div className="dot-field">
+    <Card variant="feature"><FeatureCardHeader icon={destinationIcons.accountSettings} tone={destinationTones.accountSettings!} title="Contact information" />
+      <CardContent><CardDescription className="mb-5">Saved details can fill blank contact fields on new requests. Existing drafts and orders keep their original information.</CardDescription><form onSubmit={save} noValidate>
         <FieldGroup>{fields.map(({ key, label, autocomplete, type, optional }) => {
           const id = `profile-${key}`
           const errorId = `${id}-error`
@@ -102,6 +105,7 @@ function CustomerSettings() {
         </div>
       </form></CardContent>
     </Card>
+    </div>
   </section>
 }
 

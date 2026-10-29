@@ -4,6 +4,10 @@ import './index.css'
 import './components/texture.css'
 import App from './App.tsx'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { useDemoStore } from './state/store'
+
+// First visit on this computer: load Pearl Island's starting requests once. Deleted ones never come back.
+useDemoStore.getState().seedStartingRequests()
 
 // Temporary: ?texture=shadow|watermark|grain|dots (combine with +) previews texture options.
 const texture = new URLSearchParams(window.location.search).get('texture')

@@ -102,4 +102,4 @@ Menu data, rules, and scenarios live in `app/src/data/`; calculations and recomm
 
 The actual “backend” is client-side logic: `data/`, `engine/`, `state/`, route definitions, and the pure customer helpers under `views/customer/` are reusable. Some form/controller behavior is embedded in route view components. The archive preserves the previous custom Field implementation for reference; the active Event rebuild replaces it with official shadcn source and keeps the existing intake validation and draft logic.
 
-Primary brand/product references: `PRODUCT.md`, `docs/branding/pearl-island/IMPLEMENTATION.md`, and `docs/branding/pearl-island/Pearl-Island-Catering-Branding-and-Workflow-Reference.md`.
+Primary brand/product references: `PRODUCT.md`, `docs/branding/pearl-island/implementation.md`, and `docs/branding/pearl-island/pearl-island-catering-branding-and-workflow-reference.md`.

@@ -49,7 +49,7 @@ Order summary: selected items · quantity coverage · estimate or pricing note
 Next action: Continue / Review / Submit request
 ```
 
-On small screens, the order summary can collapse while the next action stays easy to reach. Visual styling follows `SOUL.md`; exact layouts and copy remain open for the next wireframe pass.
+On small screens, the order summary can collapse while the next action stays easy to reach. Visual styling follows `soul.md`; exact layouts and copy remain open for the next wireframe pass.
 
 ## Staff workflow
 
@@ -97,4 +97,4 @@ Public Spoonfed terms cited in the earlier notes described 48 business hours for
 
 The current Pearl Island demo covers event intake, menu selection and quantities, estimates, optional rule-based suggestions, supplies, final details, review/submission, customer order and message screens, staff review/revision, and simulated handoff. Demo state is stored in one browser; there is no backend, account security, shared multi-device state, live messaging, payments, AI service, calendar write, or website connection. Sample orders are invented and menu/rule data is provisional.
 
-For the Sober walkthrough, focus on whether a customer can assemble a request without getting stuck and whether staff can understand and review it. Use `PRD.md` and `SOBER_MEETING_QUESTIONS.md` for requirements and unresolved business decisions; update this workflow only when evidence or a product decision changes the journey.
+For the Sober walkthrough, focus on whether a customer can assemble a request without getting stuck and whether staff can understand and review it. Use `prd.md` and `sober_meeting_questions.md` for requirements and unresolved business decisions; update this workflow only when evidence or a product decision changes the journey.

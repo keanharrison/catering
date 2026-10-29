@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
+import { cn } from "@/lib/cn"
+import type { Tone } from "@/components/destinationIcons"
 
 function Empty({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -30,7 +31,8 @@ const emptyMediaVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
-        icon: "flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground [&_svg:not([class*='size-'])]:size-4",
+        icon: "flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground",
+        tile: "floating-tile",
       },
     },
     defaultVariants: {
@@ -42,12 +44,15 @@ const emptyMediaVariants = cva(
 function EmptyMedia({
   className,
   variant = "default",
+  tone,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants>) {
+}: React.ComponentProps<"div"> & VariantProps<typeof emptyMediaVariants> & { tone?: Tone }) {
   return (
     <div
       data-slot="empty-icon"
       data-variant={variant}
+      data-tone={tone}
+      data-icon-surface
       className={cn(emptyMediaVariants({ variant, className }))}
       {...props}
     />
@@ -59,7 +64,7 @@ function EmptyTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="empty-title"
       className={cn(
-        "font-heading text-sm font-medium tracking-tight",
+        "font-heading text-body font-medium tracking-tight",
         className
       )}
       {...props}
@@ -72,7 +77,7 @@ function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
     <div
       data-slot="empty-description"
       className={cn(
-        "text-sm/relaxed text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
+        "text-ui leading-[1.45] text-muted-foreground [&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className
       )}
       {...props}
@@ -85,7 +90,7 @@ function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="empty-content"
       className={cn(
-        "flex w-full max-w-sm min-w-0 flex-col items-center gap-2.5 text-sm text-balance",
+        "flex w-full max-w-sm min-w-0 flex-col items-center gap-2.5 text-ui text-balance",
         className
       )}
       {...props}

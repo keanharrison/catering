@@ -1,17 +1,20 @@
 import * as React from "react"
-import { cn } from "cn"
+import { cn } from "@/lib/cn"
 
 function Card({
   className,
   size = "default",
+  variant = "default",
   ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> & { size?: "default" | "sm"; variant?: "default" | "feature" }) {
   return (
     <div
       data-slot="card"
       data-size={size}
+      data-variant={variant}
       className={cn(
         "group/card flex flex-col overflow-hidden rounded-[8px] border border-border bg-card text-sm text-card-foreground shadow-xs *:[img:first-child]:rounded-t-[7px] *:[img:last-child]:rounded-b-[7px]",
+        variant === "feature" && "feature-card rounded-[16px] border-transparent",
         className
       )}
       {...props}

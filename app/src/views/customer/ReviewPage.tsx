@@ -167,7 +167,7 @@ function ReviewView() {
                 {order.status === 'awaiting_customer_approval' && 'The team proposed changes. Review the updated selections below and approve them if they work for you.'}
               </p>
               {order.status === 'awaiting_customer_approval' && order.revision === 'pending' && (
-                <Button type="button" variant="outline" className="mt-3" onClick={customerApprove}>Approve changes</Button>
+                <Button type="button" className="mt-3" onClick={customerApprove}>Approve changes</Button>
               )}
               {order.status === 'awaiting_customer_approval' && order.revision === 'approved' && (
                 <p className="mt-2">You approved the changes. They are waiting for the team to accept.</p>
@@ -287,9 +287,9 @@ function ReviewView() {
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:items-start sm:justify-between">
           {!submitted ? (
             <>
-              <Button type="button" variant="outline" className="min-h-11" onClick={() => navigate(stagePath('details'))}>Back to details</Button>
+              <Button type="button" variant="outline" onClick={() => navigate(stagePath('details'))}>Back to details</Button>
               <div className="flex flex-col items-stretch gap-2 sm:items-end">
-                <Button type="button" className="min-h-11" disabled={submitting} onClick={submitRequest}>
+                <Button type="button" disabled={submitting} onClick={submitRequest}>
                   {submitting ? 'Submitting…' : 'Submit request'}
                 </Button>
                 {lastError && (
@@ -305,7 +305,7 @@ function ReviewView() {
               </div>
             </>
           ) : (
-            <Button type="button" variant="outline" className="min-h-11" onClick={() => { navigate(stagePath('event')); reset() }}>Start a new request</Button>
+            <Button type="button" variant="outline" onClick={() => { navigate(stagePath('event')); reset() }}>Start a new request</Button>
           )}
         </div>
       </section>

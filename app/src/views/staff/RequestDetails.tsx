@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { TriangleAlert } from '../../components/icons'
 import type { Order } from '../../data'
 import type { OrderSummary } from '../customer/orderSummary'
@@ -9,7 +9,8 @@ import { formatMoney } from '../../lib/format'
 import { routes } from '../../routes'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
 import { Button } from '../../components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../components/ui/card'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../../components/ui/dialog'
 import { Separator } from '../../components/ui/separator'
 import { AskCustomerPanel } from './AskCustomerPanel'
 import { DeclineRequestPanel } from './DeclineRequestPanel'
@@ -36,6 +37,7 @@ type RequestDetailsProps = {
   onSaveQuestion: (text: string) => void
   onSaveProposal: (lines: Order['lines']) => void
   onSaveDecline: (reason: string) => void
+  onDelete: () => void
   onCancelPanel: () => void
 }
 
@@ -44,6 +46,24 @@ function Value({ label, children, className = '' }: { label: string; children: R
     <div className={`min-w-0 ${className}`}>
       <dt className="type-small-label text-muted-foreground">{label}</dt>
       <dd className="mt-1 break-words text-sm">{children}</dd>
+    </div>
+  )
+}
+
+type Group = OrderSummary['groups'][number]
+
+function LineGroup({ group }: { group: Group }) {
+  return (
+    <div>
+      <h4 className="type-small-label uppercase text-muted-foreground">{group.title}</h4>
+      <ul className="mt-1 grid gap-1.5">
+        {group.rows.map((row) => (
+          <li key={row.itemId} className="flex min-w-0 justify-between gap-3 text-sm">
+            <span className="min-w-0 break-words">{row.name} <span className="text-muted-foreground">({row.quantityLabel})</span></span>
+            <span className="shrink-0 tabular-nums">{formatMoney(row.costCents)}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -70,8 +90,10 @@ export function RequestDetails({
   onSaveQuestion,
   onSaveProposal,
   onSaveDecline,
+  onDelete,
   onCancelPanel,
 }: RequestDetailsProps) {
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const foodGroups = summary.groups.filter((group) => group.category !== 'supply')
   const supplyGroups = summary.groups.filter((group) => group.category === 'supply')
   const foodSubtotal = foodGroups.flatMap((group) => group.rows).reduce((total, row) => total + row.costCents, 0)
@@ -79,6 +101,9 @@ export function RequestDetails({
   const address = [order.intent.deliveryAddress, order.intent.deliveryCity, order.intent.deliveryState, order.intent.deliveryZip]
     .filter(Boolean)
     .join(', ')
+  // Requests carry no event name of their own, so the organization stands in; a private customer gets "<name>’s event".
+  const eventName = order.intent.organization || (order.intent.contactName ? `${order.intent.contactName}’s event` : 'Not provided')
+  const location = order.intent.fulfillment === 'delivery' ? address || 'Delivery address not provided' : 'Pickup at the restaurant'
 
   return (
     <div className="grid min-w-0 gap-4">
@@ -86,76 +111,38 @@ export function RequestDetails({
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <CardTitle className="break-words">{eventTypeLabel(order.intent.eventType)}</CardTitle>
-              <CardDescription className="mt-1 break-words">{order.intent.contactName || 'Customer'}{order.intent.organization ? ` · ${order.intent.organization}` : ''}</CardDescription>
+              <CardTitle className="break-words text-title leading-tight">{eventTypeLabel(order.intent.eventType)}</CardTitle>
+              <div className="mt-2 grid gap-0.5 text-sm">
+                <p className="break-words"><span className="text-muted-foreground">Name: </span>{eventName}</p>
+                <p className="break-words"><span className="text-muted-foreground">Location: </span>{location}</p>
+              </div>
             </div>
-            
-              <StaffStatusBadge status={order.status} />
+            <StaffStatusBadge status={order.status} />
           </div>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <section aria-labelledby="request-event-heading">
-            <h3 id="request-event-heading" className="type-section-title">Event</h3>
+          <section aria-labelledby="request-details-heading">
+            <h3 id="request-details-heading" className="type-section-title">Details</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-              <Value label="Date and time" className="col-span-2">{formatEventTime(order.intent.eventAt)}</Value>
+              <Value label="Contact name">{order.intent.contactName || 'Not provided'}</Value>
               <Value label="Guests">{order.intent.guestCount ?? 'Not provided'}</Value>
+              <Value label="Date and time" className="col-span-2">{formatEventTime(order.intent.eventAt)}</Value>
+              <Value label="Fulfillment"><span className="capitalize">{order.intent.fulfillment}</span></Value>
               <Value label="Food budget">{order.intent.budgetCents === null ? 'Not provided' : formatMoney(order.intent.budgetCents)}</Value>
-              <Value label="Fulfillment" ><span className="capitalize">{order.intent.fulfillment}</span></Value>
-              {order.intent.fulfillment === 'delivery' && <Value label="Delivery address">{address || 'Not provided'}</Value>}
             </dl>
           </section>
 
           <Separator />
 
           <section aria-labelledby="request-food-heading">
-            <div className="flex items-center justify-between gap-3">
-              <h3 id="request-food-heading" className="type-section-title">Food and supplies</h3>
-              <span className="text-xs text-muted-foreground">Estimate only</span>
-            </div>
+            <h3 id="request-food-heading" className="type-section-title">Food</h3>
             {foodGroups.length > 0 ? (
               <div className="mt-3 grid gap-3">
-                    {foodGroups.map((group) => (
-                  <div key={group.category}>
-                    <h4 className="type-small-label uppercase text-muted-foreground">{group.title}</h4>
-                    <ul className="mt-1 grid gap-1.5">
-                      {group.rows.map((row) => (
-                        <li key={row.itemId} className="flex min-w-0 justify-between gap-3 text-sm">
-                          <span className="min-w-0 break-words">{row.name} <span className="text-muted-foreground">({row.quantityLabel})</span></span>
-                          <span className="shrink-0 tabular-nums">{formatMoney(row.costCents)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                {foodGroups.map((group) => <LineGroup key={group.category} group={group} />)}
               </div>
             ) : <p className="mt-2 text-sm text-muted-foreground">No food selections recorded.</p>}
             <div className="mt-3 border-t border-border pt-2 text-sm">
               <div className="flex justify-between gap-3"><span className="text-muted-foreground">Food subtotal</span><span className="tabular-nums">{formatMoney(foodSubtotal)}</span></div>
-            </div>
-            {supplyGroups.length > 0 ? (
-              <div className="mt-3 grid gap-2">
-                {supplyGroups.map((group) => (
-                  <div key={group.category}>
-                    <h4 className="type-small-label uppercase text-muted-foreground">{group.title}</h4>
-                    <ul className="mt-1 grid gap-1.5">
-                      {group.rows.map((row) => (
-                        <li key={row.itemId} className="flex min-w-0 justify-between gap-3 text-sm">
-                          <span className="min-w-0 break-words">{row.name} <span className="text-muted-foreground">({row.quantityLabel})</span></span>
-                          <span className="shrink-0 tabular-nums">{formatMoney(row.costCents)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="mt-3 text-sm text-muted-foreground">
-                {order.suppliesChoice === 'none' ? 'No supplies needed.' : 'No supply selection recorded.'}
-              </p>
-            )}
-            <div className="mt-3 grid gap-1 border-t border-border pt-2 text-sm">
-              <div className="flex justify-between gap-3"><span className="text-muted-foreground">Supplies subtotal</span><span className="tabular-nums">{formatMoney(supplySubtotal)}</span></div>
-              <div className="flex justify-between gap-3 font-semibold"><span>Estimated total</span><span className="tabular-nums">{formatMoney(summary.estimate.subtotalCents)}</span></div>
             </div>
             {summary.coverage.guests !== null && (
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
@@ -167,19 +154,45 @@ export function RequestDetails({
 
           <Separator />
 
+          <section aria-labelledby="request-supplies-heading">
+            <div className="flex items-center justify-between gap-3">
+              <h3 id="request-supplies-heading" className="type-section-title">Supplies</h3>
+              <span className="text-xs text-muted-foreground">Estimate only</span>
+            </div>
+            {supplyGroups.length > 0 ? (
+              <div className="mt-3 grid gap-2">
+                {supplyGroups.map((group) => <LineGroup key={group.category} group={group} />)}
+              </div>
+            ) : (
+              <p className="mt-3 text-sm text-muted-foreground">
+                {order.suppliesChoice === 'none' ? 'No supplies needed.' : 'No supply selection recorded.'}
+              </p>
+            )}
+            <div className="mt-3 grid gap-1 border-t border-border pt-2 text-sm">
+              <div className="flex justify-between gap-3"><span className="text-muted-foreground">Supplies subtotal</span><span className="tabular-nums">{formatMoney(supplySubtotal)}</span></div>
+              <div className="flex justify-between gap-3 font-semibold"><span>Estimated total</span><span className="tabular-nums">{formatMoney(summary.estimate.subtotalCents)}</span></div>
+            </div>
+          </section>
+
+          <Separator />
+
           <section aria-labelledby="request-contact-heading">
-            <h3 id="request-contact-heading" className="type-section-title">Contact and instructions</h3>
+            <h3 id="request-contact-heading" className="type-section-title">Contact</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-              <Value label="Name">{order.intent.contactName || 'Not provided'}</Value>
-              <Value label="Organization">{order.intent.organization || 'Not provided'}</Value>
               <Value label="Email">{order.intent.email || 'Not provided'}</Value>
               <Value label="Phone">{order.intent.phone || 'Not provided'}</Value>
-              <Value label="Dietary needs" >{order.intent.dietary.length ? order.intent.dietary.join(', ') : 'None noted'}</Value>
             </dl>
-            <div className="mt-3 grid gap-3">
+          </section>
+
+          <Separator />
+
+          <section aria-labelledby="request-instructions-heading">
+            <h3 id="request-instructions-heading" className="type-section-title">Instructions</h3>
+            <dl className="mt-3 grid gap-3">
+              <Value label="Notes">{order.intent.notes || 'None provided'}</Value>
+              <Value label="Dietary needs">{order.intent.dietary.length ? order.intent.dietary.join(', ') : 'None noted'}</Value>
               <Value label="Custom request">{order.intent.customRequest || 'None provided'}</Value>
-              <Value label="Additional notes">{order.intent.notes || 'None provided'}</Value>
-            </div>
+            </dl>
           </section>
 
           {order.messages.length > 0 && (
@@ -202,10 +215,10 @@ export function RequestDetails({
           )}
 
           {summary.flags.length > 0 && (
-            <Alert className="border-amber-300 bg-amber-50 text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
+            <Alert className="border-warning/30 bg-warning-soft text-warning">
               <TriangleAlert aria-hidden="true" />
               <AlertTitle>Review reasons</AlertTitle>
-              <AlertDescription className="text-amber-950/80 dark:text-amber-100/80">
+              <AlertDescription className="text-warning/90">
                 <ul className="mt-1 list-disc space-y-1 pl-4">
                   {summary.flags.map((flag) => <li key={flag.code}>{flag.reason}</li>)}
                 </ul>
@@ -232,11 +245,27 @@ export function RequestDetails({
               <Button variant="outline" disabled={!canEdit} onClick={onDecline}>Decline</Button>
             </>
           ) : <span className="text-sm text-muted-foreground">This request is closed.</span>}
+          <Button variant="ghost" className="ml-auto text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => setConfirmDelete(true)}>Delete request</Button>
         </CardFooter>
         {!closed && !acceptAllowed && acceptReason && (
           <p className="px-4 pb-4 text-xs text-muted-foreground sm:px-6" id="accept-disabled-reason">{acceptReason}</p>
         )}
       </Card>
+
+      <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete this request?</DialogTitle>
+            <DialogDescription>
+              It will be removed from Admin and from the customer’s orders, along with its messages. This can’t be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>Cancel</DialogClose>
+            <Button variant="destructive" onClick={() => { setConfirmDelete(false); onDelete() }}>Delete request</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {panel === 'ask' && (
         <AskCustomerPanel onSimulateSend={onSaveQuestion} onCancel={onCancelPanel} error={error} />

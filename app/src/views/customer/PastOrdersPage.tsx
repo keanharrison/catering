@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CalendarDays, MapPin, Package, Search, Utensils } from '../../components/icons'
+import { CalendarDays, MapPin, Search, Utensils } from '../../components/icons'
 import type { Order, OrderLine } from '../../data'
 import { catalog } from '../../data'
 import { Button } from '../../components/ui/button'
@@ -12,6 +12,7 @@ import { Separator } from '../../components/ui/separator'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../../components/ui/sheet'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../components/ui/table'
 import { formatEventTime } from '../../lib/status'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
@@ -142,10 +143,10 @@ export function PastOrdersPage() {
     </div>
 
     {customerHistory.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-72">
-      <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed.</EmptyDescription></EmptyHeader>
+      <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.pastOrders}><destinationIcons.pastOrders /></EmptyMedia><EmptyTitle>No past orders</EmptyTitle><EmptyDescription>Historical requests will appear here after they reach a final status or a confirmed event date has passed.</EmptyDescription></EmptyHeader>
       <EmptyContent>{newRequestButton}</EmptyContent>
     </Empty></CardContent></Card> : visible.length === 0 ? <Card><CardContent className="p-0"><Empty className="min-h-64">
-      <EmptyHeader><EmptyMedia variant="icon"><Search /></EmptyMedia><EmptyTitle>No matching orders</EmptyTitle><EmptyDescription>Try another request ID or event type.</EmptyDescription></EmptyHeader>
+      <EmptyHeader><EmptyMedia variant="tile"><Search /></EmptyMedia><EmptyTitle>No matching orders</EmptyTitle><EmptyDescription>Try another request ID or event type.</EmptyDescription></EmptyHeader>
       <EmptyContent><Button variant="outline" onClick={() => setQuery('')}>Clear search</Button></EmptyContent>
     </Empty></CardContent></Card> : <div className="grid gap-3 md:grid-cols-2">
       {visible.map((order) => <Card key={order.id} className="min-w-0">

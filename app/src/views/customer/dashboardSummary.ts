@@ -24,7 +24,7 @@ export function shortDate(eventAt: string) {
   return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
 }
 
-const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
+export const plural = (count: number, word: string) => `${count} ${word}${count === 1 ? '' : 's'}`
 
 /** The customer's own picture of their requests. Sample fixtures belong to other illustrative customers and stay out. */
 export function summarizeDashboard(orders: Order[], draftOrder: Order, clock: string): DashboardSummary {
@@ -45,15 +45,23 @@ export function summarizeDashboard(orders: Order[], draftOrder: Order, clock: st
   }
 }
 
-export const suggestedQuestions = [
-  'What is the status of my request?',
-  'When is my next event?',
-  'Do I have any drafts?',
-  'How do I change a submitted request?',
+export const suggestedPrompts = [
+  { title: 'Check a request', description: 'See where your current catering requests stand.', question: 'What is the status of my request?' },
+  { title: 'Next event', description: 'Find out when your next event is and where it stands.', question: 'When is my next event?' },
+  { title: 'Drafts', description: 'See whether you have a request in progress.', question: 'Do I have any drafts?' },
+  { title: 'Changing a request', description: 'Learn how to change a request you already submitted.', question: 'How do I change a submitted request?' },
 ]
 
+
 /** Answers come from the requests stored in this browser; there is no language-model service behind this yet. */
-export function answerQuestion(question: string, summary: DashboardSummary): Answer {
+export function answerQuestion(question: string, summary: DashboardSummary, attachments: string[] = []): Answer {
+  if (attachments.length > 0) {
+    return {
+      text: `I can't open attachments in this preview yet, so I haven't read ${attachments.join(', ')}. To share a file, send it to the team from Messages.`,
+      href: routes.customerMessages,
+      linkLabel: 'Open Messages',
+    }
+  }
   const q = question.toLowerCase()
   const has = (...words: string[]) => words.some((word) => q.includes(word))
 

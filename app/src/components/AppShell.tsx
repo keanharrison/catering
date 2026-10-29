@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <TooltipProvider>
-      <SidebarProvider style={{ "--sidebar-width": "224px", "--sidebar-width-icon": "56px" } as React.CSSProperties} className="min-h-svh bg-background text-foreground">
+      <SidebarProvider style={{ "--sidebar-width": "256px", "--sidebar-width-icon": "56px" } as React.CSSProperties} className="min-h-svh bg-background text-foreground">
         <Toaster position="top-right" />
         <a
           href="#main"
@@ -40,7 +40,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
         <AppSidebar />
-        <SidebarInset className="min-h-svh min-w-0 md:h-[calc(100svh-1rem)] md:min-h-0 md:overflow-y-auto md:border md:border-border">
+        <SidebarInset className="min-h-svh min-w-0 md:h-svh md:min-h-0 md:overflow-y-auto">
           <SiteHeader />
           {showJourney && (
             <div className="border-b border-border bg-background px-5 py-4 sm:px-8">
@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </div>
             </div>
           )}
-          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-4rem)] min-w-0 outline-none md:min-h-[calc(100svh-5rem)]">
+          <div id="main" tabIndex={-1} className="min-h-[calc(100svh-3.25rem)] min-w-0 outline-none">
             {children}
           </div>
         </SidebarInset>

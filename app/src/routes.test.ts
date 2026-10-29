@@ -5,9 +5,11 @@ describe('routes', () => {
   it('defines the customer and staff destinations', () => {
     expect(routes).toEqual({
       customer: '/customer',
-      customerDashboard: '/customer/dashboard',
       askPearl: '/customer/ask-pearl',
+      drafts: '/customer/drafts',
       staff: '/staff',
+      analytics: '/staff/analytics',
+      calendar: '/staff/calendar',
       handoff: '/handoff',
       currentOrders: '/customer/orders',
       pastOrders: '/customer/orders/past',

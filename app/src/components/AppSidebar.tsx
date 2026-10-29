@@ -1,22 +1,7 @@
 import './linear-sidebar.css'
 import { NavLink, useLocation } from 'react-router-dom'
-import { useState } from 'react'
-import {
-  ChevronDown,
-  ClipboardList,
-  History,
-  Home,
-  MessageSquare,
-  PackageCheck,
-  Plus,
-  Settings2,
-  Truck,
-  X,
-  Plug,
-  Bot,
-  ChatCircle,
-  SlidersHorizontal,
-} from './icons'
+import { useState, type ComponentType, type SVGProps } from 'react'
+import { ChevronDown, X } from './icons'
 import {
   Sidebar,
   SidebarContent,
@@ -43,6 +28,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { destinationIcons } from './destinationIcons'
 import { routes } from '@/routes'
 import { stages } from '@/views/customer/journey'
 import { demoAccountLabels, useDemoAccount, type DemoAccount } from '@/state/demoAccount'
@@ -51,29 +37,29 @@ import { useDemoStore } from '@/state/store'
 
 type Destination = {
   label: string
-  icon: typeof Plus
+  icon: ComponentType<SVGProps<SVGSVGElement>>
   href?: string
   disabled?: boolean
 }
 
 const customerNavigation: Destination[] = [
-  { label: 'Dashboard', icon: Home, href: routes.customerDashboard },
-  { label: 'Ask Pearl', icon: ChatCircle, href: routes.askPearl },
-  { label: 'New request', icon: Plus, href: routes.customer },
-  { label: 'Current orders', icon: PackageCheck, href: routes.currentOrders },
-  { label: 'Past orders', icon: History, href: routes.pastOrders },
-  { label: 'Messages', icon: MessageSquare, href: routes.customerMessages },
-  { label: 'Account settings', icon: Settings2, href: routes.settings },
+  { label: 'New request', icon: destinationIcons.newRequest, href: routes.customer },
+  { label: 'Drafts', icon: destinationIcons.drafts, href: routes.drafts },
+  { label: 'Current orders', icon: destinationIcons.currentOrders, href: routes.currentOrders },
+  { label: 'Past orders', icon: destinationIcons.pastOrders, href: routes.pastOrders },
+  { label: 'Chat', icon: destinationIcons.chat, href: routes.askPearl },
+  { label: 'Messages', icon: destinationIcons.messages, href: routes.customerMessages },
+  { label: 'Account settings', icon: destinationIcons.accountSettings, href: routes.settings },
 ]
 
 const teamNavigation: Destination[] = [
-  { label: 'Requests', icon: ClipboardList, href: routes.staff },
-  { label: 'Handoff', icon: Truck, href: routes.handoff },
-  { label: 'Messages', icon: MessageSquare, href: routes.staffMessages },
-  { label: 'Menu and rules', icon: Settings2, href: routes.settings },
-  { label: 'Integrations', icon: Plug, href: routes.integrations },
-  { label: 'AI & agents', icon: Bot, href: routes.agents },
-  { label: 'Settings', icon: SlidersHorizontal, href: routes.staffSettings },
+  { label: 'Requests', icon: destinationIcons.requests, href: routes.staff },
+  { label: 'Messages', icon: destinationIcons.messages, href: routes.staffMessages },
+  { label: 'Calendar', icon: destinationIcons.calendar, href: routes.calendar },
+  { label: 'Analytics', icon: destinationIcons.analytics, href: routes.analytics },
+  { label: 'Menu and rules', icon: destinationIcons.menuAndRules, href: routes.settings },
+  { label: 'Integrations', icon: destinationIcons.integrations, href: routes.integrations },
+  { label: 'Settings', icon: destinationIcons.staffSettings, href: routes.staffSettings },
 ]
 
 function navigationFor(account: DemoAccount) {
@@ -102,7 +88,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = account === 'team' ? 3 : 5
+  const firstGroupSize = account === 'team' ? 3 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount
@@ -114,7 +100,7 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar collapsible="icon" variant="inset" className="linear-sidebar">
+    <Sidebar collapsible="icon" variant="sidebar" className="linear-sidebar">
       <SidebarHeader className="linear-sidebar-header">
         <div className="linear-workspace-row">
           <DropdownMenu open={accountMenuOpen} onOpenChange={setAccountMenuOpen}>
@@ -132,7 +118,7 @@ export function AppSidebar() {
                   <DropdownMenuSubContent className="linear-menu">
                     <DropdownMenuRadioGroup value={account} onValueChange={chooseAccount}>
                       <DropdownMenuRadioItem value="customer">Customer account</DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem value="team">Pearl Island team account</DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem value="team">Admin</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
@@ -161,7 +147,7 @@ export function AppSidebar() {
                 const Icon = item.icon
                 const active = item.href === routes.customer
                   ? stages.some((stage) => stage.path === pathname)
-                  : pathname === item.href
+                  : pathname === item.href || (item.href === routes.staff && pathname === routes.handoff) // the handoff summary belongs to Requests
                 return <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {
                     if (item.href === routes.customer) useDemoStore.getState().activateDraft()

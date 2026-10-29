@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Package, Utensils } from '../../components/icons'
+import { CalendarDays, CheckCircle2, ChevronRight, CircleAlert, MapPin, MessageSquareText, Utensils } from '../../components/icons'
 import type { Order } from '../../data'
 import { catalog } from '../../data'
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert'
@@ -17,6 +17,7 @@ import { Textarea } from '../../components/ui/textarea'
 import { Tabs, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { formatMoney } from '../../lib/format'
 import { formatEventTime } from '../../lib/status'
+import { destinationIcons, destinationTones } from '../../components/destinationIcons'
 import { routes } from '../../routes'
 import { useDemoStore } from '../../state/store'
 import { StaffStatusBadge } from '../staff/StaffStatusBadge'
@@ -82,7 +83,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
         <AlertTitle>Review the revised proposal</AlertTitle>
         <AlertDescription className="mt-2 grid justify-items-start gap-3">
           <span>{last?.text || 'Pearl Island proposed changes to your selections. Review them before approving.'}</span>
-          <Button size="sm" onClick={onReviewProposal}>Review proposal</Button>
+          <Button onClick={onReviewProposal}>Review proposal</Button>
         </AlertDescription>
       </Alert>}
 
@@ -98,7 +99,7 @@ function OrderDetails({ order, clock, needsReply, replyText, replyError, onReply
               <FieldDescription id={`order-reply-hint-${order.id}`}>Required.</FieldDescription>
               {replyError && <FieldError id={`order-reply-error-${order.id}`}>{replyError}</FieldError>}
             </Field>
-            <Button type="submit" size="sm" className="justify-self-start">Save response</Button>
+            <Button type="submit" className="justify-self-start">Save response</Button>
           </form>
         </AlertDescription>
       </Alert>}
@@ -251,23 +252,23 @@ export function CurrentOrdersPage() {
 
       <Tabs value={filter} onValueChange={(value) => setFilter(value as OrderFilter)}>
         <TabsList className="grid h-auto w-full grid-cols-3 sm:max-w-lg">
-          <TabsTrigger value="all" className="min-h-9">All active <span className="text-xs text-muted-foreground">{counts.all}</span></TabsTrigger>
-          <TabsTrigger value="action" className="min-h-9">Needs your action <span className="text-xs text-muted-foreground">{counts.action}</span></TabsTrigger>
-          <TabsTrigger value="confirmed" className="min-h-9">Accepted <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
+          <TabsTrigger value="all">All active <span className="text-xs text-muted-foreground">{counts.all}</span></TabsTrigger>
+          <TabsTrigger value="action">Needs your action <span className="text-xs text-muted-foreground">{counts.action}</span></TabsTrigger>
+          <TabsTrigger value="confirmed">Accepted <span className="text-xs text-muted-foreground">{counts.confirmed}</span></TabsTrigger>
         </TabsList>
       </Tabs>
 
       {currentOrders.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-72">
-            <EmptyHeader><EmptyMedia variant="icon"><Package /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.currentOrders}><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No active orders yet</EmptyTitle><EmptyDescription>Requests you submit will appear here with their current status.</EmptyDescription></EmptyHeader>
             <EmptyContent>{newRequestButton}</EmptyContent>
           </Empty>
         </CardContent></Card>
       ) : visible.length === 0 ? (
         <Card className="mt-4"><CardContent className="p-0">
           <Empty className="min-h-64">
-            <EmptyHeader><EmptyMedia variant="icon"><CheckCircle2 /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
+            <EmptyHeader><EmptyMedia variant="tile" tone={destinationTones.currentOrders}><destinationIcons.currentOrders /></EmptyMedia><EmptyTitle>No orders in this view</EmptyTitle><EmptyDescription>Your active requests are in other statuses. Switch to All active to see them.</EmptyDescription></EmptyHeader>
             <EmptyContent><Button variant="outline" onClick={() => setFilter('all')}>Show all active orders</Button></EmptyContent>
           </Empty>
         </CardContent></Card>
@@ -284,7 +285,7 @@ export function CurrentOrdersPage() {
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
-                {action && <div className="flex items-center gap-2 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-950 dark:bg-amber-950/30 dark:text-amber-100"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
+                {action && <div className="flex items-center gap-2 rounded-md bg-warning-soft px-3 py-2 text-sm text-warning"><CircleAlert className="size-4 shrink-0" aria-hidden="true" /><span>{pendingApproval && selected?.id === item.id ? 'Revised proposal needs your approval' : item.status === 'awaiting_customer_approval' ? 'Revised proposal needs your approval' : 'Pearl Island requested a response'}</span></div>}
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
                   <InfoValue label="Guests">{item.intent.guestCount ?? 'Not provided'}</InfoValue>
                   <InfoValue label="Pickup or delivery"><span className="capitalize">{item.intent.fulfillment}</span></InfoValue>

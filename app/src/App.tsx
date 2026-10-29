@@ -13,12 +13,18 @@ import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
-import { DashboardPage } from './views/customer/DashboardPage'
-import { AskPearlPage } from './views/customer/AskPearlPage'
+import { DraftsPage } from './views/customer/DraftsPage'
+import { AnalyticsPage } from './views/staff/AnalyticsPage'
+import { IntegrationsPage } from './views/staff/IntegrationsPage'
+import { CalendarPage } from './views/staff/CalendarPage'
+import { AdminSettingsPage } from './views/staff/AdminSettingsPage'
+import { ChatPage } from './views/customer/ChatPage'
 import { MessagesPage } from './views/messages/MessagesPage'
 import { CustomerMessagesPage } from './views/messages/CustomerMessagesPage'
 import { WorkspacePage } from './views/staff/WorkspacePage'
 import { SettingsPage } from './views/settings/SettingsPage'
+
+const LEGACY_DASHBOARD_PATH = '/customer/dashboard'
 
 export function AppRoutes() {
   const { account } = useDemoAccount()
@@ -42,15 +48,19 @@ export function AppRoutes() {
         path={routes.staff}
         element={account === 'team' ? <StaffPage /> : <Navigate to={routes.customer} replace />}
       />
-      <Route path={routes.customerDashboard} element={customerPage(<DashboardPage />)} />
-      <Route path={routes.askPearl} element={customerPage(<AskPearlPage />)} />
+      {/* The Dashboard was folded into Chat; keep old links working. */}
+      <Route path={LEGACY_DASHBOARD_PATH} element={<Navigate to={routes.askPearl} replace />} />
+      <Route path={routes.askPearl} element={customerPage(<ChatPage />)} />
+      <Route path={routes.drafts} element={customerPage(<DraftsPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
+      <Route path={routes.analytics} element={account === 'team' ? <AnalyticsPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.staffMessages} element={account === 'team' ? <MessagesPage /> : <Navigate to={routes.customer} replace />} />
-      {(['integrations', 'agents', 'staffSettings'] as const).map(area => (
-        <Route key={area} path={routes[area]} element={account === 'team' ? <WorkspacePage area={area} /> : <Navigate to={routes.customer} replace />} />
-      ))}
+      <Route path={routes.calendar} element={account === 'team' ? <CalendarPage /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.integrations} element={account === 'team' ? <IntegrationsPage /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.agents} element={account === 'team' ? <WorkspacePage area="agents" /> : <Navigate to={routes.customer} replace />} />
+      <Route path={routes.staffSettings} element={account === 'team' ? <AdminSettingsPage /> : <Navigate to={routes.customer} replace />} />
       <Route path={routes.settings} element={<SettingsPage />} />
       <Route path={routes.handoff} element={account === 'team' ? <HandoffPage /> : <Navigate to={routes.customer} replace />} />
       <Route path="*" element={<Navigate to={routes.customer} replace />} />

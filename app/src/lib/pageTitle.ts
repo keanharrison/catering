@@ -9,6 +9,8 @@ export function pageTitle(pathname: string, account: DemoAccount): string {
       [routes.staff]: 'Requests',
       [routes.handoff]: 'Handoff',
       [routes.staffMessages]: 'Messages',
+      [routes.analytics]: 'Analytics',
+      [routes.calendar]: 'Calendar',
       [routes.settings]: 'Menu and rules',
       [routes.integrations]: 'Integrations',
       [routes.agents]: 'AI & agents',
@@ -18,8 +20,8 @@ export function pageTitle(pathname: string, account: DemoAccount): string {
   }
   if (stages.some((stage) => stage.path === pathname)) return 'New request'
   const customer: Record<string, string> = {
-    [routes.customerDashboard]: 'Dashboard',
-    [routes.askPearl]: 'Ask Pearl',
+    [routes.askPearl]: 'Chat',
+    [routes.drafts]: 'Drafts',
     [routes.currentOrders]: 'Current orders',
     [routes.pastOrders]: 'Past orders',
     [routes.customerMessages]: 'Messages',

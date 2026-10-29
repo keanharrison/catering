@@ -67,6 +67,16 @@ export function saveIntakeFormDraft(session: number, form: IntakeForm): boolean 
   }
 }
 
+/** True when this session already has in-progress answers. */
+export function hasIntakeFormDraft(session: number): boolean {
+  try {
+    const stored = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY)
+    return stored !== null && (JSON.parse(stored) as Partial<StoredIntakeForm>).session === session
+  } catch {
+    return false
+  }
+}
+
 export function clearIntakeFormDraft(session: number): void {
   try {
     const stored = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY)
@@ -103,7 +113,7 @@ export const INTAKE_LIMITS = {
 export const DEFAULT_TIME = '12:00'
 
 export function intentToForm(intent: OrderIntent): IntakeForm {
-  const [eventDate = '', eventTime = intent.eventAt ? DEFAULT_TIME : ''] = intent.eventAt.split('T')
+  const [eventDate = '', eventTime = DEFAULT_TIME] = intent.eventAt.split('T')
   return {
     contactName: intent.contactName,
     email: intent.email,

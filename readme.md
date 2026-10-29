@@ -6,6 +6,6 @@ The platform is designed for different restaurants and locations. Each restauran
 
 Pearl Island is the first pilot we are learning with. The current app is a demo for refining the customer ordering and staff review experience; its menu and business rules are provisional, and its orders and integrations are simulated.
 
-- Product requirements: [PRD.md](PRD.md)
-- Product and design vision: [SOUL.md](SOUL.md)
-- Current app and developer commands: [app/README.md](app/README.md)
+- Product requirements: [prd.md](prd.md)
+- Product and design vision: [soul.md](soul.md)
+- Current app and developer commands: [app/readme.md](app/readme.md)
