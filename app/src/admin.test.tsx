@@ -21,11 +21,17 @@ afterEach(() => {
 })
 
 describe('Admin navigation', () => {
-  it('has no Handoff in the sidebar', () => {
+  it('has no Handoff in the sidebar and puts Analytics under Workspace', () => {
     renderAppAt('/staff', <AppRoutes />)
-    expect(nav()).toEqual(['Requests', 'Messages', 'Analytics', 'Menu and rules', 'Integrations', 'AI & agents', 'Settings'])
-    const groups = Array.from(document.querySelectorAll('.linear-nav-group')).map((group) => group.querySelector('[data-slot="sidebar-group-label"]')?.textContent)
-    expect(groups).toEqual(['Operations', 'Workspace'])
+    const groups = Array.from(document.querySelectorAll('.linear-nav-group')).map((group) => [
+      group.querySelector('[data-slot="sidebar-group-label"]')?.textContent,
+      Array.from(group.querySelectorAll('[data-slot="sidebar-menu-button"]')).map((el) => el.textContent),
+    ])
+    expect(groups).toEqual([
+      ['Operations', ['Requests', 'Messages']],
+      ['Workspace', ['Analytics', 'Menu and rules', 'Integrations', 'AI & agents', 'Settings']],
+    ])
+    expect(nav()).not.toContain('Handoff')
   })
 
   it('keeps Requests selected on the handoff summary reached from an accepted request', () => {

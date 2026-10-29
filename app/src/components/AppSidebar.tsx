@@ -88,7 +88,7 @@ export function AppSidebar() {
   const { isMobile, setOpenMobile } = useSidebar()
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const items = navigationFor(account)
-  const firstGroupSize = account === 'team' ? 3 : 4
+  const firstGroupSize = account === 'team' ? 2 : 4
 
   function chooseAccount(value: string) {
     const next = value as DemoAccount

@@ -24,7 +24,7 @@ describe('Admin Analytics', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'Analytics' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Admin account menu' })).toBeTruthy()
     expect(screen.getByText('Sample data')).toBeTruthy()
-    expect(screen.getByText(/made-up sample data/)).toBeTruthy()
+    expect(screen.getByText(/made-up numbers/)).toBeTruthy()
     expect(screen.getByRole('group', { name: /Requests received and accepted per day/ })).toBeTruthy()
   })
 

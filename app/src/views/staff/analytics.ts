@@ -1,4 +1,4 @@
-import { addDays, format, parseISO } from 'date-fns'
+import { addDays, differenceInCalendarDays, format, parseISO } from 'date-fns'
 import type { Order } from '../../data'
 
 /** Daily counts for the Admin Analytics chart, taken straight from each request's status history. */
@@ -79,4 +79,36 @@ export function smoothPath(points: Array<[number, number]>): string {
     d += ` C${x0 + dx[i] / 3},${y0 + (tangent[i] * dx[i]) / 3} ${x1 - dx[i] / 3},${y1 - (tangent[i + 1] * dx[i]) / 3} ${x1},${y1}`
   }
   return d
+}
+
+export type ActionSummary = {
+  needsReview: number
+  /** Whole days the longest-waiting request has been in the queue; null when nothing is waiting. */
+  oldestWaitingDays: number | null
+  awaitingCustomer: number
+  /** Accepted events happening within the next 7 days, today included. */
+  upcoming: number
+  nextEventAt: string | null
+}
+
+/** What staff can act on today, counted from the requests themselves. */
+export function actionSummary(orders: Order[], clock: string): ActionSummary {
+  const today = parseISO(clock.slice(0, 10))
+  const waiting = orders.filter((order) => order.status === 'submitted' || order.status === 'needs_review')
+  const arrivals = waiting
+    .map((order) => order.history.find((change) => change.from === 'draft' && RECEIVED.includes(change.to))?.at)
+    .filter((at): at is string => Boolean(at))
+    .map((at) => differenceInCalendarDays(today, parseISO(at.slice(0, 10))))
+  const events = orders
+    .filter((order) => order.status === 'confirmed' && order.intent.eventAt)
+    .map((order) => order.intent.eventAt)
+    .filter((at) => { const days = differenceInCalendarDays(parseISO(at.slice(0, 10)), today); return days >= 0 && days <= 6 })
+    .sort()
+  return {
+    needsReview: waiting.length,
+    oldestWaitingDays: arrivals.length ? Math.max(0, ...arrivals) : null,
+    awaitingCustomer: orders.filter((order) => order.status === 'awaiting_customer_approval').length,
+    upcoming: events.length,
+    nextEventAt: events[0] ?? null,
+  }
 }

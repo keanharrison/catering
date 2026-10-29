@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Order } from '../../data'
-import { dailyCounts, niceMax, sampleCounts, smoothPath } from './analytics'
+import { actionSummary, dailyCounts, niceMax, sampleCounts, smoothPath } from './analytics'
 
 const clock = '2026-10-29T09:00:00'
 
@@ -28,6 +28,28 @@ describe('admin analytics counts', () => {
     const sample = sampleCounts(clock)
     expect(sample.some((point) => point.received > 0)).toBe(true)
     expect(sample.every((point) => point.accepted <= point.received && point.received >= 0)).toBe(true)
+  })
+})
+
+describe('action summary', () => {
+  const waiting = order([['draft', 'submitted', '2026-10-26T09:00']])
+  const flagged = { ...order([['draft', 'needs_review', '2026-10-28T09:00']]), status: 'needs_review' } as Order
+  const accepted = (eventAt: string) => ({ ...order([['draft', 'submitted', '2026-10-20T09:00'], ['submitted', 'confirmed', '2026-10-21T09:00']]), status: 'confirmed', intent: { eventAt } }) as unknown as Order
+
+  it('counts what is waiting and how long the oldest has waited', () => {
+    const summary = actionSummary([{ ...waiting, status: 'submitted' } as Order, flagged], clock)
+    expect(summary.needsReview).toBe(2)
+    expect(summary.oldestWaitingDays).toBe(3)
+  })
+
+  it('counts accepted events in the next seven days and names the soonest', () => {
+    const summary = actionSummary([accepted('2026-11-01T12:00'), accepted('2026-10-30T12:00'), accepted('2026-11-20T12:00'), accepted('2026-10-01T12:00')], clock)
+    expect(summary.upcoming).toBe(2)
+    expect(summary.nextEventAt).toBe('2026-10-30T12:00')
+  })
+
+  it('is empty with no requests', () => {
+    expect(actionSummary([], clock)).toEqual({ needsReview: 0, oldestWaitingDays: null, awaitingCustomer: 0, upcoming: 0, nextEventAt: null })
   })
 })
 
