@@ -19,26 +19,34 @@ afterEach(() => {
 })
 
 describe('Admin Analytics', () => {
-  it('is in the Admin sidebar and labels sample data when there are no requests', () => {
+  it('shows a neutral empty state, with no sample numbers or cards, before any request exists', () => {
     renderAppAt('/staff/analytics', <AppRoutes />)
     expect(screen.getByRole('heading', { level: 1, name: 'Analytics' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Admin account menu' })).toBeTruthy()
-    expect(screen.getByText('Sample data')).toBeTruthy()
-    expect(screen.getByText(/made-up numbers/)).toBeTruthy()
-    expect(screen.getByRole('group', { name: /Requests received and accepted per day/ })).toBeTruthy()
+    expect(screen.getByText('No analytics yet')).toBeTruthy()
+    expect(screen.queryByText(/sample/i)).toBeNull()
+    expect(screen.queryByText('Needs review')).toBeNull()
+    expect(screen.queryByRole('group', { name: /Requests received/ })).toBeNull()
   })
 
-  it('shows real counts, without the sample label, once a request exists', () => {
+  it('shows counted widgets once a request exists', () => {
     const store = useDemoStore.getState()
     store.updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
     store.submit()
     renderAppAt('/staff/analytics', <AppRoutes />)
-    expect(screen.queryByText('Sample data')).toBeNull()
-    expect(screen.getByText(/Counted from each request/)).toBeTruthy()
+    expect(screen.queryByText('No analytics yet')).toBeNull()
+    expect(screen.queryByText(/sample/i)).toBeNull()
+    for (const title of ['Requests received', 'Event types', 'Pickup or delivery', 'Menu demand', 'Accepted events']) {
+      expect(screen.getByText(title)).toBeTruthy()
+    }
+    expect(screen.getByText('Slow Roasted Pork')).toBeTruthy()
   })
 
   it('reads a day aloud on focus and moves with the arrow keys', async () => {
     const user = userEvent.setup()
+    const store = useDemoStore.getState()
+    store.updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
+    store.submit()
     renderAppAt('/staff/analytics', <AppRoutes />)
     const chart = screen.getByRole('group', { name: /Requests received and accepted per day/ })
     act(() => chart.focus())

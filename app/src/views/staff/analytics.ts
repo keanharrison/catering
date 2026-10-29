@@ -1,5 +1,5 @@
-import { addDays, differenceInCalendarDays, format, parseISO } from 'date-fns'
-import type { Order } from '../../data'
+import { addDays, format, parseISO } from 'date-fns'
+import { catalog, type Order } from '../../data'
 
 /** Daily counts for the Admin Analytics chart, taken straight from each request's status history. */
 
@@ -31,14 +31,6 @@ export function dailyCounts(orders: Order[], clock: string, days = ANALYTICS_DAY
     }
   }
   return points
-}
-
-/** Made-up counts with a gentle weekly rhythm, so an empty prototype still shows what the chart will look like. Always labeled as sample data. */
-export function sampleCounts(clock: string, days = ANALYTICS_DAYS): DailyPoint[] {
-  return dailyCounts([], clock, days).map((point, index) => {
-    const received = 4 + Math.round(1.6 * Math.sin(index * 0.7) + 1.1 * Math.cos(index * 0.31))
-    return { ...point, received, accepted: Math.max(0, received - 1 - (index % 5 === 2 ? 1 : 0)) }
-  })
 }
 
 /** A tidy top for the vertical axis: 4, 5, 8, 10, 20, 50 ... never below 4 so a quiet chart is not exaggerated. */
@@ -81,34 +73,54 @@ export function smoothPath(points: Array<[number, number]>): string {
   return d
 }
 
-export type ActionSummary = {
-  needsReview: number
-  /** Whole days the longest-waiting request has been in the queue; null when nothing is waiting. */
-  oldestWaitingDays: number | null
-  awaitingCustomer: number
-  /** Accepted events happening within the next 7 days, today included. */
-  upcoming: number
-  nextEventAt: string | null
+export type Share = { id: string; label: string; value: number }
+
+/** Counts of each answer to a question across requests, biggest first (ties keep the order they were first seen). */
+function tally(orders: Order[], pick: (order: Order) => string | undefined, name: (id: string) => string): Share[] {
+  const counts = new Map<string, number>()
+  for (const order of orders) {
+    const id = pick(order)
+    if (id) counts.set(id, (counts.get(id) ?? 0) + 1)
+  }
+  return [...counts].map(([id, value]) => ({ id, label: name(id), value })).sort((a, b) => b.value - a.value)
 }
 
-/** What staff can act on today, counted from the requests themselves. */
-export function actionSummary(orders: Order[], clock: string): ActionSummary {
-  const today = parseISO(clock.slice(0, 10))
-  const waiting = orders.filter((order) => order.status === 'submitted' || order.status === 'needs_review')
-  const arrivals = waiting
-    .map((order) => order.history.find((change) => change.from === 'draft' && RECEIVED.includes(change.to))?.at)
-    .filter((at): at is string => Boolean(at))
-    .map((at) => differenceInCalendarDays(today, parseISO(at.slice(0, 10))))
-  const events = orders
-    .filter((order) => order.status === 'confirmed' && order.intent.eventAt)
-    .map((order) => order.intent.eventAt)
-    .filter((at) => { const days = differenceInCalendarDays(parseISO(at.slice(0, 10)), today); return days >= 0 && days <= 6 })
-    .sort()
-  return {
-    needsReview: waiting.length,
-    oldestWaitingDays: arrivals.length ? Math.max(0, ...arrivals) : null,
-    awaitingCustomer: orders.filter((order) => order.status === 'awaiting_customer_approval').length,
-    upcoming: events.length,
-    nextEventAt: events[0] ?? null,
+export const eventTypeMix = (orders: Order[]) =>
+  tally(orders, (order) => order.intent.eventType, (id) => catalog.eventTypes.find((type) => type.id === id)?.label ?? id)
+
+export const fulfillmentMix = (orders: Order[]) =>
+  tally(orders, (order) => order.intent.fulfillment, (id) => (id === 'delivery' ? 'Delivery' : 'Pickup'))
+
+/** Food and drink quantities across every request that was not declined, largest first. Supplies are left out. */
+export function menuDemand(orders: Order[], limit = 5): Share[] {
+  const totals = new Map<string, number>()
+  for (const order of orders) {
+    if (order.status === 'rejected') continue
+    for (const line of order.lines) totals.set(line.itemId, (totals.get(line.itemId) ?? 0) + line.units)
   }
+  return [...totals]
+    .flatMap(([id, value]) => {
+      const item = catalog.menu.find((entry) => entry.id === id)
+      return item && item.category !== 'supply' && value > 0 ? [{ id, label: item.name, value }] : []
+    })
+    .sort((a, b) => b.value - a.value)
+    .slice(0, limit)
+}
+
+export type AcceptedEvents = {
+  upcoming: Order[]
+  upcomingGuests: number
+  completed: number
+  completedGuests: number
+}
+
+/** Accepted events split by whether the event date has passed on the demo clock. Soonest upcoming event first. */
+export function acceptedEvents(orders: Order[], clock: string): AcceptedEvents {
+  const now = new Date(clock).getTime()
+  const accepted = orders.filter((order) => order.status === 'confirmed' && order.intent.eventAt)
+  const isPast = (order: Order) => new Date(order.intent.eventAt).getTime() < now
+  const guests = (list: Order[]) => list.reduce((sum, order) => sum + (order.intent.guestCount ?? 0), 0)
+  const upcoming = accepted.filter((order) => !isPast(order)).sort((a, b) => a.intent.eventAt.localeCompare(b.intent.eventAt))
+  const completed = accepted.filter(isPast)
+  return { upcoming, upcomingGuests: guests(upcoming), completed: completed.length, completedGuests: guests(completed) }
 }
