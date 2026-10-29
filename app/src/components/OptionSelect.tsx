@@ -4,16 +4,19 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 export type Option = { value: string; label: string }
 
 /** The product's one dropdown: the same Select the event form uses, with an accessible name instead of a visible label. */
-export function OptionSelect({ label, value, onValueChange, options, className }: {
+export function OptionSelect({ label, value, onValueChange, options, className, id, invalid, describedBy }: {
   label: string
   value: string
   onValueChange: (value: string) => void
   options: Option[]
   className?: string
+  id?: string
+  invalid?: boolean
+  describedBy?: string
 }) {
   return (
     <Select items={options} value={value} onValueChange={(next) => onValueChange(String(next ?? value))}>
-      <SelectTrigger aria-label={label} className={cn('w-full', className)}>
+      <SelectTrigger id={id} aria-label={label} aria-invalid={invalid || undefined} aria-describedby={describedBy} className={cn('w-full', className)}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

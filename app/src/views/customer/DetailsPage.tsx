@@ -6,6 +6,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/c
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { StageGate } from '@/components/StageGate'
+import { TimeSelect } from '@/components/TimeSelect'
 import { catalog } from '@/data'
 import { useDemoStore } from '@/state/store'
 import {
@@ -81,16 +82,14 @@ function DetailsView() {
               <CardContent>
                 <FieldGroup>
                   <Field data-invalid={Boolean(errors.eventTime) || undefined}>
-                    <FieldLabel htmlFor="eventTime">{form.fulfillment === 'delivery' ? 'Delivery time (required)' : 'Pickup time (required)'}</FieldLabel>
-                    <Input
+                    <FieldLabel id="eventTime-label" htmlFor="eventTime">{form.fulfillment === 'delivery' ? 'Delivery time (required)' : 'Pickup time (required)'}</FieldLabel>
+                    <TimeSelect
                       id="eventTime"
-                      name="eventTime"
-                      type="time"
-                      required
+                      labelledBy="eventTime-label"
                       value={form.eventTime}
-                      aria-invalid={Boolean(errors.eventTime)}
-                      aria-describedby={errors.eventTime ? 'eventTime-error' : 'eventTime-help'}
-                      onChange={(event) => set('eventTime', event.target.value)}
+                      invalid={Boolean(errors.eventTime)}
+                      describedBy={errors.eventTime ? 'eventTime-error' : 'eventTime-help'}
+                      onChange={(next) => set('eventTime', next)}
                     />
                     {errors.eventTime
                       ? <FieldError id="eventTime-error">{errors.eventTime}</FieldError>

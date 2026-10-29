@@ -78,3 +78,12 @@ describe('intake validation', () => {
     expect(Object.keys(sectionErrors(errors, 'details'))).toEqual(['contactName', 'email', 'phone'])
   })
 })
+
+describe('time of day', () => {
+  it('starts at noon (shown as 00:00 PM) when nothing has been chosen, and saves what is chosen', () => {
+    const blank = { ...routineForm(), eventTime: '' }
+    expect(intentToForm({ ...formToIntent(blank), eventAt: '' }).eventTime).toBe('12:00')
+    expect(formToIntent({ ...routineForm(), eventDate: '2026-11-02', eventTime: '18:30' }).eventAt).toBe('2026-11-02T18:30')
+    expect(intentToForm(formToIntent({ ...routineForm(), eventDate: '2026-11-02', eventTime: '06:05' })).eventTime).toBe('06:05')
+  })
+})
