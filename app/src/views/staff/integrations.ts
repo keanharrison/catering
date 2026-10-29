@@ -17,7 +17,9 @@ export type ServiceGroup = { id: string; label: string; services: Service[] }
 export const logoFiles: Record<string, string | undefined> = {
   'google-calendar': '/integrations/google-calendar.svg',
   toast: '/integrations/toast.svg',
-  square: '/integrations/square.svg',
+  square: '/integrations/square.png',
+  '7shifts': '/integrations/7shifts.png',
+  ezcater: '/integrations/ezcater.png',
   clover: '/integrations/clover.png',
   lightspeed: '/integrations/lightspeed.svg',
   touchbistro: '/integrations/touchbistro.png',

@@ -73,7 +73,7 @@ export function IntegrationsPage() {
           {shown.map((service) => (
             <li key={service.id} className="min-w-0">
               <Card className="h-full gap-0 py-0">
-                <CardContent className="flex items-start gap-3 px-4 py-4">
+                <CardContent className="flex flex-1 items-start gap-3 px-4 py-4">
                   <Logo service={service} />
                   <div className="min-w-0">
                     <h2 className="text-body font-medium text-foreground">{service.name}</h2>
