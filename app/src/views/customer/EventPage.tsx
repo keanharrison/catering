@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { format, parseISO } from 'date-fns'
-import { CheckCircle2Icon, ChevronDownIcon } from '../../components/icons'
+import { ChevronDownIcon } from '../../components/icons'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { catalog, type DietaryTag, type Fulfillment } from '@/data'
+import { catalog, type DietaryTag, type Fulfillment, type Order } from '@/data'
 import { useDemoStore } from '@/state/store'
 import {
   formToIntent,
@@ -59,17 +59,9 @@ export function blankBasics(): Pick<IntakeForm, 'eventType' | 'guestCount' | 'ev
   return { eventType: '', guestCount: '', eventDate: format(new Date(), 'yyyy-MM-dd'), fulfillment: '', dietary: [], budget: '' }
 }
 
-/** Replays a short ring and lift on the button so a silent autosave is noticeable. */
-function flash(element: HTMLElement | null) {
-  if (!element?.animate || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
-  element.animate(
-    [
-      { boxShadow: '0 0 0 0 color-mix(in srgb, var(--primary) 55%, transparent)', transform: 'scale(1)' },
-      { boxShadow: '0 0 0 5px color-mix(in srgb, var(--primary) 22%, transparent)', transform: 'scale(1.03)', offset: 0.35 },
-      { boxShadow: '0 0 0 9px transparent', transform: 'scale(1)' },
-    ],
-    { duration: 700, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
-  )
+/** The form a request opens with: a draft resumed from the Drafts page shows its own answers; any other request shows blank basics. */
+export function startingForm(order: Order): IntakeForm {
+  return { ...intentToForm(order.intent), ...(order.id.startsWith('draft-') ? {} : blankBasics()) }
 }
 
 const errorFieldLabels: Partial<Record<IntakeField, string>> = {
@@ -116,29 +108,38 @@ function EventForm() {
   const order = useDemoStore((state) => state.order)
   const clock = useDemoStore((state) => state.clock)
   const updateDraft = useDemoStore((state) => state.updateDraft)
+  const saveDraftForLater = useDemoStore((state) => state.saveDraftForLater)
   const [form, setForm] = useState<IntakeForm>(() =>
-    loadIntakeFormDraft(session, { ...intentToForm(order.intent), ...blankBasics() }),
+    loadIntakeFormDraft(session, startingForm(order)),
   )
   const [errors, setErrors] = useState<IntakeErrors>({})
   const [prefilled] = useState(() => loadPlanningState(session).prefilled)
-  const [draftSaved, setDraftSaved] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
-  const draftButtonRef = useRef<HTMLButtonElement>(null)
   const selectedDate = form.eventDate ? parseISO(form.eventDate) : undefined
   const earliestDate = parseISO(clock.slice(0, 10))
 
   function set<K extends IntakeField>(field: K, value: IntakeForm[K]) {
     const next = { ...form, [field]: value }
     setForm(next)
-    setDraftSaved(saveIntakeFormDraft(session, next))
-    flash(draftButtonRef.current)
+    saveIntakeFormDraft(session, next) // keeps typing safe across a refresh; it is not a saved draft until Save draft
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
   }
 
   function saveDraft() {
-    setDraftSaved(saveIntakeFormDraft(session, form))
-    flash(draftButtonRef.current)
+    saveDraftForLater({
+      ...order.intent,
+      ...formToIntent({
+        ...intentToForm(order.intent),
+        eventType: form.eventType,
+        guestCount: form.guestCount,
+        eventDate: form.eventDate,
+        fulfillment: form.fulfillment,
+        dietary: form.dietary,
+        budget: form.budget,
+      }),
+    })
+    navigate(routes.drafts)
   }
 
   function toggleDietary(tag: DietaryTag) {
@@ -381,17 +382,7 @@ function EventForm() {
           </FieldSet>
 
           <div className="mt-8 flex justify-end gap-2">
-            <span role="status" aria-live="polite">
-              <Button
-                ref={draftButtonRef}
-                type="button"
-                variant="outline"
-                onClick={saveDraft}
-              >
-                {draftSaved && <span data-icon-surface className="inline-flex text-success"><CheckCircle2Icon aria-hidden="true" /></span>}
-                {draftSaved ? 'Draft saved' : 'Save draft'}
-              </Button>
-            </span>
+            <Button type="button" variant="outline" onClick={saveDraft}>Save draft</Button>
             <Button type="submit">
               Continue
             </Button>

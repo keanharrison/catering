@@ -66,6 +66,7 @@ export function isValidDemoState(x: unknown): boolean {
     !Number.isNaN(Date.parse(x.clock)) &&
     isValidOrder(x.order) &&
     (x.draftOrder === undefined || isValidOrder(x.draftOrder)) &&
-    (x.orders === undefined || (Array.isArray(x.orders) && x.orders.every(isValidOrder)))
+    (x.orders === undefined || (Array.isArray(x.orders) && x.orders.every(isValidOrder))) &&
+    (x.savedDrafts === undefined || (Array.isArray(x.savedDrafts) && x.savedDrafts.every(isValidOrder)))
   )
 }

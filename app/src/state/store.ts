@@ -29,6 +29,8 @@ type DemoState = {
   order: Order
   draftOrder: Order
   orders: Order[]
+  /** Requests the customer chose to save for later. They are not submitted and staff never see them. */
+  savedDrafts: Order[]
   lastError: string | null
   clearError: () => void
 
@@ -37,6 +39,11 @@ type DemoState = {
   activateDraft: () => void
   /** Logging in as a customer: replace the sample draft with an empty one and drop any half-typed form. */
   startBlankDraft: () => void
+  /** Files the current request under Drafts and starts a clean one. */
+  saveDraftForLater: (intent: OrderIntent) => void
+  /** Reopens a saved draft as the current request. */
+  resumeDraft: (id: string) => void
+  deleteDraft: (id: string) => void
   reset: () => void
   updateDraft: (patch: {
     intent?: OrderIntent
@@ -73,6 +80,7 @@ function freshState(id: string, previousSession = 0) {
     order,
     draftOrder: order,
     orders: [] as Order[], // staff see only requests made in this walkthrough
+    savedDrafts: [] as Order[],
     lastError: null,
   }
 }
@@ -108,7 +116,7 @@ export const useDemoStore = create<DemoState>()(
         clearError: () => set({ lastError: null }),
         loadScenario: (id) => {
           const previous = get()
-          set({ ...freshState(id, previous.session), orders: previous.orders })
+          set({ ...freshState(id, previous.session), orders: previous.orders, savedDrafts: previous.savedDrafts })
         },
         activateOrder: (id) => {
           const order = get().orders.find((item) => item.id === id)
@@ -119,7 +127,25 @@ export const useDemoStore = create<DemoState>()(
           const draft = blankDraft(findScenario(get().scenarioId))
           set({ order: draft, draftOrder: draft, session: get().session + 1, lastError: null })
         },
-        reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders }),
+        reset: () => set({ ...freshState(get().scenarioId, get().session), orders: get().orders, savedDrafts: get().savedDrafts }),
+        saveDraftForLater: (intent) => {
+          const { order, savedDrafts, session, scenarioId } = get()
+          if (order.status !== 'draft') return
+          const id = order.id.startsWith('draft-') ? order.id : `draft-${session}-${savedDrafts.length + 1}`
+          const saved = { ...order, id, intent }
+          const blank = blankDraft(findScenario(scenarioId))
+          set({
+            savedDrafts: [saved, ...savedDrafts.filter((item) => item.id !== id)],
+            order: blank, draftOrder: blank, session: session + 1, lastError: null,
+          })
+        },
+        resumeDraft: (id) => {
+          const { savedDrafts, session } = get()
+          const draft = savedDrafts.find((item) => item.id === id)
+          if (!draft) return
+          set({ order: draft, draftOrder: draft, savedDrafts: savedDrafts.filter((item) => item.id !== id), session: session + 1, lastError: null })
+        },
+        deleteDraft: (id) => set({ savedDrafts: get().savedDrafts.filter((item) => item.id !== id) }),
         updateDraft: (patch) => run((order) => machine.updateDraft(order, patch)),
         submit: () => run((order, at) => machine.submit(order, at)),
         requestClarification: (text) => run((order, at) => machine.requestClarification(order, text, at)),
@@ -166,6 +192,7 @@ export const useDemoStore = create<DemoState>()(
           // Sample requests saved by older versions are dropped; only this walkthrough's requests remain.
           order: saved.order?.demoSample ? draftOrder : saved.order ?? current.order,
           orders: (saved.orders ?? []).filter((order) => !order.demoSample),
+          savedDrafts: saved.savedDrafts ?? [],
         }
       },
     },

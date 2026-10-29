@@ -43,10 +43,11 @@ type Destination = {
 }
 
 const customerNavigation: Destination[] = [
-  { label: 'Chat', icon: destinationIcons.chat, href: routes.askPearl },
   { label: 'New request', icon: destinationIcons.newRequest, href: routes.customer },
+  { label: 'Drafts', icon: destinationIcons.drafts, href: routes.drafts },
   { label: 'Current orders', icon: destinationIcons.currentOrders, href: routes.currentOrders },
   { label: 'Past orders', icon: destinationIcons.pastOrders, href: routes.pastOrders },
+  { label: 'Chat', icon: destinationIcons.chat, href: routes.askPearl },
   { label: 'Messages', icon: destinationIcons.messages, href: routes.customerMessages },
   { label: 'Account settings', icon: destinationIcons.accountSettings, href: routes.settings },
 ]

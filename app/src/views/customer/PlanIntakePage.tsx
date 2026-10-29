@@ -14,8 +14,8 @@ import { Textarea } from '../../components/ui/textarea'
 import { cn } from '../../lib/cn'
 import { catalog } from '../../data'
 import { useDemoStore } from '../../state/store'
-import { blankBasics } from './EventPage'
-import { intentToForm, loadIntakeFormDraft, saveIntakeFormDraft } from './intake'
+import { startingForm } from './EventPage'
+import { loadIntakeFormDraft, saveIntakeFormDraft } from './intake'
 import { stagePath } from './journey'
 import {
   PREFERENCES_LIMIT, answersToFormPatch, dietaryOptions, emptyAnswers, fulfillmentOptions, mealSizeOptions,
@@ -57,7 +57,7 @@ export function PlanIntakePage() {
   }
 
   function carryAnswersToForm(next: PlanAnswers, menuPending: boolean) {
-    const base = loadIntakeFormDraft(session, { ...intentToForm(order.intent), ...blankBasics() })
+    const base = loadIntakeFormDraft(session, startingForm(order))
     const patch = answersToFormPatch(next)
     saveIntakeFormDraft(session, { ...base, ...patch })
     savePlanningState(session, { mode: menuPending ? 'assisted' : 'manual', prefilled: Object.keys(patch).length > 0, menuPending })

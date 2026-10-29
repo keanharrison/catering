@@ -21,10 +21,10 @@ function current() {
 }
 
 describe('Chat as home (the Dashboard is folded into it)', () => {
-  it('has no Dashboard tab and starts the customer list with Chat', () => {
+  it('has no Dashboard tab and lists Chat under Account', () => {
     renderAppAt('/customer/ask-pearl', <AppRoutes />)
     const labels = Array.from(document.querySelectorAll('.linear-nav-group [data-slot="sidebar-menu-button"]')).map((el) => el.textContent)
-    expect(labels).toEqual(['Chat', 'New request', 'Current orders', 'Past orders', 'Messages', 'Account settings'])
+    expect(labels).toEqual(['New request', 'Drafts', 'Current orders', 'Past orders', 'Chat', 'Messages', 'Account settings'])
     expect(current()).toEqual(['Chat'])
   })
 

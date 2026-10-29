@@ -13,6 +13,7 @@ import { stagePath } from './views/customer/journey'
 import { StaffPage } from './views/staff/StaffPage'
 import { HandoffPage } from './views/handoff/HandoffPage'
 import { OrdersPage } from './views/customer/OrdersPage'
+import { DraftsPage } from './views/customer/DraftsPage'
 import { ChatPage } from './views/customer/ChatPage'
 import { PlanIntakePage } from './views/customer/PlanIntakePage'
 import { MessagesPage } from './views/messages/MessagesPage'
@@ -48,6 +49,7 @@ export function AppRoutes() {
       {/* The Dashboard was folded into Chat; keep old links working. */}
       <Route path={LEGACY_DASHBOARD_PATH} element={<Navigate to={routes.askPearl} replace />} />
       <Route path={routes.askPearl} element={customerPage(<ChatPage />)} />
+      <Route path={routes.drafts} element={customerPage(<DraftsPage />)} />
       <Route path={routes.currentOrders} element={customerPage(<OrdersPage kind="current" />)} />
       <Route path={routes.pastOrders} element={customerPage(<OrdersPage kind="past" />)} />
       <Route path={routes.customerMessages} element={customerPage(<CustomerMessagesPage />)} />
