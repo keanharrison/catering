@@ -47,7 +47,7 @@ describe('Plan with AI', () => {
     expect(screen.queryByText(/Filled in from your answers/)).toBeNull()
   })
 
-  it('skips the choice once a draft is in progress', async () => {
+  it('does not ask again once a path is chosen', async () => {
     const user = userEvent.setup()
     const { unmount } = renderAt('/customer')
     await user.click(btn('Enter details myself'))
@@ -56,6 +56,22 @@ describe('Plan with AI', () => {
     renderAt('/customer')
     expect(screen.queryByRole('button', { name: 'Enter details myself' })).toBeNull()
     expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('12')
+  })
+
+  it('offers Switch to AI in the corner of the form and keeps what was typed', async () => {
+    const user = userEvent.setup()
+    renderAt('/customer')
+    await user.click(btn('Enter details myself'))
+    await user.click(screen.getByRole('combobox', { name: 'Event type' }))
+    await user.click(await screen.findByRole('option', { name: 'Wedding' }))
+    await user.type(screen.getByLabelText('Guests'), '60')
+    await user.click(btn('Switch to AI'))
+
+    const log = screen.getByRole('log').textContent
+    expect(log).toContain('Wedding')
+    expect(log).toContain('60 guests')
+    expect(btn('Switch to manual')).toBeTruthy()
+    expect(screen.getByRole('radio', { name: 'Pickup' })).toBeTruthy() // resumes at the first open question
   })
 
   it('asks the six questions in a chat, then carries every answer into the editable form', async () => {

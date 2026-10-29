@@ -28,7 +28,6 @@ import { catalog, type DietaryTag, type Fulfillment, type Order } from '@/data'
 import { useDemoStore } from '@/state/store'
 import {
   formToIntent,
-  hasIntakeFormDraft,
   intentToForm,
   loadIntakeFormDraft,
   saveIntakeFormDraft,
@@ -39,9 +38,9 @@ import {
   type IntakeForm,
 } from './intake'
 import { stagePath } from './journey'
-import { dietaryOptions } from './planScript'
+import { dietaryOptions, formToAnswers } from './planScript'
 import { PlanChoice } from './PlanChoice'
-import { loadPlanningState, savePlanningState } from './planning'
+import { loadPlanningState, savePlanAnswers, savePlanningState } from './planning'
 import { routes } from '@/routes'
 
 const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
@@ -88,12 +87,15 @@ function EventEntry() {
   const session = useDemoStore((state) => state.session)
   const order = useDemoStore((state) => state.order)
   const [showChoice, setShowChoice] = useState(() =>
-    loadPlanningState(session).mode === null && !hasIntakeFormDraft(session) && order.lines.length === 0 && order.intent.eventType === '',
+    loadPlanningState(session).mode === null && order.lines.length === 0 && !order.id.startsWith('draft-'),
   )
   if (!showChoice) return <EventForm />
   return (
     <PlanChoice
-      onAssisted={() => navigate(routes.planRequest)}
+      onAssisted={() => {
+        savePlanningState(session, { mode: 'assisted', prefilled: false })
+        navigate(routes.planRequest)
+      }}
       onManual={() => {
         savePlanningState(session, { mode: 'manual', prefilled: false })
         setShowChoice(false)
@@ -124,6 +126,13 @@ function EventForm() {
     setForm(next)
     saveIntakeFormDraft(session, next) // keeps typing safe across a refresh; it is not a saved draft until Save draft
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
+  }
+
+  function switchToAI() {
+    saveIntakeFormDraft(session, form)
+    savePlanAnswers(session, formToAnswers(form))
+    savePlanningState(session, { mode: 'assisted', prefilled: false })
+    navigate(routes.planRequest)
   }
 
   function saveDraft() {
@@ -187,7 +196,7 @@ function EventForm() {
       <section className="mx-auto w-full max-w-3xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <h1 className="type-page-title text-foreground">Plan your catering</h1>
-          <Button variant="outline" onClick={() => navigate(routes.planRequest)}>Plan with AI</Button>
+          <Button variant="ghost" onClick={switchToAI}>Switch to AI</Button>
         </div>
 
         {prefilled && (

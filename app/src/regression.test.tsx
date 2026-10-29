@@ -434,13 +434,14 @@ describe('regression: full journeys and edge cases', () => {
     expect(h1()).toBe('Plan your catering')
   })
 
-  it('opens a fresh draft when New request is visited while a submitted request is active', () => {
+  it('opens a fresh draft when New request is visited while a submitted request is active', async () => {
     store().updateDraft({ lines: [{ itemId: 'slow-roasted-pork', units: 3 }], suppliesChoice: 'none' })
     store().submit()
     expect(store().order.status).not.toBe('draft')
     renderAt('/customer')
     expect(store().order.status).toBe('draft')
     expect(h1()).toBe('Plan your catering')
+    await userEvent.setup().click(btn('Enter details myself'))
     expect(screen.getByLabelText('Guests')).toBeTruthy()
     expect(store().lastError).toBeNull()
   })
