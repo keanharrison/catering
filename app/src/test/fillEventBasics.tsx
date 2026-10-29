@@ -10,6 +10,9 @@ export async function fillEventBasics(user: ReturnType<typeof userEvent.setup>, 
   const eventType = catalog.eventTypes.find((type) => type.id === intent.eventType)!.label
   const [date = ''] = intent.eventAt.split('T')
 
+  const manual = screen.queryByRole('button', { name: 'Fill it in myself' })
+  if (manual) await user.click(manual)
+
   await user.click(screen.getByRole('combobox', { name: 'Event type' }))
   await user.click(await screen.findByRole('option', { name: eventType }))
   if (guests) await user.type(screen.getByLabelText('Guests'), String(intent.guestCount))

@@ -67,6 +67,16 @@ export function saveIntakeFormDraft(session: number, form: IntakeForm): boolean 
   }
 }
 
+/** True when this session already has in-progress answers. */
+export function hasIntakeFormDraft(session: number): boolean {
+  try {
+    const stored = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY)
+    return stored !== null && (JSON.parse(stored) as Partial<StoredIntakeForm>).session === session
+  } catch {
+    return false
+  }
+}
+
 export function clearIntakeFormDraft(session: number): void {
   try {
     const stored = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY)

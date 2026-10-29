@@ -84,6 +84,7 @@ describe('regression: full journeys and edge cases', () => {
     sessionStorage.setItem('pi2go-customer-form-draft', JSON.stringify({ session: store().session, form: { ...intentToForm(store().order.intent), guestCount: '77' } }))
     store().startBlankDraft()
     renderAt('/customer')
+    await userEvent.setup().click(btn('Fill it in myself'))
     expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('')
     expect(store().order.intent).toMatchObject({ eventType: '', guestCount: null, contactName: '', organization: '', budgetCents: null, dietary: [] })
   })

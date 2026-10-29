@@ -28,6 +28,7 @@ import { catalog, type DietaryTag, type Fulfillment } from '@/data'
 import { useDemoStore } from '@/state/store'
 import {
   formToIntent,
+  hasIntakeFormDraft,
   intentToForm,
   loadIntakeFormDraft,
   saveIntakeFormDraft,
@@ -38,13 +39,10 @@ import {
   type IntakeForm,
 } from './intake'
 import { stagePath } from './journey'
-
-const dietaryOptions: Array<{ id: DietaryTag; label: string }> = [
-  { id: 'vegetarian', label: 'Vegetarian' },
-  { id: 'vegan', label: 'Vegan' },
-  { id: 'gluten-free', label: 'Gluten-free' },
-  { id: 'dairy-free', label: 'Dairy-free' },
-]
+import { dietaryOptions } from './planScript'
+import { PlanChoice } from './PlanChoice'
+import { loadPlanningState, savePlanningState } from './planning'
+import { routes } from '@/routes'
 
 const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
   label,
@@ -57,7 +55,7 @@ const fulfillmentItems: Array<{ label: string; value: Fulfillment }> = [
 ]
 
 /** The first page opens empty (today's date aside); the sample order's answers are not shown. */
-function blankBasics(): Pick<IntakeForm, 'eventType' | 'guestCount' | 'eventDate' | 'fulfillment' | 'dietary' | 'budget'> {
+export function blankBasics(): Pick<IntakeForm, 'eventType' | 'guestCount' | 'eventDate' | 'fulfillment' | 'dietary' | 'budget'> {
   return { eventType: '', guestCount: '', eventDate: format(new Date(), 'yyyy-MM-dd'), fulfillment: '', dietary: [], budget: '' }
 }
 
@@ -89,7 +87,27 @@ export function EventPage() {
   useEffect(() => {
     if (status !== 'draft') activateDraft()
   }, [status, activateDraft])
-  return status === 'draft' ? <EventForm /> : null
+  return status === 'draft' ? <EventEntry /> : null
+}
+
+/** A new request starts with a choice; a request already under way goes straight to the form. */
+function EventEntry() {
+  const navigate = useNavigate()
+  const session = useDemoStore((state) => state.session)
+  const order = useDemoStore((state) => state.order)
+  const [showChoice, setShowChoice] = useState(() =>
+    loadPlanningState(session).mode === null && !hasIntakeFormDraft(session) && order.lines.length === 0 && order.intent.eventType === '',
+  )
+  if (!showChoice) return <EventForm />
+  return (
+    <PlanChoice
+      onAssisted={() => navigate(routes.planRequest)}
+      onManual={() => {
+        savePlanningState(session, { mode: 'manual', prefilled: false, menuPending: false })
+        setShowChoice(false)
+      }}
+    />
+  )
 }
 
 function EventForm() {
@@ -102,6 +120,7 @@ function EventForm() {
     loadIntakeFormDraft(session, { ...intentToForm(order.intent), ...blankBasics() }),
   )
   const [errors, setErrors] = useState<IntakeErrors>({})
+  const [prefilled] = useState(() => loadPlanningState(session).prefilled)
   const [draftSaved, setDraftSaved] = useState(false)
   const [datePickerOpen, setDatePickerOpen] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
@@ -144,6 +163,7 @@ function EventForm() {
     }
 
     saveIntakeFormDraft(session, form)
+    if (prefilled) savePlanningState(session, { ...loadPlanningState(session), prefilled: false })
     updateDraft({
       intent: {
         ...order.intent,
@@ -167,6 +187,12 @@ function EventForm() {
         <h1 className="type-page-title mb-8 text-foreground">
           Plan your catering
         </h1>
+
+        {prefilled && (
+          <Alert className="mb-6">
+            <AlertDescription>Filled in from your answers. Check each field, change anything, then continue.</AlertDescription>
+          </Alert>
+        )}
 
         <form ref={formRef} onSubmit={onSubmit} noValidate>
           {Object.values(errors).filter(Boolean).length > 1 && (

@@ -16,7 +16,7 @@ export function pageTitle(pathname: string, account: DemoAccount): string {
     }
     return staff[pathname] ?? 'Requests'
   }
-  if (stages.some((stage) => stage.path === pathname)) return 'New request'
+  if (stages.some((stage) => stage.path === pathname) || pathname === routes.planRequest) return 'New request'
   const customer: Record<string, string> = {
     [routes.askPearl]: 'Chat',
     [routes.currentOrders]: 'Current orders',

@@ -145,7 +145,7 @@ export function AppSidebar() {
               {section.map((item) => {
                 const Icon = item.icon
                 const active = item.href === routes.customer
-                  ? stages.some((stage) => stage.path === pathname)
+                  ? stages.some((stage) => stage.path === pathname) || pathname === routes.planRequest
                   : pathname === item.href
                 return <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton render={<NavLink to={item.href!} onClick={() => {
