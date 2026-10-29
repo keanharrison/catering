@@ -23,7 +23,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { QuantityStepper } from '../../components/QuantityStepper'
 import { catalog, type DietaryTag, type MenuCategory, type OrderLine } from '../../data'
-import { recommend, setQuantity, type Recommendation } from '../../engine'
+import { budgetStatus, money, recommendForBudget, setQuantity, suggestUpgrades, type BudgetedRecommendation } from '../../engine'
 import { formatMoney, pluralize } from '../../lib/format'
 import { useDemoStore } from '../../state/store'
 import { StageGate } from '../../components/StageGate'
@@ -53,7 +53,7 @@ const categories: Array<{ value: MenuCategory; label: string }> = [
   { value: 'salad', label: 'Salads' },
 ]
 
-type MenuSuggestion = { recommendation: Recommendation; undoLines: OrderLine[] | null; applied: boolean }
+type MenuSuggestion = { recommendation: BudgetedRecommendation; undoLines: OrderLine[] | null; applied: boolean; added: OrderLine[] }
 
 export function MenuPageShell() {
   const navigate = useNavigate()
@@ -66,17 +66,29 @@ export function MenuPageShell() {
   const summary = buildOrderSummary(order, clock)
 
   function suggestMenu() {
-    setSuggestion({ recommendation: recommend(order.intent), undoLines: null, applied: false })
+    // Food the customer has already chosen is kept; the suggestion fills in around it and respects their food budget.
+    setSuggestion({ recommendation: recommendForBudget(order.intent, order.lines), undoLines: null, applied: false, added: [] })
     setFeedback('')
   }
 
   function applySuggestion() {
     if (!suggestion) return
     const supplyLines = order.lines.filter((line) => catalog.menu.find((item) => item.id === line.itemId)?.category === 'supply')
-    const suggestedLines = suggestion.recommendation.lines.map(({ itemId, units }) => ({ itemId, units }))
+    const suggestedLines = [...suggestion.recommendation.lines.map(({ itemId, units }) => ({ itemId, units })), ...suggestion.added]
     setSuggestion({ ...suggestion, undoLines: order.lines, applied: true })
     updateDraft({ lines: [...suggestedLines, ...supplyLines] })
     setFeedback('Suggested quantities applied. You can restore your previous quantities with Undo.')
+  }
+
+  /** The suggestion as it stands now: the engine's lines plus any add-ons the customer chose, measured against the budget. */
+  const suggestedLines = suggestion ? [...suggestion.recommendation.lines.map(({ itemId, units }) => ({ itemId, units })), ...suggestion.added] : []
+  const fit = suggestion ? budgetStatus(suggestedLines, suggestion.recommendation.fit.budgetCents) : null
+  const upgrades = suggestion && fit && fit.remainingCents !== null && suggestion.recommendation.fit.upgrades.length > 0
+    ? suggestUpgrades(order.intent, suggestedLines, fit.remainingCents)
+    : []
+
+  function addUpgrade(itemId: string, units: number) {
+    if (suggestion) setSuggestion({ ...suggestion, added: [...suggestion.added, { itemId, units }] })
   }
 
   function undoSuggestion() {
@@ -236,7 +248,7 @@ export function MenuPageShell() {
             <CardHeader>
               <CardTitle>Help me choose</CardTitle>
               <CardDescription>
-                Get a starting point based on your guest count and dietary preferences. Review quantities before continuing.
+                Get a starting point based on your guest count, dietary preferences and food budget. Review quantities before continuing.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -256,13 +268,57 @@ export function MenuPageShell() {
                         )
                       })}
                     </ul>
+                    {suggestion.added.length > 0 && (
+                      <ul className="space-y-2 text-sm">
+                        {suggestion.added.map((line) => {
+                          const item = catalog.menu.find((candidate) => candidate.id === line.itemId)
+                          return (
+                            <li key={line.itemId} className="flex flex-wrap justify-between gap-x-4 gap-y-1">
+                              <span className="font-medium">{item?.name ?? line.itemId}</span>
+                              <span className="text-muted-foreground">{pluralize(line.units, item?.unit ?? 'unit')}</span>
+                              <span className="basis-full text-muted-foreground">Optional add-on you chose.</span>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    )}
+                    {fit && (
+                      <dl className="space-y-1 border-t border-border pt-3 text-sm" aria-label="Budget">
+                        <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Estimated food total</dt><dd className="tabular-nums">{money(fit.totalCents)}</dd></div>
+                        {fit.remainingCents !== null && (
+                          <>
+                            <div className="flex justify-between gap-3"><dt className="text-muted-foreground">Food budget</dt><dd className="tabular-nums">{money(suggestion.recommendation.fit.budgetCents ?? 0)}</dd></div>
+                            <div className={`flex justify-between gap-3 font-medium ${fit.remainingCents < 0 ? 'text-destructive' : ''}`}><dt>{fit.remainingCents < 0 ? 'Over budget by' : 'Remaining'}</dt><dd className="tabular-nums">{money(Math.abs(fit.remainingCents))}</dd></div>
+                          </>
+                        )}
+                      </dl>
+                    )}
+                    {suggestion.recommendation.fit.explanation && (
+                      <p className="text-sm text-muted-foreground">{suggestion.recommendation.fit.explanation}</p>
+                    )}
+                    {upgrades.length > 0 && !suggestion.applied && (
+                      <section aria-label="Optional add-ons" className="space-y-2 border-t border-border pt-3">
+                        <h4 className="type-small-label uppercase text-muted-foreground">Optional add-ons within your budget</h4>
+                        <ul className="space-y-2 text-sm">
+                          {upgrades.map((upgrade) => {
+                            const item = catalog.menu.find((candidate) => candidate.id === upgrade.itemId)
+                            return (
+                              <li key={upgrade.itemId} className="flex items-center justify-between gap-3">
+                                <span className="min-w-0"><span className="font-medium">{item?.name}</span> <span className="text-muted-foreground">+{money(upgrade.costCents)}</span></span>
+                                <Button variant="outline" size="sm" aria-label={`Add ${item?.name} for ${money(upgrade.costCents)}`} onClick={() => addUpgrade(upgrade.itemId, upgrade.units)}>Add</Button>
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      </section>
+                    )}
                     {suggestion.recommendation.notes.map((note) => (
                       <p key={note} className="text-sm text-muted-foreground">{note}</p>
                     ))}
                     <details className="text-sm">
                       <summary className="cursor-pointer font-medium">How was this chosen?</summary>
                       <p className="mt-2 text-muted-foreground">
-                        Suggestions use standard portion assumptions. Review and adjust quantities to fit your event.
+                        Suggestions use standard portion assumptions and keep the food within your budget when one is entered. They never add items just to use it up. Anything you already chose is kept. Review and adjust quantities to fit your event.
                       </p>
                     </details>
                   </div>

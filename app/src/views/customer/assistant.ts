@@ -1,7 +1,7 @@
 import { addDays, format, parseISO } from 'date-fns'
 import { catalog, type OrderLine } from '../../data'
 import { MAX_GUESTS, formToIntent, type IntakeForm } from './intake'
-import { recommend } from '../../engine'
+import { recommendForBudget } from '../../engine'
 
 /**
  * The New Request assistant: up to eight questions, one at a time, then a proposed order built from the existing menu.
@@ -103,7 +103,7 @@ export function proposeOrder(form: IntakeForm, entree: EntreePref | '', supplies
   const chosen = entree ? entreeIds[entree] : null
   const rules = chosen ? { ...catalog, recommendationDefaults: { ...catalog.recommendationDefaults, defaultEntreeIds: chosen } } : catalog
   const intent = { ...formToIntent(form), guestCount: guests }
-  const lines: OrderLine[] = recommend(intent, rules).lines.map(({ itemId, units }) => ({ itemId, units }))
+  const lines: OrderLine[] = recommendForBudget(intent, [], rules).lines.map(({ itemId, units }) => ({ itemId, units }))
   if (supplies && supplies !== 'none') lines.push({ itemId: supplyIds[supplies], units: guests })
   return lines
 }
