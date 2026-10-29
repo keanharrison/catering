@@ -38,9 +38,8 @@ import {
   type IntakeForm,
 } from './intake'
 import { stagePath } from './journey'
-import { dietaryOptions, formToAnswers } from './planScript'
-import { PlanChoice } from './PlanChoice'
-import { loadPlanningState, savePlanAnswers, savePlanningState } from './planning'
+import { dietaryOptions } from './planScript'
+import { loadPlanningState, savePlanningState } from './planning'
 import { routes } from '@/routes'
 
 const eventTypeItems = catalog.eventTypes.map(({ id, label }) => ({
@@ -78,27 +77,7 @@ export function EventPage() {
   useEffect(() => {
     if (status !== 'draft') activateDraft()
   }, [status, activateDraft])
-  return status === 'draft' ? <EventEntry /> : null
-}
-
-/** A new request starts with a choice; a request already under way goes straight to the form. */
-function EventEntry() {
-  const navigate = useNavigate()
-  const session = useDemoStore((state) => state.session)
-  const order = useDemoStore((state) => state.order)
-  const [showChoice, setShowChoice] = useState(() =>
-    loadPlanningState(session).mode === null && order.lines.length === 0 && !order.id.startsWith('draft-'),
-  )
-  if (!showChoice) return <EventForm />
-  return (
-    <PlanChoice
-      onAssisted={() => navigate(routes.askPearl)}
-      onManual={() => {
-        savePlanningState(session, { mode: 'manual', prefilled: false })
-        setShowChoice(false)
-      }}
-    />
-  )
+  return status === 'draft' ? <EventForm /> : null
 }
 
 function EventForm() {
@@ -125,11 +104,9 @@ function EventForm() {
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }))
   }
 
-  function switchToAI() {
+  function continueWithAI() {
     saveIntakeFormDraft(session, form)
-    savePlanAnswers(session, formToAnswers(form))
-    savePlanningState(session, { mode: 'assisted', prefilled: false })
-    navigate(routes.planRequest)
+    navigate(routes.askPearl)
   }
 
   function saveDraft() {
@@ -193,7 +170,7 @@ function EventForm() {
       <section className="mx-auto w-full max-w-3xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <h1 className="type-page-title text-foreground">Plan your catering</h1>
-          <Button variant="ghost" onClick={switchToAI}>Switch to AI</Button>
+          <Button variant="ghost" onClick={continueWithAI}>Continue with AI</Button>
         </div>
 
         {prefilled && (

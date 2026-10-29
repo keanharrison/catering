@@ -102,25 +102,3 @@ export function answersToFormPatch(answers: PlanAnswers): Partial<IntakeForm> {
   if (budget !== null) patch.budget = String(budget)
   return patch
 }
-
-/** The chat's answers from a form someone already started, so switching to AI keeps what they typed. The chat resumes at the first question still open. */
-export function formToAnswers(form: IntakeForm): PlanAnswers {
-  const guests = parseGuestCount(form.guestCount)
-  const hasGuests = guests !== null && guests >= 1 && guests <= MAX_GUESTS
-  const fulfillment = form.fulfillment === 'pickup' || form.fulfillment === 'delivery' ? form.fulfillment : ''
-  // The date field starts on today, so it only counts as answered once something after it is.
-  const dated = form.eventDate !== '' && (hasGuests || fulfillment !== '')
-  const answers: PlanAnswers = {
-    step: 0,
-    eventType: catalog.eventTypes.some((type) => type.id === form.eventType) ? form.eventType : '',
-    eventDate: dated ? form.eventDate : '',
-    guests: hasGuests ? String(guests) : '',
-    fulfillment,
-    dietary: form.dietary,
-    budget: parseBudget(form.budget) !== null ? form.budget : '',
-  }
-  const leading = [answers.eventType !== '', answers.eventDate !== '', answers.guests !== '', answers.fulfillment !== '']
-  const open = leading.indexOf(false)
-  answers.step = open === -1 ? 4 : open
-  return answers
-}

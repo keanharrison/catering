@@ -32,52 +32,27 @@ async function pickDate(user: ReturnType<typeof userEvent.setup>) {
   await user.click(await screen.findByRole('button', { name: /October 20th, 2026/ }))
 }
 
-describe('Plan with AI', () => {
-  it('starts with a required choice between the two paths', async () => {
+describe('Guided chat (still reachable at /customer/plan)', () => {
+  it('opens the request form first, with Continue with AI in the corner', () => {
     renderAt('/customer')
-    expect(btn('Plan with AI')).toBeTruthy()
-    expect(btn('Enter details myself')).toBeTruthy()
-    expect(screen.queryByLabelText('Guests')).toBeNull()
+    expect(screen.getByLabelText('Guests')).toBeTruthy()
+    expect(btn('Continue with AI')).toBeTruthy()
   })
 
-  it('sends Plan with AI to the Chat page', async () => {
+  it('sends Continue with AI to the Chat page', async () => {
     renderAt('/customer')
-    await userEvent.setup().click(btn('Plan with AI'))
+    await userEvent.setup().click(btn('Continue with AI'))
     expect(screen.getByRole('heading', { level: 1, name: 'What can I help you with?' })).toBeTruthy()
   })
 
-  it('opens the unchanged request form on Enter details myself', async () => {
-    renderAt('/customer')
-    await userEvent.setup().click(btn('Enter details myself'))
-    expect(screen.getByLabelText('Guests')).toBeTruthy()
-    expect(screen.queryByText(/Filled in from your answers/)).toBeNull()
-  })
-
-  it('does not ask again once a path is chosen', async () => {
+  it('keeps what was typed when going to AI and coming back', async () => {
     const user = userEvent.setup()
     const { unmount } = renderAt('/customer')
-    await user.click(btn('Enter details myself'))
-    await user.type(screen.getByLabelText('Guests'), '12')
+    await user.type(screen.getByLabelText('Guests'), '60')
+    await user.click(btn('Continue with AI'))
     unmount()
     renderAt('/customer')
-    expect(screen.queryByRole('button', { name: 'Enter details myself' })).toBeNull()
-    expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('12')
-  })
-
-  it('offers Switch to AI in the corner of the form and keeps what was typed', async () => {
-    const user = userEvent.setup()
-    renderAt('/customer')
-    await user.click(btn('Enter details myself'))
-    await user.click(screen.getByRole('combobox', { name: 'Event type' }))
-    await user.click(await screen.findByRole('option', { name: 'Wedding' }))
-    await user.type(screen.getByLabelText('Guests'), '60')
-    await user.click(btn('Switch to AI'))
-
-    const log = screen.getByRole('log').textContent
-    expect(log).toContain('Wedding')
-    expect(log).toContain('60 guests')
-    expect(btn('Switch to manual')).toBeTruthy()
-    expect(screen.getByRole('radio', { name: 'Pickup' })).toBeTruthy() // resumes at the first open question
+    expect((screen.getByLabelText('Guests') as HTMLInputElement).value).toBe('60')
   })
 
   it('asks the six questions in a chat, then carries every answer into the editable form', async () => {
