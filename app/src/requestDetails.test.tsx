@@ -25,12 +25,12 @@ async function openRequest(name: RegExp) {
 describe('selected request panel', () => {
   it('leads with the event, a Name line and a Location line, then five sections in order', async () => {
     await openRequest(/Owen Park/)
-    const panel = within(screen.getByRole('heading', { level: 3, name: 'Details' }).closest('[data-slot="card"]') as HTMLElement)
+    const panel = within(screen.getByRole('dialog'))
     expect(panel.getByText('Corporate lunch')).toBeTruthy()
     expect(panel.getByText(/Name:/).parentElement?.textContent).toBe('Name: Nashville Tech Meetup')
     expect(panel.getByText(/Location:/).parentElement?.textContent).toBe('Location: 1 Music Row, Nashville, TN, 37203')
     const headings = panel.getAllByRole('heading', { level: 3 }).map((h) => h.textContent)
-    expect(headings.slice(0, 5)).toEqual(['Details', 'Food', 'Supplies', 'Contact', 'Instructions'])
+    expect(headings.slice(0, 5)).toEqual(['Details', 'Food', 'Supplies', 'Contacts', 'Instructions'])
   })
 
   it('does not repeat the name or the address in Details, and keeps every other fact', async () => {
@@ -38,7 +38,7 @@ describe('selected request panel', () => {
     const details = within(screen.getByRole('heading', { level: 3, name: 'Details' }).closest('section') as HTMLElement)
     expect(details.queryByText('Delivery address')).toBeNull()
     expect(details.queryByText(/Nashville Tech Meetup/)).toBeNull()
-    for (const label of ['Contact name', 'Guests', 'Date and time', 'Fulfillment', 'Food budget']) expect(details.getByText(label)).toBeTruthy()
+    for (const label of ['Guests', 'Date and time', 'Fulfillment', 'Food budget']) expect(details.getByText(label)).toBeTruthy()
     expect(screen.getByText('Food subtotal')).toBeTruthy()
     expect(screen.getByText('Estimated total')).toBeTruthy()
     expect(screen.getByText('owen.park@nashtech.example')).toBeTruthy()

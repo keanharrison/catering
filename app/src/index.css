@@ -6,16 +6,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-.staff-requests-container {
-  container: staff-requests / inline-size;
-}
-
-@container staff-requests (min-width: 1040px) {
-  .staff-requests-layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(24rem, 0.95fr);
-  }
-}
-
 @theme {
   /* One type scale for the whole product: hero 28, title 24, heading 15, body 14, ui 13, caption 12. Navigation and field labels are 13px medium; body and helper text are regular. */
   --font-weight-normal: 400;

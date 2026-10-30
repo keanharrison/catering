@@ -39,6 +39,8 @@ type RequestDetailsProps = {
   onSaveDecline: (reason: string) => void
   onDelete: () => void
   onCancelPanel: () => void
+  /** Drops the card chrome when the details already sit inside a dialog. */
+  embedded?: boolean
 }
 
 function Value({ label, children, className = '' }: { label: string; children: ReactNode; className?: string }) {
@@ -92,6 +94,7 @@ export function RequestDetails({
   onSaveDecline,
   onDelete,
   onCancelPanel,
+  embedded = false,
 }: RequestDetailsProps) {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const foodGroups = summary.groups.filter((group) => group.category !== 'supply')
@@ -107,7 +110,7 @@ export function RequestDetails({
 
   return (
     <div className="grid min-w-0 gap-4">
-      <Card className="min-w-0">
+      <Card className={embedded ? 'min-w-0 rounded-none border-0 bg-transparent shadow-none' : 'min-w-0'}>
         <CardHeader>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -124,9 +127,8 @@ export function RequestDetails({
           <section aria-labelledby="request-details-heading">
             <h3 id="request-details-heading" className="type-section-title">Details</h3>
             <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-              <Value label="Contact name">{order.intent.contactName || 'Not provided'}</Value>
               <Value label="Guests">{order.intent.guestCount ?? 'Not provided'}</Value>
-              <Value label="Date and time" className="col-span-2">{formatEventTime(order.intent.eventAt)}</Value>
+              <Value label="Date and time">{formatEventTime(order.intent.eventAt)}</Value>
               <Value label="Fulfillment"><span className="capitalize">{order.intent.fulfillment}</span></Value>
               <Value label="Food budget">{order.intent.budgetCents === null ? 'Not provided' : formatMoney(order.intent.budgetCents)}</Value>
             </dl>
@@ -177,11 +179,27 @@ export function RequestDetails({
           <Separator />
 
           <section aria-labelledby="request-contact-heading">
-            <h3 id="request-contact-heading" className="type-section-title">Contact</h3>
-            <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-              <Value label="Email">{order.intent.email || 'Not provided'}</Value>
-              <Value label="Phone">{order.intent.phone || 'Not provided'}</Value>
-            </dl>
+            <h3 id="request-contact-heading" className="type-section-title">Contacts</h3>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2">
+              <div>
+                <h4 className="type-small-label uppercase text-muted-foreground">Ordered by</h4>
+                <dl className="mt-2 grid gap-2">
+                  <Value label="Name">{order.intent.contactName || 'Not provided'}</Value>
+                  {order.intent.organization && <Value label="Organization">{order.intent.organization}</Value>}
+                  <Value label="Email">{order.intent.email || 'Not provided'}</Value>
+                  <Value label="Phone">{order.intent.phone || 'Not provided'}</Value>
+                </dl>
+              </div>
+              <div>
+                <h4 className="type-small-label uppercase text-muted-foreground">{order.intent.fulfillment === 'delivery' ? 'Delivery contact' : 'Pickup contact'}</h4>
+                {order.intent.onsiteContactName ? (
+                  <dl className="mt-2 grid gap-2">
+                    <Value label="Name">{order.intent.onsiteContactName}</Value>
+                    <Value label="Phone">{order.intent.onsiteContactPhone || 'Not provided'}</Value>
+                  </dl>
+                ) : <p className="mt-2 text-sm text-muted-foreground">Same as the person who ordered.</p>}
+              </div>
+            </div>
           </section>
 
           <Separator />

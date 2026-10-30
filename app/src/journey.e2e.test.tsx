@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { openActiveRequest } from './test/openRequest'
 import { cleanup, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useLocation } from 'react-router-dom'
@@ -93,6 +94,7 @@ describe('customer journey end to end', () => {
     // Minimal simulated staff view accepts it.
     await switchToTeam(user)
     expect(screen.queryByText('Our team will check')).toBeNull() // nothing flagged for the routine order
+    openActiveRequest()
     await click(user, 'Accept request')
     expect(useDemoStore.getState().order.status).toBe('confirmed')
     await click(user, 'View handoff', 'button')
@@ -131,6 +133,7 @@ describe('customer journey end to end', () => {
 
     // The review flags are still shown on the staff side, without the extra explanatory heading.
     await switchToTeam(user)
+    openActiveRequest()
     expect(screen.getByText(/over the 50-guest limit/)).toBeTruthy()
     expect(screen.queryByText('Why it needs a look')).toBeNull()
   }, 30000)

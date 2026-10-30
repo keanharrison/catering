@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
-import { cleanup, screen } from '@testing-library/react'
+import { openActiveRequest } from './test/openRequest'
+import { cleanup, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppRoutes } from './App'
@@ -72,6 +73,7 @@ describe('regression: full journeys and edge cases', () => {
       await user.click(btn('Review your request'))
       await user.click(btn('Submit request'))
       await switchToTeam(user)
+      openActiveRequest()
       await user.click(btn('Accept request'))
       await user.click(screen.getByRole('button', { name: 'View handoff' }))
       expect(store().order.status).toBe('confirmed')
@@ -182,7 +184,9 @@ describe('regression: full journeys and edge cases', () => {
     const selectedRow = screen.getByRole('row', { name: /Sam Rivera/ })
     selectedRow.focus()
     await user.keyboard('{Enter}')
-    expect(screen.getByText('Rivera Wedding')).toBeTruthy()
+    expect(within(screen.getByRole('dialog')).getAllByText(/Rivera Wedding/).length).toBeGreaterThan(0)
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).toBeNull()
 
     await user.click(pastTab)
     expect(screen.getAllByRole('row')).toHaveLength(3)
@@ -212,6 +216,7 @@ describe('regression: full journeys and edge cases', () => {
     cleanup()
 
     renderAt('/staff')
+    openActiveRequest()
     expect(screen.getByText('Food budget').parentElement?.textContent).toContain('$1,200')
   })
 
@@ -342,6 +347,7 @@ describe('regression: full journeys and edge cases', () => {
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
     renderAt('/staff')
+    openActiveRequest()
     expect(screen.getByRole('button', { name: 'Accept request' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Ask for clarification' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'Edit request' })).toBeTruthy()
@@ -353,6 +359,7 @@ describe('regression: full journeys and edge cases', () => {
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
     renderAt('/staff')
+    openActiveRequest()
 
     await user.click(btn('Ask for clarification'))
     const send = btn('Save question')
@@ -376,6 +383,7 @@ describe('regression: full journeys and edge cases', () => {
     store().submit()
     store().accept('staff')
     renderAt('/staff')
+    openActiveRequest()
     expect(screen.queryByRole('button', { name: 'Ask for clarification' })).toBeNull()
   })
 
@@ -403,6 +411,7 @@ describe('regression: full journeys and edge cases', () => {
     store().updateDraft({ lines: [{ itemId: 'sous-poulet', units: 40 }], suppliesChoice: 'none' })
     store().submit()
     renderAt('/staff')
+    openActiveRequest()
     const before = JSON.stringify(store().order)
     await user.click(btn('Edit request'))
     await user.click(screen.getByRole('button', { name: 'Increase quantity of Sous Poulet Chicken' }))
@@ -412,6 +421,7 @@ describe('regression: full journeys and edge cases', () => {
 
     store().accept('staff')
     renderAt('/staff')
+    openActiveRequest()
     expect(screen.queryByRole('button', { name: 'Edit request' })).toBeNull()
   })
 
@@ -466,6 +476,7 @@ describe('regression: full journeys and edge cases', () => {
   it('lets staff decline an open request with a reason and shows it as declined', async () => {
     const user = userEvent.setup()
     renderAt('/staff')
+    await user.click(screen.getByRole('row', { name: /Sam Rivera/ }))
     const id = store().order.id
     expect(store().orders.find((o) => o.id === id)?.status).not.toBe('rejected')
     await user.click(btn('Decline'))

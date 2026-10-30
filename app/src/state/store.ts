@@ -15,6 +15,12 @@ import { seedOrders } from '../data/seedOrders'
 export const STORAGE_KEY = 'pi2go-demo'
 const DEFAULT_SCENARIO = 'routine'
 
+/** Requests are numbered PI-0001, PI-0002, … in the order they are submitted. */
+function nextRequestId(orders: Order[]) {
+  const highest = Math.max(0, ...orders.map((item) => Number(/^pi-(\d+)$/i.exec(item.id)?.[1] ?? 0)))
+  return `pi-${String(highest + 1).padStart(4, '0')}`
+}
+
 function findScenario(id: string): Scenario {
   const scenario = catalog.scenarios.find((s) => s.id === id)
   if (!scenario) throw new Error(`Unknown scenario: ${id}`)
@@ -102,9 +108,8 @@ export const useDemoStore = create<DemoState>()(
         const result = action(order, clock)
         if (result.ok) {
           let nextOrder = result.order
-          if (order.status === 'draft' && nextOrder.status !== 'draft' && orders.some((item) => item.id === nextOrder.id)) {
-            const ordinal = orders.filter((item) => item.id.startsWith(nextOrder.id)).length + 1
-            nextOrder = { ...nextOrder, id: `${nextOrder.id}-${ordinal}` }
+          if (order.status === 'draft' && nextOrder.status !== 'draft') {
+            nextOrder = { ...nextOrder, id: nextRequestId(orders) }
           }
           const nextDraft = order.status !== 'draft'
             ? get().draftOrder
