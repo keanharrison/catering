@@ -149,6 +149,7 @@ export function HandoffPage() {
                 <LabeledValue label="Organization">{intent.organization || 'Not provided'}</LabeledValue>
                 <LabeledValue label="Email">{intent.email || 'Not provided'}</LabeledValue>
                 <LabeledValue label="Phone">{intent.phone || 'Not provided'}</LabeledValue>
+                {intent.onsiteContactName && <LabeledValue label={intent.fulfillment === 'delivery' ? 'Delivery contact' : 'Pickup contact'}>{intent.onsiteContactName}{intent.onsiteContactPhone ? ` · ${intent.onsiteContactPhone}` : ''}</LabeledValue>}
               </dl>
             </CardContent>
           </Card>

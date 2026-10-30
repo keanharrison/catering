@@ -6,6 +6,8 @@ export type IntakeForm = {
   email: string
   phone: string
   organization: string
+  onsiteContactName: string
+  onsiteContactPhone: string
   deliveryAddress: string
   deliveryCity: string
   deliveryState: string
@@ -38,6 +40,8 @@ function isIntakeForm(value: unknown): value is IntakeForm {
   ]
   return (
     textFields.every((field) => typeof form[field] === 'string') &&
+    (form.onsiteContactName === undefined || typeof form.onsiteContactName === 'string') &&
+    (form.onsiteContactPhone === undefined || typeof form.onsiteContactPhone === 'string') &&
     (form.fulfillment === '' || form.fulfillment === 'pickup' || form.fulfillment === 'delivery') &&
     Array.isArray(form.dietary) && form.dietary.every((tag) => ['vegetarian', 'vegan', 'gluten-free', 'dairy-free', 'spicy'].includes(tag))
   )
@@ -49,7 +53,7 @@ export function loadIntakeFormDraft(session: number, fallback: IntakeForm): Inta
     const stored = sessionStorage.getItem(FORM_DRAFT_STORAGE_KEY)
     if (!stored) return fallback
     const draft = JSON.parse(stored) as Partial<StoredIntakeForm>
-    if (draft.session === session && isIntakeForm(draft.form)) return draft.form
+    if (draft.session === session && isIntakeForm(draft.form)) return { ...draft.form, onsiteContactName: draft.form.onsiteContactName ?? '', onsiteContactPhone: draft.form.onsiteContactPhone ?? '' }
     sessionStorage.removeItem(FORM_DRAFT_STORAGE_KEY)
   } catch {
     // Storage may be unavailable in private or restricted browsing contexts.
@@ -93,7 +97,7 @@ export type FormSection = 'basics' | 'details'
 
 export const sectionFields: Record<FormSection, IntakeField[]> = {
   basics: ['eventType', 'guestCount', 'eventDate', 'fulfillment', 'dietary', 'budget'],
-  details: ['eventTime', 'contactName', 'email', 'phone', 'organization', 'deliveryAddress', 'deliveryCity', 'deliveryState', 'deliveryZip', 'customRequest', 'notes'],
+  details: ['eventTime', 'contactName', 'email', 'phone', 'organization', 'onsiteContactName', 'onsiteContactPhone', 'deliveryAddress', 'deliveryCity', 'deliveryState', 'deliveryZip', 'customRequest', 'notes'],
 }
 
 export const MAX_GUESTS = 5000
@@ -102,6 +106,8 @@ export const INTAKE_LIMITS = {
   email: 254,
   phone: 40,
   organization: 120,
+  onsiteContactName: 120,
+  onsiteContactPhone: 40,
   deliveryAddress: 200,
   deliveryCity: 100,
   deliveryState: 100,
@@ -119,6 +125,8 @@ export function intentToForm(intent: OrderIntent): IntakeForm {
     email: intent.email,
     phone: intent.phone,
     organization: intent.organization,
+    onsiteContactName: intent.onsiteContactName ?? '',
+    onsiteContactPhone: intent.onsiteContactPhone ?? '',
     deliveryAddress: intent.deliveryAddress,
     deliveryCity: intent.deliveryCity,
     deliveryState: intent.deliveryState,
@@ -152,6 +160,7 @@ export function formToIntent(form: IntakeForm): OrderIntent {
     email: form.email.trim(),
     phone: form.phone.trim(),
     organization: form.organization.trim(),
+    ...(form.onsiteContactName.trim() ? { onsiteContactName: form.onsiteContactName.trim(), onsiteContactPhone: form.onsiteContactPhone.trim() } : {}),
     deliveryAddress: form.deliveryAddress.trim(),
     deliveryCity: form.deliveryCity.trim(),
     deliveryState: form.deliveryState.trim(),

@@ -107,6 +107,9 @@ export type OrderIntent = {
   email: string
   phone: string
   organization: string
+  /** Who receives the order at pickup or delivery, when that is not the person placing it. */
+  onsiteContactName?: string
+  onsiteContactPhone?: string
   deliveryAddress: string
   deliveryCity: string
   deliveryState: string

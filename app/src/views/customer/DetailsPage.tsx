@@ -119,6 +119,27 @@ function DetailsView() {
                     <Input id="organization" name="organization" autoComplete="organization" maxLength={INTAKE_LIMITS.organization} value={form.organization} onChange={(event) => set('organization', event.target.value)} />
                   </Field>
 
+                  <section className="grid gap-5 border-t pt-5" aria-labelledby="onsite-contact-heading">
+                    <div>
+                      <h2 id="onsite-contact-heading" className="text-base font-medium">{form.fulfillment === 'delivery' ? 'Delivery contact' : 'Pickup contact'} (optional)</h2>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {form.fulfillment === 'delivery' ? 'Who will receive the order?' : 'Who will pick up the order?'} Leave blank if it is the person above.
+                      </p>
+                    </div>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field data-invalid={Boolean(errors.onsiteContactName) || undefined}>
+                        <FieldLabel htmlFor="onsiteContactName">Name</FieldLabel>
+                        <Input id="onsiteContactName" name="onsiteContactName" maxLength={INTAKE_LIMITS.onsiteContactName} value={form.onsiteContactName} aria-invalid={Boolean(errors.onsiteContactName)} onChange={(event) => set('onsiteContactName', event.target.value)} />
+                        {errors.onsiteContactName && <FieldError>{errors.onsiteContactName}</FieldError>}
+                      </Field>
+                      <Field data-invalid={Boolean(errors.onsiteContactPhone) || undefined}>
+                        <FieldLabel htmlFor="onsiteContactPhone">Phone</FieldLabel>
+                        <Input id="onsiteContactPhone" name="onsiteContactPhone" type="tel" autoComplete="off" maxLength={INTAKE_LIMITS.onsiteContactPhone} value={form.onsiteContactPhone} aria-invalid={Boolean(errors.onsiteContactPhone)} onChange={(event) => set('onsiteContactPhone', event.target.value)} />
+                        {errors.onsiteContactPhone && <FieldError>{errors.onsiteContactPhone}</FieldError>}
+                      </Field>
+                    </div>
+                  </section>
+
                   {form.fulfillment === 'delivery' && (
                     <section className="grid gap-5 border-t pt-5" aria-labelledby="delivery-address-heading">
                       <div>
