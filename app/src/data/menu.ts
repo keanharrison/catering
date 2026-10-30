@@ -1,4 +1,5 @@
 import type { DietaryTag, MenuCategory, MenuItem, MenuUnit } from './types'
+import { menuDetails } from './menuDetails'
 
 // Source: Pearl Island2GO's Spoonfed ordering page, observed October 13, 2026
 // (workflow.md). Prices, tags, descriptions and serving notes
@@ -25,7 +26,11 @@ type Seed = {
 // Placeholder: which sides the recommendation adds to an entree.
 const RECOMMENDED_SIDES = ['rice-pigeon-peas', 'kale-salad', 'amarillos', 'pikliz']
 
+// Supplies carry no recipe, so their serving size is just what one unit is.
+const SUPPLY_SERVING: Partial<Record<MenuUnit, string>> = { person: 'Per guest', each: 'Each', set: 'One set' }
+
 function item(seed: Seed): MenuItem {
+  const detail = menuDetails[seed.id]
   const isEntree = seed.category === 'entree'
   return {
     id: seed.id,
@@ -39,8 +44,12 @@ function item(seed: Seed): MenuItem {
     dietaryTags: seed.tags ?? [],
     includedSideIds: seed.includedSideIds ?? (isEntree ? RECOMMENDED_SIDES : []),
     leadTimeClass: 'standard',
-    description: seed.description,
-    servingNote: seed.servingNote,
+    description: seed.description ?? detail?.description,
+    servingNote: seed.servingNote ?? (seed.category === 'supply' ? SUPPLY_SERVING[seed.unit ?? 'serving'] : SPOON),
+    ingredients: detail?.ingredients ?? [],
+    allergens: detail?.allergens ?? [],
+    available: true,
+    image: `/menu/${seed.id}.jpg`,
     status: 'illustrative',
     assumption: isEntree ? ASSUMED_SIDES : OBSERVED,
     source: SOURCE,
@@ -150,3 +159,6 @@ export const menu: MenuItem[] = [
   item({ id: 'serving-tongs', name: 'Serving Tongs', category: 'supply', unit: 'each', priceCents: 100 }),
   item({ id: 'chafing-set', name: 'Disposable Chaffing Set', category: 'supply', unit: 'set', priceCents: 1500 }),
 ]
+
+/** The menu as shipped. `menu` above is the live list the app reads; edits are layered on this copy. */
+export const seedMenu: readonly MenuItem[] = Object.freeze(menu.slice())

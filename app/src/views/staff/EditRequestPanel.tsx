@@ -36,7 +36,7 @@ export function EditRequestPanel({ lines, guestCount, onSave, onCancel, error }:
   const result = estimate(kept, guestCount)
   const hasFood = kept.some((l) => itemOf(l.itemId).category !== 'supply')
   const changed = JSON.stringify(kept) !== JSON.stringify(lines)
-  const addable = catalog.menu.filter((item) => !draft.some((l) => l.itemId === item.id))
+  const addable = catalog.menu.filter((item) => item.available && !draft.some((l) => l.itemId === item.id))
 
   return (
     <Card>

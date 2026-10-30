@@ -31,6 +31,7 @@ export function menuEntries(
   catalog: Catalog = defaultCatalog,
 ): MenuEntry[] {
   return catalog.menu
+    .filter((item) => item.available)
     .filter((item) => item.category === category)
     .filter((item) => filters.every((tag) => item.dietaryTags.includes(tag)))
     .map((item) => ({ item, quantity: quantityOf(order.lines, item.id) }))

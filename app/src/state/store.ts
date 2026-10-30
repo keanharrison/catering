@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import './menuStore'
 import { catalog, type Actor, type Order, type OrderIntent, type OrderLine, type Scenario } from '../data'
 import { addMinutes } from '../engine'
 import * as machine from './orderMachine'

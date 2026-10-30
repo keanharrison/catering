@@ -39,9 +39,20 @@ export type MenuItem = Provenance & {
   leadTimeClass: LeadTimeClass
   /** Description as observed on the ordering page, when one was shown. */
   description?: string
-  /** Serving note as observed, e.g. portion size. */
+  /** Serving size, e.g. "6oz serving". Shown to customers beside the item. */
   servingNote?: string
+  /** What is in the dish, for dietary questions and the AI assistant. Empty for supplies. */
+  ingredients: string[]
+  /** Common allergens the dish contains (see `ALLERGENS`). Drafted, not verified. */
+  allergens: string[]
+  /** Whether the item is on the customer-facing menu. Hidden items stay on existing requests. */
+  available: boolean
+  /** Photo path under /public, e.g. /menu/jerk-chicken.jpg. A "?" tile shows until the file exists. */
+  image?: string
 }
+
+/** The nine major food allergens an admin can flag on a menu item. */
+export const ALLERGENS = ['Milk', 'Eggs', 'Fish', 'Shellfish', 'Tree nuts', 'Peanuts', 'Wheat', 'Soy', 'Sesame'] as const
 
 export type EventType = Provenance & {
   id: string
